@@ -16,11 +16,11 @@ As a Full Stack Developer, I am committed to delivering seamless and innovative 
 
 ## Contact
 
-Do you have questions or want to connect with me? Reach out on my social media platforms or through the [contact form](#) on my portfolio.
+Do you have questions or want to connect with me? Reach out on my social media platforms or through the [contact form](#fragment) on my portfolio.
 
 - LinkedIn: [Ndevu-LinkedIn](www.linkedin.com/in/jean-paul-elisa)
 - Twitter: [@Ndevu-Twitter](https://twitter.com)
-- Email: niyokwizerwajeanpaulelisa@gmail.com
+- Email: <niyokwizerwajeanpaulelisa@gmail.com>
 
 Feel free to explore my code and creations. Let's build something amazing together!
 

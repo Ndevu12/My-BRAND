@@ -1,0 +1,54 @@
+footer {
+    background-color: rgb(22, 22, 44);
+    height: auto;
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    padding-top: .5em;
+    /* position: fixed; */
+    bottom: 0;
+    color: white;
+    line-height: auto;
+    
+}
+
+ /* .footer-container {
+  
+ } */
+
+
+.footerdesc {
+    width: 100%;
+    bottom: 0;
+    margin: auto;
+    height: auto; 
+    display: flex;
+    justify-content: flex-end;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+     
+}
+
+.socialmedia {
+    max-width:15%;
+    height: auto;
+}
+.socialmedia img {
+    max-width: 20%;
+    height: auto;
+}
+
+.blog-section {
+    /* text-align: center;  */
+   margin: auto;
+}
+
+
+.footcopyright {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    height: 30px;  
+    text-align: center;
+    border-top: 1px solid #CCCCCC;
+} 

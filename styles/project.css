@@ -1,0 +1,142 @@
+/*
+ * === intro-serviceclass style ===
+ */
+
+/* intro-service flexbox */
+.intro-project {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 2em;
+    background-color: rgb(36, 36, 64);
+  }
+
+    /* Article style */
+    .intro-project article {
+        align-items: center;
+        /* border: 1px solid #ff5a5f;  */
+        width: 30em;
+      }
+     
+   
+  /* Styling all images of intro-sproject class */
+  .intro-project img{
+    align-items: center;
+    border-radius: 10%;
+    margin-left: 4.5em;
+    margin-right: 4.5em;
+    margin-bottom: 0;
+    margin-top: 0;
+    max-width: 100%;
+    height: 12em !important;
+    padding: 1em;
+    /* border: 1px solid #ff5a5f; */
+  }
+
+  .intro-project .airbnb img{
+   align-items: center;
+   margin-left: 0;
+  }
+
+  .intro-project .monty img{
+   align-items: center !important; 
+    margin-left: 3em;
+   }
+
+   .intro-project .simple-shell img{
+     align-items: center; 
+    margin-left: 3em;
+   }
+
+  .intro-project  .mon, .air, .bnb, .shell, .byte, .unix {
+    display: none; 
+    margin-top: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+/* simple-shell class While hovering*/
+.simple-shell:hover {
+    img {
+        display: none;
+    }
+    .shell,
+  .unix {
+    display: block;     
+    text-align: center; 
+  }
+
+  .shell {
+    margin-top: 2em;
+  }
+
+  padding: 1em;
+  background-color: rgb(22, 22, 44);
+  border-radius: 6%;
+}
+
+/* airbnb class While hovering*/
+.airbnb:hover {
+    img {
+        display: none;
+    }
+    .air,
+  .bnb {
+    display: block;     
+    text-align: center; 
+  }
+
+  .air {
+    margin-top: 2em;
+  }
+  background-color: rgb(22, 22, 44);
+  border-radius: 6%;
+  padding: 1em;
+}
+
+/* monty class While hovering*/
+.monty:hover {
+    transition: opacity 0.3s ease-in-out;
+    img {
+        display: none;
+    }
+    
+    .mon,
+  .byte {
+    display: block;     
+    text-align: center; 
+  }
+
+  .mon {
+    margin-top: 2em;
+  }
+  background-color: rgb(22, 22, 44);
+  border-radius: 6%;
+  padding: 1em;
+}
+  
+/* Download my cv button style */
+.download-cv {
+    margin-left: 10em;
+    margin-top: 2em; 
+    margin-bottom: 2em; 
+    color: black;
+    background-color: rgb(244, 229, 12);
+    font-family: bold;
+    border: none;
+    border-radius: 4em;
+    text-align: center;
+    font-size: 1em;
+    height: 2em;
+    min-width: 150px;
+    width: 20%;
+  }
+  
+  /* Download my cv button hover opacity */
+  .download-cv:hover {
+    color: black !important;
+    font-family: bold;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+  }

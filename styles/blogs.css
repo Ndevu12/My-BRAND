@@ -1,0 +1,76 @@
+/* 
+ * ############ styling bog section #########
+ * styling header of every section [down]
+*/
+
+/* intro-blog flexbox */
+.intro-blog {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 2em;
+    /* background-color: rgb(36, 36, 64); */
+
+}
+
+  /* Article style */
+  .intro-blog article {
+    padding: 2em;
+    align-items: center;
+     /* border: 1px solid #ff5a5f;  */
+    width: 40em;
+  }
+
+/* aligning third article or blog*/
+   /* .intro-blog .digital {
+    margin-left: 0;
+    text-align: left;
+   } */
+
+  /* styling my blog header*/
+.my {
+    margin-top: 1em;
+}
+
+/* creating a custom dot for articles*/
+.intro-blog .article-title {
+    position: relative;
+}
+
+.intro-blog .article-title::before {
+
+    content: "•"; /* Unicode character for a bullet point */
+    font-size: 1.5em; /* the size of the dot */
+    margin-right: 0.5em; /* Adjust the spacing between the dot and the word */
+    color: #ffffff; /* Adjust the color of the dot */
+}
+
+.intro-blog a {
+    color: #ffffff;
+    font-size: 1.2em;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Styling interaction subclass*/
+.intro-blog .interaction {
+    /* border: 1px solid #ff5a5f;  */
+    width: 90%;
+}
+ 
+.interaction img {
+    margin-left: .5rem;
+    margin-right: .5rem;
+    justify-content: space-between;
+    border-radius: 50%;
+    max-width: 5%;
+}
+
+.interaction img:hover {
+    cursor: pointer
+}
+
+/* styling header of every section*/
+.yell {
+    color: rgb(243, 209, 15);
+}

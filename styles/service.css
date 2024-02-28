@@ -1,0 +1,138 @@
+/*
+ * === intro-service class style ===
+ */
+
+/* intro-service flexbox */
+.intro-service {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Article style */
+  .intro-service article {
+    align-items: center;
+    /* border: 1px solid #ff5a5f; */
+    width: 30em;
+  }
+   
+  /* Styling all images of intro-service class */
+  .intro-service img{
+    align-items: center;
+    border-radius: 50%;
+    margin-left: 4.5em;
+    margin-right: 4.5em;
+    max-width: 50%;
+    /* border: 1px solid #ff5a5f; */
+  }
+
+  .intro-service h2 {
+    margin-top: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .full-stack-dev .download-my-cv {
+    margin-left: 9em;
+    align-items: center;
+  }
+
+   /* ux-design style*/
+   .intro-service  .ux-design {
+    align-items: center;
+    padding: .5em;
+    /* border: 1px solid #ff5a5f; */
+    color: #ffffff;
+    font-size: 1em;
+    height: auto;
+    justify-content: left;
+    min-width: 20%;
+  }
+  
+  .ux-design p{
+    font-size: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .ux-design .ux{
+    align-items: center; 
+    margin-left: 8em;
+    margin-bottom: 2.5em;
+    max-width: 50%;
+    /* border: 1px solid red;  */
+  }
+  
+  /* UX design while hovering*/
+  .ux-design:hover {
+    border: 10px yellow solid;
+    border-radius: 30px;
+  }
+
+  /* full stack developer styling*/
+  .intro-service .full-stack-dev{
+    padding: .5em;
+    align-items: center;
+    /* border: 1px solid #ff5a5f; */
+    color: #ffffff;
+    font-size: 1em;
+    height: auto;
+    justify-content: center;
+    min-width: 20%;
+  }
+  
+  .full-stack-dev .full-stack{
+    align-items: center;
+    margin-left: 8em;
+    margin-bottom: 2.5em;
+    max-width: 50%;
+    /* border: 1px solid red;  */
+  }
+  
+
+  .full-stack-dev p{
+        font-size: 1em;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+    
+    /* UX design while hovering*/
+  .full-stack-dev:hover {
+    border: 10px yellow solid;
+    border-radius: 30px;
+  }
+      
+  /* web development styling */
+  .intro-service .web-dev{
+    padding: .5em;
+    align-items: center;
+    /* border: 1px solid #ff5a5f; */
+    color: #ffffff;
+    font-size: 1em;
+    height: auto;
+    justify-content: right;
+    min-width: auto;
+  }
+
+  .web-dev .web{
+    margin-left: 8em;
+    margin-bottom: 2.5em;
+    max-width: 50%;
+    /* border: 1px solid red;  */
+  }
+
+  .web-dev p{
+    font-size: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+   
+  .web-dev:hover {
+    border: 10px yellow solid;
+    border-radius: 30px;
+  }
+  
+
+  /* centering our service header */
+  h1 {
+    text-align: center;
+    margin-top: 0;
+  }

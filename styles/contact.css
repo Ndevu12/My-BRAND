@@ -1,0 +1,59 @@
+/*
+ * === intro-contact class style ===
+ */
+
+/* intro-sub flexbox */
+.intro-contact  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 2em;
+    /* border: 1px solid #ff5a5f;  */
+  }
+
+   /* Article style */
+   .intro-contact  .message{
+    align-items: center;
+    background-color: #213541;
+    color: white;
+    border-radius: 15px;
+    width: 50em;
+    height: 10em;
+    margin: 0 auto;
+  }
+
+  .intro-contact input {
+    background-color: #213541;
+    border-radius: 15px;
+    border: 0;
+    width: 9em;
+    font-size: medium;
+    margin-top: 1em;
+    /* margin-right: 4em; */
+    padding: 1em;
+}
+
+.get-email {
+    background-color: #213541;
+    color: white;
+    border-radius: 15px;
+    width: 9em;
+    font-size: medium;
+    margin-top: 1em;
+    margin-bottom: 1em; /* Added margin-bottom */
+    padding: 1em;
+    text-align: center; /* Center the text inside .get-email */
+  }
+  
+  .download-cv {
+    background-color: #4C3D3D;
+    color: white;
+    border: 0;
+    padding: 1em 2em;
+    font-size: medium;
+    cursor: pointer;
+    margin-bottom: 1em; /* Added margin-bottom */
+  }
