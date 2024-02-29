@@ -36,6 +36,7 @@
 }
 
 .logo img {
+  border-radius: 9px;
     max-width: 40%;
     height: auto;
 }

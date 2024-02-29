@@ -1,0 +1,91 @@
+/* =================Styling new-blog class ===========*/
+
+/* new-blog class styling*/
+.new-blog {
+    margin: 2em;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Change flex direction to column */
+    align-items: center; /* Center items horizontally */
+    border: 1px solid red;
+}
+
+/* styling mradmin class*/
+.mradmin {
+    background-color: #465F6C;
+    color: #FFD43B;
+    text-align: center;
+    font-size: medium;
+}
+
+/* styling input*/
+.new-blog input {
+    background-color: #8B7F7F;
+    border: 0;
+    color: rgb(207, 196, 196) ;
+}
+
+.new-blog img {
+    width: 2em;
+    border-radius: 15px;  
+}
+
+.new-blog .title,
+.new-blog .contentin,
+.new-blog .catego,
+.new-blog .tag {
+    width: 100%; /* Set width to 100% to occupy the full width */
+    margin-bottom: 1em; /* Add some spacing between the elements */
+}
+
+
+/* .new-blog .title {
+    width: 15em;
+    height: 2em;
+    border-radius: 15px;
+} */
+
+.new-blog .title {
+    height: 2em;
+    border-radius: 15px;
+}
+
+/* .new-blog .contentin {
+    width: 80%;
+    height: 50px;
+    border-radius: 0 0 40px 40px;
+} */
+
+.new-blog .contentin {
+    height: 50px;
+    border-radius: 0 0 40px 40px;
+}
+
+/* .new-blog .catego {
+    width: 19em;
+    height: 2em;
+    border-radius: 0 0 20px 20px; 
+} */
+
+.new-blog .catego,
+.new-blog .tag {
+    height: 2em;
+    border-radius: 0 0 20px 20px; 
+}
+
+/* .new-blog .tag {
+    width: 15em;
+    height: 2em;
+    border-radius: 0 0 20px 20px; 
+} */
+
+/* styles to align buttons horizontally in publish-new-article */
+.new-blog .publish-new-article {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.new-blog button {
+    width: 48%; 
+}

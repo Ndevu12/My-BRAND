@@ -1,0 +1,188 @@
+/*==== Styling dashboard ==========*/
+
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Style the body */
+  body {
+    background-color: #101426;
+    font-family: Arial;
+    margin: 0;
+  }
+
+  
+/* Column container */
+.row {  
+    border: 3px solid #574344; 
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8%;
+    height: auto;
+  }
+  
+  /* Create three unequal columns that sits next to each other */
+  /* two Sidebars/one in between column */
+  .side {
+    flex: 20%;
+    background-color: #2B3048;
+    color: white;
+    padding: 20px;
+  }
+
+  .side p, h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .side img {
+    max-width: 15%;
+    border-radius: 9px;
+    margin-right: 5px;
+  }
+
+ 
+
+ /* controling logo image*/ 
+  .logo {
+    max-width: 100%;
+    height: auto;
+}
+
+.logo img {
+    max-width: 90%;
+    height: auto;
+}
+
+/* controling all a content*/
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: yellow;
+}
+
+.dash a{
+    color: yellow !important;
+  }
+
+  /* Main column */
+  .main {
+    flex: 60%;
+    background-color: #101426;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Adjust the flex direction to column */
+  }
+
+  .top,
+  .deep {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Add some margin between .top and .deep */
+   }
+
+   
+/* styling for individual items if needed */
+.top .dashboardtitle,
+.deep .visitors,
+.deep .time,
+.deep .subscribers,
+.deep .cv {
+    flex: 1; /* Equal width for all items within .top and .deep */
+    margin-right: 20px; /* Add some margin between items */
+}
+
+.deep .time, 
+.deep .visitors,
+.deep .subscribers,
+.deep .cv  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2B3048;
+    height: auto;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.top .searchfilter {
+    flex: 0;
+    margin-right: 0;
+}
+.searchfilter {
+ height: 2.5em;
+ border-radius: 10px;
+ background-color: #2B3048;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 1em;
+}
+
+.searchfilter img{
+    margin-left:  1em;
+    border-radius: 10px;
+}
+
+.searchfilter input {
+    background-color: #2B3048;
+    border: 0;
+    color: white !important;
+    font-size: 1em;
+    margin-left: 0;
+    height: 2em;
+    /* margin-right: 1em; */
+    border-radius: 10px;
+}
+
+.top img,
+.deep img{
+    margin-bottom: 1em;
+    margin-top: 1em;
+    width: 2em;
+}
+
+ /* Left sidebar*/
+  .behind {
+    flex: 20%;
+    background-color: #2B3048;
+    color: white;
+    padding: 20px;
+    /* text-align: center; */
+  }
+
+  .behind p {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+    .side p, h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .behind img {
+    max-width: 15%;
+    border-radius: 9px;
+    margin-right: 5px;
+  }
+
+  .behind .profile img{
+    /* padding: 5px; */
+    margin-top: 0;
+    margin-right: 2em;
+  }
+
+  
+
+  /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+    .row {   
+      flex-direction: column;
+    }
+  }
+  
