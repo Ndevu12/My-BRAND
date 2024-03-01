@@ -14,6 +14,10 @@ As a Full Stack Developer, I am committed to delivering seamless and innovative 
 - **Web Development:** Crafting responsive and user-centric websites with captivating frontend interfaces and robust backend architectures.
 - **UX Design:** Elevate your digital presence with intuitive and visually engaging user experiences.
 
+## Deployment Status
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a9e4b7ce-1ea6-45f4-8bb2-95563b978c99/deploy-status)](https://app.netlify.com/sites/ndevuspace/deploys)
+
 ## Contact
 
 Do you have questions or want to connect with me? Reach out on my social media platforms or through the [contact form](#fragment) on my portfolio.
