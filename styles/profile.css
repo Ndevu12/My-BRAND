@@ -1,0 +1,46 @@
+/*======== This file style PROFILE page ===================*/
+
+  /* Create two unequal columns that sits next to each other */
+  .side {
+    flex: 30%;
+    background-color: #212134;
+    color: white;
+    padding: 20px;
+  }
+
+.side img  {
+    max-width: 5%;
+    border-radius: 9px;
+    margin-right: 5px;
+  }
+
+  .side .profile img{
+    /* padding: 5px; */
+    margin-top: 0;
+    margin-right: 2em;
+    width: 1em;
+    border-radius: 50pcpx;
+  }
+
+    /* Main column */
+    .main {
+        border-top: 4px solid #9B9BA7;
+        flex: 70%;
+        background-color: #101426;
+        color: white;
+        padding-left: 20px;
+        padding-right: 15px;
+        padding-top: 0;
+        margin-top: 0;
+        /* display: flex; */
+        /* flex-direction: row;  */
+      }
+    
+
+
+@media screen and (max-width: 700px) {
+    .row {   
+      flex-direction: column;
+    }
+  }
+  

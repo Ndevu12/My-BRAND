@@ -15,7 +15,8 @@
     <link rel="stylesheet" type="text/css" href="styles/blogs.css">
     <link rel="stylesheet" type="text/css" href="styles/subscribe.css">
     <link rel="stylesheet" type="text/css" href="styles/contact.css">
-    <link rel="icon" type="image/png" href="../images/icon.png">
+
+    <link rel="icon" type="image/png" href="../images/logo1.png">
 
     <title>NdevuSpace</title>
   </head>
@@ -24,11 +25,12 @@
        <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
         <div class="">
           <div class="navigation flex-row"> 
-            <a href="#">About</a>
-            <a href="#">Service</a>
-            <a href="#">Blogs</a>
-            <a href="#">Contact</a>
-            <a href="#">Portfolio</a>
+            <a href="skills.html">Skills</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Service</a>
+            <a href="blogs.html">Blogs</a>
+            <a href="#contactme">Contact</a>
+            <a href="projects.html">Portfolio</a>
             <a href="signin.html">Admin</a>
           </div>
         </div>
@@ -70,7 +72,7 @@
         </div>
       </section> 
 
-      <section class="intro-about">
+      <section id="aboutme" class="intro-about">
         <div class="coding-image">
           <img src="../images/technology.jpg" alt="Coding&Tech">
         </div>
@@ -117,7 +119,7 @@
                    My expertise spans various languages and frameworks, ensuring the creation of robust and interactive digital solutions.
                 </p>
               <button id="servicesId" class="download-my-cv"> 
-                 Download My CV
+                 See more
               </button>
             </div>
           </article>
@@ -163,7 +165,7 @@
                   search, booking functionalities, and secure transactions.
                 </p>
                 <button id="projectId" class="download-cv"> 
-                  Details on GitHub
+                  See more Projects
                </button>
             </div>
           </article>
@@ -264,7 +266,7 @@
             </section>
 
             <!-- contact me section -->
-            <section class="intro-contact">
+            <section id="contactme" class="intro-contact">
                <h1 class="my"><span class="yell">Contact</span> Me</h1>
                   <input class="message" type="text" value="Write the message here">
                   <input class="get-email" type="text" value="Email Address">
@@ -277,7 +279,11 @@
 
      <!-- Footer section-->
     <footer>
-      <div class="logo"><img src="../images/logo1.png" alt="logo"></div>
+      <div class="logo">
+        <a href="index.html" target="_self">
+        <img src="../images/logo1.png" alt="logo">
+      </a>
+      </div>
 
          <!-- link for my social medias -->
          <div class="socialmedia"><img src="../images/linkedin-logo.png" alt="linkin link">

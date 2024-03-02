@@ -33,7 +33,7 @@
     padding: 1em;
     /* border: 1px solid #ff5a5f; */
   }
-
+ /* Styling all images of intro-sproject class */
   .intro-project .airbnb img{
    align-items: center;
    margin-left: 0;
@@ -140,3 +140,64 @@
     background-color: rgb(255, 255, 255);
     cursor: pointer;
   }
+
+
+  /*=================== style for PROJECT PAGE ========================*/
+
+  /*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+
+.intro-about{
+  border: 5px solid grey;
+  border-radius: 9px;
+  background-color: grey;
+}
+
+.about-class {
+  border: 5px solid grey;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 9px;
+  background-color: rgb(22, 22, 44);
+}
+.sample 
+  img{
+    align-items: center; 
+   margin-left: 3em;
+   border-radius: 10px;
+  }
+
+   /* .IT-project .it,
+   .AirBnB-project .bnb, 
+   .shell-project .unix, 
+   .mont-project.byte  {
+    display: none; 
+    margin-top: 0;
+    padding: 0;
+    text-align: center;
+  } */
+
+/* simple-shell class While hovering*/
+/* #unix-Id:active {
+    display: block;     
+    text-align: center; 
+  } */
+
+/* airbnb class While hovering*/
+/* #bnb:active {
+    display: block;     
+    text-align: center; 
+  } */
+
+
+/* monty class While hovering*/
+/*
+.monty:hover {
+
+  } */

@@ -1,5 +1,7 @@
 /* 
- * ############ styling bog section #########
+ * This file style both BLOGS IN HOMEPAGES(INDEX.HTML) and BLOGS in blogs.html
+ *===================================================================================
+ * ############ styling blog section in index.html#########
  * styling header of every section [down]
 */
 
@@ -34,11 +36,11 @@
 }
 
 /* creating a custom dot for articles*/
-.intro-blog .article-title {
+.article-title {
     position: relative;
 }
 
-.intro-blog .article-title::before {
+ .article-title::before {
 
     content: "•"; /* Unicode character for a bullet point */
     font-size: 1.5em; /* the size of the dot */
@@ -74,3 +76,167 @@
 .yell {
     color: rgb(243, 209, 15);
 }
+
+/*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+
+/*=========== styling blog.html file======*/
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Style the body */
+  body {
+    background-color: #101426;
+    font-family: Arial;
+    margin: 0;
+  }
+
+  
+/* Column container */
+.row {  
+    border: 3px solid #574344; 
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 3%;
+    margin-left: 3%;
+    height: auto;
+  }
+  
+  /* Create three unequal columns that sits next to each other */
+  /* two Sidebars/one in between column */
+  .side {
+    flex: 15%;
+    background-color: #212134;
+    color: white;
+    padding: 20px;
+  }
+
+/* controling all a content*/
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: yellow;
+}
+
+.dash a{
+    color: yellow !important;
+  }
+
+  /* Main column */
+  .main {
+    border-top: 4px solid #9B9BA7;
+    flex: 80%;
+    background-color: #101426;
+    color: white;
+    padding-left: 20px;
+    padding-right: 15px;
+    padding-top: 0;
+    margin-top: 0;
+    /* display: flex; */
+    /* flex-direction: row;  */
+  }
+
+  
+  .deep {
+    display: block;
+    justify-content: space-between;
+    align-items: center; 
+   }
+
+   .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+   }
+.choice {
+    margin-top: 50px;
+    margin-bottom: .5em;
+    justify-content: space-around;
+}
+
+.choice span {
+    padding: 1em;
+    background-color: #2B3048;
+
+}
+   
+/* styling for individual items if needed */
+.top .blogtitle {
+    flex: 1; /* Equal width for all items within .top and .deep */
+    margin-right: 20px; /*margin between items */
+}
+
+
+.top .searchfilter {
+    flex: 0;
+    margin-right: 0;
+}
+
+.top .blogtitle .b {
+    margin-top: 0;
+    padding-top: 0;
+    /* border: 1px solid red; */
+
+}
+
+.searchfilter {
+ height: 2.5em;
+ border-radius: 10px;
+ background-color: #2B3048;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 1em;
+}
+
+.searchfilter img{
+    margin-left:  1em;
+    border-radius: 10px;
+}
+
+.searchfilter input {
+    background-color: #2B3048;
+    border: 0;
+    color: white !important;
+    font-size: 1em;
+    margin-left: 0;
+    height: 2em;
+    /* margin-right: 1em; */
+    border-radius: 10px;
+}
+
+.top img,
+.deep img{
+    margin-bottom: 1em;
+    margin-top: 1em;
+    width: 2em;
+}
+
+    .side p, h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+
+
+  
+
+  /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+    .row {   
+      flex-direction: column;
+    }
+  }
+  

@@ -15,6 +15,11 @@
     /* border: 1px solid red; */
 }
 
+.intro h1 {
+  margin-top: 1em;
+  padding-left: 0;
+}
+
  /* Align introduction class as screen gets smaller */
  /* @media only screen and (max-width: 1000px) {
     .introduction {
@@ -101,7 +106,7 @@
   }
   
   @media screen and (max-width: 700px) {
-    .flex-row {   
+    .introduction  {   
       flex-direction: column;
     }
   }
