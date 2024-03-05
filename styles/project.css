@@ -7,46 +7,51 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    justify-content: space-around;
     width: 100%;
     padding: 2em;
-    background-color: rgb(36, 36, 64);
+    background-color: rgb(5, 5, 13);
+    /* border: 1px solid #ff5a5f;  */
   }
 
     /* Article style */
     .intro-project article {
         align-items: center;
-        /* border: 1px solid #ff5a5f;  */
-        width: 30em;
+        /* border: 1px solid #ff5a5f;   */
+        width: 35em;
       }
      
    
   /* Styling all images of intro-sproject class */
   .intro-project img{
     align-items: center;
-    border-radius: 10%;
-    margin-left: 4.5em;
-    margin-right: 4.5em;
+    border-radius: 10px;
+    /* margin-left: 4.5em;
+    margin-right: 4.5em; */
     margin-bottom: 0;
-    margin-top: 0;
-    max-width: 100%;
-    height: 12em !important;
-    padding: 1em;
+    margin-top: 9px;
+    max-width: 80%;
+    /* height: 12em !important;
+    padding: 1em; */
     /* border: 1px solid #ff5a5f; */
   }
  /* Styling all images of intro-sproject class */
   .intro-project .airbnb img{
    align-items: center;
    margin-left: 0;
+   width: 90%;
   }
 
   .intro-project .monty img{
    align-items: center !important; 
     margin-left: 3em;
+    width: 90%;
    }
 
    .intro-project .simple-shell img{
      align-items: center; 
     margin-left: 3em;
+    width: 70%;
    }
 
   .intro-project  .mon, .air, .bnb, .shell, .byte, .unix {
@@ -72,7 +77,7 @@
   }
 
   padding: 1em;
-  background-color: rgb(22, 22, 44);
+  background-color: rgb(40, 40, 76);
   border-radius: 6%;
 }
 
@@ -90,7 +95,7 @@
   .air {
     margin-top: 2em;
   }
-  background-color: rgb(22, 22, 44);
+  background-color: rgb(28, 28, 54);
   border-radius: 6%;
   padding: 1em;
 }
@@ -111,7 +116,7 @@
   .mon {
     margin-top: 2em;
   }
-  background-color: rgb(22, 22, 44);
+  background-color: rgb(33, 33, 47);
   border-radius: 6%;
   padding: 1em;
 }
@@ -153,25 +158,164 @@
 */
 
 
-.intro-about{
+
+.projects_page{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
   border: 5px solid grey;
   border-radius: 9px;
-  background-color: grey;
+  background-color: rgb(20, 24, 31); 
 }
 
-.about-class {
+.projects_page div {
+  width: 50em;
+} 
+
+.projects_class {
   border: 5px solid grey;
   margin: 1em;
   padding: 1em;
-  border-radius: 9px;
-  background-color: rgb(22, 22, 44);
+  border-radius: 20px;
+  text-align: center;
+  background-color: rgb(11, 11, 34);
 }
-.sample 
+
+.projects_class .offer{
+  background-color: rgb(62, 56, 48);
+  border-radius: 5px;
+  font-size: xx-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* text-align: left; */
+} 
+
+.projects_class p{
+ font-size: large;
+  text-align: left;
+}
+
+.projects_class a {
+color: yellow;
+text-decoration: none;
+}
+
+.projects_page button {
+  color: black;
+  background-color: rgb(255, 255, 255);
+  font-family: bold;
+  border: none;
+  border-radius: 4em;
+  text-align: center;
+  font-size: 1em;
+  height: 2em;
+  margin: 12px 30px;
+  min-width: 0.2em;
+  width: px;
+}
+
+.projects_page button:hover {
+  color: black !important;
+  font-family: bold;
+  background-color: rgb(231, 229, 201);
+  cursor: pointer;
+}
+
+/* .offer {
+
+} */
+ h1 {
+  font-size: xx-large;
+ }
+.sample_project {
+  /* border: 1px solid red; */
+  height: auto;
+}
+
+.sample_project
   img{
+    width: 80%;
     align-items: center; 
-   margin-left: 3em;
+   /* margin-left: 3em; */
    border-radius: 10px;
   }
+
+  .projects_page p, h1, h2, h3, h4, h5{
+  
+    font-size: x-large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* text-align: left; */
+}
+
+.projects_page h1{
+  
+  font-size: xx-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* text-align: left; */
+}
+
+
+
+  /* on small medias */
+  @media screen and (max-width: 700px) {
+    .projects_page div {
+      width: 100%;
+    } 
+
+    h1 {
+      font-size: x-large;
+     }
+    
+    /* body {
+      width: 100%; */
+      /* border: 5px solid red; */
+    /* }
+
+    header { */
+      /* border: 5px solid red; */
+      /* width: 95%;
+    } */
+
+   .projects_page{
+    width: 90%;
+     margin: 0;
+     padding: 0;
+     /* border: 5px solid red; */
+    }
+     
+    
+    .projects_class {
+      border-radius: 9px;
+      text-align: center;
+      background-color: rgb(22, 22, 44);
+    }
+  }
+  /*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    /* .IT-project .it,
    .AirBnB-project .bnb, 

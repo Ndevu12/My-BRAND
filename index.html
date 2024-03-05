@@ -22,41 +22,53 @@
   </head>
   <body>
     <header>
-       <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
+       <div class="logo">
+        <a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a>
+      </div>
         <div class="">
           <div class="navigation flex-row"> 
             <a href="skills.html">Skills</a>
             <a href="about.html">About</a>
+            <a href="#">Hire me</a>
             <a href="services.html">Service</a>
             <a href="blogs.html">Blogs</a>
-            <a href="#contactme">Contact</a>
+            <a href="#contactme">Contact me</a>
             <a href="projects.html">Portfolio</a>
-            <a href="signin.html">Admin</a>
+            <a href="signin.html">
+              <div class="admin">
+                <img src="../images/mypic.png" alt="My Picture">
+             </div>
+            </a>
           </div>
+          <button class="menu-btn" onclick="toggleMenu()"><img src="../images/menu.png" alt="My Picture"></button>
         </div>
       </header>
 
     <section class="introduction">
       <div class="intro">
         
-         <h1>Welcome to my Digital space!</h1>
+         <h1 class="big_one">Welcome to my Digital space!</h1>
                 
-        <h2>I'm Ndevu!</h2>
+        <h2 class="bigg">I'm Ndevu!</h2>
   
           <h4>And I'm Software Developer, Web Developer,  UI/UX Designer, and I act as a Full stack developer in both.  
           </h4>
   
-        <div class="haveYou">Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn 
+        <div class="haveYou">
+          <p>Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn 
           imaginative concepts into tangible,interactive realities. Embark on a journey 
           through my code and creations, where each line is a brushstroke on the canvas 
           of innovation. Oooh! I didn't talk about my UX/UI design talent and skills but it 
           goes hand in hands with my development skills.
+        </p>
         </div>
         <br>
         <br>
-          <div class="minded">"In the world of rapid changes in technology it is crucial and 
+          <div class="minded">
+            <p>"In the world of rapid changes in technology it is crucial and 
              important to be prepared for any change in tech by working with minded developer."
-           </div>
+            </p>
+            </div>
       </div>
       
       <div class="face">
@@ -77,7 +89,7 @@
           <img src="../images/technology.jpg" alt="Coding&Tech">
         </div>
         <div class="about-class">
-          <h1>About <span class="yell">Me</span></h1>
+          <h1 class="btn">About <span class="yell">Me</span></h1>
           <h4>Full stack Developer</h4>
           <p>
             Meet the mind behind the code! I am a Full Stack Developer with a keen eye for detail and a love for problem-solving. 
@@ -91,7 +103,7 @@
       </section>
        
       <!-- Service section-->
-      <h1>Our <span class="yell">Services</span></h1>
+      <h1 class="btn">Our <span class="yell">Services</span></h1>
       <section class="intro-service">
         
         <article>
@@ -140,7 +152,7 @@
       </section>
 
       <!-- Project section-->
-      <h1>Our <span class="yell">Project</span></h1>
+      <h1 class="btn">Our <span class="yell">Project</span></h1>
       <section class="intro-project"> 
         <article>
           <div class="simple-shell">
@@ -185,8 +197,10 @@
       </section>
 
             <!-- Blog section-->
-            <h1 class="my">My <span class="yell">Blogs</span></h1>
+            <h1 class="btn">My <span class="yell">Blogs</span></h1>
             <section class="intro-blog"> 
+
+              <div class="blog_section1">
               <article>
                 <div class="embark">
                   <p class="article-title"><u><a href="#">Embracing the Coding Adventure: 
@@ -206,6 +220,7 @@
                 </div>
               </article>
             
+              
               <article>
                 <div class="unknown">
                      <p class="article-title"><u><a href="#">
@@ -224,7 +239,10 @@
                      </div>
                   </div>
                 </article>
+              </div>
+             
             
+              <div class="blog_section2">
               <article>
                 <div class="digital">
                   <p class="article-title">
@@ -239,12 +257,14 @@
                     web application's user interface. Join me in exploring the balance between functionality and aesthetics, 
                     and the satisfaction that comes from crafting digital experiences that users love........
                   </p>
-                  <div class="interaction"><span class="like"> <img src="../images/like.png" alt="AirBnB image"></span> 1.05k
+                  <div class="interaction">
+                    <span class="like"> <img src="../images/like.png" alt="AirBnB image"></span> 1.05k
                     <span class="comment"> <img src="../images/comment.png" alt="AirBnB image"></span> 1k
                    <span class="share"> <img src="../images/share.png" alt="AirBnB image"></span>   300
                  </div>
                 </div>
               </article>
+            </div>
             </section>
 
             <!-- subscribe section -->
@@ -270,7 +290,7 @@
                <h1 class="my"><span class="yell">Contact</span> Me</h1>
                   <input class="message" type="text" value="Write the message here">
                   <input class="get-email" type="text" value="Email Address">
-                 <button id="subId" class="download-cv"> 
+                 <button id="subId" class="download_cv"> 
                    Submit
                   </button>
               </section>

@@ -44,6 +44,13 @@
   }
 
   /* control signup class of a paragraph*/
-  .sign {
+  /* .sign {
     font-size: small;
-  }
+  } */
+
+  p {
+  
+    font-size: large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* text-align: left; */
+}

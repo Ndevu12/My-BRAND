@@ -1,13 +1,14 @@
 /*
- *=====intro-about class styling =====
+ *=====intro-about class styling in index.html page =====
  */
 
  .intro-about {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    justify-content: space-around;
     width: 100%;
-    /* border: 1px solid red;  */
+    /* border: 1px solid red;   */
  }
 
  .intro-about div {
@@ -35,18 +36,21 @@
     background-color: rgb(231, 229, 201);
     cursor: pointer;
   }
+
+
   .coding-image{
-    margin-left: 2.5em;
-    margin-bottom: 2.5em;
-    max-width: 50%;
-    /* border: 1px solid red; */
+    /* margin-left: 2.5em;
+    margin-bottom: 2.5em; */
+    max-width: 90%;
+    /* border: 1px solid red;  */
   }
 
   .intro-about .coding-image img {
     border-radius: 15%; 
-    padding: 4em;
-    max-width: 60%;
+    /* padding: 4em; */
+    max-width: 90%;
     height: auto;
+    margin-left: 2em;
     /* border: 1px solid red;  */
 }
 
@@ -54,14 +58,85 @@
     margin-left: 2.5em;
     margin-bottom: 2.5em;
     text-align: center;
-    /* border: 1px solid red;  */
+    /* border: 1px solid red;   */
 }
-.about-class p{
-    /* border: 1px solid red;  */
+
+.about-class p, h1, h2, h3, h5{
+  
+    font-size: x-large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
+}
+
+.intro-about h4 {
+  font-size: x-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 
 .about-class a {
   color: yellow;
   text-decoration: none;
+}
+
+
+
+/*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+/* styling ABOUT page*/
+
+.about_page {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  justify-content: space-around;
+  width: 100%;
+
+}
+
+.about_page div {
+  width: 40em;
+} 
+
+.about_page_class p, h1, h2, h3, h5{
+  
+  font-size: x-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left;
+}
+
+.about_page h4 {
+  font-size: x-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.about_page_class  a {
+  color: yellow;
+  text-decoration: none;
+}
+
+
+.about_page_class {
+  background-color: rgb(28, 28, 42);
+  margin-left: 2.5em;
+  margin-bottom: 2.5em;
+  text-align: center;
+  padding: .5em;
+  border: 1px solid ;
+  border-radius: 15px;
+  margin-top: 1em;
+  /* border: 1px solid red;   */
+}
+
+.me_big {
+  font-size: xx-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }

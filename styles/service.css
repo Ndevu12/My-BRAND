@@ -7,13 +7,19 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    justify-content: space-around;
     width: 100%;
+    /* border: 1px solid #ff5a5f; */
   }
 
+  .intro-service p {
+    font-size: x-large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
   /* Article style */
   .intro-service article {
     align-items: center;
-    /* border: 1px solid #ff5a5f; */
+    /* border: 1px solid #ff5a5f;  */
     width: 30em;
   }
    
@@ -31,7 +37,11 @@
     margin-top: 0;
     padding: 0;
     text-align: center;
+    font-size: x-large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
   }
+
 
   .full-stack-dev .download-my-cv {
     margin-left: 9em;
@@ -50,17 +60,18 @@
     min-width: 20%;
   }
   
-  .ux-design p{
+  /* .ux-design p{
     font-size: 1em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+  } */
 
   .ux-design .ux{
     align-items: center; 
     margin-left: 8em;
+    margin-top: 0;
     margin-bottom: 2.5em;
     max-width: 50%;
-    /* border: 1px solid red;  */
+    /* border: 1px solid red;   */
   }
   
   /* UX design while hovering*/
@@ -86,14 +97,14 @@
     margin-left: 8em;
     margin-bottom: 2.5em;
     max-width: 50%;
-    /* border: 1px solid red;  */
+    /* border: 1px solid red;   */
   }
   
 
-  .full-stack-dev p{
+  /* .full-stack-dev p{
         font-size: 1em;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
+      } */
     
     /* UX design while hovering*/
   .full-stack-dev:hover {
@@ -120,10 +131,10 @@
     /* border: 1px solid red;  */
   }
 
-  .web-dev p{
+  /* .web-dev p{
     font-size: 1em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+  } */
    
   .web-dev:hover {
     border: 10px yellow solid;
@@ -132,9 +143,10 @@
   
 
   /* centering our service header */
-  h1 {
+  .btn {
     text-align: center;
     margin-top: 0;
+    font-size: xx-large;
   }
 
   /* ========= styling SERVICES.HTML PAGE */
@@ -143,3 +155,68 @@
     color: rgb(218, 205, 36);
     font-size: xx-large;
   }
+
+
+  /*++++++++++++ SERVICE PAGE +++++++++++*/
+
+/*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+
+
+  /*
+ *===== service class styling in service.html page =====
+ */
+
+ .service_page {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%; 
+}
+
+.service_page div {
+  width: 40em;
+}  
+
+
+
+.service_class{
+  background-color: rgb(21, 21, 31);
+  margin-left: 2.5em;
+  margin-bottom: 2.5em;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid ;
+  margin-top: 1em;
+  padding-left: 1em;
+  margin-right: 1em;
+  /* border: 1px solid red;  */
+}
+.service_class p,  h2, h3, h4{
+  font-size: x-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left; 
+}
+
+h1 {
+  font-size: x-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* text-align: center;  */
+}
+
+.service_class a {
+color: yellow;
+text-decoration: none;
+}
+
+.offers {
+  margin-top: 1em;
+  color: rgb(248, 241, 143);
+  font-size: xx-large;
+}

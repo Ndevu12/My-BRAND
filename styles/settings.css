@@ -1,0 +1,82 @@
+/* ==================== styling settings page +++++++++ */
+
+label {
+    margin-bottom: 10px;
+    font-size: 2cqmax;
+  }
+
+  
+  /* styling edit_button classes */
+ .edit_button{
+    width: auto;
+    height: 40px;
+    color: white !important;
+    background-color: #2f2b2b;
+    border-radius: 20px;
+    border: 1px solid #916868;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    font-size: 1.1em;
+  }
+  
+  .edit_button:hover {
+    background-color: #101426;
+    color: rgb(224, 193, 16) !important;
+  }
+
+  .settings {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  .settings div {
+    align-items: center;
+    /* border: 1px solid #ff5a5f; */
+    width: 90%;
+    justify-content: center;
+    display: block;
+    margin: 2em;
+  }
+   .web_management {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+   }
+.web_management div{
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: center;
+   width: 100%;
+}
+
+  /* style anch link */
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  a h3 {
+    /* border: 1px solid red; */
+    width: 175px;
+  }
+  
+  a h3:hover {
+    color: yellow;
+  }
+  
+
+
+  /* .privacy {
+    display: block;
+    align-items: center;
+    margin: 3em;
+  }
+
+  .sharing_access {
+    display: block;
+    align-items: center;
+    margin: 3em;
+  } */

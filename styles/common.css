@@ -8,3 +8,11 @@ body {
     font-size: 1em;
     font-family: Circular, "Helvetica Neue", Arial, sans-serif;
 }
+
+p, h1, h2, h3, h4, h5{
+  
+    font-size: x-large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* text-align: left; */
+}
+

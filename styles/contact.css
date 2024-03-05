@@ -48,9 +48,11 @@
     text-align: center; /* Center the text inside .get-email */
   }
   
-  .download-cv {
+  .download_cv {
     background-color: #4C3D3D;
     color: white;
+    text-align: center;
+    border-radius: 15px;
     border: 0;
     padding: 1em 2em;
     font-size: medium;

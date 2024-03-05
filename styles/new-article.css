@@ -89,3 +89,25 @@
 .new-blog button {
     width: 48%; 
 }
+
+
+
+label {
+    margin-right: 10px;
+  }
+
+  select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  output {
+    background-color: #f5f4f4;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 2em;
+  }

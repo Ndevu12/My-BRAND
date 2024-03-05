@@ -9,14 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- <link rel="stylesheet" type="text/css" href="styles/dashboard.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="styles/analytics.css"> -->
-
+   
     <link rel="stylesheet" type="text/css" href="styles/common.css">
     <link rel="stylesheet" type="text/css" href="styles/header.css">
-    <link rel="stylesheet" type="text/css" href="styles/abaut.css">
-    <link rel="stylesheet" type="text/css" href="styles/footer.css">
-    <link rel="stylesheet" type="text/css" href="styles/blogs.css"> 
-    <!-- <link rel="stylesheet" type="text/css" href="styles/dashboard.css"> -->
+    <link rel="stylesheet" type="text/css" href="styles/profile.css">
     
     <link rel="icon" type="image/png" href="../images/logo1.png">
 
@@ -24,43 +20,232 @@
     
 </head>
 <body>
-    <header>
-        <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
-        <div class="">
-         <div class="navigation flex-row"> 
-           <a href="skills.html">Skills</a>
-           <a href="about.html">About</a>
-           <a href="services.html">Service</a>
-           <a href="blogs.html">Blogs</a>
-           <a href="index.html#contactme">Contact</a>
-           <a href="projects.html">Portfolio</a>
-           <a href="signin.html" target="_self">Admin</a>
-         </div>
-        </div>
-     </header>
-    <!-- The flexible grid (content) -->
-    <div class="row">
-     
-        <!-- left layout-container -->
-        <div class="side">
-            <p class="profile">
-               <img src="../images/mypic.png" alt="My Picture">   
-            </p>
-        </div>
-        
-        <!-- in between big layout-container -->
-        <div class="main">
-            <div class="top">
-                <div class="blogtitle">
-                    <h1 class="b">Blogs</h1>
-                </div>
-            </div>
-    
-          <div class="deep">
-            <div class="embark">
-   
-        </div>
-    
+      <div class="got_to_dashboard">
+        <a href="dashboard.html" target="_self"><h3>Back to DashBoard</h3></a>
       </div>
+    <!-- Profile (content) -->
+    <div class="profile">
+     
+        <h1>Profile</h1>
+        <div class="profile_top">
+            
+            <div class="profile_image">
+                <!-- <div class="My Picture"> -->
+                    <div class="mypic_and_name">
+                      <img src="../images/mypic.png" alt="My Picture">
+
+                      <div class="edit_me">
+
+                        <div class="show_me">
+                        <h4>Ndevu Jean Paul Elisa</h4>
+                        <button id="names" class="edit_button"> 
+                            Edit names
+                         </button>
+                         </div>
+
+                         <div class="change_pic">
+                            <p>Change profile photo:</p>
+                               <button id="Take_a_ photo" class="edit_button"> 
+                                 Take a photo
+                               </button>
+                               <button id="Upload_a_photo" class="edit_button"> 
+                                  Upload a photo
+                               </button>
+                           </div>
+                        </div>
+                       </div>
+                   </div>  
+            
+                  <!-- </div> -->
+                
+
+            <div class="edit_about">
+                <h1>About <span>(introduction)</span></h1>
+                <h3>Full stack Software Developer, Web Developer, and UX Designer.</h3>
+                <p>Meet the mind behind the code! I am a Full Stack Developer with a keen eye for detail and a love for problem-solving. 
+                 My journey in the world of technology has equipped me with a diverse set of skills, 
+                 allowing me to bring ideas to life through elegant and efficient code.
+                </p>
+                <button id="edit_about_id" class="edit_button"> 
+                    Edit about
+                 </button>
+            </div>
+           </div>
+        
+        <!-- profile_main class -->
+        <div class="profile_main">
+
+            <div class="Edication">
+            <h1>Education</h1>
+            <p>
+                Have you ever wondered about what my mission is really about or who I really Am? 
+                I'm on a mission to turn imaginative concepts into tangible, interactive realities.........
+            </p>
+
+            <ul>
+                <li>
+                  <p>Bacholor's Degree in BIT at University of Rwanda in progress.
+                    <button id="remove0" class="remove"> 
+                        --
+                     </button>
+                  </p>
+                </li>
+                <li>
+                  <P>Software Engineering online.
+                    <button id="remove1" class="remove"> 
+                    -
+                 </button>
+                  </P>
+                </li>
+                <li>
+                  <p>web development at Andela in progress
+                    <button id="remove2" class="remove"> 
+                        --
+                     </button>
+                  </p>
+                </li>
+              <li>
+                <p>Foundation in UX design (theory) at Coursera by Google
+                    <button id="remove3" class="remove"> 
+                        --
+                     </button>
+                </p>
+              </li>
+              <li>
+                <p>Advanced Diploma in Mathematics, Computer Science and Economics (MCE)
+                    <button id="remove4" class="remove"> 
+                        --
+                     </button>
+                </p>
+              </li>
+            </ul>
+
+                <button id="edit_Education" class="edit_button"> 
+                    Add new Education
+                 </button>
+          </div>
+
+                <!-- Skills -->
+                    <div class="Skills">
+                    <h1>Skills</h1>
+                    <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? 
+                        I'm on a mission to turn imaginative concepts into tangible, interactive realities.........
+                    </p>
+        
+                    <ul>
+                        <li>
+                          <p>UX-UI Design
+                            <button id="remove-0" class="remove"> 
+                                --
+                             </button>
+                          </p>
+                        </li>
+                        <li>
+                          <P>Full stack Developer
+                            <button id="remove-1" class="remove"> 
+                            --
+                         </button>
+                          </P>
+                        </li>
+                        <li>
+                          <p>Web Development
+                            <button id="remove-2" class="remove"> 
+                                --
+                             </button>
+                          </p>
+                        </li>
+                      <li>
+                        <p>Problem solving
+                            <button id="remove-3" class="remove"> 
+                                --
+                             </button>
+                        </p>
+                      </li>
+                      <li>
+                        <p>Innovative and Creative
+                            <button id="remove-4" class="remove"> 
+                                --
+                             </button>
+                        </p>
+                      </li>
+                    </ul>
+        
+                        <button id="edit_skills" class="edit_button"> 
+                            Add new skills
+                         </button>
+                  </div>
+       
+                <!-- Experience -->
+                    <div class="Experience">
+                    <h1>Experience</h1>
+                    <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? 
+                        I'm on a mission to turn imaginative concepts into tangible, interactive realities.........
+                    </p>
+        
+                    <ul>
+                        <li>
+                          <p>Simple Shell
+                            <button id="remove_0" class="remove"> 
+                                --
+                             </button>
+                          </p>
+                        </li>
+                        <li>
+                          <P>AirBnB Clone
+                            <button id="remove_1" class="remove"> 
+                            --
+                         </button>
+                          </P>
+                        </li>
+                        <li>
+                          <p>Monty
+                            <button id="remove_2" class="remove"> 
+                                --
+                             </button>
+                          </p>
+                        </li>
+                      <li>
+                        <p>Binary tree
+                            <button id="remove_3" class="remove"> 
+                                --
+                             </button>
+                        </p>
+                      </li>
+                      <li>
+                        <p>IT Support proffessional
+                            <button id="remove_4" class="remove"> 
+                                --
+                             </button>
+                        </p>
+                      </li>
+                    </ul>
+        
+                        <button id="edit_Experience" class="edit_button"> 
+                            Add new Experience
+                         </button>
+                  </div>
+                </div>
+
+          <!-- Footer section-->
+           <div class="profile_footer">
+            <div class="your_CV">
+                <h3>Upload updated CV</h3>
+                <button id="UPDATED_CV" class="edit_button"> 
+                    Upload CV
+                 </button>
+            </div>
+              
+            <div class="Edit_footer">
+                <h3>Change or Update footer</h3>
+                <button id="Edit_foot" class="edit_button"> 
+                    Edit footer
+                 </button>
+            </div>
+        </div>
     </div>
+    </body>
+</html>
+
     
