@@ -1,0 +1,22 @@
+{
+  "name": "my-brand",
+  "version": "1.0.0",
+  "description": "This is my portfolio website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ndevu12/My-BRAND.git"
+  },
+  "keywords": [
+    "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"
+  ],
+  "author": "Ndevu12",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ndevu12/My-BRAND/issues"
+  },
+  "homepage": "https://github.com/Ndevu12/My-BRAND#readme"
+}
