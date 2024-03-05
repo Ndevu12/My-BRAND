@@ -14,7 +14,7 @@
     border: 1px solid grey;
 }
 
-.article_categories{
+.article_categories {
     background-color: #2B3048;
    display: flex;
    justify-content: space-around;
