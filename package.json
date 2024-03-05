@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "eleventy"
+    "build": "eleventy && mkdir -p public && cp -r _site/* public/"
   },
   "repository": {
     "type": "git",
