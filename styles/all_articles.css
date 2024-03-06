@@ -14,7 +14,7 @@
     border: 1px solid grey;
 }
 
-.article_categories{
+.article_categories {
     background-color: #2B3048;
    display: flex;
    justify-content: space-around;
@@ -156,81 +156,3 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* text-align: left; */
 }
-
-     /* Align intro_service class as screen gets smaller */
-     @media only screen and (max-width: 1000px) {
-      .articles_storage {
-        flex-direction: column;
-        width: 100%;
-        margin: auto;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .articles_storage p, h1, h2, h3, h4, h5{
-  
-        font-size: large;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        /* text-align: left; */
-    }
-    
-      .articles_storage div {
-        display: block;
-        margin: auto;
-        align-items: center;
-        justify-content: center;
-          width: 90%;
-        } 
-  
-        .articles_storage .calarify { 
-  
-          align-items: center;
-          justify-content: center;  
-          margin: 5px;
-          font-size: medium;
-          width: 95%;
-          padding: 5px;
-      } 
-  
-      /* .intro-about .face {
-        margin: 5px;
-      }  */
-    } 
-    
-    @media screen and (max-width: 700px) {
-      .articles_storage {
-        flex-direction: column;
-        width: 100%;
-        margin: auto;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .articles_storage p, h1, h2, h3, h4, h5{
-  
-        font-size: large;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-      .articles_storage div {
-        display: block;
-        margin: auto;
-        align-items: center;
-        justify-content: center;
-          width: 90%;
-        } 
-  
-        .articles_storage .calarify { 
-  
-          align-items: center;
-          justify-content: center;  
-          margin: 5px;
-          font-size: medium;
-          width: 95%;
-          padding: 5px;
-      } 
-  
-      /* .intro-about .face {
-        margin: 5px;
-      }  */
-    } 
