@@ -1,3 +1,10 @@
+/*=========== file for all styles regarding SERVICE INFORMATION
+ ============= This file consist of two sections
+ =============  1. intro-servicet class to be used in INDEX.HTML/homepage
+ ============== 2. service_page class which is stand for SERVICE PAGE
+ */
+
+
 /*
  * === intro-service class style ===
  */
@@ -7,10 +14,14 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    justify-content: space-around;
-    width: 100%;
-    /* border: 1px solid #ff5a5f; */
+    align-items: center;
+    width: 95%;
+    margin: auto;
+    border: 1px solid #ff5a5f; 
   }
+
+/* ... your existing styles ... */
+
 
   .intro-service p {
     font-size: x-large;
@@ -19,17 +30,18 @@
   /* Article style */
   .intro-service article {
     align-items: center;
-    /* border: 1px solid #ff5a5f;  */
-    width: 30em;
+    border: 1px solid #ff5a5f;  
+    width: 33%;
+    margin: auto;
   }
    
   /* Styling all images of intro-service class */
   .intro-service img{
     align-items: center;
     border-radius: 50%;
-    margin-left: 4.5em;
-    margin-right: 4.5em;
-    max-width: 50%;
+    /* margin-left: 4.5em;
+    margin-right: 4.5em; */
+    max-width: 80%;
     /* border: 1px solid #ff5a5f; */
   }
 
@@ -44,19 +56,21 @@
 
 
   .full-stack-dev .download-my-cv {
-    margin-left: 9em;
+    /* margin-left: 9em; */
     align-items: center;
   }
 
    /* ux-design style*/
    .intro-service  .ux-design {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: .5em;
     /* border: 1px solid #ff5a5f; */
     color: #ffffff;
     font-size: 1em;
     height: auto;
-    justify-content: left;
     min-width: 20%;
   }
   
@@ -67,11 +81,10 @@
 
   .ux-design .ux{
     align-items: center; 
-    margin-left: 8em;
     margin-top: 0;
-    margin-bottom: 2.5em;
     max-width: 50%;
-    /* border: 1px solid red;   */
+    /* padding-right: 15%; */
+    border: 1px solid red;   
   }
   
   /* UX design while hovering*/
@@ -82,6 +95,8 @@
 
   /* full stack developer styling*/
   .intro-service .full-stack-dev{
+    display: flex;
+    flex-direction: column;
     padding: .5em;
     align-items: center;
     /* border: 1px solid #ff5a5f; */
@@ -94,12 +109,16 @@
   
   .full-stack-dev .full-stack{
     align-items: center;
-    margin-left: 8em;
-    margin-bottom: 2.5em;
+    padding-left: 15%;
     max-width: 50%;
-    /* border: 1px solid red;   */
+    border: 1px solid red; 
   }
   
+  .full-stack img {
+    display: flex;
+    justify-content: center;
+    /* text-align: center !important; */
+  }
 
   /* .full-stack-dev p{
         font-size: 1em;
@@ -114,21 +133,25 @@
       
   /* web development styling */
   .intro-service .web-dev{
-    padding: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: .5em;
     /* border: 1px solid #ff5a5f; */
     color: #ffffff;
     font-size: 1em;
     height: auto;
-    justify-content: right;
+    /* justify-content: right; */
     min-width: auto;
   }
 
   .web-dev .web{
-    margin-left: 8em;
+    align-items: center;
+    padding: .5em;
     margin-bottom: 2.5em;
     max-width: 50%;
-    /* border: 1px solid red;  */
+    border: 1px solid red;  
   }
 
   /* .web-dev p{
@@ -157,6 +180,58 @@
   }
 
 
+     /* Align intro_service class as screen gets smaller */
+     @media only screen and (max-width: 1000px) {
+      .intro-service {
+        display: block;
+        font-size: medium;
+        width: 95%;
+      }
+  
+      .intro-service article {
+        display: block;
+          width: 95%;
+        } 
+  
+        .intro-service .full-stack-dev { 
+  
+          align-items: center;
+          justify-content: center;  
+          margin: 5px;
+          font-size: medium;
+      } 
+  
+      /* .intro-about .face {
+        margin: 5px;
+      }  */
+    } 
+    
+    @media screen and (max-width: 700px) {
+      .intro-service  {  
+        display: block; 
+        /* flex-direction: column; */
+        width: 95%;
+        margin: 5px;
+      }
+  
+      .intro-service .full-stack-dev { 
+      flex-direction: column;  
+      align-items: center;
+      justify-content: center;  
+      margin: 5px;
+      font-size: medium;
+  } 
+  
+      .intro-service article {
+        width: 100%;
+      } 
+  
+      /* .introduction .face {
+        margin: 5px;
+      }  */
+    }
+
+
   /*++++++++++++ SERVICE PAGE +++++++++++*/
 
 /*
@@ -177,25 +252,27 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  width: 100%; 
+  width: 95%; 
+  margin: auto;
 }
 
-.service_page div {
+/* .service_page div {
   width: 40em;
-}  
+}   */
 
 
 
 .service_class{
   background-color: rgb(21, 21, 31);
-  margin-left: 2.5em;
+  /* margin-left: 2.5em; */
   margin-bottom: 2.5em;
   border-radius: 20px;
   text-align: center;
   border: 1px solid ;
   margin-top: 1em;
-  padding-left: 1em;
-  margin-right: 1em;
+  padding: 19px;
+  /* padding-left: 1em;
+  margin-right: 1em; */
   /* border: 1px solid red;  */
 }
 .service_class p,  h2, h3, h4{

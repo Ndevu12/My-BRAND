@@ -3,6 +3,7 @@
 /* new-blog class styling*/
 .new-blog {
     margin: 2em;
+    width: 95%;
     text-align: center;
     display: flex;
     flex-direction: column; /* Change flex direction to column */
@@ -18,6 +19,25 @@
     font-size: medium;
 }
 
+
+/* styling edit_button classes */
+.new-blog .edit_button{
+    width: auto;
+    height: 40px;
+    color: white !important;
+    background-color: #2f2b2b;
+    border-radius: 20px;
+    border: 1px solid #916868;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .new-blog .edit_button:hover {
+    background-color: #101426;
+    color: rgb(224, 193, 16) !important;
+  }
+
 /* styling input*/
 .new-blog input {
     background-color: #8B7F7F;
@@ -26,7 +46,7 @@
 }
 
 .new-blog img {
-    width: 2em;
+    width: 2.2em;
     border-radius: 15px;  
 }
 
@@ -34,7 +54,7 @@
 .new-blog .contentin,
 .new-blog .catego,
 .new-blog .tag {
-    width: 100%; /* Set width to 100% to occupy the full width */
+    width: 60%; /* Set width to 100% to occupy the full width */
     margin-bottom: 1em; /* Add some spacing between the elements */
 }
 

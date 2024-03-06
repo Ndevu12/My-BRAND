@@ -1,11 +1,11 @@
 body {
     /* border: 1px solid red; */
-    margin: 1em;
+    margin: 0;
 }
 
 .notification_board {
-    margin-top: 1em;
-    margin-bottom: 1em;
+     margin-top: 1em;
+    margin-bottom: 1em; 
     text-align: center;
     padding-top: .5em;
     padding-bottom: 1em;
@@ -19,16 +19,18 @@ body {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    justify-content: left; 
+    /* align-items: center;  */
     /* border: 1px solid #916868; */
     justify-content: center;
+    /* margin: auto; */
+    width: 95%;
 }
 
 .notifications_storage h1 {
     color: rgb(237, 241, 22) !important;
 }
 .on_the_way {
-    margin: 1em;
+    margin: .5em;
     background-color: #2B3048;
     border: 3px solid grey; 
     border-radius: 15px;
@@ -45,7 +47,7 @@ body {
 }
 
 .categorization {
-    margin: 1em;
+    /* margin: 1em;  */
     border: 3px solid grey;
     border-radius: 15px;
     padding: 1em;
@@ -53,17 +55,17 @@ body {
 }
 
 .new_notifications {
-    width: 95%;
+    width: 90%;
     /* border: 3px solid grey; */
-    padding-left: 1em;
-    margin: 1em;
+    /* padding-left: 1em; */
+    /* margin: 1em; */
 }
 
-.all_messages {
+.all_notifications {
     border: 5px solid grey;
     /* width: %; */
     font-size: large;
-    padding-left: 1em;
+    /* padding-left: 1em; */
     align-items:  center;
     border-radius: 15px;
 }
@@ -81,11 +83,6 @@ body {
     border-radius: 50%;
     /* border: 1px solid red; */
 }
-
-.message {
-    align-items: left;
-    /* border: 1px solid red; */
-} 
 
 
  p {
@@ -147,3 +144,76 @@ body {
     /* margin-left: 1em; */
     /* border: 1px solid #916868; */
   }
+
+  
+    /* Align intro_service class as screen gets smaller */
+    @media only screen and (max-width: 1000px) {
+      .notification_board {
+        width: 99%;
+        margin: 0;
+        
+      }
+      .notifications_storage {
+        flex-direction: column;
+        width: 100%;
+        
+      }
+      .on_the_way {
+        width: 100%;
+        margin: 0;
+        /* border: 1px solid #916868; */
+      }
+
+    .on_the_way h3 {
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: center;
+      
+  }
+  
+    .categorization {
+        display: block;
+        font-size: medium;
+        width: 90%;
+      }
+  
+       .all_messages {
+              width: 80%;
+       }
+
+    } 
+    
+    @media screen and (max-width: 700px) {
+      .notification_board {
+        width: 99%;
+        margin: 0;
+        
+      }
+      .notifications_storage {
+        flex-direction: column;
+        width: 100%;
+        
+      }
+      .on_the_way {
+        width: 90%;
+        margin: 0;
+        /* border: 1px solid #916868; */
+      }
+
+    .on_the_way h3 {
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: center;
+      
+  }
+  
+    .categorization {
+        display: block;
+        font-size: medium;
+        width: 90%;
+      }
+  
+       .all_messages {
+              width: 80%;
+       }
+    }

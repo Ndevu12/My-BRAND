@@ -16,15 +16,15 @@
 .row {  
     border: 3px solid #574344; 
     display: flex;
-    flex-wrap: wrap;
-    margin: 8%;
+    flex-flow: row wrap;
+    /* margin: 8%; */
     height: auto;
   }
   
   /* Create three unequal columns that sits next to each other */
   /* two Sidebars/one in between column */
   .side {
-    flex: 20%;
+    flex: 5%;
     background-color: #2B3048;
     color: white;
     padding: 20px;
@@ -81,6 +81,7 @@ a:hover {
   .top,
   .deep {
     display: flex;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px; /* Add some margin between .top and .deep */
@@ -115,17 +116,19 @@ a:hover {
     margin-right: 0;
 }
 .searchfilter {
- height: 2.5em;
+ /* height: 2.5em; */
  border-radius: 10px;
  background-color: #2B3048;
  display: flex;
  justify-content: space-between;
  align-items: center;
- padding: 1em;
+ /* padding: 1em; */
 }
 
+
+
 .searchfilter img{
-    margin-left:  1em;
+    /* margin-left:  1em; */
     border-radius: 10px;
 }
 
@@ -133,7 +136,7 @@ a:hover {
     background-color: #2B3048;
     border: 0;
     color: white !important;
-    font-size: 1em;
+    font-size: small;
     margin-left: 0;
     height: 2em;
     /* margin-right: 1em; */
@@ -147,6 +150,15 @@ a:hover {
     width: 2em;
 }
 
+.bottom-values {
+  font-size: xx-small;
+  display: flex;
+  flex-direction: row;
+ justify-content: space-around; 
+  align-items: center;
+}
+
+
  /* Left sidebar*/
   .behind {
     flex: 20%;
@@ -155,6 +167,7 @@ a:hover {
     padding: 20px;
     /* text-align: center; */
   }
+
 
   .behind p {
     margin-top: 30px;
@@ -180,9 +193,23 @@ a:hover {
   
 
   /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
+  /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 700px) {
     .row {   
       flex-direction: column;
+    }
+
+    .side {
+      width: 95%;
+      padding: 2px;
+      /* margin: 52px; */
+    }
+
+     .main{
+      flex-direction: column;
+      width: 95%;
+      padding: 0;
+      margin: 7px;
     }
   }
   

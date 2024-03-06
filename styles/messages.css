@@ -1,11 +1,16 @@
 body {
     /* border: 1px solid red; */
-    margin: 1em;
+    margin: 0;
 }
-
+.got_to_dashboard {
+  border: 1px solid red;
+  width: 51%;
+  margin: 0;
+}
 .message_board {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  width: 99%;
+    /* margin-top: 1em;
+    margin-bottom: 1em; */
     text-align: center;
     padding-top: .5em;
     padding-bottom: 1em;
@@ -16,24 +21,28 @@ body {
 }
 
   .messages_storage {
+    width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     justify-content: left; 
+    height: auto;
     /* border: 1px solid #916868; */
     justify-content: center;
 }
+
 
 .messages_storage h1 {
     color: rgb(237, 241, 22) !important;
 }
 .on_the_way {
-    margin: 1em;
+  flex: 15%;
+    margin: .5em;
     background-color: #2B3048;
     border: 3px solid grey; 
     border-radius: 15px;
-    padding: 1em;
-    width: 20%;
+    padding: 10px;
+    width: 15%;
     
 }
 
@@ -45,17 +54,18 @@ body {
 }
 
 .differentiate {
-    margin: 1em;
+  align-items: center;
+    margin: .5em;
     border: 3px solid grey;
     border-radius: 15px;
-    padding: 1em;
+    /* padding: 1em; */
     width: 60%; 
 }
 
 .new_message {
     width: 95%;
-    /* border: 3px solid grey; */
-    padding-left: 1em;
+    /* border: 3px solid grey;  */
+    /* padding-left: 1em; */
     margin: 1em;
 }
 
@@ -81,11 +91,6 @@ body {
     border-radius: 50%;
     /* border: 1px solid red; */
 }
-
-.message {
-    align-items: left;
-    /* border: 1px solid red; */
-} 
 
 
  p {
@@ -144,3 +149,78 @@ body {
     /* margin-left: 1em; */
     /* border: 1px solid #916868; */
   }
+
+    /* Align intro_service class as screen gets smaller */
+    @media only screen and (max-width: 1000px) {
+      .message_board {
+        width: 99%;
+        margin: 0;
+        
+      }
+      .messages_storage {
+        flex-direction: column;
+        width: 100%;
+        
+      }
+      .on_the_way {
+        width: 100%;
+        /* border: 1px solid #916868; */
+      }
+
+      .on_the_way h3 {
+        padding-top: 0;
+        padding-bottom: 0;
+        text-align: center;
+        
+    }
+    .differentiate {
+        display: block;
+        font-size: medium;
+        width: 100%;
+      }
+/*   
+      .intro-service article {
+        display: block;
+          width: 95%;
+        }  */
+       .all_messages {
+              width: 95%;
+       }
+
+    } 
+    
+    @media screen and (max-width: 700px) {
+      .message_board {
+        width: 98%;
+        
+      }
+      .messages_storage {
+        flex-direction: column;
+        width: 95%;
+        
+      }
+      .on_the_way {
+        width: 90%;
+        /* border: 1px solid #916868; */
+      }
+
+      .on_the_way h3 {
+        padding-top: 0;
+        padding-bottom: 0;
+        text-align: center;
+        
+    }
+    .differentiate {
+        display: block;
+        font-size: medium;
+        width: 95%;
+      }
+  
+      .intro-service article {
+        display: block;
+          width: 95%;
+        } 
+       .all_messages {
+              width: 95%;
+       }
+    }

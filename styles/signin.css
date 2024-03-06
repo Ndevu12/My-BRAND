@@ -60,7 +60,6 @@ a {
     height: 2em;
     margin: 12px 30px;
     min-width: 0.2em;
-    width: px;
   }
   
   /* See more button hover opacity */
@@ -71,19 +70,7 @@ a {
     cursor: pointer;
   }
 
-  /* control signup class of a paragraph*/
-  /* .sign, 
-  input
-  p
-  h1
-  h2 
-  h3
-  h4
-  h5{
-  
-    font-size: large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
+
  .secondstep p, button,
  input,
  h1,

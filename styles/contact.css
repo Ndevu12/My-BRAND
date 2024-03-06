@@ -9,19 +9,21 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%;
-    margin: 2em;
-    /* border: 1px solid #ff5a5f;  */
+    width: 95%;
+    margin: auto;
+    border: 1px solid;  
+    border-radius: 15px;
   }
 
    /* Article style */
    .intro-contact  .message{
+    border: 1px solid #ff5a5f;  
     align-items: center;
     background-color: #213541;
     color: white;
     border-radius: 15px;
-    width: 50em;
-    height: 10em;
+    width: 75%;
+    height: 209px;
     margin: 0 auto;
   }
 

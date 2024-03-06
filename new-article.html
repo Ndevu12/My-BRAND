@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta naauto !important;iewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="styles/common.css">
     <link rel="stylesheet" type="text/css" href="styles/header.css">
-    <link rel="stylesheet" type="text/css" href="styles/signup.css">
+    <!-- <link rel="stylesheet" type="text/css" href="styles/signup.css"> -->
     <link rel="stylesheet" type="text/css" href="styles/new-article.css">
 
     
@@ -19,13 +19,18 @@
          <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
          <div class="">
           <div class="navigation flex-row"> 
-            <a href="#">Skills</a>
+            <a href="skill">Skills</a>
             <a href="about.html">About</a>
+            <a href="hire_me.html">Hire me</a>
             <a href="services.html">Service</a>
             <a href="blogs.html">Blogs</a>
             <a href="index.html#contactme">Contact</a>
             <a href="projects.html">Portfolio</a>
-            <a href="signin.html" target="_self">Admin</a>
+            <a href="profile_view.html">
+              <div class="admin">
+                <img src="../images/mypic.png" alt="My Picture">
+             </div>
+            </a>
           </div>
          </div>
       </header>
@@ -61,42 +66,41 @@
                       <option value="Technology">Technology</option>
                       <option value="Science">Science</option>
                     </select>
-            <input class="catego" type="text" value="Which Category?">
         </div>
 
         <div class="hashtag">
             <p>#Tags</p>
-            <input class="tag" type="text" value="Write #Tags">
+            <input class="tag" type="text" value="Write #Tags for this article">
         </div>
 
         
         <div class="publish-new-article">
-            <button id="save-publish" class="save"> 
+            <button id="save-publish" class="edit_button"> 
                 Save and Publish
              </button>
 
-             <button id="save-as-draft" class="draft"> 
+             <button id="save-as-draft" class="edit_button"> 
                 Save  as draft
              </button>
 
              <div class="pending">
              <p>You will be reminded if </p>
-             <button id="pending-review" class="signinto"> 
+             <button id="pending-review" class="edit_button"> 
                 Saved as pending review 
              </button>
             </div>
 
-             <button id="discard" class="cancel">
+             <button id="discard" class="edit_button">
                 Discard/Cancel
              </button>
 
-             <button id="archive" class="archived"> 
+             <button id="archive" class="edit_button"> 
                 Archive it instead
              </button>
         </div>
 
         <a href="dashboard.html" target="_self">
-        <button id="go-to-dashboard" class="go-dash"> 
+        <button id="go-to-dashboard" class="edit_button"> 
             Go to DashBoard
          </button>
         </a>

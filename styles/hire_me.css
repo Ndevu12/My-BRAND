@@ -1,0 +1,98 @@
+
+  /*=================== HIRE ME PAGE STYLE ========================*/
+
+/*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+/* styling ABOUT page*/
+
+.hire_me_page {
+display: flex;
+flex-flow: row wrap;
+justify-content: center;
+margin: auto;
+width: 95%;
+
+}
+
+/* .hire_me_page div {
+width: 40%;
+}  */
+
+.hire_me_page_class p, h1, h2, h3, h5{
+
+font-size: x-large;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+text-align: left;
+}
+
+.hire_me_page h4 {
+font-size: x-large;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+text-align: center;
+}
+
+.hire_me_page_class  a {
+color: yellow;
+text-decoration: none;
+}
+
+
+.hire_me_page_class {
+background-color: rgb(22, 22, 33);
+/* margin-left: 2.5em; */
+margin-bottom: 2.5em;
+text-align: center;
+padding: .5em;
+border: 1px solid ;
+border-radius: 15px;
+margin-top: 1em;
+/*border: 1px solid red;*/
+}
+
+
+.hire_me_big {
+font-size: xx-large;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+text-align: center;
+}
+
+
+
+  /*=================== FIRST STYLE ========================*/
+
+  /*
+============ + +  \+ + +  + /+ + =========
+============ + +  + \+ +  /+ + + =========
+============ + -+  -+ \+ +  +- +- + =========
+============ + +  + +/ \+  + + + =========
+============ + +  +/ + +  \+ + + =========
+*/
+
+/* STYLING EMPLOYMENT_STAT CLASS */
+
+.employment_stat  p, h6 {
+    font-size: 20px;
+     text-align: center; 
+  }
+  
+  .employment_stat  output {
+    color: yellow !important;
+  }
+
+  .employment_stat {
+    background-color: black;
+    /* width: 50%; */
+    border: 1px solid rebeccapurple !important;
+    border-radius: 20px;
+    /* padding: .5em; */
+  }
+
+  .employment_stat h5 {
+    margin-left: .5em;
+  }

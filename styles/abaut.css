@@ -1,84 +1,143 @@
-/*
- *=====intro-about class styling in index.html page =====
+/*=========== file for all styles regarding ABOUT INFORMATION
+ ============= This file consist of two sections
+ =============  1. intro-about class to be used in INDEX.HTML/homepage
+ ============== 2. about_page class which is stand for ABOUT PAGE
  */
 
- .intro-about {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    justify-content: space-around;
-    width: 100%;
-    /* border: 1px solid red;   */
- }
+/*=========== styling intro-about class ======*/
 
- .intro-about div {
-    width: 40em;
-  } 
-
-.intro-about button {
-    color: black;
-    background-color: rgb(255, 255, 255);
-    font-family: bold;
-    border: none;
-    border-radius: 4em;
-    text-align: center;
-    font-size: 1em;
-    height: 2em;
-    margin: 12px 30px;
-    min-width: 0.2em;
-    width: px;
+.intro-about {
+  background-color: rgb(27, 24, 35);
+  border: 1px solid red !important;
+  display : flex;
+  flex-flow : row wrap;
+  justify-content : center;
+  align-items: center !important;
+  margin: auto;
+  border-radius: 15px;
+  /* justify-content : space-around; */
+  width : 95%;
   }
-  
-  /* See more button hover opacity */
+
+  .intro-about div {
+    border: 1px solid red !important;
+  width : 50%;
+  }
+
+  .intro-about button {
+  color : black;
+  background-color : rgb(255, 255, 255);
+  font-family : bold;
+  border : none;
+  border-radius : 4em;
+  text-align : center;
+  font-size : 1em;
+  height : 2em;
+  margin : 12px 30px;
+  min-width : 0.2em;
+  }
+
   .intro-about button:hover {
-    color: black !important;
-    font-family: bold;
-    background-color: rgb(231, 229, 201);
-    cursor: pointer;
+  color : black !important ;
+  font-family : bold;
+  background-color : rgb(231, 229, 201);
+  cursor : pointer;
   }
 
-
-  .coding-image{
-    /* margin-left: 2.5em;
-    margin-bottom: 2.5em; */
-    max-width: 90%;
-    /* border: 1px solid red;  */
+  .coding-image {
+    border: 1px solid red !important;
+    padding: 10px;
+    align-items: center;
+    max-width : 100%;
+    margin: auto;
   }
 
   .intro-about .coding-image img {
-    border-radius: 15%; 
-    /* padding: 4em; */
-    max-width: 90%;
-    height: auto;
-    margin-left: 2em;
-    /* border: 1px solid red;  */
-}
+  border-radius : 15%;
+  max-width : 100%;
+  height : auto;
+  /* margin-left : 2em; */
+  }
 
-.about-class{
-    margin-left: 2.5em;
-    margin-bottom: 2.5em;
-    text-align: center;
-    /* border: 1px solid red;   */
-}
+  .intro-about .about-class {
+    border: 1px solid red !important;
+    width: 50%;
+   margin: auto;
+   align-items: center;
+  text-align : center;
+  /* height: auto; */
+  padding: 20px;
+  }
 
-.about-class p, h1, h2, h3, h5{
+  .about-class p, h1, h2, h3, h5 {
+  font-size : x-large;
+  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align : left;
+  }
+
+  .intro-about h4 {
+  font-size : x-large;
+  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align : center;
+  }
+
+  .about-class a {
+  color : yellow;
+  text-decoration : none;
+  }
   
-    font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: left;
-}
-
-.intro-about h4 {
-  font-size: x-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-}
-
-.about-class a {
-  color: yellow;
-  text-decoration: none;
-}
-
+     /* Align intro_service class as screen gets smaller */
+     @media only screen and (max-width: 1000px) {
+      .intro-about {
+        display: block;
+        font-size: medium;
+        width: 95%;
+      }
+  
+      .intro-about div {
+        display: block;
+          width: 100%;
+        } 
+  
+        .intro-about .about-class { 
+  
+          align-items: center;
+          justify-content: center;  
+          margin: 5px;
+          font-size: medium;
+          width: 95%;
+          padding: 0;
+      } 
+  
+      /* .intro-about .face {
+        margin: 5px;
+      }  */
+    } 
+    
+    @media screen and (max-width: 700px) {
+      .intro-about  {  
+        display: block; 
+        /* flex-direction: column; */
+        width: 95%;
+        margin: 5px;
+      }
+  
+      .intro-about .full-stack-dev { 
+      flex-direction: column;  
+      align-items: center;
+      justify-content: center;  
+      margin: 5px;
+      font-size: medium;
+  } 
+  
+      .intro-about article {
+        width: 100%;
+      } 
+  
+      /* .introduction .face {
+        margin: 5px;
+      }  */
+    }
 
 
 /*
@@ -89,54 +148,49 @@
 ============ + +  +/ + +  \+ + + =========
 */
 
-/* styling ABOUT page*/
 
-.about_page {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  justify-content: space-around;
-  width: 100%;
+/*=========== styling about.html file ======*/
 
-}
 
-.about_page div {
-  width: 40em;
-} 
+  .about_page {
+  display : flex;
+  flex-flow : row wrap;
+  justify-content : center;
+  /* justify-content : space-around; */
+  width : 95%;
+  margin: auto;
+  }
+  .about_page div {
+  width : 40em;
+  }
+  .about_page_class p, h1, h2, h3, h5 {
+  font-size : x-large;
+  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align : left;
+  }
+  .about_page h4 {
+  font-size : x-large;
+  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align : center;
+  }
+  .about_page_class a {
+  color : yellow;
+  text-decoration : none;
+  }
+  .about_page_class {
+  background-color : rgb(28, 28, 42);
+  /* margin-left : 2.5em; */
+  margin-bottom : 2.5em;
+  text-align : center;
+  padding : 0.5em;
+  border : solid 1px;
+  border-radius : 15px;
+  margin-top : 1em;
+  }
+  .me_big {
+  font-size : xx-large;
+  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align : center;
+  }
 
-.about_page_class p, h1, h2, h3, h5{
   
-  font-size: x-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: left;
-}
-
-.about_page h4 {
-  font-size: x-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-}
-
-.about_page_class  a {
-  color: yellow;
-  text-decoration: none;
-}
-
-
-.about_page_class {
-  background-color: rgb(28, 28, 42);
-  margin-left: 2.5em;
-  margin-bottom: 2.5em;
-  text-align: center;
-  padding: .5em;
-  border: 1px solid ;
-  border-radius: 15px;
-  margin-top: 1em;
-  /* border: 1px solid red;   */
-}
-
-.me_big {
-  font-size: xx-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-}

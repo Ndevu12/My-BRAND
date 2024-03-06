@@ -6,19 +6,24 @@
 .intro-project {
     display: flex;
     flex-flow: row wrap;
+    align-items: center;
     justify-content: center;
     justify-content: space-around;
-    width: 100%;
-    padding: 2em;
+    text-align: center;
+    width: 95%;
+    margin: auto;
     background-color: rgb(5, 5, 13);
-    /* border: 1px solid #ff5a5f;  */
+    border: 1px solid #ff5a5f; 
   }
 
     /* Article style */
     .intro-project article {
+      display: flex; 
+      justify-content: center;
         align-items: center;
-        /* border: 1px solid #ff5a5f;   */
-        width: 35em;
+        border: 1px solid #ff5a5f; 
+        width: 33%;
+        margin: auto;
       }
      
    
@@ -26,32 +31,57 @@
   .intro-project img{
     align-items: center;
     border-radius: 10px;
-    /* margin-left: 4.5em;
-    margin-right: 4.5em; */
-    margin-bottom: 0;
+    margin-left: 10px;
     margin-top: 9px;
-    max-width: 80%;
-    /* height: 12em !important;
-    padding: 1em; */
+    max-width: 90%;
     /* border: 1px solid #ff5a5f; */
   }
+
+  .intro-project .sample {
+    border: 1px solid red;
+    width: 100%;
+  }
+
  /* Styling all images of intro-sproject class */
   .intro-project .airbnb img{
    align-items: center;
-   margin-left: 0;
-   width: 90%;
+   width: 100%;
+  }
+
+  .intro-project .airbnb {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .intro-project .monty {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   .intro-project .monty img{
    align-items: center !important; 
-    margin-left: 3em;
-    width: 90%;
+    /* margin-left: 3em; */
+    width: 100%;
+   }
+
+   .intro-project .simple-shell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
    }
 
    .intro-project .simple-shell img{
      align-items: center; 
-    margin-left: 3em;
-    width: 70%;
+    /* margin-left: 3em; */
+    width: 100%;
    }
 
   .intro-project  .mon, .air, .bnb, .shell, .byte, .unix {
@@ -63,8 +93,10 @@
 
 /* simple-shell class While hovering*/
 .simple-shell:hover {
+  
     img {
         display: none;
+        transition : opacity 0.9s ease-in-out;
     }
     .shell,
   .unix {
@@ -74,17 +106,19 @@
 
   .shell {
     margin-top: 2em;
+    
   }
-
-  padding: 1em;
   background-color: rgb(40, 40, 76);
   border-radius: 6%;
+  padding: 1em;
 }
 
 /* airbnb class While hovering*/
 .airbnb:hover {
+  
     img {
         display: none;
+        transition : opacity 0.9s ease-in-out;
     }
     .air,
   .bnb {
@@ -93,18 +127,20 @@
   }
 
   .air {
-    margin-top: 2em;
+    margin-top: 1em;
+    padding: 1em;
   }
   background-color: rgb(28, 28, 54);
   border-radius: 6%;
-  padding: 1em;
+  
 }
 
 /* monty class While hovering*/
 .monty:hover {
-    transition: opacity 0.3s ease-in-out;
+  
     img {
         display: none;
+        transition : opacity 0.9s ease-in-out;
     }
     
     .mon,
@@ -115,6 +151,7 @@
 
   .mon {
     margin-top: 2em;
+   
   }
   background-color: rgb(33, 33, 47);
   border-radius: 6%;
@@ -122,9 +159,8 @@
 }
   
 /* Download my cv button style */
-.download-cv {
-    margin-left: 10em;
-    margin-top: 2em; 
+.airbnb .download-m_cv {
+    margin-top: 1em; 
     margin-bottom: 2em; 
     color: black;
     background-color: rgb(244, 229, 12);
@@ -134,8 +170,7 @@
     text-align: center;
     font-size: 1em;
     height: 2em;
-    min-width: 150px;
-    width: 20%;
+    max-width: 60%;
   }
   
   /* Download my cv button hover opacity */
@@ -145,6 +180,62 @@
     background-color: rgb(255, 255, 255);
     cursor: pointer;
   }
+
+  
+     /* Align introduction class as screen gets smaller */
+     @media only screen and (max-width: 1000px) {
+      .intro-project {
+        display: block;
+        font-size: medium;
+        width: 95%;
+      }
+  
+      .intro-project article {
+        display: block;
+          width: 95%;
+        } 
+  
+        .intro-project .div{ 
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;  
+          margin: 5px;
+          font-size: medium;
+      } 
+  
+      /* .intro-about .face {
+        margin: 5px;
+      }  */
+    } 
+    
+    @media screen and (max-width: 700px) {
+      .intro-project  {  
+        display: block; 
+        align-items: center;
+        flex-direction: column; 
+        width: 95%;
+        margin: 5px;
+      }
+  
+      .intro-project article { 
+      flex-direction: column;  
+      align-items: center;
+      justify-content: center;  
+      margin: 5px;
+      font-size: medium;
+      width: 95%;
+  } 
+  
+      .intro-project div {
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+      } 
+  
+      /* .introduction .face {
+        margin: 5px;
+      }  */
+    }
 
 
   /*=================== style for PROJECT PAGE ========================*/
@@ -163,15 +254,16 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  width: 100%;
+  margin: auto;
+  width: 95%;
   border: 5px solid grey;
   border-radius: 9px;
   background-color: rgb(20, 24, 31); 
 }
 
-.projects_page div {
+/* .projects_page div {
   width: 50em;
-} 
+}  */
 
 .projects_class {
   border: 5px solid grey;
@@ -211,7 +303,7 @@ text-decoration: none;
   height: 2em;
   margin: 12px 30px;
   min-width: 0.2em;
-  width: px;
+  width: auto;
 }
 
 .projects_page button:hover {
@@ -258,26 +350,17 @@ text-decoration: none;
 
   /* on small medias */
   @media screen and (max-width: 700px) {
-    .projects_page div {
-      width: 100%;
-    } 
+    /* .projects_page div {
+      width: 90%;
+    }  */
 
     h1 {
       font-size: x-large;
      }
-    
-    /* body {
-      width: 100%; */
-      /* border: 5px solid red; */
-    /* }
 
-    header { */
-      /* border: 5px solid red; */
-      /* width: 95%;
-    } */
 
    .projects_page{
-    width: 90%;
+    width: 97%;
      margin: 0;
      padding: 0;
      /* border: 5px solid red; */
@@ -285,18 +368,13 @@ text-decoration: none;
      
     
     .projects_class {
+      width: 100%;
       border-radius: 9px;
       text-align: center;
       background-color: rgb(22, 22, 44);
     }
   }
-  /*
-============ + +  \+ + +  + /+ + =========
-============ + +  + \+ +  /+ + + =========
-============ + -+  -+ \+ +  +- +- + =========
-============ + +  + +/ \+  + + + =========
-============ + +  +/ + +  \+ + + =========
-*/
+
 
 
 

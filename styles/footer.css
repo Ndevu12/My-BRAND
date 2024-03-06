@@ -4,17 +4,31 @@ footer {
     width: 100%;
     border-top: 1px solid #CCCCCC;
     padding-top: .5em;
-    /* position: fixed; */
+    align-items: center;
     bottom: 0;
     color: white;
-    line-height: auto;
-    
+    line-height: normal;  
+}
+
+.footerdesc ul {
+border: 1px red solid ;
+font-size: small;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+footer p, h1, h2, h3, h4, h5{
+   width: 95%;
+    font-size: medium;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
  /* .footer-container {
   
  } */
-
+footer .logo, .socialmedia {
+    margin-left: 20px;
+}
 
 .footerdesc {
     width: 100%;
@@ -23,8 +37,9 @@ footer {
     height: auto; 
     display: flex;
     justify-content: flex-end;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-wrap: wrap;
+    border: 1px red solid;
     
      
 }
@@ -45,10 +60,73 @@ footer {
 
 
 .footcopyright {
-    width: 100%;
+    width: 95%;
     padding-top: 15px;
     padding-bottom: 10px;
     height: 30px;  
     text-align: center;
     border-top: 1px solid #CCCCCC;
 } 
+
+
+
+     /* Align intro_service class as screen gets smaller */
+     @media only screen and (max-width: 1000px) {
+        .footer {
+          display: block;
+          font-size: medium;
+          width: 95%;
+        }
+        .footerdesc {
+            display: block;
+            font-size: medium;
+            width: 95%;
+          }
+    
+        footer div {
+          display: block;
+            width: 95%;
+          } 
+
+          .footerdesc div {
+            display: block;
+              width: 95%;
+            } 
+    
+          .intro-service .full-stack-dev { 
+    
+            align-items: center;
+            justify-content: center;  
+            margin: 5px;
+            font-size: medium;
+        } 
+    
+        /* .intro-about .face {
+          margin: 5px;
+        }  */
+      } 
+      
+      @media screen and (max-width: 700px) {
+        .intro-service  {  
+          display: block; 
+          /* flex-direction: column; */
+          width: 95%;
+          margin: 5px;
+        }
+    
+        .intro-service .full-stack-dev { 
+        flex-direction: column;  
+        align-items: center;
+        justify-content: center;  
+        margin: 5px;
+        font-size: medium;
+    } 
+    
+        .intro-service article {
+          width: 100%;
+        } 
+    
+        /* .introduction .face {
+          margin: 5px;
+        }  */
+      }

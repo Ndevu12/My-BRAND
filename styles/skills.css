@@ -3,8 +3,9 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    justify-content: space-around;
-    width: 100%;
+    /* justify-content: space-around; */
+    margin: auto;
+    width: 95%;
   
   }
   
@@ -46,7 +47,7 @@
   
   .skills_page_class {
     background-color: rgb(12, 12, 34);
-    margin-left: 2.5em;
+    /* margin-left: 2.5em; */
     margin-bottom: 2.5em;
     text-align: center;
     padding: .5em;

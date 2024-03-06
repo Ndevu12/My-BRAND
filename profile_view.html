@@ -12,19 +12,36 @@
    
     <link rel="stylesheet" type="text/css" href="styles/common.css">
     <link rel="stylesheet" type="text/css" href="styles/header.css">
-    <link rel="stylesheet" type="text/css" href="styles/profile.css">
+    <link rel="stylesheet" type="text/css" href="styles/footer.css">
+    <link rel="stylesheet" type="text/css" href="styles/profile_view.css">
     
     <link rel="icon" type="image/png" href="../images/logo1.png">
 
     <title>NdevuSpace</title>
     
 </head>
-<body>
-      <div class="got_to_dashboard">
-        <a href="dashboard.html" target="_self"><h3>Back to DashBoard</h3></a>
-      </div>
+<body> <header>
+    <div class="logo">
+     <a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a>
+   </div>
+     <div class="">
+       <div class="navigation flex-row"> 
+         <a href="skills.html">Skills</a>
+         <a href="about.html">About</a>
+         <a href="hire_me.html">Hire me</a>
+         <a href="services.html">Service</a>
+         <a href="blogs.html">Blogs</a>
+         <a href="#contactme">Contact me</a>
+         <a href="projects.html">Portfolio</a>
+         <a href="signin.html">
+           Admin
+         </a>
+       </div>
+       <button class="menu-btn" onclick="toggleMenu()"><img src="../images/menu.png" alt="My Picture"></button>
+     </div>
+   </header>
     <!-- Profile (content) -->
-    <div class="profile">
+    <div class="profile_view">
      
         <h1>Profile</h1>
         <div class="profile_top">
@@ -38,20 +55,8 @@
 
                         <div class="show_me">
                         <h4>Ndevu Jean Paul Elisa</h4>
-                        <button id="names" class="edit_button"> 
-                            Edit names
-                         </button>
-                         </div>
-
-                         <div class="change_pic">
-                            <p>Change profile photo:</p>
-                               <button id="Take_a_ photo" class="edit_button"> 
-                                 Take a photo
-                               </button>
-                               <button id="Upload_a_photo" class="edit_button"> 
-                                  Upload a photo
-                               </button>
-                           </div>
+                        <p>Location: <span class="location">Gikondo-Kigali Rwanda</span></p>
+                         </div>                        
                         </div>
                        </div>
                    </div>  
@@ -59,7 +64,7 @@
                   <!-- </div> -->
                 
 
-            <div class="edit_about">
+            <div class="read_about">
                 <h1>About <span>(introduction)</span></h1>
                 <h3>Full stack Software Developer, Web Developer, and UX Designer.</h3>
                 <p>Meet the mind behind the code! I am a Full Stack Developer with a keen eye for detail and a love for problem-solving. 
@@ -67,44 +72,30 @@
                  allowing me to bring ideas to life through elegant and efficient code.
                 </p>
                 <button id="edit_about_id" class="edit_button"> 
-                    Edit about
+                    Read more
                  </button>
-                
-                 <div class="change_Employment_status">
-                  <h5>Change Employment status:</h5>
-                  <p><label for="selectedvalue">Already have a job:</label>
-                        <select id="selectedvalue" name="selectedvalue">
-                          <option value="Yes">Yes</option>
-                          <option value="No">No</option>
-                        </select> 
-                        </p>
-                  <h6>Open to work on:</h6>
-                  <div class="open_to_work">
-                    <p><label for="selectedvalue">Part Time jobs:</label>
-                      <select id="selectedvalue" name="selectedvalue">
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                      </select>
-                  </p>
-                      <p><label for="selectedvalue">Remote jobs:</label>
-                        <select id="selectedvalue" name="selectedvalue">
-                          <option value="Yes">Yes</option>
-                          <option value="No">No</option>
-                        </select> 
-                      
-                          </p>
-                          <p>
-                            <label for="selectedvalue">Full time jobs:</label>
-                        <select id="selectedvalue" name="selectedvalue">
-                          <option value="Yes">Yes</option>
-                          <option value="No">No</option>
-                        </select>
-                              
-                              </p>
-                  </div>
-                 </div>
+
+                 <div class="Employment_status">
+                    <h5>Employment status:</h5>
+                    <p>Already have a job:
+                        <output id="selectedvalue">No</output>
+                    </p>
+                    
+                    <h6>Open to work on:</h6>
+                    <div class="total_visitors">
+                        <p>Part Time jobs:
+                        <output id="selectedvalue">Yes</output>
+                    </p>
+                        <p>Remote jobs: 
+                            <output id="selectedvalue">Yes</output>
+                            </p>
+                            <p>Full time jobs: 
+                                <output id="selectedvalue">No</output>
+                                </p>
+                    </div>
+                   </div>
             </div>
-          </div>
+           </div>
         
         <!-- profile_main class -->
         <div class="profile_main">
@@ -119,43 +110,28 @@
             <ul>
                 <li>
                   <p>Bacholor's Degree in BIT at University of Rwanda in progress.
-                    <button id="remove0" class="remove"> 
-                        --
-                     </button>
                   </p>
                 </li>
                 <li>
                   <P>Software Engineering online.
-                    <button id="remove1" class="remove"> 
-                    -
-                 </button>
                   </P>
                 </li>
                 <li>
                   <p>web development at Andela in progress
-                    <button id="remove2" class="remove"> 
-                        --
-                     </button>
                   </p>
                 </li>
               <li>
                 <p>Foundation in UX design (theory) at Coursera by Google
-                    <button id="remove3" class="remove"> 
-                        --
-                     </button>
                 </p>
               </li>
               <li>
                 <p>Advanced Diploma in Mathematics, Computer Science and Economics (MCE)
-                    <button id="remove4" class="remove"> 
-                        --
-                     </button>
                 </p>
               </li>
             </ul>
 
                 <button id="edit_Education" class="edit_button"> 
-                    Add new Education
+                   View Education in detail
                  </button>
           </div>
 
@@ -170,43 +146,28 @@
                     <ul>
                         <li>
                           <p>UX-UI Design
-                            <button id="remove-0" class="remove"> 
-                                --
-                             </button>
                           </p>
                         </li>
                         <li>
                           <P>Full stack Developer
-                            <button id="remove-1" class="remove"> 
-                            --
-                         </button>
                           </P>
                         </li>
                         <li>
                           <p>Web Development
-                            <button id="remove-2" class="remove"> 
-                                --
-                             </button>
                           </p>
                         </li>
                       <li>
                         <p>Problem solving
-                            <button id="remove-3" class="remove"> 
-                                --
-                             </button>
                         </p>
                       </li>
                       <li>
                         <p>Innovative and Creative
-                            <button id="remove-4" class="remove"> 
-                                --
-                             </button>
                         </p>
                       </li>
                     </ul>
         
                         <button id="edit_skills" class="edit_button"> 
-                            Add new skills
+                            View more skills
                          </button>
                   </div>
        
@@ -221,64 +182,81 @@
                     <ul>
                         <li>
                           <p>Simple Shell
-                            <button id="remove_0" class="remove"> 
-                                --
-                             </button>
                           </p>
                         </li>
                         <li>
                           <P>AirBnB Clone
-                            <button id="remove_1" class="remove"> 
-                            --
-                         </button>
                           </P>
                         </li>
                         <li>
                           <p>Monty
-                            <button id="remove_2" class="remove"> 
-                                --
-                             </button>
                           </p>
                         </li>
                       <li>
                         <p>Binary tree
-                            <button id="remove_3" class="remove"> 
-                                --
-                             </button>
                         </p>
                       </li>
                       <li>
                         <p>IT Support proffessional
-                            <button id="remove_4" class="remove"> 
-                                --
-                             </button>
                         </p>
                       </li>
                     </ul>
         
                         <button id="edit_Experience" class="edit_button"> 
-                            Add new Experience
+                            View more Experiences
                          </button>
                   </div>
                 </div>
 
-          <!-- Footer section-->
-           <div class="profile_footer">
-            <div class="your_CV">
-                <h3>Upload updated CV</h3>
-                <button id="UPDATED_CV" class="edit_button"> 
-                    Upload CV
-                 </button>
-            </div>
-              
-            <div class="Edit_footer">
-                <h3>Change or Update footer</h3>
-                <button id="Edit_foot" class="edit_button"> 
-                    Edit footer
-                 </button>
-            </div>
+  
+     <!-- Footer section-->
+     <footer>
+        <div class="logo">
+          <a href="index.html" target="_self">
+          <img src="../images/logo1.png" alt="logo">
+        </a>
         </div>
-    </div>
+  
+           <!-- link for my social medias -->
+           <div class="socialmedia"><img src="../images/linkedin-logo.png" alt="linkin link">
+             <img src="../images/twitter-logo.png" alt="twitter link">
+           </div>
+  
+        <div class="footerdesc">
+               <!-- connecting point -->
+              <div class="connection">
+                 <h2>Connect with me:</h2>
+  
+                  <ul>
+                     <li> niyokwizerwajeanpaulelisa@gmail.com</li>
+                     <li>www.linkedin.com/in/jean-paul-elisa</li>
+                     <li>www.GitHub.com/Ndevu12</li>
+                   </ul>
+                </div>
+                  <!-- blogs -->
+                 <div class="blogs-section">
+                   <h2>Blogs:</h2>
+                      <ul>
+                      <li>My Journey into Full Stack Development</li>
+                      <li>Lessons from Building a Simple Shell</li>
+                      <li>The Art of UI Design in Full Stack Development</li>
+                    </ul>
+                 </div>
+        
+                   <!-- my work -->
+                      <div class="my-work">
+                         <h2>Explore My Work:</h2>
+                         <ul> 
+                           <li>Simple shell</li>
+                           <li>AirBnB Clone</li>
+                           <li>Monty</li>
+                          </ul>
+                       </div>
+                     </div>
+                        <div class="footcopyright">
+                   ©2024 | Ndevu | Full Stack Developer | Gikondo-Kigali
+                       </div>    
+      </footer>
     </body>
 </html>
 
