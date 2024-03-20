@@ -12,7 +12,7 @@
     flex-flow: row wrap;
     justify-content: space-around;
     width: 100%;
-    border: 1px solid red; 
+    /* border: 1px solid red;  */
 }
 
 .big_one, .bigg {
@@ -23,12 +23,12 @@
 
   
 .introduction div {
-  border: 1px solid red; 
+  /* border: 1px solid red;  */
     width: 40em;
   } 
 
 .introduction .intro {
-      border: 1px solid red;   
+      /* border: 1px solid red;    */
     align-items: center;
     justify-content: space-between; 
     margin-bottom: 20px;
@@ -104,6 +104,7 @@
     .introduction {
       font-size: medium;
       width: 95%;
+      margin-top: auto;
     }
 
     .introduction div {

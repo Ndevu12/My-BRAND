@@ -57,7 +57,7 @@ a {
     border-radius: 4em;
     text-align: center;
     font-size: 1em;
-    height: 2em;
+    height: auto;
     margin: 12px 30px;
     min-width: 0.2em;
   }
@@ -79,7 +79,7 @@ a {
   h4, 
   h5{
   
-    font-size: large;
+    font-size: small;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* text-align: left; */
 }

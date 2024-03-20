@@ -39,10 +39,10 @@
 
 .intro-sub input {
     border: 0;
-    width: 9em;
-    font-size: medium;
+    width: 50%;
+    font-size: smaller !important;
     margin-top: 1em;
-    margin-right: 4em;
+    margin-right: 0;
     padding: 1em;
 }
 
@@ -50,26 +50,25 @@
    margin-left: 0;
 }
 
-.downloadCV {
-  margin-top: 1em; 
-  margin-bottom: 2em; 
-  color: black;
-  background-color: rgb(244, 229, 12);
-  font-family: bold;
-  border: none;
-  border-radius: 4em;
-  text-align: center;
-  font-size: 1em;
-  height: 2em;
-  max-width: 60%;
 
+.edit_button {
+  width: auto;
+  height: 40px;
+  color: white !important;
+  background-color: #2f2b2b;
+  border-radius: 20px;
+  border: 1px solid #916868;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  font-size: 1.1em;
+  cursor: pointer;
 }
 
-.downloadcv:hover {
-  color: black !important;
-  font-family: bold;
-  background-color: rgb(255, 255, 255);
-  cursor: pointer;
+.intro-sub .edit_button:hover {
+  background-color: #101426;
+  color: rgb(224, 193, 16) !important;
+  
 }
 
   

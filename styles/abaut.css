@@ -8,7 +8,7 @@
 
 .intro-about {
   background-color: rgb(27, 24, 35);
-  border: 1px solid red !important;
+  /* border: 1px solid red !important; */
   display : flex;
   flex-flow : row wrap;
   justify-content : center;
@@ -20,7 +20,7 @@
   }
 
   .intro-about div {
-    border: 1px solid red !important;
+    /* border: 1px solid red !important; */
   width : 50%;
   }
 
@@ -45,7 +45,7 @@
   }
 
   .coding-image {
-    border: 1px solid red !important;
+    /* border: 1px solid red !important; */
     padding: 10px;
     align-items: center;
     max-width : 100%;
@@ -60,7 +60,7 @@
   }
 
   .intro-about .about-class {
-    border: 1px solid red !important;
+    /* border: 1px solid red !important; */
     width: 50%;
    margin: auto;
    align-items: center;

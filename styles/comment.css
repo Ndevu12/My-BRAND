@@ -1,0 +1,237 @@
+/* styling comment icon */
+.comment_page { 
+    display: flex;  
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-sizing: border-box;
+    
+}
+a {
+    color: #d3a2a2;
+    text-decoration: none;
+}
+
+/* .post-commenting {
+	display: flex;
+	align-items: center;
+	cursor: default;
+    align-items: center;
+    padding-left: .5em;
+    background-color: #eaecff;
+    box-shadow: #54b2ce;
+} */
+
+/* .post-ratings-container {
+	display: flex; 
+	justify-content: space-between;
+  } */
+
+ .comments-container {
+	display: flex; 
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+    background-color: #272831;
+    padding-left: .5em;
+    padding-right: .5em;
+    border: 1px solid #272831;
+    border-radius: 5px;
+  } 
+  
+  .post-commenting-button.active + .comments-container {
+	display: block;  
+  }
+  
+  
+.post-commenting:not(:last-child) {
+	margin-right: 12px;
+}
+
+.post-commenting-selected > .post-commenting-button,
+.post-commenting-selected > .post-commenting-count {
+	color: yellow;
+}
+
+.post-commenting-button {
+	margin-right: 6px;
+	cursor: pointer;
+	color: #54b2ce;
+}
+
+.post-commenting:not(.post-commenting-selected) > .post-commenting-button:hover {
+	color: #d3a2a2;
+}
+
+/* section for commenting  */
+.container {
+    background: #14172c;
+    padding: 20px;
+    font-family: monospace;
+    width: 70%;
+    box-shadow: 0 0 5px #000;
+}
+
+.head {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.text {
+    margin: 5px 0;
+    font-family: sans-serif;
+    font-size: 0.9em;
+}
+
+.commentbox {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    box-sizing: border-box;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    padding: 5px;
+}
+
+
+.commentbox > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* float: left; */
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.content {
+    width: 100%;
+}
+
+.user {
+	width: 70%;
+    border: none;
+    outline: none;
+    margin: 5px 0;
+    color: #cecbcb;
+    margin-left: 20px;
+    padding: 10px;
+    background-color: #14172c;
+}
+
+.commentinput > input {
+    border: none;
+    padding: 5px;
+    padding-left: 0;
+    outline: none;
+    border-bottom: 2px solid rgb(203, 205, 172);
+    margin-bottom: 10px;
+    width: 95%;
+    background-color: #14172c;
+    color: #fff;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    align-items: center;
+    color: #808080;
+}
+
+.buttons > button {
+    padding: 5px 10px;
+    background: lightgrey;
+    color: #808080;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.buttons > button.abled {
+    background: rgb(236, 205, 49);
+    color: #fff;
+}
+
+.policy {
+    margin: 20px 0;
+    font-size: 0.8em;
+    font-family: Arial, sans-serif;
+    color: #808080;
+}
+
+.policy a {
+    text-decoration: none;
+    color: rgb(187, 176, 56);
+}
+
+.notify {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.notify > input {
+    margin-right: 5px;
+    border: 2px solid #0e0d1b;
+}
+
+.parents {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.parents h1 {
+    font-size: 0.9em;
+}
+
+.parents p {
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+
+.container input {
+    background-color: #272831;
+	color: #fff;
+}
+.parents > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.engagements {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.engagements img {
+    width: 20px;
+
+}
+
+.engagements img:nth-child(1) {
+    margin-right: 10px;
+    width: 25px;
+}
+
+.date {
+    color: #808080;
+    font-size: 0.8em;
+}
+
+@media screen  and (max-width: 700px) {
+    .comments-container {
+        width: 90%;
+    }
+    
+}
