@@ -1,5 +1,5 @@
 body {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     margin: 0;
     width: 98%;
     margin-left: auto;
@@ -12,7 +12,7 @@ body {
 
 p, h1, h2, h3, h4, h5{
   
-    font-size: x-large;
+    font-size: larger;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* text-align: left; */
 }

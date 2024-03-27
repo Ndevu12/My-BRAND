@@ -17,7 +17,7 @@
 
    /* Article style */
    .intro-contact  .message{
-    border: 1px solid #ff5a5f;  
+    /* border: 1px solid #ff5a5f;   */
     align-items: center;
     background-color: #213541;
     color: white;

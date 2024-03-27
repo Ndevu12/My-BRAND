@@ -29,37 +29,35 @@
         <h1>Profile</h1>
         <div class="profile_top">
             
-            <div class="profile_image">
-                <!-- <div class="My Picture"> -->
-                    <div class="mypic_and_name">
-                      <img src="../images/mypic.png" alt="My Picture">
-
-                      <div class="edit_me">
-
-                        <div class="show_me">
-                        <h4>Ndevu Jean Paul Elisa</h4>
-                        <button id="names" class="edit_button"> 
-                            Edit names
-                         </button>
-                         </div>
-
-                         <div class="change_pic">
-                            <p>Change profile photo:</p>
-                               <button id="Take_a_ photo" class="edit_button"> 
-                                 Take a photo
-                               </button>
-                               <button id="Upload_a_photo" class="edit_button"> 
-                                  Upload a photo
-                               </button>
-                           </div>
-                        </div>
-                       </div>
-                   </div>  
+           <!-- Profile (content) -->
+<div class="profile">
+  <div class="profile_top">
+      <div class="profile_image">
+          <div class="mypic_and_name">
+              <img id="profileImage" src="../images/mypic.png" alt="My Picture">
+              <div class="edit_me">
+                  <div class="show_me">
+                      <h4>Ndevu Jean Paul Elisa</h4>
+                      <button id="names" class="edit_button">Edit names</button>
+                  </div>
+                  <div class="change_pic">
+                      <p>Change profile photo:</p>
+                      <input type="file" accept="image/*" id="uploadPhotoInput">
+                      <label for="uploadPhotoInput" class="edit_button">Upload a photo</label>
+                      <br>
+                      <button id="Take_a_photo" class="edit_button">Take a photo</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
             
                   <!-- </div> -->
                 
 
             <div class="edit_about">
+              <div class="about_description">
                 <h1>About <span>(introduction)</span></h1>
                 <h3>Full stack Software Developer, Web Developer, and UX Designer.</h3>
                 <p>Meet the mind behind the code! I am a Full Stack Developer with a keen eye for detail and a love for problem-solving. 
@@ -69,6 +67,7 @@
                 <button id="edit_about_id" class="edit_button"> 
                     Edit about
                  </button>
+                </div>
                 
                  <div class="change_Employment_status">
                   <h5>Change Employment status:</h5>
@@ -80,22 +79,22 @@
                         </p>
                   <h6>Open to work on:</h6>
                   <div class="open_to_work">
-                    <p><label for="selectedvalue">Part Time jobs:</label>
-                      <select id="selectedvalue" name="selectedvalue">
+                    <p><label for="open_to_work_part_time">Part Time jobs:</label>
+                      <select id="open_to_work_part_time" name="open_to_work_part_time">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                       </select>
                   </p>
-                      <p><label for="selectedvalue">Remote jobs:</label>
-                        <select id="selectedvalue" name="selectedvalue">
+                      <p><label for="open_to_work_remote">Remote jobs:</label>
+                        <select id="open_to_work_remote" name="open_to_work_remote">
                           <option value="Yes">Yes</option>
                           <option value="No">No</option>
                         </select> 
                       
                           </p>
                           <p>
-                            <label for="selectedvalue">Full time jobs:</label>
-                        <select id="selectedvalue" name="selectedvalue">
+                            <label for="open_to_work_full_time">Full time jobs:</label>
+                        <select id="open_to_work_full_time" name="open_to_work_full_time">
                           <option value="Yes">Yes</option>
                           <option value="No">No</option>
                         </select>
@@ -116,45 +115,45 @@
                 I'm on a mission to turn imaginative concepts into tangible, interactive realities.........
             </p>
 
-            <ul>
+            <ul id="educationList" class="list">
                 <li>
                   <p>Bacholor's Degree in BIT at University of Rwanda in progress.
-                    <button id="remove0" class="remove"> 
+                    <button id="remove_education_0" class="remove"> 
                         --
                      </button>
                   </p>
                 </li>
                 <li>
                   <P>Software Engineering online.
-                    <button id="remove1" class="remove"> 
+                    <button id="remove_education_1" class="remove"> 
                     -
                  </button>
                   </P>
                 </li>
                 <li>
                   <p>web development at Andela in progress
-                    <button id="remove2" class="remove"> 
+                    <button id="remove_education_2" class="remove"> 
                         --
                      </button>
                   </p>
                 </li>
               <li>
                 <p>Foundation in UX design (theory) at Coursera by Google
-                    <button id="remove3" class="remove"> 
+                    <button id="remove_education_3" class="remove"> 
                         --
                      </button>
                 </p>
               </li>
               <li>
                 <p>Advanced Diploma in Mathematics, Computer Science and Economics (MCE)
-                    <button id="remove4" class="remove"> 
+                    <button id="remove_education_4" class="remove"> 
                         --
                      </button>
                 </p>
               </li>
             </ul>
 
-                <button id="edit_Education" class="edit_button"> 
+                <button id="addEducation" class="edit_button"> 
                     Add new Education
                  </button>
           </div>
@@ -167,45 +166,45 @@
                         I'm on a mission to turn imaginative concepts into tangible, interactive realities.........
                     </p>
         
-                    <ul>
+                    <ul id="skillsList" class="list">
                         <li>
                           <p>UX-UI Design
-                            <button id="remove-0" class="remove"> 
+                            <button id="remove_skill_0" class="remove"> 
                                 --
                              </button>
                           </p>
                         </li>
                         <li>
                           <P>Full stack Developer
-                            <button id="remove-1" class="remove"> 
+                            <button id="remove_skill_1" class="remove"> 
                             --
                          </button>
                           </P>
                         </li>
                         <li>
                           <p>Web Development
-                            <button id="remove-2" class="remove"> 
+                            <button id="remove_skill_2" class="remove"> 
                                 --
                              </button>
                           </p>
                         </li>
                       <li>
                         <p>Problem solving
-                            <button id="remove-3" class="remove"> 
+                            <button id="remove_skill_3" class="remove"> 
                                 --
                              </button>
                         </p>
                       </li>
                       <li>
                         <p>Innovative and Creative
-                            <button id="remove-4" class="remove"> 
+                            <button id="remove_skill_4" class="remove"> 
                                 --
                              </button>
                         </p>
                       </li>
                     </ul>
         
-                        <button id="edit_skills" class="edit_button"> 
+                        <button id="addSkills" class="edit_button"> 
                             Add new skills
                          </button>
                   </div>
@@ -218,17 +217,17 @@
                         I'm on a mission to turn imaginative concepts into tangible, interactive realities.........
                     </p>
         
-                    <ul>
+                    <ul id="experienceList" class="list">
                         <li>
                           <p>Simple Shell
-                            <button id="remove_0" class="remove"> 
+                            <button id="remove_experience_0" class="remove"> 
                                 --
                              </button>
                           </p>
                         </li>
                         <li>
                           <P>AirBnB Clone
-                            <button id="remove_1" class="remove"> 
+                            <button id="remove_experience_1" class="remove"> 
                             --
                          </button>
                           </P>
@@ -242,26 +241,32 @@
                         </li>
                       <li>
                         <p>Binary tree
-                            <button id="remove_3" class="remove"> 
+                            <button id="remove_experience_3" class="remove"> 
                                 --
                              </button>
                         </p>
                       </li>
                       <li>
                         <p>IT Support proffessional
-                            <button id="remove_4" class="remove"> 
+                            <button id="remove_experience_4" class="remove"> 
                                 --
                              </button>
                         </p>
                       </li>
                     </ul>
         
-                        <button id="edit_Experience" class="edit_button"> 
+                        <button id="addExperience" class="edit_button"> 
                             Add new Experience
                          </button>
                   </div>
                 </div>
 
+                <div class="got_to_dashboard" id="dashin">
+                  <a href="dashboard.html" target="_self"><h3>Back to DashBoard</h3></a>
+                </div>
+              
+                <!-- SCRIPTS -->
+                <script src="scripts/profileAdmin.js"></script>
           <!-- Footer section-->
            <div class="profile_footer">
             <div class="your_CV">

@@ -14,9 +14,28 @@
 
   /* style anch link */
 a {
-  color: white;
+  color: rgb(206, 149, 149);
   text-decoration: none;
 }
+
+
+/* FOR LIVE VIDEO STYLING */
+#videoOverlay {
+  position: absolute;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30%;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 60%;
+  object-fit: cover;
+  z-index: 1;
+}
+
 
 a h3 {
   /* border: 1px solid red; */
@@ -33,7 +52,7 @@ a h3:hover {
   padding-right: 2em;
   padding-top: 0;
   background-color: rgb(22, 22, 39);
-  /* border: 1px solid red; */
+  /* border: 1px solid red;  */
 }
 
 .profile_top {
@@ -43,12 +62,13 @@ a h3:hover {
    flex-direction: row;  */
   /* flex-flow: row wrap;  */
   justify-content: center;
+  /* border: 1px solid red; */
 }
 
 .profile_image {
-  /* border: 1px solid red; */
+  /* border: 1px solid red;  */
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   width: 100%;
   /* justify-content: center;  */
 }
@@ -69,19 +89,19 @@ a h3:hover {
 /* styling edit_button classes */
  .edit_button{
   width: auto;
-  height: 40px;
+  height: auto;
   color: white !important;
   background-color: #2f2b2b;
   border-radius: 20px;
   border: 1px solid #916868;
   padding: 10px;
-  margin: 10px;
+  /* margin: 10px; */
   text-align: center;
 }
 
 .profile_main .remove {
   width: 3em;
-  height: 40px;
+  height: auto;
   color: white !important;
   background-color: #2f2b2b;
   font-family: bold;
@@ -100,27 +120,42 @@ a h3:hover {
 
 span {
   font-size: 15px;
+  height: auto;
 }
 
 .mypic_and_name {
   /* border: 1px solid red;  */
-  width: 60%;
+  width: 90%;
+  height: auto;
 }
 
 .mypic_and_name img {
   margin-left: 4em;
+  height: auto;
 }
 .edit_me {
   /* border: 1px solid red; */
   display: flex;
   flex-flow: row wrap;
   width: auto; 
+  height: auto;
 }
 
  .change_pic{
-  /* border: 1px solid red;  */
+  /* border: 1px solid red; */
   width: 60%;
   text-align: center;
+  height: auto;
+}
+
+.change_pic .edit_button{
+  width: auto;
+  margin-top: 10px;
+  /* border: 1px solid red; */
+}
+
+.change_pic input {
+  display: none;
 }
 
 /* ======== Styling profile_main class ===========*/
@@ -200,11 +235,11 @@ output {
 
 
 /*======= Styling profile page on small screens ===== */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
     .profile {   
       flex-direction: column;
-      padding-left: .2em;
-      padding-right: .2em;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     .profile_image {
@@ -217,8 +252,8 @@ output {
 
     .profile_top {
       display: block;
-      margin-left: .5em;
-      margin-right: .5em;
+      margin-left: 10px;
+      margin-right: 10px;
       justify-content: space-around;
     }
     img {
@@ -228,8 +263,8 @@ output {
  
     .profile_main {
       display: block;
-      margin-left: .5em;
-      margin-right: .5em;
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
     .profile_footer {
@@ -237,5 +272,53 @@ output {
       justify-content: center;
       flex-wrap: wrap;
   }
+
+  .change_pic {
+    width: auto;
+    margin-left: 30px;
+  }
 }
   
+@media screen and (max-width: 700px) {
+  .profile {   
+    flex-direction: column;
+    padding-left: .2em;
+    padding-right: .2em;
+  }
+
+  .profile_image {
+    width: 100%;
+  }
+
+  .mypic_and_name { 
+    width: 100%;
+  }
+
+  .profile_top {
+    display: block;
+    margin-left: .5em;
+    margin-right: .5em;
+    justify-content: space-around;
+  }
+  img {
+  width: 80%;
+  justify-content: center;
+  }
+
+  .profile_main {
+    display: block;
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+
+  .profile_footer {
+    display: block;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.change_pic {
+  width: auto;
+  display: block;
+}
+}

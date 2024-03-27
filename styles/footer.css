@@ -11,7 +11,7 @@ footer {
 }
 
 .footerdesc ul {
-border: 1px red solid ;
+/* border: 1px red solid ; */
 font-size: small;
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -39,8 +39,8 @@ footer .logo, .socialmedia {
     justify-content: flex-end;
     justify-content: space-around;
     flex-wrap: wrap;
-    border: 1px red solid;
-    
+    /* border: 1px red solid;
+     */
      
 }
 

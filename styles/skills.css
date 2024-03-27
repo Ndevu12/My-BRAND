@@ -74,6 +74,7 @@
     margin: 10px;
     text-align: center;
     font-size: 1.1em;
+    cursor: pointer;
   }
   
   .edit_button:hover {

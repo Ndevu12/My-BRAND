@@ -15,6 +15,16 @@
     <link rel="stylesheet" type="text/css" href="styles/blogs.css">
     <link rel="stylesheet" type="text/css" href="styles/subscribe.css">
     <link rel="stylesheet" type="text/css" href="styles/contact.css">
+    
+    <!-- LINK FOR LIKE ICON  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/like.css">
+    <!-- LINK FOR COMMENT ICON -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/comment.css">
+      <!-- LINK FOR SHARE ICON -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="styles/share.css">
 
     <link rel="icon" type="image/png" href="../images/logo1.png">
 
@@ -40,7 +50,7 @@
              </div>
             </a>
           </div>
-          <button class="menu-btn" onclick="toggleMenu()"><img src="../images/menu.png" alt="My Picture"></button>
+          <button class="menu-btn"><img src="../images/menu.png" alt="My Picture"></button>
         </div>
       </header>
 
@@ -96,9 +106,11 @@
             My journey in the world of technology has equipped me with a diverse set of skills, 
             allowing me to bring ideas to life through elegant and efficient code.
           </p>
-          <button id="abt" class="download-about"> 
-            See more
-         </button>
+            <a href="about.html">
+              <button id="abt" class="download-about"> 
+               See more
+              </button>
+            </a>
         </div>
       </section>
        
@@ -130,9 +142,11 @@
                    I bring a holistic approach as a Full Stack Developer, proficient in both front-end and back-end development. 
                    My expertise spans various languages and frameworks, ensuring the creation of robust and interactive digital solutions.
                 </p>
-              <button id="servicesId" class="download-my-cv"> 
-                 See more
-              </button>
+                    <a href="services.html">
+                      <button id="servicesId" class="download-my-cv"> 
+                        More services
+                      </button>
+                    </a>
             </div>
           </article>
       
@@ -176,9 +190,11 @@
                   Contributed to an AirBnB clone, focusing on UI design, 
                   search, booking functionalities, and secure transactions.
                 </p>
-                <button id="projectId" class="download-m_cv"> 
-                  See more Projects
+                <a href="projects.html">
+                <button id="pro_projectId" class="download-my-cv"> 
+                  More Projects
                </button>
+              </a>
             </div>
           </article>
       
@@ -197,12 +213,13 @@
       </section>
 
             <!-- Blog section-->
-            <h1 class="btn">My <span class="yell">Blogs</span></h1>
+            <h1 class="btn">Recently <span class="yell">Blogs</span></h1>
             <section class="intro-blog"> 
 
               <div class="blog_section1">
               <article>
-                <div class="embark">
+                <div class="embark" >
+                <div class="post" data-post-id="7712">
                   <p class="article-title"><u><a href="#">Embracing the Coding Adventure: 
                     My Journey into Full Stack Development</a></u>
                   </p>
@@ -213,16 +230,32 @@
                   Join me as I reflect on the lessons learned, the technologies mastered, 
                   and the passion that fuels my commitment to creating innovative solutions........
                   </p>
-                  <div class="interaction"><span class="like"> <img src="../images/like.png" alt="AirBnB image"></span> 1.05k
-                     <span class="comment"> <img src="../images/comment.png" alt="AirBnB image"></span> 1k
-                    <span class="share"> <img src="../images/share.png" alt="AirBnB image"></span>   300
+                  <div class="post-ratings-container">
+                    <div class="post-rating">
+                      <span class="post-rating-button material-icons">thumb_up</span>
+                      <span class="post-rating-count">0</span>
+                    </div>
+
+                    <div class="post-commenting">    
+                      <a href="comments_page.html" rel="Comment Page">    
+                      <span class="post-commenting-button material-icons">comment</span>
+                      </a>
+                    </div>
+
+                    <div class="post-sharing">
+                      <span class="post-sharing-button material-icons">share</span>
+                      <span class="post-sharing-count">0</span>
+                    </div>
+
                   </div>
                 </div>
+              </div>
               </article>
             
               
               <article>
                 <div class="unknown">
+                  <div class="post" data-post-id="7711">
                      <p class="article-title"><u><a href="#">
                       Navigating the Unknown: Lessons from Building a Simple Shell</a></u>
                      </p>
@@ -231,13 +264,27 @@
                         it was a journey into the heart of operating systems and command-line interfaces. In this blog post, 
                         I'll delve into the challenges I faced, the strategies I employed to tackle them, and the valuable 
                         lessons learned along the way. From parsing commands to handling signals, 
-                        discover the insights gained from navigating the unknown territories of shell development..........
+                        discover the insights gained from navigating the unknown territories of shell development...
                       </p>
-                      <div class="interaction"><span class="like"> <img src="../images/like.png" alt="AirBnB image"></span> 1.05k
-                        <span class="comment"> <img src="../images/comment.png" alt="AirBnB image"></span> 1k
-                       <span class="share"> <img src="../images/share.png" alt="AirBnB image"></span>   300
+                      <div class="post-ratings-container">
+                        <div class="post-rating">
+                          <span class="post-rating-button material-icons">thumb_up</span>
+                          <span class="post-rating-count">0</span>
+                        </div>
+
+                        <div class="post-commenting">    
+                          <a href="comments_page.html" rel="Comment Page">    
+                          <span class="post-commenting-button material-icons">comment</span>
+                          </a>
+                        </div>
+    
+                        <div class="post-sharing">
+                          <span class="post-sharing-button material-icons">share</span>
+                          <span class="post-sharing-count">0</span>
+                        </div>
                      </div>
                   </div>
+                </div>
                 </article>
               </div>
              
@@ -245,6 +292,7 @@
               <div class="blog_section2">
               <article>
                 <div class="digital">
+                  <div class="post" data-post-id="7713">
                   <p class="article-title">
                     <u><a href="#">
                       Crafting Digital Experiences: The Art of UI Design in Full Stack Development
@@ -257,15 +305,38 @@
                     web application's user interface. Join me in exploring the balance between functionality and aesthetics, 
                     and the satisfaction that comes from crafting digital experiences that users love........
                   </p>
-                  <div class="interaction">
-                    <span class="like"> <img src="../images/like.png" alt="AirBnB image"></span> 1.05k
-                    <span class="comment"> <img src="../images/comment.png" alt="AirBnB image"></span> 1k
-                   <span class="share"> <img src="../images/share.png" alt="AirBnB image"></span>   300
+                  
+                  <div class="post-ratings-container">
+                    <div class="post-rating">
+                      <span class="post-rating-button material-icons">thumb_up</span>
+                      <span class="post-rating-count">0</span>
+                    </div>
+                  
+
+                  <div class="post-commenting">
+                    <a href="comments_page.html" rel="Comment Page">      
+                    <span class="post-commenting-button material-icons">comment</span></a> 
+
+                  </div>
+
+                  <div class="post-sharing">
+                    <span class="post-sharing-button material-icons">share</span>
+                    <span class="post-sharing-count">0</span>
+                  </div>
+                </div>
+
                  </div>
                 </div>
               </article>
             </div>
-            </section><br>
+
+            <a href="blogs.html">
+              <button id="projectId" class="download-my-cv"> 
+                More Blogs
+             </button>
+            </a>
+            </section>
+            <br>
             <br>
             <br>
 
@@ -279,9 +350,9 @@
               </article>
 
               <article>
-               <div class="sub-entry">
-                 <input class="get-email" type="text" value="Enter your Email">
-                 <button id="cantacId" class="downloadCV"> 
+               <div class="sub-entry" id="sub_entry">
+                 <input class="get-email" type="text" value="Email" required>
+                 <button id="cantactId_int" class="edit_button"> 
                    Subscribe
                   </button>
                </div>
@@ -360,5 +431,12 @@
                    
                      </div>    
     </footer>
+
+        <!-- SCRIPTS -->
+    <script src="../scripts/like.js" defer></script> 
+    <script src="../scripts/share.js" defer></script>
+    <script src="../scripts/comment.js" defer></script>
+     <script src="scripts/subscribe.js" defer></script>
+     <script src="scripts/contact_me.js" defer></script>
   </body>
 </html>
