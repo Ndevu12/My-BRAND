@@ -26,7 +26,7 @@ const USERID = {
     }
   })
   
-  function addPost() {
+  function addComment() {
     if (!userComment.value) return;
     USERID.name = userName.value;
     if (USERID.name === "Anonymous") {
@@ -61,7 +61,7 @@ const USERID = {
     document.querySelector(".post-commenting-count").innerHTML = commentsNum;
   }
   
-  publishBtn.addEventListener("click", addPost);
+  publishBtn.addEventListener("click", addComment);
   
   // Load comments for a specific article based on its ID
   window.addEventListener("DOMContentLoaded", (event) => {
@@ -104,10 +104,10 @@ function goBack() {
 //on bottom GO BACK button onclick event
 document.getElementById("goBack").addEventListener("click", goBack);
 
-// Function to navigate back in the browser's history
-function goBack() {
-    window.history.back();
-}
+// // Function to navigate back in the browser's history
+// function goBack() {
+//     window.history.back();
+// }
 
 //JAVASCRIPT codes for the COMMENT buttons
 
