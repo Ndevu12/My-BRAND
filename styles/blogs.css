@@ -272,7 +272,27 @@
     flex-wrap: wrap;
     height: auto;
   }
+/*
+* Deal with blog photos
+*/
+  .post .blogPhoto {
+    margin-top: 50px;
+    width: 100%;
+    border: 1px solid red;
+    display: none;
+    /* max-height: 200px;
+    overflow: hidden; */
+  }
   
+  .blogPhoto img {
+    /* max-width: 100%; 
+    max-height: 100%;  */
+    /* width: 16em; 
+    height: 16em;
+    border-radius: 5px; */
+    display: none;
+  } 
+
   /* Create three unequal columns that sits next to each other */
   /* two Sidebars/one in between column */
   .side {
@@ -364,7 +384,7 @@ a:hover {
  display: flex;
  justify-content: space-between;
  align-items: center;
- /* padding: 1em; */
+ /* border: 1px solid red; */
 }
 
 .searchfilter img{
@@ -379,7 +399,9 @@ a:hover {
     font-size: small;
     margin-left: 0;
     border-radius: 10px;
+    height: 100%;
 }
+
 
 .top img,
 .deep img{

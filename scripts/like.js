@@ -1,65 +1,35 @@
-// Function to validate and store admin account
-function signUp() {
-    var fullName = document.getElementById('fullName').value;
-    var displayName = document.getElementById('displayName').value;
-    var password = document.getElementById('password').value;
+//JAVASCRIPT codes for the LIKE buttons
 
-    // Validate inputs
-    if (!fullName || !displayName || !password) {
-        alert("Please fill in all fields");
-        return;
-    }
+document.querySelectorAll(".post").forEach(post => {
+	const postId = post.dataset.postId;
+	const ratings = post.querySelectorAll(".post-rating");
+	const likeRating = ratings[0];
 
-    // Check if admin account already exists
-    if (localStorage.getItem('adminAccount')) {
-        alert("Admin account already exists!");
-    } else {
-        // Store admin account in localStorage
-        var adminAccount = {
-            fullName: fullName,
-            displayName: displayName,
-            password: password
-        };
-        localStorage.setItem('adminAccount', JSON.stringify(adminAccount));
-        alert("Admin account created successfully!");
-    }
-}
+	ratings.forEach(rating => {
+		const button = rating.querySelector(".post-rating-button");
+		const count = rating.querySelector(".post-rating-count");
 
-// Function to sign in with admin credentials
-function signIn() {
-    var displayName = document.getElementById('displayName').value;
-    var password = document.getElementById('password').value;
+		button.addEventListener("click", async () => {
+			if (rating.classList.contains("post-rating-selected")) {
+				return;
+			}
 
-    // Validate inputs
-    if (!displayName || !password) {
-        alert("Please fill in all fields");
-        return;
-    }
+			count.textContent = Number(count.textContent) + 1;
 
-    // Check if admin account exists
-    var adminAccount = localStorage.getItem('adminAccount');
-    if (adminAccount) {
-        adminAccount = JSON.parse(adminAccount);
-        if (adminAccount.displayName === displayName && adminAccount.password === password) {
-            alert("Sign in successful!");
-        } else {
-            alert("Invalid credentials. Please try again.");
-        }
-    } else {
-        alert("Admin account not found. Please sign up.");
-    }
-}
+			ratings.forEach(rating => {
+				if (rating.classList.contains("post-rating-selected")) {
+					const count = rating.querySelector(".post-rating-count");
 
-// Function to handle sending reset code
-function sendResetCode() {
-    var phoneNumber = document.getElementById('forgotPhoneNumber').value;
+					count.textContent = Math.max(0, Number(count.textContent) - 1);
+					rating.classList.remove("post-rating-selected");
+				}
+			});
 
-    // Validate input
-    if (!phoneNumber) {
-        alert("Please enter a phone number");
-        return;
-    }
+			rating.classList.add("post-rating-selected");
 
-    // Implement your code to send reset code here
-    alert("Reset code sent to " + phoneNumber);
-}
+			const like = likeRating === rating;
+			const response = await fetch(`/posts/${postId}/${like}`);
+			const body = await response.json();
+		});
+	});
+});

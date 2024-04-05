@@ -74,10 +74,6 @@
     min-width: 20%;
   }
   
-  /* .ux-design p{
-    font-size: 1em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  } */
 
   .ux-design .ux{
     align-items: center; 
@@ -87,12 +83,15 @@
     /* border: 1px solid red;    */
   }
   
-  /* UX design while hovering*/
-  .ux-design:hover {
+  /* hovering effect */
+  .ux-design:hover,
+  .web-dev:hover,
+  .full-stack-dev:hover {
     border: 10px yellow solid;
     border-radius: 30px;
+    transition: border 500ms ease-in;
   }
-
+      
   /* full stack developer styling*/
   .intro-service .full-stack-dev{
     display: flex;
@@ -120,17 +119,6 @@
     /* text-align: center !important; */
   }
 
-  /* .full-stack-dev p{
-        font-size: 1em;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      } */
-    
-    /* UX design while hovering*/
-  .full-stack-dev:hover {
-    border: 10px yellow solid;
-    border-radius: 30px;
-  }
-      
   /* web development styling */
   .intro-service .web-dev{
     display: flex;
@@ -154,16 +142,6 @@
     /* border: 1px solid red;   */
   }
 
-  /* .web-dev p{
-    font-size: 1em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  } */
-   
-  .web-dev:hover {
-    border: 10px yellow solid;
-    border-radius: 30px;
-  }
-  
 
   /* centering our service header */
   .btn {
@@ -252,7 +230,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  width: 95%; 
+  width: 50%; 
   margin: auto;
 }
 
@@ -271,29 +249,89 @@
   border: 1px solid ;
   margin-top: 1em;
   padding: 19px;
-  /* padding-left: 1em;
-  margin-right: 1em; */
-  /* border: 1px solid red;  */
 }
-.service_class p,  h2, h3, h4{
+.service_class h1, p,  h2, h3, h4{
   font-size: x-large;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: left; 
 }
 
-h1 {
+.service_class ul {
+  text-align: left;
+  font-size: large;
+  color: rgb(255, 252, 252);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.service_class ul li{
+  padding-bottom: 6px;
+  color:#f3d8e4
+}
+/* h1 {
   font-size: x-large;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* text-align: center;  */
-}
+} */
 
 .service_class a {
 color: yellow;
 text-decoration: none;
 }
 
-.offers {
-  margin-top: 1em;
-  color: rgb(248, 241, 143);
+.service_class .serviceBoard {
+  border-radius: 5px;
+  width: 90%;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(32, 25, 49);
+}
+
+.serviceBoard h1 {
+  text-align: center;
   font-size: xx-large;
 }
+
+.servicePhoto {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
+  border-radius: 9px;
+}
+
+.servicePhoto img {
+  width: 90%;
+  height: 90%;
+  border-radius: 5px;
+  border-radius: 15px;
+}
+
+.service_class .servicePhoto, h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+     /* Align intro_service class as screen gets smaller */
+     @media only screen and (max-width: 1000px) {
+      .service_page {
+        font-size: medium;
+        width: 95%;
+      }
+  
+      .service_class article {
+          width: 95%;
+        } 
+      }
+    
+    @media screen and (max-width: 700px) {
+      .service_page {
+        font-size: medium;
+        width: 95%;
+      }
+  
+      .service_class article {
+          width: 95%;
+        } 
+    }

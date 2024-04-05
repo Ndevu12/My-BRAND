@@ -13,21 +13,6 @@ a {
     text-decoration: none;
 }
 
-/* .post-commenting {
-	display: flex;
-	align-items: center;
-	cursor: default;
-    align-items: center;
-    padding-left: .5em;
-    background-color: #eaecff;
-    box-shadow: #54b2ce;
-} */
-
-/* .post-ratings-container {
-	display: flex; 
-	justify-content: space-between;
-  } */
-
  .comments-container {
 	display: flex; 
     width: 50%;
@@ -40,15 +25,7 @@ a {
     border: 1px solid #272831;
     border-radius: 5px;
   } 
-  
-  .post-commenting-button.active + .comments-container {
-	display: block;  
-  }
-  
-  
-.post-commenting:not(:last-child) {
-	margin-right: 12px;
-}
+
 
 .post-commenting-selected > .post-commenting-button,
 .post-commenting-selected > .post-commenting-count {

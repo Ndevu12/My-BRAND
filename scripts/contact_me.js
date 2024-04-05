@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Store the updated array back to local storage
             localStorage.setItem('contactData', JSON.stringify(existingData));
 
-            alert('Submission successful!');
+            alert('Messagen sent successful!');
 
             // Clear the input fields
             messageInput.value = "Write the message here";

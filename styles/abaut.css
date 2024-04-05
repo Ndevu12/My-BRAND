@@ -160,23 +160,28 @@
   width : 95%;
   margin: auto;
   }
+  
   .about_page div {
   width : 40em;
   }
+
   .about_page_class p, h1, h2, h3, h5 {
   font-size : x-large;
   font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align : left;
   }
+
   .about_page h4 {
   font-size : x-large;
   font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align : center;
   }
+
   .about_page_class a {
   color : yellow;
   text-decoration : none;
   }
+
   .about_page_class {
   background-color : rgb(28, 28, 42);
   /* margin-left : 2.5em; */
@@ -187,6 +192,7 @@
   border-radius : 15px;
   margin-top : 1em;
   }
+
   .me_big {
   font-size : xx-large;
   font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
