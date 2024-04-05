@@ -15,50 +15,90 @@
 display: flex;
 flex-flow: row wrap;
 justify-content: center;
+align-items: center;
 margin: auto;
 width: 95%;
 
 }
 
-/* .hire_me_page div {
-width: 40%;
-}  */
 
-.hire_me_page_class p, h1, h2, h3, h5{
+.hire_me_page div {
+  width: 600px;
+} 
 
+
+.hire_me_page_class h1, h2, h3, h5{
 font-size: x-large;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-text-align: left;
+text-align: center;
+margin: auto;
+color: rgb(208, 213, 214);
 }
 
+.hire_me_page_class p, ul, ol{
+  font-size: x-large;
+  text-align: left;
+  }
+
+  .hire_me_page_class ul, ol{
+    background-color: rgb(22, 22, 22);
+    border-radius: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    }
+  
+  /* .hire_me_page_class h6 {
+    color: rgb(189, 174, 174);
+  } */
+.hire_me_page_class li {
+  margin-top: 10px !important;
+  margin-bottom: 10px;
+  font-size: large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .hire_me_page h4 {
-font-size: x-large;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: larger;
 text-align: center;
 }
 
+.hire_me_page p{
+  color: rgb(219, 223, 227);
+}
 .hire_me_page_class  a {
-color: yellow;
+color: rgb(153, 153, 41);
 text-decoration: none;
 }
 
+.hire_me_page_class .believer {
+  font-size: x-large;
+   color: rgb(182, 186, 190);
+   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif,  ;
+}
 
+.hire_me_page_class b {
+color: rgb(161, 122, 70);
+font-size: x-large;
+}
+
+.hire_me_page_class ol li {
+  color: rgb(209, 212, 214);
+  font-size: large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .hire_me_page_class {
 background-color: rgb(22, 22, 33);
 /* margin-left: 2.5em; */
 margin-bottom: 2.5em;
 text-align: center;
-padding: .5em;
+padding: 9px;
 border: 1px solid ;
 border-radius: 15px;
 margin-top: 1em;
-/*border: 1px solid red;*/
+/* border: 1px solid red; */
 }
 
 
 .hire_me_big {
 font-size: xx-large;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 text-align: center;
 }
 
@@ -76,9 +116,11 @@ text-align: center;
 
 /* STYLING EMPLOYMENT_STAT CLASS */
 
-.employment_stat  p, h6 {
+ .employment_stat  .open {
     font-size: 20px;
      text-align: center; 
+      color: white;
+      /* border: 1px solid; */
   }
   
   .employment_stat  output {
@@ -95,4 +137,19 @@ text-align: center;
 
   .employment_stat h5 {
     margin-left: .5em;
+  }
+
+
+  .hire_me_page div {
+    width: 600px;
+  } 
+
+  @media only screen and (max-width: 1000px) {
+    .hire_me_page div {
+      width: 95%;
+    }   
+
+    .employment_stat h5 {
+      margin-left: .5em;
+    }
   }

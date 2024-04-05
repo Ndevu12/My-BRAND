@@ -15,6 +15,9 @@ const USERID = {
   const comments = document.querySelector(".comments");
   const userName = document.querySelector(".user");
   const notify = document.querySelector(".notifyinput");
+  const postCommentingButton = document.querySelectorAll(".post-commenting-button");
+  
+  // postCommentingButton.addEventListener("click",
   
   userComment.addEventListener("input", e => {
     if (!userComment.value) {
