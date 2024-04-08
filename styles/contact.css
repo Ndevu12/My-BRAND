@@ -50,14 +50,22 @@
     text-align: center; /* Center the text inside .get-email */
   }
   
-  .download_cv {
-    background-color: #4C3D3D;
-    color: white;
+  .sendMessage {
+    width: 20%;
+    height: auto;
+    color: white !important;
+    background-color: #2f2b2b;
+    border-radius: 20px;
+    border: 1px solid #916868;
+    padding: 10px;
     text-align: center;
-    border-radius: 15px;
-    border: 0;
-    padding: 1em 2em;
-    font-size: medium;
-    cursor: pointer;
     margin-bottom: 1em; /* Added margin-bottom */
   }
+
+  .sendMessage:hover {
+    background-color: #101426;
+    color: rgb(224, 193, 16) !important;
+    width: 20%;
+    font-size: large;
+    cursor : pointer;
+    }

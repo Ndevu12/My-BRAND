@@ -2,7 +2,7 @@
   "name": "my-brand",
   "version": "1.0.0",
   "description": "This is my portfolio website",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "eleventy && mkdir -p public && cp -r _site/* public/"
@@ -24,8 +24,10 @@
     "@11ty/eleventy": "^2.0.1"
   },
   "dependencies": {
+    "codegpt-nextjs": "file:c:/Users/Lenovo/.vscode/extensions/danielsanmedium.dscodegpt-3.2.4/standalone",
     "express": "^4.18.3",
     "mongoose": "^8.2.2",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "quill": "^1.3.7"
   }
 }

@@ -25,22 +25,22 @@
   }
 
   .intro-about button {
-  color : black;
-  background-color : rgb(255, 255, 255);
-  font-family : bold;
-  border : none;
-  border-radius : 4em;
-  text-align : center;
-  font-size : 1em;
-  height : 2em;
-  margin : 12px 30px;
-  min-width : 0.2em;
+    width: auto;
+    height: auto;
+    color: white !important;
+    background-color: #2f2b2b;
+    border-radius: 20px;
+    border: 1px solid #916868;
+    padding: 10px;
+    text-align: center;
+
   }
 
   .intro-about button:hover {
-  color : black !important ;
-  font-family : bold;
-  background-color : rgb(231, 229, 201);
+  background-color: #101426;
+  color: rgb(224, 193, 16) !important;
+  width: 20%;
+  font-size: large;
   cursor : pointer;
   }
 
