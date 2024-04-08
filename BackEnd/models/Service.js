@@ -45,10 +45,6 @@ class ServiceModel {
             },
         });
 
-            // Virtual for this about instance URL.
-        serviceSchema.virtual("url").get(function () {
-            return "/serviceRoutes/service/" + this._id;
-            });
         this.model = _model('Service', serviceSchema);
     }
     /**

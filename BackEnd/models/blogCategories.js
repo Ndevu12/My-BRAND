@@ -15,10 +15,6 @@ class blogCategory {
             }
         });
 
-        // Virtual for this about instance URL.
-        categorySchema.virtual("url").get(function () {
-            return "/blog/category/" + this._id;
-            });
         this.model = model('BlogCategory', categorySchema);
     }
     /**

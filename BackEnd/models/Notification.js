@@ -24,10 +24,6 @@ class NotificationModel {
             },
         });
 
-        // Virtual for this message instance URL.
-        notificationSchema.virtual("url").get(function () {
-            return "/DashBoard/message/" + this._id;
-            });
         this.model = _model('Notification', notificationSchema);
     }
     /**

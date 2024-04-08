@@ -29,10 +29,6 @@ const subscribersAnalyticsSchema = new Schema({
     },
 });
     
-// Virtual for this about instance URL.
-subscribersAnalyticsSchema.virtual("url").get(function () {
-    return "/DashBoard/subscribersAnalytics/" + this._id;
-    });
 // Create Subscribers Analytics model
 this.model = model('SubscribersAnalytics', subscribersAnalyticsSchema);
     }

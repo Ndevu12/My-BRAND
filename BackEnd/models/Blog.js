@@ -53,10 +53,6 @@ class BlogModel {
                 }],
         });
 
-        // Virtual for this BLOG instance URL.
-        blogSchema.virtual("url").get(function () {
-            return "/blogRoutes/blog/" + this._id;
-            });
 
         this.model = model('Blog', blogSchema);
     }

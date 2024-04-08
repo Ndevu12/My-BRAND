@@ -35,10 +35,7 @@ class InternshipModel {
             },
         });
 
-        // Virtual for this about instance URL.
-        InternshipSchema.virtual("url").get(function () {
-            return "/About/internship/" + this._id;
-            });
+
         this.model = _model('Internship', InternshipSchema);
     }
     /**

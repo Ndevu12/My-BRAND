@@ -31,11 +31,6 @@ class MessageModel {
                 required: true,
             },
         });
-
-        // Virtual for this about instance URL.
-        messageSchema.virtual("url").get(function () {
-            return "/DashBoard/message/" + this._id;
-            });
             
         this.model = _model('Message', messageSchema);
     }

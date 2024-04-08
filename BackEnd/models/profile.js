@@ -40,10 +40,6 @@ class ProfileModel {
             },
         });
 
-            // Virtual for this about instance URL.
-        profileSchema.virtual("url").get(function () {
-            return "/DashBoard/profile/" + this._id;
-            });
         this.model = _model('Profile', profileSchema);
     }
     /**

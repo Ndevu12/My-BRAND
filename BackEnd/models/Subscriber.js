@@ -41,10 +41,6 @@ class SubscriberModel {
             },
         });
 
-        // Virtual for this Subscriber instance URL.
-        SubscriberSchema.virtual("url").get(function () {
-            return "/subscription/subscriber/" + this._id;
-            });
         this.model = _model('Subscriber', SubscriberSchema);
     }
     /**

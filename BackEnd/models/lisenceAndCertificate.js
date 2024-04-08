@@ -38,10 +38,6 @@ class LicenseAndCertificateModel {
             },
         });
 
-        // Virtual for this about instance URL.
-        LicenseAndCertificateSchema.virtual("url").get(function () {
-            return "/About/licenseAndCertificate/" + this._id;
-            });
         this.model = _model('LicenseAndCertificate', LicenseAndCertificateSchema);
     }
     /**

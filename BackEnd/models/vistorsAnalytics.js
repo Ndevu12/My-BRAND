@@ -39,10 +39,6 @@ class VisitorAnalyticsModel {
             },
         });
 
-     // Virtual for this about instance URL.
-     visitorsAnalyticsSchema.virtual("url").get(function () {
-        return "/AdminDashBoard/visitorsAnalytics/" + this._id;
-        });
         this.model = mongoose.model('VisitorsAnalytics', visitorsAnalyticsSchema);
     }
     /**

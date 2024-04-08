@@ -34,10 +34,6 @@ const adminSchema = new Schema({
     },
 });
 
-    // Virtual for this Admin instance URL.
-    adminSchema.virtual("url").get(function () {
-        return "/admin/" + this._id;
-        });
 // Create and export the Admin model
 this.model = model('Admin', adminSchema);
     }

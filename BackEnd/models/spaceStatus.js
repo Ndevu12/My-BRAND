@@ -51,10 +51,6 @@ class SpaceStatusModel {
             },
         });
 
-                // Virtual for this about instance URL.
-        spaceStatusSchema.virtual("url").get(function () {
-            return "/DashBoard/spaceStatus/" + this._id;
-            });
         this.model = mongoose.model('SpaceStatus', spaceStatusSchema);
     }
     // Method to create a new SpaceStatus document

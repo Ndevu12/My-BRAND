@@ -33,10 +33,6 @@ class SkillModel {
             },
         });
 
-                // Virtual for this skill instance URL.
-        skillSchema.virtual("url").get(function () {
-            return "/About/skill/" + this._id;
-            });
         this.model = _model('Skill', skillSchema);
     }
     /**

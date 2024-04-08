@@ -32,10 +32,7 @@ class EducationModel {
             },
         });
 
-            // Virtual for this about instance URL.
-        educationSchema.virtual("url").get(function () {
-            return "/About/education/" + this._id;
-            });
+
         this.model = model('Education', educationSchema);
     }
     /**

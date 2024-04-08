@@ -50,10 +50,6 @@ class Analytics {
             },
         });
 
-        // Virtual for this about instance URL.
-        analyticsSchema.virtual("url").get(function () {
-            return "/analyticsRoutes/analytics/" + this._id;
-            });
 
         this.model = model('Analytics', analyticsSchema);
     }

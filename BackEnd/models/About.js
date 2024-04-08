@@ -54,7 +54,6 @@ class AboutModel {
             },
         });
         
-        // Virtual for this about instance URL.
         aboutSchema.virtual("url").get(function () {
             return "/about/" + this._id+"/create";
             });

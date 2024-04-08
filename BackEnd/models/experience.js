@@ -39,10 +39,7 @@ class ExperienceModel {
             },
         });
 
-        // Virtual for this about instance URL.
-        experienceSchema.virtual("url").get(function () {
-            return "/About/experience/" + this._id;
-            });
+
         this.model = model('Experience', experienceSchema);
     }
     /**

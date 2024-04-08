@@ -24,10 +24,6 @@ class AuthorModel {
             },
         });
 
-        // Virtual for this about instance URL.
-        authorSchema.virtual("url").get(function () {
-            return "blog/author/" + this._id;
-            });
         this.model = model('Author', authorSchema);
     }
     /**

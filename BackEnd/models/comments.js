@@ -28,10 +28,6 @@ class CommentModel {
             },
         });
 
-        // Virtual for this about instance URL.
-        commentSchema.virtual("url").get(function () {
-            return "/blog/comment/" + this._id;
-            });
         this.model = model('Comment', commentSchema);
     }
     // Method to create a new comment

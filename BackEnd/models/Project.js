@@ -40,10 +40,6 @@ class ProjectModel {
             },
         });
 
-        // Virtual for this about instance URL.
-        projectSchema.virtual("url").get(function () {
-            return "/projectRoutes/project/" + this._id;
-            });
         this.model = mongoose.model('Project', projectSchema);
     }
     /**
