@@ -1,6 +1,9 @@
 # Ignore node_modules directory
 node_modules/
 
+#Just for now
+/BackEnd/
+
 # Ignore macOS specific files
 .DS_Store
 
