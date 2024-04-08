@@ -15,31 +15,51 @@
     <title>NdevuSpace</title>
   </head>
     <body>
-        <header>
-         <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
-         <div class="">
-          <div class="navigation flex-row"> 
-            <a href="skills.html">Skills</a>
-            <a href="about.html">About</a>
-            <a href="hire_me.html">Hire me</a>
-            <a href="services.html">Service</a>
-            <a href="blogs.html">Blogs</a>
-            <a href="index.html#contactme">Contact me</a>
-            <a href="projects.html">Portfolio</a>
-            <a href="profile_view.html">
-              <div class="admin">
-                <img src="../images/mypic.png" alt="My Picture">
-             </div>
-            </a>
-          </div>
+      <header>
+        <div class="logo">
+         <a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a>
+       </div>
+         <div class="naviga">
+ 
+           <input type="checkbox" id="sidebar-active">
+           <label for="sidebar-active" class="open-sidebar-button">
+             <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+           </label>
+           <label id="overlay" for="sidebar-active"></label>
+ 
+           <div class="navigation flex-row"> 
+ 
+             <label for="sidebar-active" class="close-sidebar-button">
+               <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+             </label>
+ 
+             <a href="skills.html">Skills</a>
+             <a href="about.html">About</a>
+             <a href="hire_me.html">Hire me</a>
+             <a href="services.html">Service</a>
+             <a href="blogs.html">Blogs</a>
+             <a href="index.html#contactme">Contact me</a>
+             <a href="projects.html">Portfolio</a>
+             <a href="profile_view.html">
+               <div class="admin">
+                 <img src="../images/mypic.png" alt="My Picture">
+              </div>
+             </a>
+           </div>
+           
          </div>
-        </header>
+       </header>
                  
                 <section class="skills_page">
                   <div class="skills_page_class">
-                    <h1 class="me_big_b">Skills board</h1>
-                    <h4>Welcome to my skills board, here is where you find detailed information about my skills. Enjoy!!
-                    </h4>
+
+                    <div class="skillBoard">
+                       <h1 class="me_big_b">Skills board</h1>
+                       <div class="explain">
+                        <h4>Welcome to my skills board, here is where you find detailed information about my skills. Enjoy!!
+                        </h4>
+                      </div>
+                      </div>
                     <p>
                       Meet the mind behind the code! I am a Full Stack Developer with a keen eye for detail and a love for problem-solving. 
                       My journey in the world of technology has equipped me with a diverse set of skills, 
@@ -47,31 +67,34 @@
                       </p>
                       <br>
                       
-                      <h2>Table of content:</h2>
-                      <h3>Technical skills:</h3>
+                      <div class="tableOfContent">
+                      <h1 id="Table">Table of content:</h1>
+                      <h2 id="TechnicalSkills">1. Technical skills:</h2>
                       <ul>
-                        <li><a href="#">UX-UI Design</a></li>
-                        <li><a href="#">Full stack Developer</a></li>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">IT support specialist</a></li>
-                        <li><a href="#">UX-UI Design</a></li>
-                        <li><a href="#">UX-UI Design</a></li>
+                        <li><a href="#Design">UX-UI Design</a></li>
+                        <li><a href="#Developer">Full stack Developer</a></li>
+                        <li><a href="#Development">Web Development</a></li>
+                        <li><a href="#specialist">IT support specialist</a></li>
+                        <li><a href="#unknown">unknown</a></li>
+                        <li><a href="#already">already</a></li>
                       </ul>
 
-                      <H3>Soft Skills:</H3>
+                      <h2 id="SoftSkills">2. Soft Skills:</h2>
                       <ul>
-                        <li><a href="#">Comunnication skills</a></li>
-                        <li><a href="#">Team leadership</a></li>
-                        <li><a href="#">Project managementt</a></li>
-                        <li><a href="#">IT support specialist</a></li>
-                        <li><a href="#">Problem solving skills</a></li>
-                        <li><a href="#">UX-UI Design</a></li>
+                        <li><a href="#Comunnication">Comunnication skills</a></li>
+                        <li><a href="#leadership">Team leadership</a></li>
+                        <li><a href="#managementt">Project managementt</a></li>
+                        <li><a href="#discovered">Un discovered skills</a></li>
+                        <li><a href="#Problem_olving">Problem solving skills</a></li>
+                        <li><a href="#Innovative">Innovative and creative</a></li>
                       </ul>
-                     
+                    </div>
+
+                    <div class="technicalSkills">
                       <h1><u>1. Technical skills:</u></h1>
                       <br>
 
-                      <h1>UX-UI Design</h1>              
+                      <h3 id="Design"></h1>UX-UI Design</h3>              
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
@@ -79,79 +102,158 @@
                       </p>
                       <br>
           
-                      <h1>Full stack Developer</h1>
+                      <h3 id="Developer">Full stack Developer</h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
           
-                      <h1>
+                      <h3 id="Development">
                         Web Development
-                      </h1>
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
 
-                      <h1>
+                      <h3 id="specialist">
                         IT support specialist
-                      </h1>
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
-                       
-                      <H1><u>2. Soft Skills:</u></H1>
+
+                      <h3 id="unknown">
+                        unknown
+                      </h3>
+                      <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
+                        interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
+                        Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
+                      </p>
+
+                      <h3 id="already">
+                        already
+                      </h3>
+                      <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
+                        interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
+                        Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
+                      </p>
+
+                      <h3 id="already">
+                        already
+                      </h3>
+                      <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
+                        interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
+                        Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
+                      </p>
+                    </div>   
+                    
+                    <div class="softSkills">
+                      <H1 id="SoftSkills"><u>2. Soft Skills:</u></H1>
                       <br>
-                      <h1>
+                      <h3>
                         Problem Solving
-                      </h1>
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
 
-                      <h1>
+                      <h3 id="Innovative">
                         Innovative and creative
-                      </h1>
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
 
-                      <h1>
-                        Communicatin
-                      </h1>
+                      <h3 id="Communicatin">
+                        Communicatin skills
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
 
-                      <h1>
+                      <h3 id="Leadership">
                         Team Leadership
-                      </h1>
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
 
-                      <h1>
+                      <h3 id="management">
                         Project management
-                      </h1>
+                      </h3>
                       <p>
                         Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
                         interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
                         Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
                       </p>
-          
-                      <h5>For more about my Experiences you can take a look on my works on</h5>
+
+                      <h3 id="Problem_olving">
+                        Problem solving skills
+                      </h3>
+                      <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
+                        interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
+                        Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
+                      </p>
+
+                      <h3 id="discovered">
+                        Un discovered skills
+                      </h3>
+                      <p>
+                        Have you ever wondered about what my mission is really about or who I really Am? I'm on a mission to turn imaginative concepts into tangible, 
+                        interactive realities. Embark on a journey through my code and creations, where each line is a brushstroke on the canvas of innovation. 
+                        Oooh! I didn't talk about my UX/UI design talent and skills but it goes hand in hands with my development skills.
+                      </p>
+                    </div>
+
+                    <div class="certificates">
+                      <h1 id="Certificates"><u>3. Certificates:</u></h1>
+                      <ol>
+                      <h3 id="PrototypingAndWireframing">
+                        <li>Prototyping and Wireframing</li>
+                      </h3>
+                      <div class="servicePhoto">
+                        <img src="../images/blogImages/technology.jfif" alt="Technology">
+                      </div>
+
+                      <h3 id="PrototypingAndWireframing">
+                        <li>Prototyping and Wireframing</li>
+                      </h3>
+                      <div class="servicePhoto">
+                        <img src="../images/blogImages/technology.jfif" alt="Technology">
+                      </div>
+                      <h3 id="PrototypingAndWireframing">
+                        <li>Prototyping and Wireframing</li>
+                      </h3>
+                      <div class="servicePhoto">
+                        <img src="../images/blogImages/technology.jfif" alt="Technology">
+                      </div>
+                      <h3 id="PrototypingAndWireframing">
+                        <li>Prototyping and Wireframing</li>
+                      </h3>
+                      <div class="servicePhoto">
+                        <img src="../images/blogImages/technology.jfif" alt="Technology">
+                      </div>
+                     </ol>
+                    </div>
+
+                      <h3>For more about my Experiences you can take a look on my works on</h3>
                       <ul>
                         <li><p>Portfolio tab on the above navigation Ribbon or click <a href="signin.html" target="_self">here</a>.</p></li>
                         <li><p><a href="https://github.com/Ndevu12?tab=repositories" target="_self">GitHub</a> for a sets of works</p></li>

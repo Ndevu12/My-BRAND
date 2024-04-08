@@ -78,25 +78,28 @@
 
 /* Download my cv button style */
 .download-my-cv {
-    color: black;
-    background-color: white;
+
+  width: auto;
+  height: auto;
+  color: rgb(255, 255, 255) !important;
+  background-color: #2f2b2b;
+  border-radius: 20px;
+  border: 1px solid #916868;
+  padding: 10px;
+  text-align: center;
     font-family: bold;
-    border: none;
-    border-radius: 4em;
-    text-align: center;
-    font-size: 1em;
-    height: 2em;
-    margin: 12px 30px;
+    font-size: 17px;
     min-width: 150px;
     width: 20%;
   }
   
   /* Download my cv button hover opacity */
   .download-my-cv:hover {
-    color: black !important;
-    font-family: bold;
-    background-color: rgb(233, 225, 225);
-    cursor: pointer;
+    background-color: #101426;
+    color: rgb(224, 193, 16) !important;
+    width: 35%;
+    font-size: large;
+    cursor : pointer;
   }
 
    /* Align introduction class as screen gets smaller */

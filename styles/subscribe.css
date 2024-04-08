@@ -68,6 +68,7 @@
 .intro-sub .edit_button:hover {
   background-color: #101426;
   color: rgb(224, 193, 16) !important;
+  width: 25%;
   
 }
 

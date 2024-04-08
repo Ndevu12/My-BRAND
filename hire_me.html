@@ -17,24 +17,39 @@
   </head>
   <body>
     <header>
-         <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
-         <div class="">
-          <div class="navigation flex-row"> 
-            <a href="skills.html">Skills</a>
-            <a href="about.html">About</a>
-            <a href="hire_me.html">Hire me</a>
-            <a href="services.html">Service</a>
-            <a href="blogs.html">Blogs</a>
-            <a href="index.html#contactme">Contact me</a>
-            <a href="projects.html">Portfolio</a>
-            <a href="profile_view.html" target="_self">
-              <div class="admin">
-                <img src="../images/mypic.png" alt="My Picture">
-             </div>
-            </a>
-          </div>
+      <div class="logo">
+       <a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a>
+     </div>
+       <div class="naviga">
+
+         <input type="checkbox" id="sidebar-active">
+         <label for="sidebar-active" class="open-sidebar-button">
+           <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+         </label>
+         <label id="overlay" for="sidebar-active"></label>
+
+         <div class="navigation flex-row"> 
+
+           <label for="sidebar-active" class="close-sidebar-button">
+             <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+           </label>
+
+           <a href="skills.html">Skills</a>
+           <a href="about.html">About</a>
+           <a href="hire_me.html">Hire me</a>
+           <a href="services.html">Service</a>
+           <a href="blogs.html">Blogs</a>
+           <a href="index.html#contactme">Contact me</a>
+           <a href="projects.html">Portfolio</a>
+           <a href="profile_view.html">
+             <div class="admin">
+               <img src="../images/mypic.png" alt="My Picture">
+            </div>
+           </a>
          </div>
-      </header>
+         
+       </div>
+     </header>
 
       <section class="hire_me_page">
         <div class="hire_me_page_class">
@@ -43,43 +58,48 @@
           </h4>
 
           <div class="employment_stat">
-            <h6 class="open">Open to work anytime:<output id="selectedvalue"> Yes</output></h6>
+            <h4>Open to work anytime?<output id="selectedvalue"> Yes</output>!</h4>
+            <h5><a href="#ContactInformation"> Contact Me</a></h5>
            </div>
 
           <p>
-            Welcome! I'm Ndevu, a versatile and passionate professional specializing in full-stack software development, web development, 
-            and UX design. With 2 years of experience in the industry, I bring a unique blend of technical expertise and creative problem-solving 
-            skills to every project.
+            Welcome! I'm Ndevu, a versatile and passionate professional specializing in full-stack software development, 
+            web development, and UX design. With 2 years of experience in the industry, 
+            I bring a unique blend of technical expertise and creative problem-solving skills to every project.
             </p>
             <br>
 
             <h1>Work Process</h1>
-            <h4 class="believer">I believe in a collaborative approach to every project. Here's how I typically work:</h4>
+            <p>I believe in a collaborative approach to every project. Here's how I typically work:</p>
             <ol>
               <li><b>Discovery:</b> We'll start by discussing your project goals, target audience, and requirements in detail.</li>
               <li><b>Planning:</b> I'll create a roadmap and project plan tailored to your needs, outlining milestones and timelines.</li>
               <li><b>Design & Development:</b> I'll design intuitive user interfaces and develop scalable solutions using the latest technologies and best practices.</li>
-            <li><b>Testing & Feedback:</b> Your feedback is crucial. I'll iterate on the design and functionality based on your input to ensure a polished final product.</li>
-            <li><b>Launch & Support:</b> Once everything is perfect, I'll assist with the launch and provide ongoing support as needed.</li>
-            <li><b>Maintenance:</b> If there is a need for mentainance so far, I will help in mentainance process as needed.</li>
-          </ol>
+              <li><b>Testing & Feedback:</b> Your feedback is crucial. I'll iterate on the design and functionality based on your input to ensure a polished final product.</li>
+              <li><b>Launch & Support:</b> Once everything is perfect, I'll assist with the launch and provide ongoing support as needed.</li>
+            </ol>
+
+            <h2>Rates and Pricing</h2>
+            <p>
+              My rates are competitive and vary depending on the scope and complexity of the project. I'm happy to provide a detailed quote based on your specific requirements. 
+              Please feel free to reach out to discuss your project and get a personalized estimate.
+            </p>
             <br>
 
-            <h1>Rates and Pricing</h1>
-            <p>
-              My rates are competitive and based on the scope and complexity of each project. Contact me for a personalized quote.
-            </p>
-            <h1>Rates and Pricing</h1>
+            <h2 id="ContactInformation">Contact Information</h2>
             <p>
               Ready to get started? Reach out to me via:
             </p>
             <ul>
-              <li>Email: ndevulion@gmail.com</li>
-              <li>Phone: 07850444444</li>
-              <li>Social Media: www.linkedin.com/in/jean-paul-elisa</li>
+              <li id="messageMe"><a href="index.html#contactme" alt="Contact me link">Here on  NdevuSpace</a></li>
+              <li><b>Email:</b><span> niyokwizerwajeanpaulelisa@gmail.com</span></li>
+              <li><b>Phone:</b><span> 0785044444444</span></li>
+              <li><b>Social Media:</b><span> www.linkedin.com/in/jean-paul-elisa</span></li>
             </ul>
 
-            <h1>Call to Action</h1>
+            <h1>
+              Call to Action
+            </h1>
             <p>
               Let's turn your vision into reality! Whether you need a custom web application, a responsive website, or a seamless user experience, I'm here to help. Contact me today for a free consultation.
             </p>

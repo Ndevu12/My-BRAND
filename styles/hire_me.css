@@ -63,8 +63,13 @@ text-align: center;
 .hire_me_page p{
   color: rgb(219, 223, 227);
 }
-.hire_me_page_class  a {
-color: rgb(153, 153, 41);
+
+a {
+  text-decoration: none;
+}
+
+.hire_me_page_class li p a {
+color: rgb(227, 187, 39);
 text-decoration: none;
 }
 
@@ -74,14 +79,14 @@ text-decoration: none;
    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif,  ;
 }
 
-.hire_me_page_class b {
-color: rgb(161, 122, 70);
+.hire_me_page_class b, ul a {
+color: rgb(219, 177, 41);
 font-size: x-large;
 }
 
 .hire_me_page_class ol li {
   color: rgb(209, 212, 214);
-  font-size: large;
+  font-size: larger;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .hire_me_page_class {
@@ -96,7 +101,15 @@ margin-top: 1em;
 /* border: 1px solid red; */
 }
 
+/* .hire_me_page_class ul a {
+  color: rgb(250, 195, 127);
+  font-weight: 100px;
+} */
 
+.hire_me_page_class ul span {
+  color: rgb(243, 242, 239);
+  font-size: larger;
+}
 .hire_me_big {
 font-size: xx-large;
 text-align: center;
@@ -139,6 +152,12 @@ text-align: center;
     margin-left: .5em;
   }
 
+.employment_stat h5 a {
+  color: rgb(219, 177, 41);
+  text-decoration: none;
+  font-family: italic;
+  font-size: large;
+}
 
   .hire_me_page div {
     width: 600px;

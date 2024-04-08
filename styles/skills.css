@@ -1,22 +1,82 @@
 
+body {
+  margin: 0;
+}
+
 .skills_page {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction:column;
     justify-content: center;
-    /* justify-content: space-around; */
     margin: auto;
-    width: 95%;
+    width: 50%;
   
   }
   
+
   .skills_page div {
-    width: 40em;
+    width: 95%;
   } 
+
+
+  .skills_page .skillBoard {
+    border: 1px solid #221728;
+    width: 98%;
+    border-radius: 10px;
+    background-color: #11192e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+  }
   
-  .skills_page_class p, h2, h3, h5{
+  .skills_page .explain {
+    width: 80%;
+    padding: 10px;
+    background-color: #060722;
+    border-radius: 10px;
+  }
+  .skills_page_class h2, h5{
     font-size: x-large;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
+  }
+
+  .skills_page_class p {
+    text-align: left;
+    font-size: large;
+    
+  }
+
+  .tableOfContent {
+    background-color: #1c2336;
+  }
+
+  .technicalSkills{
+    background-color: #020c2a;
+  }
+
+  .softSkills {
+    background-color: #0b1629;
+  }
+
+  .certificates {
+    background-color: #121d39;
+  }
+
+  .certificates,
+  .technicalSkills,
+  .tableOfContent,
+  .softSkills {
+    border-radius: 10px;
+    padding: 10px;
+    width: 95%;
+    /* margin: 10px; */
+  }
+
+  #Table, #TechnicalSkills, #SoftSkills{
+    text-align: left;
+    font-size: x-large;
   }
 
   .skills_page_class h1{
@@ -37,14 +97,20 @@
     text-decoration: none;
   }
   
-  .skills_page_class li {
+  .skills_page_class .tableOfContent li {
     text-align: left;
     color: white;
     font-size: 23px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
   }
   
+  .skills_page_class .certificates li {
+    text-align: center;
+    color: white;
+    /* font-size: 23px; */
+    /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  }
+
   .skills_page_class {
     background-color: rgb(12, 12, 34);
     /* margin-left: 2.5em; */
@@ -57,10 +123,17 @@
     /* border: 1px solid red;   */
   }
   
-  .me_big_b {
-    font-size: xx-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  .skillBoard .me_big_b {
+    font-size: x-large;
     text-align: center;
+    background-color: #060722;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 85%;
+    border-radius: 9px;
+    border: 0;
   }
 
   .edit_button{
@@ -82,3 +155,39 @@
     color: rgb(224, 193, 16) !important;
   }
 
+@media screen and (max-width: 700px) {
+  .skills_page {
+    width: 95%;
+  }
+
+  .skills_page div {
+    width: 93%;
+  } 
+
+  /* .skillBoard {
+    margin-left: 11px;
+  } */
+
+  
+  #Table, #TechnicalSkills, #SoftSkills{
+    text-align: left;
+    font-size: large;
+  }
+
+  .skills_page_class h1{
+    font-size: large;
+  }
+
+  
+  .skills_page h4 {
+    font-size: medium;
+  }
+  
+
+  .skills_page_class {
+    margin-bottom: 2em;
+    text-align: center;
+    margin-top: 1em;
+    /* border: 1px solid red;   */
+  }
+}
