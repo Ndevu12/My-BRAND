@@ -1,4 +1,5 @@
 /* =================Styling signup class within firststep class===========*/
+@import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
 
 /* firststep class styling*/
 .firststep {
@@ -50,6 +51,6 @@
   p {
   
     font-size: medium;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     /* text-align: left; */
 }

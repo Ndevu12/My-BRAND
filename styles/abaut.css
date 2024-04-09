@@ -5,7 +5,7 @@
  */
 
 /*=========== styling intro-about class ======*/
-
+@import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
 .intro-about {
   background-color: rgb(27, 24, 35);
   /* border: 1px solid red !important; */
@@ -71,13 +71,13 @@
 
   .about-class p, h1, h2, h3, h5 {
   font-size : x-large;
-  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family : 'Roboto', sans-serif;
   text-align : left;
   }
 
   .intro-about h4 {
   font-size : x-large;
-  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family : 'Roboto', sans-serif;
   text-align : center;
   }
 
@@ -167,13 +167,13 @@
 
   .about_page_class p, h1, h2, h3, h5 {
   font-size : x-large;
-  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family : 'Roboto', sans-serif;
   text-align : left;
   }
 
   .about_page h4 {
   font-size : x-large;
-  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family : 'Roboto', sans-serif;
   text-align : center;
   }
 
@@ -195,7 +195,7 @@
 
   .me_big {
   font-size : xx-large;
-  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family : 'Roboto', sans-serif;
   text-align : center;
   }
 

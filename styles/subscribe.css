@@ -1,6 +1,7 @@
 /*
  * === intro-sub class style ===
  */
+ @import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
 
 /* intro-sub flexbox */
 .intro-sub  {
@@ -127,3 +128,4 @@
         margin: 5px;
       }  */
     }
+    

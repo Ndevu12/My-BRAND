@@ -2,6 +2,7 @@
 /*
  *=====Introduction class styling =====
  */
+ @import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
 
  /* * {
     box-sizing: border-box;
@@ -44,7 +45,7 @@
 
 .minded p {
   font-size: 20px;
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .face {

@@ -1,5 +1,7 @@
 /*======== Styling analytics ============*/
 
+@import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
+
 /* styling analysis class */
 .Analysis {
     display: flex;

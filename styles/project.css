@@ -2,6 +2,9 @@
  * === intro-serviceclass style ===
  */
 
+@import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
+ 
+
 /* intro-service flexbox */
 .intro-project {
     display: flex;
@@ -315,7 +318,7 @@
   background-color: rgb(62, 56, 48);
   border-radius: 5px;
   font-size: xx-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
   padding: 15px;
 } 
 
@@ -373,14 +376,14 @@ text-decoration: none;
   .projects_page p, h1, h2, h3, h4, h5{
   
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     /* text-align: left; */
 }
 
 .projects_page h1{
   
   font-size: xx-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
   /* text-align: left; */
 }
 

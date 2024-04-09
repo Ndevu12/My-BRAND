@@ -19,7 +19,7 @@ const USERID = {
   
   // postCommentingButton.addEventListener("click",
   
-  userComment.addEventListener("input", e => {
+  userComment.addEventListener("input",(e) => {
     if (!userComment.value) {
       publishBtn.setAttribute("disabled", "disabled");
       publishBtn.classList.remove("abled")
@@ -27,7 +27,7 @@ const USERID = {
       publishBtn.removeAttribute("disabled");
       publishBtn.classList.add("abled")
     }
-  })
+  });
   
   function addComment() {
     if (!userComment.value) return;
@@ -177,8 +177,3 @@ document.getElementById("goBack").addEventListener("click", goBack);
 //     }
 
 //     publishBtn.addEventListener("click", addPost);
-
-
-
-  
-

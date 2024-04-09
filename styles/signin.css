@@ -1,4 +1,5 @@
 /* =================Styling signin class within secondstep class===========*/
+@import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
 
 /* secondstep class styling*/
 .secondstep {
@@ -80,13 +81,13 @@ a {
   h5{
   
     font-size: small;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     /* text-align: left; */
 }
 
 p {
   
     font-size: large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     /* text-align: left; */
 }

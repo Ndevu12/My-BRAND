@@ -2,6 +2,9 @@
  * === intro-contact class style ===
  */
 
+@import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
+
+
 /* intro-sub flexbox */
 .intro-contact  {
     display: flex;

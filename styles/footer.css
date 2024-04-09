@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/csss/family=Roboto:700&display=swap');
+
 footer {
     background-color: rgb(22, 22, 44);
     height: auto;
@@ -13,14 +15,14 @@ footer {
 .footerdesc ul {
 /* border: 1px red solid ; */
 font-size: small;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-family:'Roboto', sans-serif;
 }
 
 
 footer p, h1, h2, h3, h4, h5{
    width: 95%;
     font-size: medium;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
 }
 
  /* .footer-container {
