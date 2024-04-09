@@ -26,6 +26,7 @@ class EducationController {
                 res.status(500).json({ error: 'Internal server error' });
             }
     }
+    // hijokl
     /**
      * Method to fetch education record by ID.
      * @param req Request object containing the education record ID.

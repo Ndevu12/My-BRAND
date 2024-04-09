@@ -75,4 +75,5 @@ class InternshipModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default InternshipModel;

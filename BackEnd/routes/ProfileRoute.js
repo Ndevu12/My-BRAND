@@ -14,5 +14,6 @@ router.get('/Profile/:id/getProfileById', ProfileCont.getProfileById);
 router.get('/Profile/getAllProfiles', ProfileCont.getAllProfiles);
 router.delete('/Profile/:id/deleteProfile', ProfileCont.deleteProfile);
 
+
 // Export the router
 export default router;

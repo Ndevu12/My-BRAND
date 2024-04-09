@@ -14,5 +14,6 @@ router.get('/skill/:id/getSkillById', skillCont.getSkillById);
 router.get('/skill/getAllSkills', skillCont.getAllSkills);
 router.delete('/skill/:id/deleteSkill', skillCont.deleteSkill);
 
+// hijokl
 // Export the router
 export default router;

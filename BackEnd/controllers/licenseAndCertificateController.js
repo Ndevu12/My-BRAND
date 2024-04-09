@@ -10,6 +10,7 @@
 
 import licenseAndCertificateModel from '../models/lisenceAndCertificate.js';
 
+// hijokl
 class LicenseCertificateController {
     /**
  * Method to create a new License and Certificate.

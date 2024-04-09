@@ -88,5 +88,4 @@ async getAllSubscribers() {
     }
 }
 // Create the Subscriber model
-// const SubscriberModel = mongoose.model<ISubscriber>('Subscriber', new SubscriberSchema());
 export default SubscriberModel;

@@ -37,7 +37,7 @@ class AboutController {
      * @param req Request object.
      * @param res Response object to send the about sections.
      */
-
+// hijokl
     async getAllAbout(req, res) {
             try {
                 const aboutSections = await AboutModel.getAllAbout();
@@ -49,6 +49,7 @@ class AboutController {
             }
         }
     
+
     /**
      * Method to retrieve an about section by its ID.
      * @param req Request object containing the about section ID.

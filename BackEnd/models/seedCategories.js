@@ -22,8 +22,10 @@ const seedCategories =  async () => {
             { name: 'Technology' },
             { name: 'Science' }
         ];
+
         // Insert categories into the database
         //await blogCategory.create(categoriesData);
+        
         // Create categories in the database
         for (const categoryData of categoriesData) {
             await createBlogCategory(categoryData);

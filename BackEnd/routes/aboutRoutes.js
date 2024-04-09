@@ -21,4 +21,5 @@ aboutRouter.put('/abaut/:id/updateAbout', aboutCont.updateAbout);
 // Route to delete an existing about entry
 aboutRouter.delete('/abaut/:id/deleteAbout', aboutCont.deleteAbout);
 
+// hijokl
 export default aboutRouter;

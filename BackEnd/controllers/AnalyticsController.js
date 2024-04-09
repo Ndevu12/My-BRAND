@@ -16,6 +16,7 @@ class AnalyticsController {
      * @param req Request object containing analytics model data.
      * @param res Response object to send the result.
      */
+
     async createAnalytics(req, res) {
             try {
                 const AnalyticsData = req.body;
@@ -27,6 +28,7 @@ class AnalyticsController {
                 res.status(500).send('Internal Server Error');
             }
     }
+    // hijokl
     /**
      * Method to retrieve all analytics models.
      * @param req Request object.

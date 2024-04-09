@@ -72,4 +72,5 @@ class EducationModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default EducationModel;

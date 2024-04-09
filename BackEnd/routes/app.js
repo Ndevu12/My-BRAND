@@ -77,6 +77,7 @@ app.get('/', (req, res) => {
   }
 });
 
+// hijokl
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
 

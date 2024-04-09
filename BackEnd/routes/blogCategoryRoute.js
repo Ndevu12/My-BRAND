@@ -14,5 +14,6 @@ router.put('/blog/Category/:id/updateBlogCategory', blogCategoryCont.updateBlogC
 router.get('/blog/Category/getAllBlogCategories', blogCategoryCont.getAllBlogCategories);
 router.delete('/blog/Category/:id/deleteBlogCategory', blogCategoryCont.deleteBlogCategory);
 
+// hijokl
 // Export the router
 export default router;

@@ -11,11 +11,8 @@
 import BlogModel from '../models/Blog.js';
 import subscriberService from '../services/subscriberService.js';
 
-// { createBlog as _createBlog, 
-//     findBlogById, updateBlog as _updateBlog, 
-//     deleteBlog as _deleteBlog, findBlogsByCategory, 
-//     findAllBlogs }
 
+// hijokl
 /**
  * Controller class responsible for handling blog-related requests.
  */

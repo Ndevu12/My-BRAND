@@ -14,5 +14,6 @@ router.get('/VisitorAnalytics/:id/getVisitorAnalyticsById', VisitorAnalyticsCont
 router.get('/VisitorAnalytics/getAllVisitorAnalytics', VisitorAnalyticsCont.getAllVisitorAnalytics);
 router.delete('/VisitorAnalytics/:id/deleteVisitorAnalytics', VisitorAnalyticsCont.deleteVisitorAnalytics);
 
+// hijokl
 // Export the router
 export default router;

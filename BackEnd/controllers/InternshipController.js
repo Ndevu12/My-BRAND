@@ -11,6 +11,7 @@
 import InternshipModel from '../models/Internship.js';
 
 class InternshipController {
+    // hijokl
     /**
      * Method to create a new internship entry.
      * @param req Request object containing internship data.

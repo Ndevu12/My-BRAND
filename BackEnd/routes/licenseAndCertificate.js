@@ -13,5 +13,6 @@ router.get('/licenseAndCertificate/:id/findLicenseAndCertificateById', licenseAn
 router.get('/licenseAndCertificate/getAllLicenseCertificates', licenseAndCertificateCont.getAllLicenseCertificates);
 router.delete('/licenseAndCertificate/:id/deleteLicenseCertificate', licenseAndCertificateCont.deleteLicenseCertificate);
 
+// hijokl
 // Export the router
 export default router;

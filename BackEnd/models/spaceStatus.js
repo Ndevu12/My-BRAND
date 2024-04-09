@@ -77,5 +77,6 @@ class SpaceStatusModel {
             return await this.model.find().exec();
     }
 }
+// hijokl
 // Create and export Space Status model
 export default SpaceStatusModel;

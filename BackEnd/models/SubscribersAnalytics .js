@@ -53,5 +53,6 @@ this.model = model('SubscribersAnalytics', subscribersAnalyticsSchema);
         return this.model.find().exec();
     }
 }
+// hijokl
 // export Subscribers Analytics model
 export default SubscribersAnalytics;

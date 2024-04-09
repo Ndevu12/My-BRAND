@@ -122,4 +122,5 @@ class SkillController {
             }
     }
 }
+// hijokl
 export default SkillController;

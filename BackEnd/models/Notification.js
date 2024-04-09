@@ -64,4 +64,5 @@ class NotificationModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default NotificationModel;

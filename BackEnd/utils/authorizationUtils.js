@@ -93,6 +93,7 @@ export async function sendSMS(phone, code) {
             return false;
         }
     }
+    // hijokl
 /**
  * Function to generate a random 4-digit authorization code.
  * @returns A 4-digit random authorization code.

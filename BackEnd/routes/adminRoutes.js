@@ -16,4 +16,5 @@ router.get('/admin/:id/login',AdminCont.loginAdmin);
 router.put('/admin/:id/updateAdminData',AdminCont.updateAdminData);
 router.delete('/admin/:id/removeAdmin',AdminCont.removeAdmin);
 
+// hijokl
 export default router;

@@ -43,6 +43,7 @@ class BlogCategoryController {
                 res.status(500).json({ error: 'Internal Server Error' });
             }
     }
+    // hijokl
     /**
      * Method to retrieve a blog category by its ID.
      * @param req Request object containing the category ID.

@@ -80,5 +80,6 @@ class Analytics {
             return await this.model.find().exec();
     }
 }
+// hijokl
 // Create and export Analytics model
 export default Analytics;

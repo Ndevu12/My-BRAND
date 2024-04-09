@@ -13,5 +13,6 @@ router.get('/notification/:id/getNotificationById', notificationCont.getNotifica
 router.get('/notification/getAllNotifications', notificationCont.getAllNotifications);
 router.delete('/notification/:id/deleteNotification', notificationCont.deleteNotification);
 
+
 // Export the router
 export default router;

@@ -27,6 +27,7 @@ class AuthorController {
                 res.status(500).send('Internal Server Error');
             }
     }
+    // hijokl
     /**
      * Method to retrieve all authors.
      * @param req Request object.

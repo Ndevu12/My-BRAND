@@ -21,4 +21,5 @@ class ValidationUtils {
         return phoneRegex.test(phoneNumber);
     }
 }
+// Export the ValidationUtils class
 export default ValidationUtils;

@@ -14,5 +14,6 @@ router.get('/Internship/:id/getInternshipById', InternshipCont.getInternshipById
 router.get('/Internship/getAllInternships', InternshipCont.getAllInternships);;
 router.delete('/Internship/:id/deleteInternship', InternshipCont.deleteInternship);
 
+// hijokl
 // Export the router
 export default router;

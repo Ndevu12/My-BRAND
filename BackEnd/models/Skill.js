@@ -72,4 +72,5 @@ class SkillModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default SkillModel;

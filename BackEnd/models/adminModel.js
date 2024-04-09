@@ -66,4 +66,5 @@ this.model = model('Admin', adminSchema);
     return updateAdmin;
    }
 }
+// hijokl
 export default AdminModel;

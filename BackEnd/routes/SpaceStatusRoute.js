@@ -14,5 +14,6 @@ router.get('/SpaceStatus/:id/getSpaceStatusById', SpaceStatusCont.getSpaceStatus
 router.get('/SpaceStatus/getAllSpaceStatuses', SpaceStatusCont.getAllSpaceStatuses);
 router.delete('/SpaceStatus/:id/deleteSpaceStatus', SpaceStatusCont.deleteSpaceStatus);
 
+// hijokl
 // Export the router
 export default router;

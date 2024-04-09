@@ -84,4 +84,5 @@ class ServiceModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default ServiceModel;

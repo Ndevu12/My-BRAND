@@ -79,4 +79,5 @@ class ProfileModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default ProfileModel;

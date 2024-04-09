@@ -53,4 +53,5 @@ class CommentModel {
         return await this.model.find().exec();
     }
 }
+// hijokl
 export default CommentModel;

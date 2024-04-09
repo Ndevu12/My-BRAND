@@ -39,4 +39,4 @@ export default async function sendNotificationByEmail(email, subject, message) {
             throw new Error('Failed to send notification');
         }
     }
-    
+// Compare this snippet from BackEnd/models/Notification.js:

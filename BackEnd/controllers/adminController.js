@@ -87,6 +87,7 @@ class AdminController {
                 res.status(500).json({ error: 'Internal server error' });
             }
         }
+// hijokl
 
     async updateAdminData(req, res) {
         try{

@@ -14,5 +14,6 @@ router.get('/Education/:id/getEducationById', EducationCont.getEducationById);
 router.get('/Education/:id/getAllEducations', EducationCont.getAllEducations);
 router.delete('/Education/:id/deleteEducation', EducationCont.deleteEducation);
 
+// hijokl
 // Export the router
 export default router;

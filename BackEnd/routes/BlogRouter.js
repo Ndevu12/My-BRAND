@@ -15,5 +15,6 @@ router.get('/Blog/:id/getBlogById', BlogCont.getBlogById);
 router.get('/Blog/getAllBlogs', BlogCont.getAllBlogs);
 router.delete('/Blog/:id/deleteBlog', BlogCont.deleteBlog);
 
+// hijokl
 // Export the router
 export default router;

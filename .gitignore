@@ -2,7 +2,7 @@
 node_modules/
 
 #Just for now
-/BackEnd/
+# /BackEnd/
 
 # Ignore macOS specific files
 .DS_Store

@@ -13,5 +13,6 @@ AnalyticsRouter.post('/analytics/:id/createAnalytics', analytics.createAnalytics
 AnalyticsRouter.put('/analytics/:id/updateAnalytics', analytics.updateAnalytics);
 AnalyticsRouter.delete('/analytics/:id/deleteAnalytics', analytics.deleteAnalytics);
 
+// hijokl
 // Export the router
 export default AnalyticsRouter;
