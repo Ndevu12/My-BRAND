@@ -2,6 +2,8 @@
     margin: 1em;
 } */
 
+
+
 .article_board {
     margin-top: 1em;
     margin-bottom: 1em;
@@ -119,7 +121,7 @@
     padding-bottom: 1em;
     color: yellow ;
     font-style: normal ;
-    font-family: 'Arial Narrow Bold', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: x-large; 
   }
 
@@ -153,7 +155,7 @@
   .articles_storage p, h1, h2, h3, h4, h5{
   
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     /* text-align: left; */
 }
 
@@ -174,7 +176,7 @@
       .articles_storage p, h1, h2, h3, h4, h5{
   
         font-size: medium;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family:'Roboto', sans-serif;
         /* text-align: left; */
     }
     
@@ -227,7 +229,7 @@
       .articles_storage p, h1, h2, h3, h4, h5{
   
         font-size: large;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family:'Roboto', sans-serif;
     }
 
       .articles_storage div {
@@ -262,7 +264,7 @@
       .articles_storage p, h1, h2, h3, h4, h5{
   
         font-size: larger;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family:'Roboto', sans-serif;
     }
 
     .recently_uploaded, .all_others {

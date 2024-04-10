@@ -1,6 +1,6 @@
 .post {
 	width: 100%;
-	font-family: 'Lexend', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	/* border: 1px solid red; */
 }
 
@@ -31,7 +31,7 @@
 
 .post-rating-selected > .post-rating-button,
 .post-rating-selected > .post-rating-count {
-	color: yellow;
+	color: rgb(255, 157, 0);
 }
 
 .post-rating-button {

@@ -1,4 +1,5 @@
 
+@import url('https://fonts.gooogleapis.com/csss/family=Roboto:700&display=swap');
 
 .subscription_board {
   /* width: 95%; */
@@ -94,7 +95,7 @@
     padding-bottom: 1em;
     color: rgb(232, 140, 10) ;
     font-style: normal ;
-    font-family: 'Arial Narrow Bold', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: x-large; 
   }
 

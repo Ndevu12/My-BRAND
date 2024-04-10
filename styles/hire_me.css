@@ -53,7 +53,7 @@ color: rgb(208, 213, 214);
   margin-top: 10px !important;
   margin-bottom: 10px;
   font-size: large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
 }
 .hire_me_page h4 {
 font-size: larger;
@@ -76,7 +76,7 @@ text-decoration: none;
 .hire_me_page_class .believer {
   font-size: x-large;
    color: rgb(182, 186, 190);
-   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif,  ;
+   font-family:'Roboto', sans-serif;
 }
 
 .hire_me_page_class b, ul a {
@@ -87,7 +87,7 @@ font-size: x-large;
 .hire_me_page_class ol li {
   color: rgb(209, 212, 214);
   font-size: larger;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
 }
 .hire_me_page_class {
 background-color: rgb(22, 22, 33);

@@ -3,8 +3,6 @@
  =============  1. intro-servicet class to be used in INDEX.HTML/homepage
  ============== 2. service_page class which is stand for SERVICE PAGE
  */
-
-
 /*
  * === intro-service class style ===
  */
@@ -25,7 +23,7 @@
 
   .intro-service p {
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
   }
   /* Article style */
   .intro-service article {
@@ -50,7 +48,7 @@
     padding: 0;
     text-align: center;
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     
   }
 
@@ -252,13 +250,13 @@
 }
 .service_class h1,  h2, h3, h4{
   font-size: x-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
   text-align: left; 
 }
 
 .service_class p {
   font-size: large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
   text-align: left;
   color: rgb(255, 252, 252);
 }
@@ -266,7 +264,7 @@
   text-align: left;
   font-size: large;
   color: rgb(255, 252, 252);
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
 
 }
 
@@ -276,7 +274,7 @@
 }
 /* h1 {
   font-size: x-large;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Roboto', sans-serif;
 } */
 
 .service_class a {

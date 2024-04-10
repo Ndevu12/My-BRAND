@@ -5,6 +5,8 @@
  * styling header of every section [down]
 */
 
+
+
 /* intro-blog flexbox */
 .intro-blog {
     display: flex; 
@@ -89,7 +91,7 @@
 .intro-blog a {
     color: #ffffff;
     font-size: 1.2em;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Styling interaction subclass*/

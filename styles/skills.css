@@ -1,4 +1,5 @@
 
+
 body {
   margin: 0;
 }
@@ -38,7 +39,7 @@ body {
   }
   .skills_page_class h2, h5{
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     text-align: left;
   }
 
@@ -81,14 +82,14 @@ body {
 
   .skills_page_class h1{
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     text-align: center;
   }
 
   
   .skills_page h4 {
     font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
     text-align: center;
   }
   
@@ -101,14 +102,14 @@ body {
     text-align: left;
     color: white;
     font-size: 23px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Roboto', sans-serif;
   }
   
   .skills_page_class .certificates li {
     text-align: center;
     color: white;
     /* font-size: 23px; */
-    /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    /* font-family:'Roboto', sans-serif; */
   }
 
   .skills_page_class {
