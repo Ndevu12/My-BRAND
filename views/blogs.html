@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link rel="stylesheet" type="text/css" href="styles/common.css">
-    <link rel="stylesheet" type="text/css" href="styles/header.css">
-    <link rel="stylesheet" type="text/css" href="styles/footer.css">
-    <link rel="stylesheet" type="text/css" href="styles/blogs.css"> 
-    <link rel="stylesheet" type="text/css" href="styles/comment.css">
-    <link rel="stylesheet" type="text/css" href="styles/likeCommentAndShare.css">
+    <link rel="stylesheet" type="text/css" href="../styles/common.css">
+    <link rel="stylesheet" type="text/css" href="../styles/header.css">
+    <link rel="stylesheet" type="text/css" href="../styles/footer.css">
+    <link rel="stylesheet" type="text/css" href="../styles/blogs.css"> 
+    <link rel="stylesheet" type="text/css" href="../styles/comment.css">
+    <link rel="stylesheet" type="text/css" href="../styles/likeCommentAndShare.css">
     
     <link rel="icon" type="image/png" href="../images/logo1.png">
 
@@ -31,17 +31,17 @@
 </head>
 <body>
     <header>
-        <div class="logo"><a href="index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
+        <div class="logo"><a href="../index.html" target="_self"><img src="../images/logo1.png" alt="logo"></a></div>
         <div class="">
          <div class="navigation flex-row"> 
-           <a href="skills.html">Skills</a>
-           <a href="about.html">About</a>
-           <a href="hire_me.html">Hire me</a>
-           <a href="services.html">Service</a>
-           <a href="blogs.html">Blogs</a>
-           <a href="index.html#contactme">Contact me</a>
-           <a href="projects.html">Portfolio</a>
-           <a href="profile_view.html" target="_self">
+           <a href="../views/skills.html">Skills</a>
+           <a href="../views/about.html">About</a>
+           <a href="../views/hire_me.html">Hire me</a>
+           <a href="../views/services.html">Service</a>
+           <a href="../views/blogs.html">Blogs</a>
+           <a href="../index.html#contactme">Contact me</a>
+           <a href="../views/projects.html">Portfolio</a>
+           <a href="../views/profile_view.html" target="_self">
             <div class="admin">
               <img src="../images/mypic.png" alt="My Picture">
            </div>
@@ -52,12 +52,12 @@
 
      <div class="blogs_categories">
       <a href="#" target="_self"><h3>Categories:</h3></a>
-      <a href="#" target="_self"><h4>Pgrogramming</h4></a>
-      <a href="#" target="_self"><h4>Business</h4></a>
-      <a href="#" target="_self"><h4>Critical thinking</h4></a>
-      <a href="#" target="_self"><h4>Social Life</h4></a>
-      <a href="#" target="_self"><h4>Technology</h4></a>
-      <a href="#" target="_self"><h4>Science</h4></a>
+      <a href="#" target="_self" id="programming"><h4>Pgrogramming</h4></a>
+      <a href="#" target="_self" id="Business"><h4>Business</h4></a>
+      <a href="#" target="_self" id="CriticalThinking"><h4>Critical thinking</h4></a>
+      <a href="#" target="_self" id="socialLife"><h4>Social Life</h4></a>
+      <a href="#" target="_self" id="Technology"><h4>Technology</h4></a>
+      <a href="#" target="_self" id="Science"><h4>Science</h4></a>
     </div>
 
     <!-- The flexible grid (content) -->
@@ -89,15 +89,19 @@
             <div class="blogPhoto">
               <img src="../images/blogImages/coding adventure.png" alt="Technology">
             </div>
-            <p class="article-title"><u><a href="#">Embracing the Coding Adventure: 
+            <p class="article-title"><u><a href="#" class="blogTitle">Embracing the Coding Adventure: 
               My Journey into Full Stack Development</a></u>
             </p>
-           <p class="uni">
+            <p class="author"></p>
+            <p class="date"></p>
+            <div class="blogImage"></div>
+           <p class="uni" class="content">
             Embarking on the path of Full Stack Development was a thrilling adventure filled with challenges, 
             victories, and continuous learning. In this blog, I'll share the pivotal moments, 
             from the initial curiosity that sparked my interest to the milestones that shaped my coding journey. 
             Join me as I reflect on the lessons learned, the technologies mastered, 
             and the passion that fuels my commitment to creating innovative solutions........
+            <div class="description"></div>
             </p>
             <div class="post-ratings-containers">
               <div class="post-rating">
@@ -106,8 +110,9 @@
               </div>
 
               <div class="post-commenting">    
-                <a href="comments_page.html" rel="Comment Page">    
+                <a href="../views/../views/comments_page.html" rel="Comment Page">    
                 <span class="post-commenting-button material-icons">comment</span>
+                <span class="commentNumer">0</span>
                 </a>
               </div>
 
@@ -125,10 +130,12 @@
               <div class="blogPhoto">
                 <img src="../images/blogImages/gra.jfif" alt="Technology">
               </div>
-            <p class="article-title"><u><a href="#">
+            <p class="article-title"><u><a href="#" class="blogTitle">
              Navigating the Unknown: Lessons from Building a Simple Shell</a></u>
             </p>
-             <p class="bn">
+            <p class="author"></p>
+            <p class="date"></p>
+             <p class="bn" class="content">
                Building a Simple Shell was more than just a coding project; 
                it was a journey into the heart of operating systems and command-line interfaces. In this blog post, 
                I'll delve into the challenges I faced, the strategies I employed to tackle them, and the valuable 
@@ -142,7 +149,7 @@
               </div>
 
               <div class="post-commenting">    
-                <a href="comments_page.html" rel="Comment Page">    
+                <a href="../views/comments_page.html" rel="Comment Page">    
                 <span class="post-commenting-button material-icons">comment</span>
                 </a>
               </div>
@@ -160,12 +167,14 @@
             <div class="blogPhoto">
               <img src="../images/blogImages/programming.jfif" alt="Technology">
             </div>
-            <p class="article-title">
-              <u><a href="#">
+            <p class="article-title" >
+              <u><a href="#" class="blogTitle">
                 Crafting Digital Experiences: The Art of UI Design in Full Stack Development
               </a></u>
             </p>
-              <p class="byt">
+            <p class="author"></p>
+            <p class="date"></p>
+              <p class="byt" class="content">
               UI design is not just about aesthetics; it's about creating a seamless and intuitive user experience. 
               In this blog, I'll share my insights into the art of UI design in Full Stack Development. 
               From choosing color palettes to ensuring responsiveness, I'll discuss the principles and practices that elevate a 
@@ -179,7 +188,7 @@
               </div>
 
               <div class="post-commenting">    
-                <a href="comments_page.html" rel="Comment Page">    
+                <a href="../views/comments_page.html" rel="Comment Page">    
                 <span class="post-commenting-button material-icons">comment</span>
                 </a>
               </div>
@@ -198,11 +207,13 @@
                 <img src="../images/blogImages/functional.png" alt="Technology">
               </div>
             <p class="article-title">
-              <u><a href="#">
+              <u><a href="#" class="blogTitle">
                 Crafting Digital Experiences: The Art of UI Design in Full Stack Development
               </a></u>
+              <p class="author"></p>
+              <p class="date"></p>
             </p>
-              <p class="byt">
+              <p class="byt" class="content">
               UI design is not just about aesthetics; it's about creating a seamless and intuitive user experience. 
               In this blog, I'll share my insights into the art of UI design in Full Stack Development. 
               From choosing color palettes to ensuring responsiveness, I'll discuss the principles and practices that elevate a 
@@ -216,7 +227,7 @@
               </div>
 
               <div class="post-commenting">    
-                <a href="comments_page.html" rel="Comment Page">    
+                <a href="../views/comments_page.html" rel="Comment Page">    
                 <span class="post-commenting-button material-icons">comment</span>
                 </a>
               </div>
@@ -235,11 +246,13 @@
                 <img src="../images/blogImages/social.jfif" alt="Social lifie">
               </div>
             <p class="article-title">
-              <u><a href="#">
+              <u><a href="#" class="blogTitle">
                 Crafting Digital Experiences: The Art of UI Design in Full Stack Development
               </a></u>
             </p>
-              <p class="byt">
+            <p class="author"></p>
+            <p class="date"></p>
+              <p class="byt" class="content">
               UI design is not just about aesthetics; it's about creating a seamless and intuitive user experience. 
               In this blog, I'll share my insights into the art of UI design in Full Stack Development. 
               From choosing color palettes to ensuring responsiveness, I'll discuss the principles and practices that elevate a 
@@ -253,7 +266,7 @@
               </div>
 
               <div class="post-commenting">    
-                <a href="comments_page.html" rel="Comment Page">    
+                <a href="../views/comments_page.html" rel="Comment Page">    
                 <span class="post-commenting-button material-icons">comment</span>
                 </a>
               </div>
@@ -272,11 +285,13 @@
                 <img src="../images/blogImages/tech.jfif" alt="Technology">
               </div>
             <p class="article-title">
-              <u><a href="#">
+              <u><a href="#" class="blogTitle">
                 Crafting Digital Experiences: The Art of UI Design in Full Stack Development
               </a></u>
             </p>
-              <p class="byt">
+            <p class="author"></p>
+            <p class="date"></p>
+              <p class="byt" class="content">
               UI design is not just about aesthetics; it's about creating a seamless and intuitive user experience. 
               In this blog, I'll share my insights into the art of UI design in Full Stack Development. 
               From choosing color palettes to ensuring responsiveness, I'll discuss the principles and practices that elevate a 
@@ -290,7 +305,7 @@
               </div>
 
               <div class="post-commenting">    
-                <a href="comments_page.html" rel="Comment Page">    
+                <a href="../views/comments_page.html" rel="Comment Page">    
                 <span class="post-commenting-button material-icons">comment</span>
                 </a>
               </div>
@@ -370,5 +385,6 @@
     <script src="../scripts/like.js" defer></script> 
     <script src="../scripts/share.js" defer></script>
     <script src="../scripts/comment.js" defer></script>
+    <script src="../scripts/blogs.js" defer></script>
 </body>
 </html>

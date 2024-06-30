@@ -1,7 +1,8 @@
 // JAVASCRIPT codes for the COMMENT buttons
 
-// CODES FOR USER COMMENTS FORM 
+import { currentBlog } from "./blogs";
 
+// CODES FOR USER COMMENTS FORM 
 const USERID = {
     name: null,
     identity: null,
@@ -20,7 +21,7 @@ const USERID = {
   // postCommentingButton.addEventListener("click",
   
   userComment.addEventListener("input", e => {
-    if (!userComment.value) {
+    if (!userComment.value || !userName.value) {
       publishBtn.setAttribute("disabled", "disabled");
       publishBtn.classList.remove("abled")
     } else {
@@ -28,20 +29,55 @@ const USERID = {
       publishBtn.classList.add("abled")
     }
   })
+
+const addComment = async () =>{
+    
+  if (!userComment.value || !userName.value) {
+    alert("Please enter a comment or a name.");
+    return;
+  }
   
-  function addComment() {
-    if (!userComment.value) return;
     USERID.name = userName.value;
-    if (USERID.name === "Anonymous") {
-      USERID.identity = false;
       USERID.image = "../images/anonymous.png"
-    } else {
-      USERID.identity = true;
-      USERID.image = "../images/user.png"
-    }
-  
     USERID.message = userComment.value;
-    USERID.date = new Date().toLocaleString();
+  USERID.date = new Date().toLocaleString();
+
+  const newComment = {
+    commenterName: userName.value,
+    comment: userComment.value
+  }
+
+  const url =
+  "https://my-brand-backend-apis.onrender.com/api/comments";
+
+try {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newComment),
+  });
+
+  if (!response.ok) {
+    
+    const resError = await response.json();
+    showToaster(resError.error, 5000);
+  }
+
+  if (response.ok) {
+    
+    const data = await response.json();
+    showToaster(data.message, 3000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
+  }
+} catch (error) {
+  
+  showToaster("oops something goes wrong", 3000);
+}
+  
     let published =
       `<div class="parents">
         <img src="${USERID.image}">
@@ -56,7 +92,8 @@ const USERID = {
     </div>`
   
     comments.innerHTML += published;
-    userComment.value = "";
+  userComment.value = "";
+  userName.value = "";
     publishBtn.classList.remove("abled")
   
     let commentsNum = document.querySelectorAll(".parents").length;
@@ -66,37 +103,30 @@ const USERID = {
   
   publishBtn.addEventListener("click", addComment);
   
-  // Load comments for a specific article based on its ID
-  window.addEventListener("DOMContentLoaded", (event) => {
-    const articleId = getArticleIdFromUrl(); // function to extract article ID from the URL
-    if (articleId) {
-      loadCommentsForArticle(articleId); // function to load comments for the specific article
+
+  const loadComment = () => {
+    const currentBlogComments = currentBlog.comments;
+
+    if (currentBlogComments.length > 0) {
+      for (let i = 0; i < currentBlogComments.length; i++) {
+        comments.innerHTML = `<div class="parents">
+        <img src="${USERID.image}">
+        <div>
+            <h1>${USERID.name}</h1>
+            <p>${USERID.message}</p>
+            <div class="engagements">
+              <img src="../images/like.png" id="like">
+              <img src="../images/share.png" alt=""></div>
+            <span class="date">${USERID.date}</span>
+        </div>    
+      </div>`;
+      }
     }
-  });
+  };
+loadComment();
   
-  function getArticleIdFromUrl() {
-    // logic to extract the article ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id');
-  }
   
-  function loadCommentsForArticle(articleId) {
-    // logic to load comments for the specific article
-    comments.innerHTML = `<div class="parents">
-      <img src="${USERID.image}">
-      <div>
-          <h1>${USERID.name}</h1>
-          <p>${USERID.message}</p>
-          <div class="engagements">
-            <img src="../images/like.png" id="like">
-            <img src="../images/share.png" alt=""></div>
-          <span class="date">${USERID.date}</span>
-      </div>    
-    </div>`;
-  }
-
   //on top GO BACK button onclick event
-
   document.getElementById("goBackBtn").addEventListener("click", goBack);
 
 // Function to navigate back in the browser's history
