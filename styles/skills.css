@@ -1,84 +1,156 @@
+.skills-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.skills_page {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    /* justify-content: space-around; */
-    margin: auto;
-    width: 95%;
-  
-  }
-  
-  .skills_page div {
-    width: 40em;
-  } 
-  
-  .skills_page_class p, h2, h3, h5{
-    font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: left;
-  }
 
-  .skills_page_class h1{
-    font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-  }
+.skills-container {
+  text-align: center; 
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  animation: slide-in 1.2s ease-in-out;
+}
 
-  
-  .skills_page h4 {
-    font-size: x-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-  }
-  
-  .skills_page_class  a {
-    color: yellow;
-    text-decoration: none;
-  }
-  
-  .skills_page_class li {
-    text-align: left;
-    color: white;
-    font-size: 23px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.skills-section {
+  margin-bottom: 40px;
+}
 
-  }
-  
-  .skills_page_class {
-    background-color: rgb(12, 12, 34);
-    /* margin-left: 2.5em; */
-    margin-bottom: 2.5em;
-    text-align: center;
-    padding: .5em;
-    border: 1px solid ;
-    border-radius: 15px;
-    margin-top: 1em;
-    /* border: 1px solid red;   */
-  }
-  
-  .me_big_b {
-    font-size: xx-large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-  }
+.skills-section .more {
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-top: auto;
+}
 
-  .edit_button{
-    width: auto;
-    height: 40px;
-    color: white !important;
-    background-color: #2f2b2b;
-    border-radius: 20px;
-    border: 1px solid #916868;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    font-size: 1.1em;
-    cursor: pointer;
-  }
-  
-  .edit_button:hover {
-    background-color: #101426;
-    color: rgb(224, 193, 16) !important;
-  }
+.skills-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
 
+.skills-cards h3 {
+  /* color: #5843b4; */
+  color: #1f2d74;
+}
+.card {
+  /* background: #fafafa; */
+  border: 1px solid #9f84c2;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.8s ease-out;
+}
+ 
+.card h3 {
+  margin-bottom: 10px;
+}
+ 
+.card ul { 
+  list-style: none;
+  padding: 0;
+}
+
+.card ul li {
+  margin: 5px 0;
+}
+
+[data-animate="fade-in"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.horizontal-scroll .item {
+  background: #201747;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.skills-section[data-animate="slide-in"] {
+  animation: slide-in 1.2s ease-in-out forwards;
+  opacity: 0;
+}
+
+.skills-section[data-animate="fade-in"] {
+  animation: fade-in 1.2s ease-in-out forwards;
+  opacity: 0;
+}
+
+.skills-section[data-animate="scale-up"] {
+  animation: scale-up 1.2s ease-in-out forwards;
+  opacity: 0;
+}
+
+.card[data-animate="zoom-in"] {
+  animation: zoom-in 1.2s ease-in-out forwards;
+}
+
+.card[data-animate="rotate-in"] {
+  animation: rotate-in 1.2s ease-in-out forwards;
+}
+
+/* Animations */
+@keyframes slide-in {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-up {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate-in {
+  from {
+    transform: rotate(-45deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0);
+    opacity: 1;
+  }
+}

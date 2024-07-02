@@ -2,6 +2,8 @@
 ////////// SIGN UP ////////
 ////////////////////////////////////
 
+// import dotenv from 'dotenv';
+
 // Function to handle the signup process
 const signUp = async () => {
     var email = document.querySelector('.email').value;
@@ -51,7 +53,8 @@ const signUp = async () => {
 
     // create account in database
     try {
-        const response = await fetch('https://my-brand-backend-apis.onrender.com/api/user/signup', {
+        const url = SERVER_URL;
+        const response = await fetch({url}/'user/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -109,7 +112,8 @@ const signIn = async () => {
     }
 
 try { 
-    const response = await fetch('https://my-brand-backend-apis.onrender.com/api/user/login', {
+    const url = SER
+    const response = await fetch({url}/'user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -35,58 +35,101 @@ a {
  *===== signin class styling in signin.html page =====
  */
 
-.mradmin {
-    background-color: #465F6C;
-    color: #FFD43B;
-    text-align: center;
+ .loginPage{
+    background-color: #101426;
+    color: white;
+    padding: 2em;
+    margin: 2em;
+    border-radius: 20px;
+    /* border: 1px solid #916868; */
+    width: 50%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: 20%; */
+ }
+
+ .loginPage a {
+    color: #d7a333;
+ }
+
+ input {
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #1b1e2f;
+  }
+
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+ 
+
+ .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    background-color: #101426;
+    color: white;
+ }
+
+ .loginContent {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    padding: auto;
+    align-items: center;
+ }
+
+ .data {
+    margin: 1rem;
+    width: 100%;
+    text-align: left;
+ }
+
+   Button:hover {
+    background-color: #101426;
+    color: rgb(224, 193, 16) !important;
+  }
+  
+
+  /* styling edit_button classes */
+ .Button {
+  width: 50%;
+  height: auto;
+  color: white !important;
+  background-color: #2f2b2b;
+  border-radius: 20px;
+  border: 1px solid #916868;
+  padding: 10px;
+  text-align: center;
+}
+
+.signup {
     font-size: medium;
 }
-
-/* styling input*/
-.secondstep input {
-    background-color: #8B7F7F;
-    border: 0;
+.here {
+    color: #FFD43B;
 }
 
+     /* Align intro_service class as screen gets smaller */
+     @media only screen and (max-width: 1000px) {
+        .loginContent {
+            width: 50%;
+            }
+      } 
+      
+      @media screen and (max-width: 700px) {
+        .loginContent {
+            width: 100%;
+            }
 
- button {
-    color: black;
-    background-color: rgb(255, 255, 255);
-    font-family: bold;
-    border: none;
-    border-radius: 4em;
-    text-align: center;
-    font-size: 1em;
-    height: auto;
-    margin: 12px 30px;
-    min-width: 0.2em;
-  }
-  
-  /* See more button hover opacity */
-   button:hover {
-    color: black !important;
-    font-family: bold;
-    background-color: rgb(231, 229, 201);
-    cursor: pointer;
-  }
-
-
- .secondstep p, button,
- input,
- h1,
-  h2, 
-  h3, 
-  h4, 
-  h5{
-  
-    font-size: small;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* text-align: left; */
-}
-
-p {
-  
-    font-size: large;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* text-align: left; */
-}
+            .loginPage{
+                width: 80%;
+             }
+      } 

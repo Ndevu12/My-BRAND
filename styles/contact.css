@@ -2,6 +2,7 @@
  * === intro-contact class style ===
  */
 
+
 /* intro-sub flexbox */
 .intro-contact  {
     display: flex;
@@ -10,54 +11,48 @@
     align-items: center;
     text-align: center;
     width: 95%;
-    margin: auto;
-    border: 1px solid;  
+    margin: auto; 
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     border-radius: 15px;
+  }
+
+  .intro-contact .contactme-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+    padding: 20px;
   }
 
    /* Article style */
-   .intro-contact  .message{
+   .intro-contact .contactme-container .message{
     /* border: 1px solid #ff5a5f;   */
     align-items: center;
-    background-color: #213541;
-    color: white;
-    border-radius: 15px;
+    background-color: #c5c7d5;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
     width: 75%;
     height: 209px;
     margin: 0 auto;
+    font-size: x-large;
   }
 
-  .intro-contact input {
-    background-color: #213541;
-    border-radius: 15px;
+  .intro-contact .contactme-container input {
+    background-color: #c5c7d5;
+    border-radius: 5px;
     border: 0;
-    width: 9em;
-    font-size: medium;
+    width: 75%;
+    font-size: large;
     margin-top: 1em;
-    /* margin-right: 4em; */
     padding: 1em;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-bottom: 1.3rem;
 }
 
-.get-email {
-    background-color: #213541;
-    color: white;
-    border-radius: 15px;
-    width: 9em;
-    font-size: medium;
-    margin-top: 1em;
-    margin-bottom: 1em; /* Added margin-bottom */
-    padding: 1em;
-    text-align: center; /* Center the text inside .get-email */
-  }
   
-  .download_cv {
-    background-color: #4C3D3D;
-    color: white;
-    text-align: center;
-    border-radius: 15px;
-    border: 0;
-    padding: 1em 2em;
-    font-size: medium;
-    cursor: pointer;
-    margin-bottom: 1em; /* Added margin-bottom */
-  }

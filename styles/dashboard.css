@@ -5,11 +5,11 @@
   }
   
   /* Style the body */
-  body {
+  /* body {
     background-color: #101426;
     font-family: Arial;
     margin: 0;
-  }
+  } */
 
   
 /* Column container */
@@ -80,7 +80,7 @@ a:hover {
     color: white;
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Adjust the flex direction to column */
+    flex-direction: column;
   }
 
   .top,
@@ -89,7 +89,7 @@ a:hover {
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Add some margin between .top and .deep */
+    margin-bottom: 20px;
    }
 
    
@@ -99,8 +99,8 @@ a:hover {
 .deep .time,
 .deep .subscribers,
 .deep .cv {
-    flex: 1; /* Equal width for all items within .top and .deep */
-    margin-right: 20px; /* Add some margin between items */
+    flex: 1;
+    margin-right: 20px;
 }
 
 .deep .time, 

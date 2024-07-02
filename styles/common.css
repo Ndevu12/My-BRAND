@@ -1,19 +1,53 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 body {
     /* border: 1px solid red; */
     margin: 0;
     width: 98%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(22, 22, 44);
+    background-color: rgb(14, 14, 31);
     color: white;
-    /* font-size: 1em; */
-    font-family: Circular, "Helvetica Neue", Arial, sans-serif;
+    font-family:'Roboto', sans-serif;
 }
 
-p, h1, h2, h3, h4, h5{
+ a {
+    color: white;
+    text-decoration: none;
+}
+
+ h1, h2, h3, h4, h5{
+    font-size: x-large; 
+    
+}
+
+p {
+    font-size: large;
+}
+
+/* Download my cv button style */
+.download-my-cv {
+    height: auto;
+    color: rgb(255, 255, 255);
+    background-color: #2f2b2b;
+    border-radius: 20px;
+    border: 1px solid #916868;
+    padding: 10px;
+    text-align: center;
+    font-family: bold;
+    font-size: 17px;
+    min-width: 150px;
+    width: 20%;
+    transition: background-color 0.3s;
+    }
+    
+    /* Download my cv button hover opacity */
+    .download-my-cv:hover {
+      background-color: #101426;
+      color: rgb(224, 193, 16);
+      width: 21%;
+      font-size: medium;
+      cursor : pointer;
+    }
   
-    font-size: larger;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* text-align: left; */
-}
-
