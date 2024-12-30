@@ -4,7 +4,7 @@
 
 
 
-.article_board {
+.article_board { 
     margin-top: 1em;
     margin-bottom: 1em;
     text-align: center;
@@ -17,24 +17,21 @@
 }
 
 .article_categories {
-    background-color: #2B3048;
    display: flex;
    justify-content: space-around;
    flex-flow: row wrap;
    text-align: center;
-   /* margin-left: 1em; */
-   border-radius: 20px;
-   margin-top: 1em;
+   margin-top: 2rem;
    margin-bottom: 1em;
-   border: 2px solid grey;
-   /* height: 3em; */
+   border-bottom: 3px solid #916868;
+   padding-bottom: 1rem;
+   gap: 10px;
   }
 
   .article_categories a {
-    /* height: 5em; */
     border-radius: 10px;
     background-color: #181b2a;
-    /* border: 1px solid #ff5a5f; */
+    padding: 10px;
   }
 
   .article_categories h3, h4 {
@@ -55,20 +52,39 @@
     color: rgb(237, 241, 22) !important;
 }
 .on_the_way {
-    margin: 1em;
-    background-color: #2B3048;
-    border: 3px solid grey; 
-    border-radius: 15px;
-    padding: 1em;
-    width: 20%;
-    
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: start;
+  margin: 1em;
+  background-color: #2B3048;
+  border: 3px solid grey; 
+  border-radius: 15px;
+  padding: 1em;
+  width: 20%;
+  gap: 1em;
 }
 
-.on_the_way h3 {
-    padding-top: 2em;
-    padding-bottom: 2em;
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.search-filter input {
+  width: 80%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.on_the_way .state {
     text-align: center;
-    
+    background-color: #2B3048;
+    color: rgb(196, 179, 255); 
+    border: 0;
+    cursor: pointer;
 }
 
 .calarify {
@@ -125,39 +141,29 @@
     font-size: x-large; 
   }
 
-
-  /* styling edit_button classes */
- .edit_button{
-    width: auto;
-    height: 40px;
-    color: white !important;
-    background-color: #2f2b2b;
-    border-radius: 20px;
-    border: 1px solid #916868;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    font-size: 1.1em;
-  }
-  
-  .edit_button:hover {
-    background-color: #101426;
-    color: rgb(224, 193, 16) !important;
-  }
-
   .choice_article {
     margin: 2em;
     justify-content: space-around;
-    /* margin-left: 1em; */
-    /* border: 1px solid #916868; */
   }
 
-  .articles_storage p, h1, h2, h3, h4, h5{
-  
-    font-size: x-large;
-    font-family:'Roboto', sans-serif;
-    /* text-align: left; */
-}
+    /* styling edit_button classes */
+    .edit_button{
+      width: auto;
+      height: 40px;
+      color: white !important;
+      background-color: #2f2b2b;
+      border-radius: 20px;
+      border: 1px solid #916868;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+      font-size: 1.1em;
+    }
+    
+    .edit_button:hover {
+      background-color: #101426;
+      color: rgb(224, 193, 16) !important;
+    }  
 
      /* Align intro_service class as screen gets smaller */
      @media only screen and (max-width: 1000px) {
@@ -167,17 +173,10 @@
         margin: auto;
         align-items: center;
         justify-content: center;
-        border: 1px solid red;
       }
     
-      .articles_storage .on_the_way {
-        width: 80%;
-      }
       .articles_storage p, h1, h2, h3, h4, h5{
-  
         font-size: medium;
-        font-family:'Roboto', sans-serif;
-        /* text-align: left; */
     }
     
       .articles_storage div {
@@ -226,19 +225,13 @@
         justify-content: center;
       }
 
-      .articles_storage p, h1, h2, h3, h4, h5{
-  
-        font-size: large;
-        font-family:'Roboto', sans-serif;
-    }
-
       .articles_storage div {
         display: block;
         /* margin: auto; */
         align-items: center;
         justify-content: center;
           width: 90%;
-        } 
+        }   
   
         .articles_storage .calarify { 
   
@@ -250,23 +243,13 @@
           padding-right: 5px;
       } 
   
-      /* .intro-about .face {
-        margin: 5px;
-      }  */
-
       li {
         padding: .5em;
         padding-left: 5px; 
         font-size: larger;
       }
 
-      
-      .articles_storage p, h1, h2, h3, h4, h5{
   
-        font-size: larger;
-        font-family:'Roboto', sans-serif;
-    }
-
     .recently_uploaded, .all_others {
       width: 95%;
       /* border: 3px solid grey; */

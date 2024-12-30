@@ -3,66 +3,44 @@
  *=====Introduction class styling =====
  */
 
- /* * {
-    box-sizing: border-box;
-  } */
-
 .introduction {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     width: 100%;
-    /* border: 1px solid red;  */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
-
-.big_one, .bigg {
-  font-size: xx-large;
-}
-
-
-
   
-.introduction div {
-  /* border: 1px solid red;  */
-    width: 40em;
-  } 
 
 .introduction .intro {
-      /* border: 1px solid red;    */
+    /* border: 1px solid green;    */
     align-items: center;
     justify-content: space-between; 
     margin-bottom: 20px;
-    font-size: 1em;
-
+    width: 50%;
 }  
 
 .minded {
-    font-size: 1em;
     flex-wrap: wrap;
     margin-right: 2em;
-}
-
-.minded p {
-  font-size: 20px;
-  font-family: 'Roboto', sans-serif;
 }
 
 .face {
     justify-content: space-between; 
     margin-bottom: 20px;
     text-align: center;
-    width: auto;
+    max-width: 35%;
     margin-top: 20px;
     margin-right: 0;
-    margin-left: 2.5em;
+    /* margin-left: 2.5em; */
     margin-bottom: 2.5em;
-    /* border: 1px solid red;   */
      
 }
 
 .face p {
-    text-align: left;
-    font-size: 1.2em;
+    font-size: .9rem;
+    font-weight: 200;
 }
 
 .mypic{
@@ -77,77 +55,49 @@
     /* border: 1px solid red; */
 }
 
-/* Download my cv button style */
-.download-my-cv {
-
-  width: auto;
-  height: auto;
-  color: rgb(255, 255, 255) !important;
-  background-color: #2f2b2b;
-  border-radius: 20px;
-  border: 1px solid #916868;
-  padding: 10px;
-  text-align: center;
-    font-family: bold;
-    font-size: 17px;
-    min-width: 150px;
-    width: 20%;
-  }
-  
-  /* Download my cv button hover opacity */
-  .download-my-cv:hover {
-    background-color: #101426;
-    color: rgb(224, 193, 16) !important;
-    width: 35%;
-    font-size: large;
-    cursor : pointer;
-  }
 
    /* Align introduction class as screen gets smaller */
    @media only screen and (max-width: 1000px) {
     .introduction {
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      flex-direction: column;
       font-size: medium;
       width: 95%;
       margin-top: auto;
-    }
-
-    .introduction div {
-        width: 100%;
-      } 
+      margin-bottom: 2rem;
+    } 
 
       .introduction .intro { 
-
         align-items: center;
         justify-content: center;  
-        margin: 5px;
         font-size: medium;
+        width: 95%;
     } 
 
-    .introduction .face {
-      margin: 5px;
-    } 
   } 
   
   @media screen and (max-width: 700px) {
     .introduction  {   
+      display: flex;
+      align-items: center;
+      justify-content: center;  
       flex-direction: column;
       width: 95%;
-      margin: 5px;
+      padding: .8rem;
     }
 
     .introduction .intro { 
-
     align-items: center;
     justify-content: center;  
-    margin: 5px;
     font-size: medium;
+    width: 95%;
 } 
 
-    .introduction div {
-      width: 100%;
-    } 
+.face {
+  max-width: 80%;
+}
 
-    .introduction .face {
-      margin: 5px;
-    } 
   }
+    

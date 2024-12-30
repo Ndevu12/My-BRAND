@@ -5,26 +5,6 @@ label {
     /* font-size: 2; */
   }
 
-  
-  /* styling edit_button classes */
- .edit_button{
-    width: auto;
-    height: 40px;
-    color: white !important;
-    background-color: #2f2b2b;
-    border-radius: 20px;
-    border: 1px solid #916868;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    font-size: 1.1em;
-  }
-  
-  .edit_button:hover {
-    background-color: #101426;
-    color: rgb(224, 193, 16) !important;
-  }
-
   .settings {
     display: flex;
     flex-flow: row wrap;
