@@ -20,7 +20,7 @@ Do you have questions or want to connect with me? Reach out on my social media p
 
 - LinkedIn: [Ndevu-LinkedIn](www.linkedin.com/in/jean-paul-elisa)
 - Twitter: [@Ndevu-Twitter](https://twitter.com)
-- Email: <niyokwizerwajeanpaulelisa@gmail.com>
+- Email: < niyokwizerwajeanpaulelisa@gmail.com>
 
 Feel free to explore my code and creations. Let's build something amazing together!
 

@@ -4,6 +4,7 @@ node_modules/
 #Just for now
 # /BackEnd/
 
+yarn.lock
 # Ignore macOS specific files
 .DS_Store
 

@@ -7,16 +7,47 @@ body {
     width: 98%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(22, 22, 44);
+    background-color: rgb(14, 14, 31);
     color: white;
-    font-size: 1em;
-    font-family: 'Roboto', sans-serif;
-}
-
-p, h1, h2, h3, h4, h5{
-  
-    font-size: larger;
     font-family:'Roboto', sans-serif;
-    /* text-align: left; */
 }
 
+ a {
+    color: white;
+    text-decoration: none;
+}
+
+ h1, h2, h3, h4, h5{
+    font-size: x-large; 
+    
+}
+
+p {
+    font-size: large;
+}
+
+/* Download my cv button style */
+.download-my-cv {
+    height: auto;
+    color: rgb(255, 255, 255);
+    background-color: #2f2b2b;
+    border-radius: 20px;
+    border: 1px solid #916868;
+    padding: 10px;
+    text-align: center;
+    font-family: bold;
+    font-size: 17px;
+    min-width: 150px;
+    width: 20%;
+    transition: background-color 0.3s;
+    }
+    
+    /* Download my cv button hover opacity */
+    .download-my-cv:hover {
+      background-color: #101426;
+      color: rgb(224, 193, 16);
+      width: 21%;
+      font-size: medium;
+      cursor : pointer;
+    }
+  

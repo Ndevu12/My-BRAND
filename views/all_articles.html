@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="styles/common.css">
-    <link rel="stylesheet" type="text/css" href="styles/all_articles.css">
+    <link rel="stylesheet" type="text/css" href="../styles/common.css">
+    <link rel="stylesheet" type="text/css" href="../styles/all_articles.css">
 
     <link rel="icon" type="image/png" href="./images/logo1.png">
     <title>NdevuSpace</title>
@@ -15,28 +15,35 @@
   <body>
    
     <div class="got_to_dashboard">
-      <a href="dashboard.html" target="_self"><h3><u>Back to DashBoard</u></h3></a>
+      <a href="../views/dashboard.html" target="_self"><h3><u>Back to DashBoard</u></h3></a>
     </div>
+    <div class="search-filter">
+      <input type="text" placeholder="Search by title">
+      <button id="search-button" class="download-my-cv"> 
+        Search
+     </button>
+    </div>
+
      <div class="article_board">
       <h1>Article Board</h1>
      </div>
 
-    <div class="article_categories">
-        <a href="#" target="_self"><h2>Categories:</h2></a>
-        <a href="#" target="_self"><h3>Pgrogramming</h3></a>
-        <a href="#" target="_self"><h3>Business</h3></a>
-        <a href="#" target="_self"><h3>Critical thinking</h3></a>
-        <a href="#" target="_self"><h3>Social Life</h3></a>
-        <a href="#" target="_self"><h3>Technology</h3></a>
-        <a href="#" target="_self"><h3>Science</h3></a>
-      </div>
+     <div class="article_categories">
+      <a href="#" target="_self">Programming</a>
+      <a href="#" target="_self">Business</a>
+      <a href="#" target="_self">Critical thinking</a>
+      <a href="#" target="_self">Social Life</a>
+      <a href="#" target="_self">Technology</a>
+    </div>
 
     <div class="articles_storage">
 
       <div class="on_the_way">
-        <h3><a href="#" target="_self">Pending review</a></h3>
-        <h3><a href="#" target="_self">Draft</a></h3>
-        <h3><a href="#" target="_self">Archived</a></h3>
+        <button id="Recently" class="state">Recently</button>
+        <button id="Published" class="state">Published</button>
+        <button id="Unpublished" class="state">Unpublished</button>
+        <button id="Draft" class="state">Draft</button>
+        <button id="Archived" class="state">Archived</button>
       </div>
     
         <div class="calarify">
@@ -54,7 +61,7 @@
                       allowing me to bring ideas to life through elegant and efficient code.
                     </p>
                     <div class="choice_art">
-                      <button id="Delete1" class="edit_button"> 
+                      <button id="Delete1" class="edit_button delete-button"> 
                         Delete
                      </button>
 
@@ -84,7 +91,7 @@
                         allowing me to bring ideas to life through elegant and efficient code.
                       </p>
                       <div class="choice_art">
-                        <button id="Delete2" class="edit_button"> 
+                        <button id="Delete2" class="edit_button delete-button"> 
                           Delete
                        </button>
   
@@ -115,7 +122,7 @@
                         </p>
 
                         <div class="choice_art">
-                          <button id="Delete3" class="edit_button"> 
+                          <button id="Delete3" class="edit_button delete-button"> 
                             Delete
                          </button>
     
@@ -123,7 +130,7 @@
                           Analysis
                        </button>
     
-                       <button id="Edit3" class="edit_button"> 
+                       <button id="Edit3" class="edit_button Edit-button"> 
                         Edit
                      </button>
     
@@ -150,7 +157,7 @@
                         </p>
 
                         <div class="choice_art">
-                          <button id="Delete4" class="edit_button"> 
+                          <button id="Delete4" class="edit_button delete-button"> 
                             Delete
                          </button>
     
@@ -181,7 +188,7 @@
                           </p>
 
                           <div class="choice_art">
-                            <button id="Delete5" class="edit_button"> 
+                            <button id="Delete5" class="edit_button delete-button"> 
                               Delete
                            </button>
       
@@ -212,7 +219,7 @@
                             </p>
 
                             <div class="choice_art">
-                              <button id="Delete6" class="edit_button"> 
+                              <button id="Delete6" class="edit_button delete-button"> 
                                 Delete
                              </button>
         
@@ -243,7 +250,7 @@
                               </p>
 
                               <div class="choice_art">
-                                <button id="Delete7" class="edit_button"> 
+                                <button id="Delete7" class="edit_button delete-button"> 
                                   Delete
                                </button>
           
@@ -274,7 +281,7 @@
                                 </p>
 
                                 <div class="choice_art">
-                                  <button id="Delete8" class="edit_button"> 
+                                  <button id="Delete8" class="edit_button delete-button"> 
                                     Delete
                                  </button>
             
@@ -305,7 +312,7 @@
                                   </p>
 
                                   <div class="choice_art">
-                                    <button id="Delete9" class="edit_button"> 
+                                    <button id="Delete9" class="edit_button delete-button"> 
                                       Delete
                                    </button>
               
@@ -336,7 +343,7 @@
                                     </p>
 
                                     <div class="choice_art">
-                                      <button id="Delete10" class="edit_button"> 
+                                      <button id="Delete10" class="edit_button delete-button"> 
                                         Delete
                                      </button>
                 
@@ -367,7 +374,7 @@
                                       </p>
 
                                       <div class="choice_art">
-                                        <button id="Delete11" class="edit_button"> 
+                                        <button id="Delete11" class="edit_button delete-button"> 
                                           Delete
                                        </button>
                   
@@ -398,7 +405,7 @@
                                         </p>
 
                                         <div class="choice_art">
-                                          <button id="Delete12" class="edit_button"> 
+                                          <button id="Delete12" class="edit_button delete-button"> 
                                             Delete
                                          </button>
                     
@@ -406,7 +413,7 @@
                                           Analysis
                                        </button>
                     
-                                       <button id="Edit12" class="edit_button"> 
+                                       <button id="Edit12" class="edit_button update"> 
                                         Edit
                                      </button>
                     
@@ -504,20 +511,13 @@
      </button>
     </a>
 
-     <a href="index.html">
+     <a href="../index.html">
      <button id="home1" class="edit_button"> 
       Home
    </button></a>
         </div>
     </div>
-    <p>
-      <a href="http://jigsaw.w3.org/css-validator/check/referer">
-          <img style="border:0;width:88px;height:31px"
-              src="http://jigsaw.w3.org/css-validator/images/vcss"
-              alt="Valid CSS!" >
-      </a>
-  </p>
-        
-
+  
+  <script src="../scripts/blogs.js" defer></script>
     </body>
     </html>

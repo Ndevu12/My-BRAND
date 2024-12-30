@@ -9,38 +9,54 @@
 
 /* intro-service flexbox */
 .intro-service {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    /* border: solid 1px red; */
+  }
+
+  .intro-service-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .intro-service-container .container {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    width: 95%;
-    margin: auto;
-    /* border: 1px solid #ff5a5f;  */
   }
 
 /* ... your existing styles ... */
 
-
-  .intro-service p {
-    font-size: x-large;
-    font-family:'Roboto', sans-serif;
-  }
   /* Article style */
   .intro-service article {
     align-items: center;
-    /* border: 1px solid #ff5a5f;   */
-    width: 33%;
+    width: 30%;
     margin: auto;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 3px 3px 0px;
+    height: 350px;
+    background-color: #1a1e32;
   }
    
+  .intro-service .more, .intro-project .more, .intro-blog .more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
   /* Styling all images of intro-service class */
   .intro-service img{
     align-items: center;
     border-radius: 50%;
-    /* margin-left: 4.5em;
-    margin-right: 4.5em; */
     max-width: 80%;
-    /* border: 1px solid #ff5a5f; */
+    display: flex;
+    justify-content: center;
   }
 
   .intro-service h2 {
@@ -52,51 +68,23 @@
     
   }
 
-
-  .full-stack-dev .download-my-cv {
+  .service .download-my-cv {
     /* margin-left: 9em; */
     align-items: center;
   }
-
-   /* ux-design style*/
-   .intro-service  .ux-design {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: .5em;
-    /* border: 1px solid #ff5a5f; */
-    color: #ffffff;
-    font-size: 1em;
-    height: auto;
-    min-width: 20%;
-  }
   
-
-  .ux-design .ux{
+  .service .Insides_ervice{
     align-items: center; 
     margin-top: 0;
     max-width: 50%;
-    /* padding-right: 15%; */
-    /* border: 1px solid red;    */
-  }
-  
-  /* hovering effect */
-  .ux-design:hover,
-  .web-dev:hover,
-  .full-stack-dev:hover {
-    border: 10px yellow solid;
-    border-radius: 30px;
-    transition: border 500ms ease-in;
   }
       
   /* full stack developer styling*/
-  .intro-service .full-stack-dev{
+  .intro-service .service{
     display: flex;
     flex-direction: column;
     padding: .5em;
     align-items: center;
-    /* border: 1px solid #ff5a5f; */
     color: #ffffff;
     font-size: 1em;
     height: auto;
@@ -104,42 +92,10 @@
     min-width: 20%;
   }
   
-  .full-stack-dev .full-stack{
-    align-items: center;
-    padding-left: 15%;
-    max-width: 50%;
-    /* border: 1px solid red;  */
-  }
-  
-  .full-stack img {
+  /* .service img {
     display: flex;
     justify-content: center;
-    /* text-align: center !important; */
-  }
-
-  /* web development styling */
-  .intro-service .web-dev{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: .5em;
-    /* border: 1px solid #ff5a5f; */
-    color: #ffffff;
-    font-size: 1em;
-    height: auto;
-    /* justify-content: right; */
-    min-width: auto;
-  }
-
-  .web-dev .web{
-    align-items: center;
-    padding: .5em;
-    margin-bottom: 2.5em;
-    max-width: 50%;
-    /* border: 1px solid red;   */
-  }
-
+  } */
 
   /* centering our service header */
   .btn {
@@ -161,15 +117,16 @@
       .intro-service {
         display: block;
         font-size: medium;
-        width: 95%;
+        width: 100%;
       }
   
       .intro-service article {
         display: block;
-          width: 95%;
+          width: 80%;
+          margin-top: 1.5rem;
         } 
   
-        .intro-service .full-stack-dev { 
+        .intro-service .service { 
   
           align-items: center;
           justify-content: center;  
@@ -186,11 +143,11 @@
       .intro-service  {  
         display: block; 
         /* flex-direction: column; */
-        width: 95%;
+        width: 98%;
         margin: 5px;
       }
   
-      .intro-service .full-stack-dev { 
+      .intro-service .service { 
       flex-direction: column;  
       align-items: center;
       justify-content: center;  
@@ -199,7 +156,7 @@
   } 
   
       .intro-service article {
-        width: 100%;
+        width: 70%;
       } 
   
       /* .introduction .face {
@@ -208,7 +165,7 @@
     }
 
 
-  /*++++++++++++ SERVICE PAGE +++++++++++*/
+/*++++++++++++ SERVICE PAGE +++++++++++*/
 
 /*
 ============ + +  \+ + +  + /+ + =========

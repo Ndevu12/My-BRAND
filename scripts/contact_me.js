@@ -18,10 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if the message and email are not empty
         if (message.trim() !== "" && email.trim() !== "") {
-            // Retrieve existing data from local storage or initialize an empty array
             const existingData = JSON.parse(localStorage.getItem('contactData')) || [];
-
-            // Add the new data to the array
             existingData.push({ message, email });
 
             // Store the updated array back to local storage

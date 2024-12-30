@@ -1,131 +1,128 @@
-/* =================Styling new-blog class ===========*/
-
-/* new-blog class styling*/
-.new-blog {
-    margin: 2em;
-    width: 95%;
-    text-align: center;
-    display: flex;
-    flex-direction: column; /* Change flex direction to column */
-    align-items: center; /* Center items horizontally */
-    /* border: 1px solid red; */
-}
-
-/* styling mradmin class*/
-.mradmin {
-    background-color: #465F6C;
-    color: #FFD43B;
-    text-align: center;
-    font-size: medium;
-}
-
-
-/* styling edit_button classes */
-.new-blog .edit_button{
-    width: auto;
-    height: 40px;
-    color: white !important;
-    background-color: #2f2b2b;
-    border-radius: 20px;
-    border: 1px solid #916868;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-  }
-  
-  .new-blog .edit_button:hover {
-    background-color: #101426;
-    color: rgb(224, 193, 16) !important;
-  }
-
-/* styling input*/
-.new-blog input {
-    background-color: #8B7F7F;
-    border: 0;
-    color: rgb(207, 196, 196) ;
-}
-
-.new-blog img {
-    width: 2.2em;
-    border-radius: 10px;  
-}
-
-.new-blog .title,
-.new-blog .contentin,
-.new-blog .catego,
-.new-blog .tag {
-    width: 60%; /* Set width to 100% to occupy the full width */
-    margin-bottom: 1em; /* Add some spacing between the elements */
-}
-
-
-/* .new-blog .title {
-    width: 15em;
-    height: 2em;
-    border-radius: 15px;
+/* General Styling */
+/* body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 } */
 
-.new-blog .title {
-    height: 2em;
-    border-radius: 10px;
+/* Header Styling */
+.mradmin {
+  background-color: #465F6C;
+  color: #FFD43B;
+  text-align: center;
+  font-size: 24px;
+  height: 90px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+/* Form Container */
+.new-blog {
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  background: #898e8f;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Elements */
+.new-blog h3 {
+  color: #333;
+  margin-bottom: 10px;
 }
 
 
-.new-blog .contentin {
-    height: 50px;
-    border-radius: 0 0 10px 10px;
+
+.new-blog input,
+.new-blog textarea,
+.new-blog select {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #ccc;
 }
 
-/* #content {
-    height: 10px; 
-  } */
+.status-message {
+  font-size: 14px;
+  margin-top: 10px;
+}
 
+.status-message.success {
+  color: green;
+}
+
+.status-message.error {
+  color: red;
+}
+
+textarea.contentin {
+  height: 100px;
+}
+
+/* Upload Image Section */
 .upload-article-image input {
-    display: none;
-  }
-  
-
-  .upload-article-image label:hover {
-    cursor: pointer;
-  
-  }
-
-.new-blog .catego,
-.new-blog .tag {
-    height: 2em;
-    border-radius: 0 0 10px 10px; 
+  display: none;
 }
 
+.upload-article-image label img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
 
-/* styles to align buttons horizontally in publish-new-article */
-.new-blog .publish-new-article {
-    display: flex;
-    justify-content: space-between;
+.upload-article-image p {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Buttons */
+.new-blog .edit_button {
+  display: inline-block;
+  width: 48%;
+  padding: 10px;
+  background-color: #2f2b2b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.new-blog .edit_button:hover {
+  background-color: #101426;
+  color: #FFD43B;
+}
+
+.publish-new-article {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dashboard-link button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #465F6C;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .publish-new-article {
+    flex-direction: column;
+  }
+
+  .new-blog .edit_button {
     width: 100%;
+  }
 }
-
-.new-blog button {
-    width: 48%; 
-}
-
-
-
-label {
-    margin-right: 10px;
-  }
-
-  select {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
-
-  output {
-    background-color: #f5f4f4;
-    font-size: 18px;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    width: 2em;
-  }
