@@ -1,0 +1,21 @@
+
+.not-allowed {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #30373d;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+.not-allowed h1 {
+    font-size: 2em;
+    color: #dc3545;
+    margin-bottom: 10px;
+}
+
+.not-allowed p {
+    font-size: 1.2em;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
