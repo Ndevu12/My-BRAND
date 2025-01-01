@@ -95,6 +95,9 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="../scripts/logout.js"></script>
+    <script type="module">
+    import { protectAdminRoute } from '../scripts/auth.js';
+    protectAdminRoute();
+  </script>
 </body>
 </html>

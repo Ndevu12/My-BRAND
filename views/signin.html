@@ -40,6 +40,7 @@
          </div>
        </header>
 
+
         <div class='loginPage'>
           <div class="head">
             <h3>Login</h3>
@@ -47,22 +48,22 @@
           <div class='container'>
             <div class="loginContent">
               <div class="data">
-                <h3>User name</h3>
-                <input id="userName" type="text">
+                <h3>Username</h3>
+                <input id="userName" name="userName" type="text">
               </div>
               <div class="data">
                 <h3>Password</h3>
-                <input id="password" type="password">
+                <input id="password" name="password" type="password">
               </div>
               <div class="data">
                 <button class="Button" id="loginButton">Login</button>
               </div>
-              <p><a href="../views/signup.html">Here</a></p>
             </div>
           </div>
         </div>
 
-    <script src="../scripts/signin_and_signup.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+        <script type="module" src="../scripts/auth.js"></script>
 
     </body>
 </html>
