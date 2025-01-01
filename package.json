@@ -1,0 +1,18 @@
+{
+  "name": "my-brand",
+  "version": "1.0.0",
+  "description": "Personal portfolio and blog website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./styles/tailwind.css -o ./styles/output.css --watch",
+    "build": "npx tailwindcss -i ./styles/tailwind.css -o ./styles/output.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17"
+  }
+}

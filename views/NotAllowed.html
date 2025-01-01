@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/common.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/not-allowed.css">
+  <link rel="icon" type="image/png" href="../images/logo1.png">
+  <title>NdevuSpace | Access Denied</title>
+  <!-- Import the header component -->
+  <script src="./components/header.js"></script>
+</head>
+<body>
+  <main>
+    <div class="not-allowed">
+      <h1>Access Denied</h1>
+      <p>You are not allowed to access this page.</p>
+      <button id='go-back-button' class="download-my-cv">Go Back</button>
+    </div>
+  </main>
+  <script>
+    document.getElementById('go-back-button').addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>
