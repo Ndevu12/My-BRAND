@@ -1,0 +1,511 @@
+/**
+ * Edit Article Page Script
+ * Handles loading and updating an existing article
+ */
+
+import { getCategoryBadgeHTML } from '../../utils/categoryUtils.js';
+import { dummyBlogs } from '../../data/dummyBlogs.js';
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Get article ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const articleId = urlParams.get('id');
+  
+  if (!articleId) {
+    // No ID provided, redirect to new article page
+    window.location.href = './new-article.html';
+    return;rn;
+  }  
+  
+  // Load article data from localStorage or API
+  const articles = dummyBlogs || [];
+  const article = articles.find(art => art.id === articleId);
+  
+  if (!article) {
+    // Article not found, show error and redirect
+    alert('Article not found. You will be redirected to create a new one.');
+    window.location.href = './new-article.html';
+    return;
+  }
+  
+  // Update page title
+  document.title = `Edit: ${article.title} | NdevuSpace`;
+  
+  // Update header
+  const pageHeader = document.querySelector('h2');
+  const pageSubheader = document.querySelector('h2 + p');
+  if (pageHeader) pageHeader.textContent = `Edit Article`;
+  if (pageSubheader) pageSubheader.textContent = `Editing: ${article.title}`;
+  
+  // Fill form with article data
+  populateForm(article);
+  
+  // Initialize the rich text editor
+  initializeEditor(article.content);
+  
+  // Initialize category selection
+  initializeCategories(article.category);
+  
+  // Initialize tag system
+  initializeTags(article.tags);
+  
+  // Update form to handle updates instead of creation
+  const form = document.getElementById('new-blog-form');
+  const savePublishBtn = document.getElementById('save-publish');
+  
+  if (form && savePublishBtn) {
+    // Change button text
+    savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Article';
+    
+    // Override form submission
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      
+      // Get content from editor
+      let content = '';
+      if (typeof getEditorContent !== 'undefined') {
+        content = getEditorContent('editor-container');
+      } else if (tinymce.get('editor-container')) {
+        content = tinymce.get('editor-container').getContent();
+      }
+      document.getElementById('content').value = content;
+      
+      // Gather form data
+      const formData = new FormData(form);
+      
+      // Add image data
+      const imagePreview = document.getElementById('image-preview');
+      const imageUrl = document.getElementById('image-url').value;
+      const featuredImageSrc = imagePreview.classList.contains('hidden') 
+        ? (imageUrl || article.imageUrl) 
+        : imagePreview.src;
+      
+      // Show loading state
+      savePublishBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Updating...';
+      savePublishBtn.disabled = true;
+      
+      // Prepare updated article data
+      const updatedArticle = {
+        ...article, // Keep existing data
+        title: formData.get('title'),
+        subtitle: formData.get('subtitle') || '',
+        content: formData.get('content'),
+        description: formData.get('description'),
+        imageUrl: featuredImageSrc,
+        imageCaption: formData.get('imageCaption') || '',
+        category: formData.get('category'),
+        tags: formData.get('tags').split(',').map(tag => tag.trim()).filter(Boolean),
+        readTime: `${formData.get('readingTime') || '5'} min read`,
+        status: formData.get('status'),
+        publishDate: formData.get('publishDate') || article.publishDate,
+        updatedAt: new Date().toISOString(),
+        metaTitle: formData.get('metaTitle') || formData.get('title'),
+        metaDescription: formData.get('metaDescription') || formData.get('description')
+      };
+      
+      // Simulate API update with timeout
+      setTimeout(() => {
+        // Find and update the article in the array
+        const articleIndex = articles.findIndex(art => art.id === articleId);
+        if (articleIndex !== -1) {
+          articles[articleIndex] = updatedArticle;
+          localStorage.setItem('articles', JSON.stringify(articles));
+          
+          // Reset button state
+          savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Article';
+          savePublishBtn.disabled = false;
+          
+          // Show success notification
+          showNotification('Article updated successfully!', 'success');
+          
+          // Redirect to articles list after a delay
+          setTimeout(() => {
+            window.location.href = './all_articles.html';
+          }, 1500);
+        } else {
+          // Error handling
+          savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Article';
+          savePublishBtn.disabled = false;
+          showNotification('Error updating article: Article not found', 'error');
+        }
+      }, 1500);
+    };
+  }
+});
+
+/**
+ * Populate form fields with article data
+ * @param {Object} article - The article data
+ */
+function populateForm(article) {
+  // Basic information
+  document.getElementById('title').value = article.title || '';
+  document.getElementById('subtitle').value = article.subtitle || '';
+  document.getElementById('description').value = article.description || '';
+  
+  // Parse reading time (format: "X min read")
+  const readingTime = article.readTime ? parseInt(article.readTime, 10) : 5;
+  document.getElementById('reading-time').value = isNaN(readingTime) ? 5 : readingTime;
+  
+  document.getElementById('author').value = article.author || 'Ndevu';
+  
+  // Featured image
+  const imagePreview = document.getElementById('image-preview');
+  const uploadUI = document.getElementById('upload-ui');
+  const removeImageBtn = document.getElementById('remove-image');
+  const imageUrlInput = document.getElementById('image-url');
+  
+  if (article.imageUrl) {
+    // Display existing image
+    imagePreview.src = article.imageUrl;
+    imagePreview.classList.remove('hidden');
+    uploadUI.classList.add('hidden');
+    removeImageBtn.classList.remove('hidden');
+    imageUrlInput.value = article.imageUrl;
+  }
+  
+  document.getElementById('image-caption').value = article.imageCaption || '';
+  
+  // SEO settings
+  document.getElementById('meta-title').value = article.metaTitle || article.title || '';
+  document.getElementById('meta-description').value = article.metaDescription || article.description || '';
+  
+  // Publishing options
+  if (article.status === 'draft') {
+    document.querySelector('input[name="status"][value="draft"]').checked = true;
+  } else {
+    document.querySelector('input[name="status"][value="published"]').checked = true;
+  }
+  
+  // Try to format the date for the datetime-local input
+  if (article.publishDate) {
+    try {
+      const publishDate = new Date(article.publishDate);
+      // Format as YYYY-MM-DDTHH:MM
+      const formattedDate = publishDate.toISOString().slice(0, 16);
+      document.getElementById('publish-date').value = formattedDate;
+    } catch (error) {
+      console.error('Error parsing publish date:', error);
+    }
+  }
+}
+
+/**
+ * Initialize the rich text editor with content
+ * @param {string} content - The HTML content
+ */
+function initializeEditor(content) {
+  if (typeof initRichTextEditor !== 'undefined') {
+    // Use the component if available
+    initRichTextEditor('#editor-container', {
+      initialContent: content,
+      setup: function(editor) {
+        editor.on('change', function() {
+          // Update the hidden textarea with content
+          document.getElementById('content').value = editor.getContent();
+        });
+      }
+    });
+  } else {
+    // Direct TinyMCE initialization
+    tinymce.init({
+      selector: '#editor-container',
+      height: 500,
+      menubar: false,
+      plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
+        'searchreplace', 'visualblocks', 'code', 'fullscreen',
+        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+      ],
+      toolbar: 'undo redo | blocks | ' +
+        'bold italic forecolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | image link | code | help',
+      content_style: 'body { font-family:Roboto,Arial,sans-serif; font-size:16px; color:#d1d5db; }',
+      skin: 'oxide-dark',
+      content_css: 'dark',
+      setup: function(editor) {
+        editor.on('init', function() {
+          // Set content after initialization
+          editor.setContent(content || '');
+          // Update the hidden textarea
+          document.getElementById('content').value = content || '';
+        });
+        editor.on('change', function() {
+          // Update the hidden textarea with content
+          document.getElementById('content').value = editor.getContent();
+        });
+      }
+    });
+  }
+}
+
+/**
+ * Initialize categories with the selected category
+ * @param {string} selectedCategoryId - The ID of the selected category
+ */
+function initializeCategories(selectedCategoryId) {
+  // Check if CategoryManager is loaded
+  if (window.categoryManager) {
+    const categoryContainer = document.getElementById('category-container');
+    if (!categoryContainer) return;
+    
+    // Clear existing categories
+    categoryContainer.innerHTML = '';
+    
+    // Get all categories
+    const categories = window.categoryManager.getAllCategories();
+    
+    // Create category selection options
+    categories.forEach(category => {
+      const isSelected = category.id === selectedCategoryId;
+      
+      const categoryEl = document.createElement('label');
+      categoryEl.className = `flex items-center space-x-2 bg-primary/50 p-3 rounded-lg border 
+        border-gray-700 cursor-pointer hover:border-yellow-400/50 transition-colors 
+        ${isSelected ? 'border-yellow-400' : ''}`;
+      
+      categoryEl.innerHTML = `
+        <input type="radio" name="category" value="${category.id}" 
+          class="text-yellow-500 focus:ring-yellow-500" ${isSelected ? 'checked' : ''}>
+        <span class="flex items-center">
+          <i class="fas ${category.icon} mr-2 ${category.textClass}"></i>
+          ${category.name}
+        </span>
+      `;
+      
+      categoryContainer.appendChild(categoryEl);
+    });
+    
+    // Add change event listeners to all category radio buttons
+    const categoryRadios = document.querySelectorAll('input[name="category"]');
+    categoryRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        // Update styling for selected category
+        const labels = categoryContainer.querySelectorAll('label');
+        labels.forEach(label => {
+          if (label.contains(this)) {
+            label.classList.add('border-yellow-400');
+          } else {
+            label.classList.remove('border-yellow-400');
+          }
+        });
+      });
+    });
+  }
+}
+
+/**
+ * Initialize tags with existing tags
+ * @param {Array} tags - Array of tag strings
+ */
+function initializeTags(tags) {
+  if (!tags || !Array.isArray(tags)) return;
+  
+  const tagsInput = document.getElementById('tags');
+  const tagsContainer = document.getElementById('tags-container');
+  
+  if (!tagsInput || !tagsContainer) return;
+  
+  // Clear existing tags
+  tagsContainer.innerHTML = '';
+  
+  // Add each tag
+  tags.forEach(tag => addTag(tag, tagsContainer, tagsInput));
+  
+  // Set comma-separated tags in input field
+  tagsInput.value = tags.join(', ');
+  
+  // Setup event listener for adding new tags
+  tagsInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      
+      const tagText = tagsInput.value.trim();
+      if (tagText) {
+        addTag(tagText, tagsContainer, tagsInput);
+        tagsInput.value = '';
+        updateHiddenTagsField(tagsContainer, tagsInput);
+      }
+    }
+  });
+}
+
+/**
+ * Add a tag to the UI
+ * @param {string} tagName - The tag text
+ * @param {HTMLElement} container - The tags container
+ * @param {HTMLInputElement} input - The tags input field
+ */
+function addTag(tagName, container, input) {
+  const tag = document.createElement('span');
+  tag.className = 'bg-primary/70 text-gray-300 px-2 py-1 text-sm rounded-full flex items-center';
+  tag.innerHTML = `
+    ${tagName}
+    <button type="button" class="ml-1 text-gray-400 hover:text-red-400">
+      <i class="fas fa-times"></i>
+    </button>
+  `;
+  
+  // Add remove functionality
+  tag.querySelector('button').addEventListener('click', function() {
+    tag.remove();
+    updateHiddenTagsField(container, input);
+  });
+  
+  container.appendChild(tag);
+}
+
+/**
+ * Update the tags input field with all visible tags
+ * @param {HTMLElement} container - The tags container
+ * @param {HTMLInputElement} input - The tags input field
+ */
+function updateHiddenTagsField(container, input) {
+  const allTags = [];
+  container.querySelectorAll('span').forEach(tag => {
+    // Get text content without the "×" button text
+    const tagText = tag.childNodes[0].textContent.trim();
+    allTags.push(tagText);
+  });
+  
+  input.value = allTags.join(', ');
+}
+
+/**
+ * Show a notification message
+ * @param {string} message - The message to show
+ * @param {string} type - The notification type ('success' or 'error')
+ */
+function showNotification(message, type = 'info') {
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.className = `fixed top-20 right-4 max-w-xs bg-secondary border ${type === 'success' ? 'border-green-500' : 'border-red-500'} p-4 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-x-full`;
+  
+  notification.innerHTML = `
+    <div class="flex items-center">
+      <div class="${type === 'success' ? 'text-green-400' : 'text-red-400'} mr-3">
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl"></i>
+      </div>
+      <div>
+        <p class="text-white">${message}</p>
+      </div>
+    </div>
+  `;
+  
+  // Add to DOM
+  document.body.appendChild(notification);
+  
+  // Animate in
+  setTimeout(() => {
+    notification.classList.remove('translate-x-full');
+  }, 10);
+  
+  // Remove after delay
+  setTimeout(() => {
+    notification.classList.add('translate-x-full');
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 300); // Match transition duration
+  }, 5000);
+}
+
+/**
+ * Set up delete article functionality
+ * @param {string} articleId - The ID of the article to delete
+ * @param {Array} articles - Array of all articles
+ */
+function setupDeleteArticle(articleId, articles) {
+  const deleteBtn = document.getElementById('delete-article');
+  const deleteModal = document.getElementById('delete-confirm-modal');
+  const modalContent = deleteModal.querySelector('.bg-secondary');
+  const cancelDeleteBtn = document.getElementById('cancel-delete');
+  const confirmDeleteBtn = document.getElementById('confirm-delete');
+  
+  if (!deleteBtn || !deleteModal || !cancelDeleteBtn || !confirmDeleteBtn) return;
+  
+  // Show delete confirmation modal
+  deleteBtn.addEventListener('click', function() {
+    // Use Tailwind classes for animations
+    deleteModal.classList.remove('hidden');
+    
+    // Trigger animation with a small delay
+    setTimeout(() => {
+      deleteModal.classList.remove('opacity-0', 'invisible');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+    }, 10);
+  });
+  
+  // Hide modal when cancel is clicked
+  cancelDeleteBtn.addEventListener('click', function() {
+    // Reverse the animation
+    deleteModal.classList.add('opacity-0', 'invisible');
+    modalContent.classList.remove('scale-100');
+    modalContent.classList.add('scale-95');
+    
+    // Hide the modal after animation completes
+    setTimeout(() => {
+      deleteModal.classList.add('hidden');
+    }, 300);
+  });
+  
+  // Handle delete confirmation
+  confirmDeleteBtn.addEventListener('click', function() {
+    // Show loading state using Tailwind classes
+    const originalText = this.innerHTML;
+    this.disabled = true;
+    this.classList.add('opacity-75', 'cursor-not-allowed');
+    this.innerHTML = `
+      <div class="flex items-center justify-center">
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Deleting...
+      </div>
+    `;
+    
+    // Simulate API delete call with timeout
+    setTimeout(() => {
+      try {
+        // Remove article from array
+        const updatedArticles = articles.filter(article => article.id !== articleId);
+        
+        // Save updated articles list to localStorage
+        localStorage.setItem('articles', JSON.stringify(updatedArticles));
+        
+        // Hide modal first
+        deleteModal.classList.add('opacity-0', 'invisible');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        
+        setTimeout(() => {
+          deleteModal.classList.add('hidden');
+          
+          // Show success message
+          showNotification('Article deleted successfully!', 'success');
+          
+          // Redirect to articles list
+          setTimeout(() => {
+            window.location.href = './all_articles.html';
+          }, 1000);
+        }, 300);
+      } catch (error) {
+        // Reset button state and show error
+        this.innerHTML = originalText;
+        this.disabled = false;
+        this.classList.remove('opacity-75', 'cursor-not-allowed');
+        
+        // Hide the modal
+        deleteModal.classList.add('opacity-0', 'invisible');
+        setTimeout(() => {
+          deleteModal.classList.add('hidden');
+        }, 300);
+        
+        showNotification(`Error deleting article: ${error.message}`, 'error');
+      }
+    }, 1500);
+  });
+}

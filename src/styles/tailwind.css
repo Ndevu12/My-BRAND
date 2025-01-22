@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  body {
+    @apply bg-primary w-[98%] mx-auto font-[Roboto];
+    color: white; /* Direct color instead of @apply text-white */
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply text-xl;
+  }
+
+  p {
+    @apply text-lg;
+  }
+
+  a {
+    color: white; /* Direct color instead of @apply */
+    text-decoration: none;
+  }
+}
+
+/* Light theme styles */
+body.light-theme {
+  @apply bg-gray-100;
+  color: #1f2937; /* Direct color instead of @apply text-gray-800 */
+}
+
+/* Theme-specific styling for various elements */
+body.light-theme .bg-secondary {
+  @apply bg-gray-200;
+}
+
+body.light-theme .text-gray-300 {
+  color: #374151; /* Direct color instead of @apply */
+}
+
+body.light-theme .text-gray-400 {
+  color: #4b5563; /* Direct color instead of @apply */
+}
+
+body.light-theme .card {
+  @apply bg-white border border-gray-200 shadow-md;
+}
+
+body.light-theme .form-input {
+  @apply bg-white border-gray-300;
+  color: #1f2937; /* Direct color instead of @apply text-gray-800 */
+}
+
+body.light-theme #main-header {
+  @apply border-gray-200 bg-white/95;
+}
+
+body.light-theme .nav-link::after {
+  @apply bg-yellow-500;
+}
+
+body.light-theme .nav-link.active-nav-item,
+body.light-theme .nav-link:hover {
+  @apply text-yellow-600;
+}
+
+body.light-theme #main-footer {
+  @apply bg-gray-800;
+  color: white; /* Direct color instead of @apply */
+}
+
+body.light-theme #main-footer .text-gray-400 {
+  color: #d1d5db; /* Direct color instead of @apply */
+}
+
+body.light-theme .footer-links a {
+  color: #d1d5db; /* Direct color instead of @apply */
+}
+
+body.light-theme a.text-gray-300,
+body.light-theme a.text-gray-400 {
+  color: #4b5563; /* Direct color instead of @apply */
+}
+
+body.light-theme a.text-gray-300:hover,
+body.light-theme a.text-gray-400:hover {
+  color: #d97706; /* Direct color instead of @apply */
+}
+
+@layer components {
+  /* Common button style */
+  .btn-primary {
+    @apply bg-[#2f2b2b] border border-[#916868] text-white text-base py-2.5 px-3 rounded-full w-[20%] min-w-[150px] text-center transition-colors duration-300;
+  }
+
+  .btn-primary:hover {
+    @apply bg-primary text-[#e0c110] text-base cursor-pointer w-[21%];
+  }
+
+  /* Header styling */
+  .header-nav {
+    @apply text-lg text-white flex flex-wrap gap-6;
+  }
+  .header-nav a {
+    @apply hover:bg-[rgb(22,22,44)] hover:text-[rgb(238,238,9)];
+  }
+  
+  /* Section styling */
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 py-12 md:py-20;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-8 text-center relative;
+  }
+  
+  .section-title span {
+    @apply text-yellow-400;
+  }
+  
+  /* Card styling */
+  .card {
+    @apply bg-secondary p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105;
+  }
+  
+  /* Form elements */
+  .form-input {
+    @apply bg-[#252547] border border-[#444464] rounded-lg px-4 py-3 w-full text-white focus:outline-none focus:ring-2 focus:ring-yellow-400;
+  }
+  
+  /* Animations */
+  .animate-slide-in {
+    animation: slide-in 1.2s ease-in-out forwards;
+  }
+  .animate-fade-in {
+    animation: fade-in 1.2s ease-in-out forwards;
+  }
+  .animate-scale-up {
+    animation: scale-up 1.2s ease-in-out forwards;
+  }
+  .animate-zoom-in {
+    animation: zoom-in 1.2s ease-in-out forwards;
+  }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 700px) {
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-nav {
+    @apply flex-col items-start gap-4 text-left fixed top-0 -right-full z-10 w-[200px] bg-primary shadow-[-5px_0_40px_rgba(0,0,0,0.25)] transition-all duration-700 ease-out;
+  }
+  
+  .mobile-nav.active {
+    @apply right-0;
+  }
+}
+
+/* Additional animations */
+@keyframes slide-in {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 1.2s ease-in-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 1.2s ease-in-out forwards;
+}
+
+.animate-scale-up {
+  animation: scale-up 1.2s ease-in-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
