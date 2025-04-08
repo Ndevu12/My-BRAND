@@ -53,3 +53,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+/**
+ * Blogs Page Functionality
+ * Handles category tabs and pagination
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  initCategoryTabs();
+  initPagination();
+});
+
+/**
+ * Initialize category tab functionality
+ */
+function initCategoryTabs() {
+  const categoryTabs = document.querySelectorAll('.category-tab');
+  categoryTabs.forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Remove active class from all tabs
+      categoryTabs.forEach(t => {
+        const span = t.querySelector('span');
+        span.classList.remove('bg-yellow-500', 'text-black');
+        span.classList.add('bg-secondary', 'border', 'border-gray-700');
+      });
+      
+      // Add active class to clicked tab
+      const span = this.querySelector('span');
+      span.classList.remove('bg-secondary', 'border', 'border-gray-700');
+      span.classList.add('bg-yellow-500', 'text-black');
+      
+      // Here you would typically filter the blog posts based on the selected category
+      // For now, we'll just log which category was selected
+      console.log(`Selected category: ${span.textContent.trim()}`);
+    });
+  });
+}
+
+/**
+ * Initialize pagination functionality
+ */
+function initPagination() {
+  if (typeof insertPagination === 'function') {
+    insertPagination('#pagination-container', {
+      currentPage: 1,
+      totalPages: 8,
+      onPageChange: function(page) {
+        console.log(`Navigating to page ${page}`);
+        // Here you would typically fetch the content for the selected page
+        // and update the blog grid with new articles
+        
+        // For demo purposes, let's just update the pagination to show the new page
+        insertPagination('#pagination-container', {
+          currentPage: page,
+          totalPages: 8,
+          onPageChange: this.onPageChange
+        });
+      }
+    });
+  } else {
+    console.error('Pagination component not loaded');
+  }
+}

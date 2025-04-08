@@ -1,18 +1,85 @@
-# NdevuSpace
+# My-BRAND Portfolio Project
 
-## Ndevu's Portfolio
+A personal portfolio and blog website built with HTML, Tailwind CSS, and JavaScript.
 
-Welcome to my digital space! This is the repository for my Full Stack Developer portfolio, showcasing my skills in Software development, web development and UX design.
+## Installation
 
-## Overview
+To set up the project locally, follow these steps:
 
-As a Full Stack Developer, I am committed to delivering seamless and innovative solutions. This portfolio serves as a window into my expertise, covering a range of technologies and demonstrating my capabilities in both front-end and back-end development.
+### Prerequisites
 
-## Features
+- Node.js (v14 or newer)
+- npm (comes with Node.js)
 
-- **Full Stack Development:** Holistic solutions that seamlessly integrate front-end and back-end technologies.
-- **Web Development:** Crafting responsive and user-centric websites with captivating frontend interfaces and robust backend architectures.
-- **UX Design:** Elevate your digital presence with intuitive and visually engaging user experiences.
+### Setup Steps
+
+1. Clone the repository or download the project files
+
+2. Navigate to the project directory:
+   ```
+   cd My-BRAND
+   ```
+
+3. Install dependencies:
+   ```
+   npm install
+   ```
+
+4. Install the Tailwind CSS typography plugin:
+   ```
+   npm install --save-dev @tailwindcss/typography
+   ```
+   
+   Alternatively, you can run the provided installation script:
+   ```
+   node scripts/install-dependencies.js
+   ```
+
+5. Build the CSS:
+   ```
+   npm run build
+   ```
+
+6. For development with auto-refresh:
+   ```
+   npm run dev
+   ```
+
+## Project Structure
+
+- `index.html` - Main homepage
+- `views/` - HTML pages for different sections
+- `components/` - Reusable JavaScript components
+- `scripts/` - JavaScript files for functionality
+- `styles/` - CSS including Tailwind configuration
+- `images/` - Image assets
+
+## Using the Reusable Components
+
+### Header Component
+The header is automatically inserted at the beginning of each page through the header.js script.
+
+### Footer Component
+The footer is automatically inserted at the end of each page through the footer.js script.
+
+### Pagination Component
+To use the pagination component:
+
+```javascript
+insertPagination('#container-selector', {
+  currentPage: 1,
+  totalPages: 8,
+  onPageChange: function(page) {
+    // Your page change handling code here
+  }
+});
+```
+
+## Development Notes
+
+- Tailwind CSS is used for styling
+- JavaScript modules are organized by functionality
+- The site is responsive and works on mobile, tablet, and desktop devices
 
 ## Contact
 

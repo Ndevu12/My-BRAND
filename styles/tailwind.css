@@ -23,22 +23,22 @@
     @apply text-white no-underline;
   }
 
-  /* Light theme styles */
+  /* Light theme styles - Modified to avoid circular dependencies */
   body.light-theme {
     @apply bg-gray-100 text-gray-800;
   }
   
-  /* Theme-specific styling for various elements */
+  /* Theme-specific styling for various elements - Fix circular dependencies */
   body.light-theme .bg-secondary {
-    @apply bg-gray-200;
+    background-color: #e5e7eb; /* Using direct color instead of @apply */
   }
   
   body.light-theme .text-gray-300 {
-    @apply text-gray-700;
+    color: #374151; /* Using direct color instead of @apply */
   }
   
   body.light-theme .text-gray-400 {
-    @apply text-gray-600;
+    color: #4b5563; /* Using direct color instead of @apply */
   }
   
   body.light-theme .card {
@@ -67,11 +67,21 @@
   }
   
   body.light-theme #main-footer .text-gray-400 {
-    @apply text-gray-300;
+    color: #d1d5db; /* Using direct color instead of @apply */
   }
   
   body.light-theme .footer-links a {
-    @apply text-gray-300;
+    color: #d1d5db; /* Using direct color instead of @apply */
+  }
+  
+  body.light-theme a.text-gray-300,
+  body.light-theme a.text-gray-400 {
+    color: #4b5563; /* Using direct color instead of @apply */
+  }
+  
+  body.light-theme a.text-gray-300:hover,
+  body.light-theme a.text-gray-400:hover {
+    color: #d97706; /* Using direct color instead of @apply */
   }
 }
 
