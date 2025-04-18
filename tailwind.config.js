@@ -2,11 +2,20 @@
 module.exports = {
   content: [
     "./*.html",
-    "./views/*.html",
-    "./components/*.js",
-    "./scripts/*.js"
+    "./src/pages/*.html",
+    "./src/components/*.js",
+    "./src/scripts/**/*.js",
+    "./views/*.html"  // Include your views directory
   ],
   theme: {
+    // Explicitly define the breakpoints to ensure they're working properly
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       colors: {
         'primary': '#101426',
@@ -21,6 +30,45 @@ module.exports = {
       },
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif']
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+        slideIn: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        scaleUp: {
+          '0%': { opacity: '0', transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' }
+        },
+        fadeInModal: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
+        },
+        fadeOutModal: {
+          '0%': { opacity: '1', transform: 'scale(1)' },
+          '100%': { opacity: '0', transform: 'scale(0.95)' }
+        },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        }
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.8s ease forwards',
+        'slide-in': 'slideIn 0.8s ease forwards',
+        'scale-up': 'scaleUp 0.8s ease forwards',
+        'float': 'float 3s ease-in-out infinite',
+        'modal-in': 'fadeInModal 0.3s ease-out forwards',
+        'modal-out': 'fadeOutModal 0.3s ease-in forwards',
+        'spin': 'spin 1s linear infinite'
       },
       typography: (theme) => ({
         DEFAULT: {

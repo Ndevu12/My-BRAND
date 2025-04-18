@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NdevuSpace - Detailed blog article on web development, programming, and software engineering insights">
+    
+    <link rel="stylesheet" type="text/css" href="../styles/output.css">
+    <link rel="icon" type="image/png" href="../images/logo1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <title>Blog Title | NdevuSpace</title>
+    
+    <!-- Import the header, footer and components -->
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+    <script src="../components/categoryManager.js" type="module"></script>
+
+    <style>
+      /* Smooth animation for TOC expand/collapse */
+      .toc-content {
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      }
+      
+      .toc-content.hidden {
+        display: none;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+      }
+      
+      .toc-content:not(.hidden) {
+        display: block;
+        opacity: 1;
+        max-height: 500px; /* Adjust based on your needs */
+        overflow-y: auto;
+      }
+      
+      /* Make TOC scrollable if it gets too long */
+      .toc-content {
+        max-height: 60vh; /* Adjust as needed */
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 209, 67, 0.5) rgba(31, 41, 55, 0.5);
+      }
+      
+      /* For WebKit browsers (Chrome, Safari) */
+      .toc-content::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      .toc-content::-webkit-scrollbar-track {
+        background: rgba(31, 41, 55, 0.5);
+        border-radius: 10px;
+      }
+      
+      .toc-content::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 209, 67, 0.5);
+        border-radius: 10px;
+      }
+      
+      /* Add responsive adjustments */
+      @media (max-width: 1023px) {
+        .toc-container {
+          position: relative;
+        }
+      }
+    </style>
+</head>
+<body class="bg-primary text-white">
+  <!-- Header is automatically inserted by the header.js script -->
+  
+  <main class="max-w-6xl mx-auto px-4 py-16">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Main Content -->
+      <article class="lg:w-3/4 animate-fade-in">
+        <!-- Breadcrumb Navigation -->
+        <div class="mb-6 flex items-center text-sm text-gray-400">
+          <a href="../index.html" class="hover:text-yellow-400 transition-colors">Home</a>
+          <span class="mx-2">›</span>
+          <a href="./blogs.html" class="hover:text-yellow-400 transition-colors">Blogs</a>
+          <span class="mx-2">›</span>
+          <span class="text-gray-300 category-display"></span>
+        </div>
+
+        <!-- Article Header -->
+        <header class="mb-8">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4"></h1>
+          <!-- Blog Subtitle (will be shown if exists) -->
+          <h2 id="blog-subtitle" class="text-xl text-gray-300 mb-4 hidden"></h2>
+          
+          <!-- Article Meta -->
+          <div class="flex items-center justify-between flex-wrap gap-4 pb-8 border-b border-gray-700/50">
+            <div class="flex items-center">
+              <img src="../images/mypic.png" alt="Author" class="w-12 h-12 rounded-full border-2 border-yellow-500">
+              <div class="ml-3">
+                <p class="font-medium blog-author">Ndevu</p>
+                <p class="text-sm text-gray-400">Full Stack Developer</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-6 text-sm text-gray-400">
+              <span class="flex items-center gap-2 blog-date">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </span>
+              <span class="flex items-center gap-2 read-time">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Featured Image -->
+        <figure class="mb-10 relative overflow-hidden rounded-xl">
+          <img 
+            src="../images/blog/web-architecture.jpg"
+            alt="Web Architecture Diagram" 
+            class="w-full h-auto rounded-xl featured-image"
+          >
+          <figcaption class="text-sm text-gray-400 mt-2 italic text-center">
+          </figcaption>
+        </figure>
+
+        <!-- Article Content -->
+        <div class="prose prose-invert max-w-none blog-content">
+          <!-- Content will be loaded dynamically -->
+          <p class="lead text-xl text-gray-300">
+          </p>
+          
+          <div id="loading-indicator" class="py-10 flex items-center justify-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
+          </div>
+        </div>
+        
+        <!-- Tags Section -->
+        <div class="mt-10 pt-6 border-t border-gray-700/50">
+          <h3 class="text-lg font-bold mb-3">Tags:</h3>
+          <div class="flex flex-wrap gap-2 blog-tags">
+            <a href="#" class="px-3 py-1 bg-secondary text-gray-300 hover:bg-yellow-500 hover:text-black rounded-full text-sm transition-colors">Architecture</a>
+            <a href="#" class="px-3 py-1 bg-secondary text-gray-300 hover:bg-yellow-500 hover:text-black rounded-full text-sm transition-colors">Web Development</a>
+          </div>
+        </div>
+        
+        <!-- Author Bio -->
+        <div class="mt-10 bg-secondary rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+          <img src="../images/mypic.png" alt="Author" class="w-24 h-24 rounded-full border-2 border-yellow-500">
+          <div>
+            <h3 class="text-xl font-bold mb-2">About the Author</h3>
+            <p class="text-gray-300 mb-4">
+              Ndevu is a Full Stack Developer with over 5 years of experience in building web applications. He specializes in modern JavaScript frameworks, cloud architecture, and performance optimization. When not coding, he enjoys writing technical articles and mentoring aspiring developers.
+            </p>
+            <div class="flex gap-4">
+              <a href="./blogs.html" class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                View all posts
+              </a>
+              <a href="#" class="text-yellow-400 hover:text-yellow-300 transition-colors">
+                Follow @ndevu
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Comments Section -->
+        <div class="mt-10">
+          <h3 class="text-2xl font-bold mb-6">Comments <span class="text-gray-400 text-lg">(4)</span></h3>
+          
+          <!-- Comment Form -->
+          <form class="mb-10 bg-secondary rounded-xl p-6">
+            <h4 class="text-lg font-bold mb-4">Leave a comment</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <input type="text" placeholder="Name" class="bg-[#1a1e32] border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400">
+              <input type="email" placeholder="Email" class="bg-[#1a1e32] border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400">
+            </div>
+            <textarea rows="4" placeholder="Your comment" class="w-full bg-[#1a1e32] border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 mb-4"></textarea>
+            <button type="submit" class="px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-600 transition-colors">
+              Post Comment
+            </button>
+          </form>
+          
+          <!-- Comments List -->
+          <div class="space-y-6">
+            <!-- Comment 1 -->
+            <div class="bg-secondary rounded-xl p-6">
+              <div class="flex justify-between mb-4">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">JD</div>
+                  <div class="ml-3">
+                    <h4 class="font-bold">John Doe</h4>
+                    <p class="text-sm text-gray-400">May 15, 2023</p>
+                  </div>
+                </div>
+                <button class="text-gray-400 hover:text-yellow-400 transition-colors" title="More options">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                  </svg>
+                </button>
+              </div>
+              <p class="text-gray-300">
+                Great article! We recently migrated from a monolithic architecture to microservices and faced many of the challenges you mentioned. The improved scalability has been worth the added complexity though.
+              </p>
+              <div class="mt-4 flex items-center gap-6">
+                <button class="flex items-center gap-2 text-gray-400 hover:text-yellow-400 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                  </svg>
+                  <span>24</span>
+                </button>
+                <button class="flex items-center gap-2 text-gray-400 hover:text-yellow-400 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                  </svg>
+                  <span>Reply</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Comment 2 with Reply -->
+            <div class="bg-secondary rounded-xl p-6">
+              <div class="flex justify-between mb-4">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">AS</div>
+                  <div class="ml-3">
+                    <h4 class="font-bold">Anna Smith</h4>
+                    <p class="text-sm text-gray-400">May 14, 2023</p>
+                  </div>
+                </div>
+                <button class="text-gray-400 hover:text-yellow-400 transition-colors" title="More options">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                  </svg>
+                </button>
+              </div>
+              <p class="text-gray-300">
+                What are your thoughts on JAMstack architecture? I've been using it for several projects and found it particularly effective for content-focused websites.
+              </p>
+              <div class="mt-4 flex items-center gap-6">
+                <button class="flex items-center gap-2 text-gray-400 hover:text-yellow-400 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                  </svg>
+                  <span>18</span>
+                </button>
+                <button class="flex items-center gap-2 text-gray-400 hover:text-yellow-400 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                  </svg>
+                  <span>Reply</span>
+                </button>
+              </div>
+              
+              <!-- Reply to Comment -->
+              <div class="mt-4 ml-10 pt-4 border-t border-gray-700/30">
+                <div class="flex justify-between mb-4">
+                  <div class="flex items-center">
+                    <img src="../images/mypic.png" alt="Author" class="w-8 h-8 rounded-full">
+                    <div class="ml-3">
+                      <h4 class="font-bold">Ndevu <span class="bg-yellow-500/20 text-yellow-400 text-xs px-2 py-0.5 rounded ml-1">Author</span></h4>
+                      <p class="text-sm text-gray-400">May 14, 2023</p>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-300">
+                  Great point, Anna! The JAMstack approach definitely deserves mention. It's particularly powerful for content-heavy sites where performance and security are priorities. I'm planning a follow-up article specifically on JAMstack - stay tuned!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Sidebar -->
+      <aside class="lg:w-1/4 space-y-8">
+        <!-- Table of Contents -->
+        <div class="bg-secondary rounded-xl p-6 sticky top-24 toc-container">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold flex items-center">
+              <span class="inline-block w-3 h-10 bg-yellow-500 rounded-sm mr-2"></span>
+              Table of Contents
+            </h3>
+            <button id="toc-toggle" class="text-gray-400 hover:text-yellow-400 transition-colors" aria-label="Toggle table of contents">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 toc-collapse-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 toc-expand-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <div class="toc-content hidden">
+            <nav class="toc space-y-3 text-sm">
+              <!-- TOC will be populated dynamically -->
+            </nav>
+          </div>
+        </div>
+        
+        <!-- Share Article -->
+        <div class="bg-secondary rounded-xl p-6">
+          <h3 class="font-bold mb-4">Share This Article</h3>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center hover:opacity-80 transition-opacity" aria-label="Share on Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+              </svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-[#1DA1F2] flex items-center justify-center hover:opacity-80 transition-opacity" aria-label="Share on Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-[#0A66C2] flex items-center justify-center hover:opacity-80 transition-opacity" aria-label="Share on LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+              </svg>
+            </a>
+            <button class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600 transition-colors" title="Copy link to clipboard">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Related Articles -->
+        <div class="bg-secondary rounded-xl p-6">
+          <h3 class="font-bold mb-4">Related Articles</h3>
+          <div class="space-y-4 related-articles">
+            <!-- Will be populated dynamically -->
+          </div>
+        </div>
+        
+        <!-- Newsletter Signup -->
+        <div class="bg-secondary rounded-xl overflow-hidden">
+          <div class="h-20 bg-gradient-to-r from-yellow-500 to-amber-600 flex items-center justify-center">
+            <h3 class="text-xl font-bold text-white">Stay Updated</h3>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-300 text-sm mb-4">Get notified about new articles and tech insights directly to your inbox.</p>
+            <form class="space-y-3">
+              <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg bg-[#1a1e32] border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all text-sm" required>
+              <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 group">
+                Subscribe
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+  
+  <!-- Article Navigation (Previous/Next) -->
+  <div class="bg-secondary border-t border-gray-700/50">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="#" class="group flex items-center p-4 rounded-lg hover:bg-[#1f1f3d] transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-gray-400 group-hover:text-yellow-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <div>
+            <p class="text-sm text-gray-400">Previous Article</p>
+            <p class="font-medium group-hover:text-yellow-400 transition-colors">RESTful API Design Best Practices</p>
+          </div>
+        </a>
+        <a href="#" class="group flex items-center justify-end p-4 rounded-lg hover:bg-[#1f1f3d] transition-colors">
+          <div class="text-right">
+            <p class="text-sm text-gray-400">Next Article</p>
+            <p class="font-medium group-hover:text-yellow-400 transition-colors">Building Resilient Systems: Lessons from Real-World Projects</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2 text-gray-400 group-hover:text-yellow-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer is automatically inserted by the footer.js script -->
+  
+  <!-- Import blog detail functionality -->
+  <script src="../utils/categoryUtils.js" type="module"></script>
+  <script src="../scripts/blogs/blog-detail.js" type="module"></script>
+</body>
+</html>

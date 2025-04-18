@@ -4,8 +4,8 @@
   "description": "Personal portfolio and blog website",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tailwindcss -i ./styles/tailwind.css -o ./styles/output.css --watch",
-    "build": "npx tailwindcss -i ./styles/tailwind.css -o ./styles/output.css"
+    "dev": "npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/output.css --watch",
+    "build": "npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/output.css"
   },
   "keywords": [],
   "author": "",
