@@ -95,10 +95,8 @@ function createHeader() {
           <a href="${basePath}pages/experience.html" class="nav-link ${isActive('experience.html')}">Experience</a>
         </nav>
       </div>
-    </div>
-
-    <!-- Mobile Navigation Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 transform translate-x-full transition-transform duration-300 lg:hidden">
+    </div>    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] transform translate-x-full transition-transform duration-300 lg:hidden">
       <div class="h-full w-3/4 ml-auto bg-secondary border-l border-gray-800 overflow-y-auto">
         <div class="flex justify-between items-center p-4 border-b border-gray-800">
           <h2 class="text-xl font-bold text-yellow-400">Menu</h2>
@@ -141,6 +139,14 @@ function loadHeader() {
   
   // Set up theme toggle button functionality
   setupThemeToggle();
+  
+  // Ensure mobile menu is properly initialized
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileMenu) {
+    // Keep it hidden with transform but ensure it's in the DOM
+    mobileMenu.style.display = 'block';
+    mobileMenu.classList.add('translate-x-full');
+  }
   
   // Set up mobile nav functionality
   setupMobileNav();
@@ -217,13 +223,15 @@ function addHeaderStyles() {
     .nav-link.active-nav-item::after {
       width: 60%;
     }
-    
-    .mobile-nav-link {
+      .mobile-nav-link {
       display: block;
       padding: 0.75rem;
       border-left: 3px solid transparent;
       transition: all 0.3s;
       font-weight: 500;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
     }
     
     .mobile-nav-link:hover {
@@ -238,12 +246,34 @@ function addHeaderStyles() {
       color: #facc15;
       background-color: rgba(250, 204, 21, 0.1);
     }
-    
-    .header-scrolled {
+      .header-scrolled {
       padding-top: 0.5rem !important;
       padding-bottom: 0.5rem !important;
       background-color: rgba(17, 17, 33, 0.98) !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* Mobile menu specific styles */
+    #mobile-menu {
+      height: 100vh;
+      width: 100%;
+    }
+    
+    #mobile-menu .mobile-nav-link {
+      color: #ffffff;
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    #mobile-menu > div {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #mobile-menu > div > nav {
+      flex: 1;
+      overflow-y: auto;
     }
   `;
   document.head.appendChild(style);
@@ -284,7 +314,14 @@ function setupMobileNav() {
   
   if (menuButton && mobileMenu) {
     menuButton.addEventListener('click', function() {
-      mobileMenu.classList.remove('translate-x-full');
+      // Make sure the menu is visible before animation
+      mobileMenu.style.display = 'block';
+      
+      // Let the browser process the display change before removing the transform
+      setTimeout(() => {
+        mobileMenu.classList.remove('translate-x-full');
+      }, 10);
+      
       document.body.style.overflow = 'hidden';
     });
   }
@@ -292,6 +329,14 @@ function setupMobileNav() {
   if (closeButton && mobileMenu) {
     closeButton.addEventListener('click', function() {
       mobileMenu.classList.add('translate-x-full');
+      
+      // Wait for the transition to complete before hiding
+      setTimeout(() => {
+        if (mobileMenu.classList.contains('translate-x-full')) {
+          // Don't hide, just keep it transformed out of view
+        }
+      }, 300);
+      
       document.body.style.overflow = '';
     });
   }
