@@ -1,0 +1,93 @@
+      /* Smooth animation for TOC expand/collapse */
+      .toc-content {
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      }
+      
+      .toc-content.hidden {
+        display: none;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+      }
+      
+      .toc-content:not(.hidden) {
+        display: block;
+        opacity: 1;
+        max-height: 500px; /* Adjust based on your needs */
+        overflow-y: auto;
+      }
+      
+      /* Make TOC scrollable if it gets too long */
+      .toc-content {
+        max-height: 60vh; /* Adjust as needed */
+        overflow-y: auto;
+      }
+      
+      /* For WebKit browsers (Chrome, Safari) */
+      .toc-content::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      .toc-content::-webkit-scrollbar-track {
+        background: rgba(31, 41, 55, 0.5);
+        border-radius: 10px;
+      }
+      
+      .toc-content::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 209, 67, 0.5);
+        border-radius: 10px;
+      }
+      
+      /* Mobile responsiveness improvements */
+      @media (max-width: 768px) {
+        /* Increase text size for better readability */
+        body {
+          font-size: 16px;
+        }
+        
+        /* Make heading text larger on small screens */
+        h1 {
+          font-size: 2rem !important;
+          line-height: 1.2 !important;
+        }
+        
+        /* Increase author info size */
+        .blog-author {
+          font-size: 1rem;
+        }
+        
+        /* Increase blog content text size */
+        .blog-content p {
+          font-size: 1.125rem;
+          line-height: 1.7;
+        }
+        
+        /* Adjust comment form on mobile */
+        form input, form textarea {
+          font-size: 16px; /* Prevents zoom on iOS */
+        }
+        
+        /* Increase logo size in footer */
+        #main-footer img.w-14 {
+          width: 3.5rem;
+          height: 3.5rem;
+        }
+        
+        /* Increase social icon size */
+        .footer-social-link svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+      
+      /* Tablet and small desktop responsive adjustments */
+      @media (max-width: 1023px) {
+        .toc-container {
+          position: relative;
+        }
+        
+        /* Improve spacing in article navigation */
+        .article-navigation a {
+          padding: 1rem;
+        }
+      }
