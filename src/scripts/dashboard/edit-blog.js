@@ -1,53 +1,68 @@
 /**
- * Edit Article Page Script
- * Handles loading and updating an existing article
+ * Edit Blog Page Script
+ * Handles loading and updating an existing blog
  */
 
 import { getCategoryBadgeHTML } from '../../utils/categoryUtils.js';
-import { dummyBlogs } from '../../data/dummyBlogs.js';
+import { getBlogById, updateBlog, uploadBlogImage, deleteBlog } from '../actions/blogs/blogActions.js';
+import { showNotification } from '../../utils/notificationUtils.js';
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Get article ID from URL
+document.addEventListener('DOMContentLoaded', async function() {
+  // Get blog ID from URL
   const urlParams = new URLSearchParams(window.location.search);
-  const articleId = urlParams.get('id');
+  const blogId = urlParams.get('id');
   
-  if (!articleId) {
-    // No ID provided, redirect to new article page
-    window.location.href = './new-article.html';
-    return;rn;
-  }  
-  
-  // Load article data from localStorage or API
-  const articles = dummyBlogs || [];
-  const article = articles.find(art => art.id === articleId);
-  
-  if (!article) {
-    // Article not found, show error and redirect
-    alert('Article not found. You will be redirected to create a new one.');
+  if (!blogId) {
+    // No ID provided, redirect to new blog page
     window.location.href = './new-article.html';
     return;
-  }
+  }  
   
-  // Update page title
-  document.title = `Edit: ${article.title} | NdevuSpace`;
+  try {
+    // Load blog data from API
+    const blog = await getBlogById(blogId);
+    
+    if (!blog) {
+      throw new Error('Blog not found');
+    }
+    
+    // Continue with blog data
+    setupBlogEditor(blog);
+  } catch (error) {
+    // Blog not found or error occurred, show error and redirect
+    showNotification(`Error loading blog: ${error.message}`, 'error');
+    setTimeout(() => {
+      window.location.href = './all_articles.html';
+    }, 2000);
+    return;
+  }
+}); 
+
+/**
+ * Setup the blog editor with blog data
+ * @param {Object} blog - The blog data
+ */
+function setupBlogEditor(blog) {
+    // Update page title
+  document.title = `Edit: ${blog.title} | NdevuSpace`;
   
   // Update header
   const pageHeader = document.querySelector('h2');
   const pageSubheader = document.querySelector('h2 + p');
-  if (pageHeader) pageHeader.textContent = `Edit Article`;
-  if (pageSubheader) pageSubheader.textContent = `Editing: ${article.title}`;
+  if (pageHeader) pageHeader.textContent = `Edit Blog`;
+  if (pageSubheader) pageSubheader.textContent = `Editing: ${blog.title}`;
   
-  // Fill form with article data
-  populateForm(article);
+  // Fill form with blog data
+  populateForm(blog);
   
   // Initialize the rich text editor
-  initializeEditor(article.content);
+  initializeEditor(blog.content);
   
   // Initialize category selection
-  initializeCategories(article.category);
+  initializeCategories(blog.category);
   
   // Initialize tag system
-  initializeTags(article.tags);
+  initializeTags(blog.tags);
   
   // Update form to handle updates instead of creation
   const form = document.getElementById('new-blog-form');
@@ -56,9 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (form && savePublishBtn) {
     // Change button text
     savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Article';
-    
-    // Override form submission
-    form.onsubmit = function(e) {
+      // Override form submission
+    form.onsubmit = async function(e) {
       e.preventDefault();
       
       // Get content from editor
@@ -77,77 +91,79 @@ document.addEventListener('DOMContentLoaded', function() {
       const imagePreview = document.getElementById('image-preview');
       const imageUrl = document.getElementById('image-url').value;
       const featuredImageSrc = imagePreview.classList.contains('hidden') 
-        ? (imageUrl || article.imageUrl) 
+        ? (imageUrl || blog.imageUrl) 
         : imagePreview.src;
       
       // Show loading state
       savePublishBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Updating...';
       savePublishBtn.disabled = true;
       
-      // Prepare updated article data
-      const updatedArticle = {
-        ...article, // Keep existing data
-        title: formData.get('title'),
-        subtitle: formData.get('subtitle') || '',
-        content: formData.get('content'),
-        description: formData.get('description'),
-        imageUrl: featuredImageSrc,
-        imageCaption: formData.get('imageCaption') || '',
-        category: formData.get('category'),
-        tags: formData.get('tags').split(',').map(tag => tag.trim()).filter(Boolean),
-        readTime: `${formData.get('readingTime') || '5'} min read`,
-        status: formData.get('status'),
-        publishDate: formData.get('publishDate') || article.publishDate,
-        updatedAt: new Date().toISOString(),
-        metaTitle: formData.get('metaTitle') || formData.get('title'),
-        metaDescription: formData.get('metaDescription') || formData.get('description')
-      };
-      
-      // Simulate API update with timeout
-      setTimeout(() => {
-        // Find and update the article in the array
-        const articleIndex = articles.findIndex(art => art.id === articleId);
-        if (articleIndex !== -1) {
-          articles[articleIndex] = updatedArticle;
-          localStorage.setItem('articles', JSON.stringify(articles));
-          
-          // Reset button state
-          savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Article';
-          savePublishBtn.disabled = false;
-          
-          // Show success notification
-          showNotification('Article updated successfully!', 'success');
-          
-          // Redirect to articles list after a delay
-          setTimeout(() => {
-            window.location.href = './all_articles.html';
-          }, 1500);
-        } else {
-          // Error handling
-          savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Article';
-          savePublishBtn.disabled = false;
-          showNotification('Error updating article: Article not found', 'error');
+      try {
+        // Handle image upload if needed
+        let finalImageUrl = featuredImageSrc;
+        const featuredImageInput = document.getElementById('featured-image');
+        if (featuredImageInput && featuredImageInput.files && featuredImageInput.files[0]) {
+          finalImageUrl = await uploadBlogImage(featuredImageInput.files[0]);
         }
-      }, 1500);
+
+        // Get tags
+        const tags = formData.get('tags').split(',').map(tag => tag.trim()).filter(Boolean);
+        
+        // Prepare updated blog data
+        const updatedBlog = {
+          title: formData.get('title'),
+          subtitle: formData.get('subtitle') || '',
+          content: formData.get('content'),
+          description: formData.get('description'),
+          imageUrl: finalImageUrl,
+          imageCaption: formData.get('imageCaption') || '',
+          category: formData.get('category'),
+          tags: tags,
+          readTime: parseInt(formData.get('reading-time') || '5'),
+          status: formData.get('status'),
+          publishDate: formData.get('publish-date') || blog.publishDate,
+          metaTitle: formData.get('meta-title') || formData.get('title'),
+          metaDescription: formData.get('meta-description') || formData.get('description')
+        };
+        
+        // Call API to update blog
+        await updateBlog(blog._id, updatedBlog);
+        
+        // Show success notification
+        showNotification('Blog updated successfully!', 'success');
+        
+        // Redirect to articles list after a delay
+        setTimeout(() => {
+          window.location.href = './all_articles.html';
+        }, 1500);
+      } catch (error) {
+        // Error handling
+        savePublishBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Update Blog';
+        savePublishBtn.disabled = false;
+        showNotification(`Error updating blog: ${error.message}`, 'error');
+      }
     };
   }
-});
+  
+  // Setup delete functionality
+  setupDeleteBlog(blog._id);
+}
 
 /**
- * Populate form fields with article data
- * @param {Object} article - The article data
+ * Populate form fields with blog data
+ * @param {Object} blog - The blog data
  */
-function populateForm(article) {
+function populateForm(blog) {
   // Basic information
-  document.getElementById('title').value = article.title || '';
-  document.getElementById('subtitle').value = article.subtitle || '';
-  document.getElementById('description').value = article.description || '';
+  document.getElementById('title').value = blog.title || '';
+  document.getElementById('subtitle').value = blog.subtitle || '';
+  document.getElementById('description').value = blog.description || '';
   
   // Parse reading time (format: "X min read")
-  const readingTime = article.readTime ? parseInt(article.readTime, 10) : 5;
+  const readingTime = blog.readTime ? parseInt(blog.readTime, 10) : 5;
   document.getElementById('reading-time').value = isNaN(readingTime) ? 5 : readingTime;
   
-  document.getElementById('author').value = article.author || 'Ndevu';
+  document.getElementById('author').value = blog.author || 'Ndevu';
   
   // Featured image
   const imagePreview = document.getElementById('image-preview');
@@ -155,32 +171,32 @@ function populateForm(article) {
   const removeImageBtn = document.getElementById('remove-image');
   const imageUrlInput = document.getElementById('image-url');
   
-  if (article.imageUrl) {
+  if (blog.imageUrl) {
     // Display existing image
-    imagePreview.src = article.imageUrl;
+    imagePreview.src = blog.imageUrl;
     imagePreview.classList.remove('hidden');
     uploadUI.classList.add('hidden');
     removeImageBtn.classList.remove('hidden');
-    imageUrlInput.value = article.imageUrl;
+    imageUrlInput.value = blog.imageUrl;
   }
   
-  document.getElementById('image-caption').value = article.imageCaption || '';
+  document.getElementById('image-caption').value = blog.imageCaption || '';
   
   // SEO settings
-  document.getElementById('meta-title').value = article.metaTitle || article.title || '';
-  document.getElementById('meta-description').value = article.metaDescription || article.description || '';
+  document.getElementById('meta-title').value = blog.metaTitle || blog.title || '';
+  document.getElementById('meta-description').value = blog.metaDescription || blog.description || '';
   
   // Publishing options
-  if (article.status === 'draft') {
+  if (blog.status === 'draft') {
     document.querySelector('input[name="status"][value="draft"]').checked = true;
   } else {
     document.querySelector('input[name="status"][value="published"]').checked = true;
   }
   
   // Try to format the date for the datetime-local input
-  if (article.publishDate) {
+  if (blog.publishDate) {
     try {
-      const publishDate = new Date(article.publishDate);
+      const publishDate = new Date(blog.publishDate);
       // Format as YYYY-MM-DDTHH:MM
       const formattedDate = publishDate.toISOString().slice(0, 16);
       document.getElementById('publish-date').value = formattedDate;
@@ -373,50 +389,10 @@ function updateHiddenTagsField(container, input) {
 }
 
 /**
- * Show a notification message
- * @param {string} message - The message to show
- * @param {string} type - The notification type ('success' or 'error')
+ * Set up delete blog functionality
+ * @param {string} blogId - The ID of the blog to delete
  */
-function showNotification(message, type = 'info') {
-  // Create notification element
-  const notification = document.createElement('div');
-  notification.className = `fixed top-20 right-4 max-w-xs bg-secondary border ${type === 'success' ? 'border-green-500' : 'border-red-500'} p-4 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-x-full`;
-  
-  notification.innerHTML = `
-    <div class="flex items-center">
-      <div class="${type === 'success' ? 'text-green-400' : 'text-red-400'} mr-3">
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl"></i>
-      </div>
-      <div>
-        <p class="text-white">${message}</p>
-      </div>
-    </div>
-  `;
-  
-  // Add to DOM
-  document.body.appendChild(notification);
-  
-  // Animate in
-  setTimeout(() => {
-    notification.classList.remove('translate-x-full');
-  }, 10);
-  
-  // Remove after delay
-  setTimeout(() => {
-    notification.classList.add('translate-x-full');
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 300); // Match transition duration
-  }, 5000);
-}
-
-/**
- * Set up delete article functionality
- * @param {string} articleId - The ID of the article to delete
- * @param {Array} articles - Array of all articles
- */
-function setupDeleteArticle(articleId, articles) {
+function setupDeleteBlog(blogId) {
   const deleteBtn = document.getElementById('delete-article');
   const deleteModal = document.getElementById('delete-confirm-modal');
   const modalContent = deleteModal.querySelector('.bg-secondary');
@@ -452,7 +428,7 @@ function setupDeleteArticle(articleId, articles) {
   });
   
   // Handle delete confirmation
-  confirmDeleteBtn.addEventListener('click', function() {
+  confirmDeleteBtn.addEventListener('click', async function() {
     // Show loading state using Tailwind classes
     const originalText = this.innerHTML;
     this.disabled = true;
@@ -467,45 +443,39 @@ function setupDeleteArticle(articleId, articles) {
       </div>
     `;
     
-    // Simulate API delete call with timeout
-    setTimeout(() => {
-      try {
-        // Remove article from array
-        const updatedArticles = articles.filter(article => article.id !== articleId);
+    try {
+      // Delete the blog via API
+      await deleteBlog(blogId);
+      
+      // Hide modal first
+      deleteModal.classList.add('opacity-0', 'invisible');
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+      
+      setTimeout(() => {
+        deleteModal.classList.add('hidden');
         
-        // Save updated articles list to localStorage
-        localStorage.setItem('articles', JSON.stringify(updatedArticles));
+        // Show success message
+        showNotification('Blog deleted successfully!', 'success');
         
-        // Hide modal first
-        deleteModal.classList.add('opacity-0', 'invisible');
-        modalContent.classList.remove('scale-100');
-        modalContent.classList.add('scale-95');
-        
+        // Redirect to blogs list
         setTimeout(() => {
-          deleteModal.classList.add('hidden');
-          
-          // Show success message
-          showNotification('Article deleted successfully!', 'success');
-          
-          // Redirect to articles list
-          setTimeout(() => {
-            window.location.href = './all_articles.html';
-          }, 1000);
-        }, 300);
-      } catch (error) {
-        // Reset button state and show error
-        this.innerHTML = originalText;
-        this.disabled = false;
-        this.classList.remove('opacity-75', 'cursor-not-allowed');
-        
-        // Hide the modal
-        deleteModal.classList.add('opacity-0', 'invisible');
-        setTimeout(() => {
-          deleteModal.classList.add('hidden');
-        }, 300);
-        
-        showNotification(`Error deleting article: ${error.message}`, 'error');
-      }
-    }, 1500);
+          window.location.href = './all_articles.html';
+        }, 1000);
+      }, 300);
+    } catch (error) {
+      // Reset button state and show error
+      this.innerHTML = originalText;
+      this.disabled = false;
+      this.classList.remove('opacity-75', 'cursor-not-allowed');
+      
+      // Hide the modal
+      deleteModal.classList.add('opacity-0', 'invisible');
+      setTimeout(() => {
+        deleteModal.classList.add('hidden');
+      }, 300);
+      
+      showNotification(`Error deleting blog: ${error.message}`, 'error');
+    }
   });
 }

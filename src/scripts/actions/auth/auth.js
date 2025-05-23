@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const username = document.querySelector('#userName').value;
       const password = document.querySelector('#password').value;
 
-      console.log({ username, password });
       
       if (!username || !password) {
           alert('All fields have to be provided.');

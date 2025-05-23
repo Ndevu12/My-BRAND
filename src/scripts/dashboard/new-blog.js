@@ -1,9 +1,11 @@
 /**
- * New Article Page Script
- * Handles article creation, preview, and form interactions
+ * New Blog Page Script
+ * Handles blog creation, preview, and form interactions
  */
 
 import { getCategoryBadgeHTML } from '../../utils/categoryUtils.js';
+import { createBlog, uploadBlogImage } from '../actions/blogs/blogActions.js';
+import { showNotification } from '../../utils/notificationUtils.js';
 
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize rich text editor
@@ -142,15 +144,14 @@ document.addEventListener('DOMContentLoaded', function() {
     removeImageBtn.classList.add('hidden');
   });
   
-  // Preview functionality
-  const previewBtn = document.getElementById('preview-article');
+  // Preview functionality  const previewBtn = document.getElementById('preview-blog');
   const previewModal = document.getElementById('preview-modal');
   const previewContent = document.getElementById('preview-content');
   const closePreviewBtns = document.querySelectorAll('#close-preview, #close-preview-btn');
   
   previewBtn.addEventListener('click', function() {
     // Get form values
-    const title = document.getElementById('title').value || 'Article Title';
+    const title = document.getElementById('title').value || 'Blog Title';
     const subtitle = document.getElementById('subtitle').value;
     const description = document.getElementById('description').value;
     
@@ -273,14 +274,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const nowDate = new Date();
   const nowString = nowDate.toISOString().slice(0, 16); // Format as YYYY-MM-DDTHH:MM
   document.getElementById('publish-date').value = nowString;
-  
   // Form submission
-  const articleForm = document.getElementById('new-blog-form');
+  const blogForm = document.getElementById('new-blog-form');
   const savePublishBtn = document.getElementById('save-publish');
   const saveDraftBtn = document.getElementById('save-draft');
   const discardBtn = document.getElementById('discard');
   
-  articleForm.addEventListener('submit', function(e) {
+  blogForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
     // Ensure content is saved from the editor
@@ -292,124 +292,79 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     document.getElementById('content').value = content;
     
-    // Gather form data
-    const formData = new FormData(articleForm);
-    
-    // Add additional data not directly in form inputs
-    formData.append('featuredImageSrc', imagePreview.classList.contains('hidden') ? '' : imagePreview.src);
-    
-    // Collect tags from tag manager or from the input field
-    let tags;
-    if (tagManager) {
-      tags = tagManager.getTags();
-    } else {
-      tags = document.getElementById('tags').value.split(',').map(tag => tag.trim()).filter(Boolean);
-    }
-    formData.append('tags', tags.join(','));
-    
     // Show loading state
     savePublishBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
     savePublishBtn.disabled = true;
     
-    // Generate unique ID and dates
-    const now = new Date();
-    const articleId = Date.now().toString();
-    
-    // Prepare article data object for API - matching the dummy blogs structure
-    const articleData = {
-      id: articleId,
-      title: formData.get('title'),
-      subtitle: formData.get('subtitle') || '',
-      description: formData.get('description'),
-      content: formData.get('content'),
-      author: formData.get('author') || 'Ndevu',
-      createdAt: now.toISOString(),
-      imageUrl: formData.get('featuredImageSrc') || 'https://via.placeholder.com/800x450?text=NdevuSpace',
-      imageCaption: formData.get('imageCaption') || '',
-      category: formData.get('category'),
-      tags: tags,
-      readTime: `${formData.get('readingTime') || '5'} min read'`,
-      status: formData.get('status'),
-      publishDate: formData.get('publishDate') || now.toISOString(),
-      views: 0,
-      metaTitle: formData.get('metaTitle') || formData.get('title'),
-      metaDescription: formData.get('metaDescription') || formData.get('description')
-    };
-    
-    console.log('Article data ready for submission:', articleData);
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-      // Reset button state
-      savePublishBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Save & Publish';
-      savePublishBtn.disabled = false;
+    try {
+      // Collect tags from tag manager or from the input field
+      let tags;
+      if (tagManager) {
+        tags = tagManager.getTags();
+      } else {
+        tags = document.getElementById('tags').value.split(',').map(tag => tag.trim()).filter(Boolean);
+      }
       
-      // Show success notification (would typically be after successful API response)
-      showNotification('Article published successfully!', 'success');
+      // Get the selected category
+      const selectedCategory = document.querySelector('input[name="category"]:checked');
+      const categoryId = selectedCategory ? selectedCategory.value : null;
       
-      // In a real app, save to localStorage, API, or database
-      const articles = JSON.parse(localStorage.getItem('articles') || '[]');
-      articles.push(articleData);
-      localStorage.setItem('articles', JSON.stringify(articles));
+      // Prepare blog data for API
+      const blogData = {
+        title: document.getElementById('title').value,
+        subtitle: document.getElementById('subtitle').value || '',
+        description: document.getElementById('description').value,
+        content: document.getElementById('content').value,
+        categoryId: categoryId, // Use categoryId as per API requirements
+        tags: tags,
+        readTime: parseInt(document.getElementById('reading-time').value || '5'),
+        status: document.querySelector('input[name="status"]:checked').value,
+        publishDate: document.getElementById('publish-date').value || new Date().toISOString(),
+        metaTitle: document.getElementById('meta-title').value || document.getElementById('title').value,
+        metaDescription: document.getElementById('meta-description').value || document.getElementById('description').value
+      };
       
-      // Redirect to articles list (comment this out if you want to stay on the page for testing)
+      // Handle featured image if present
+      const featuredImageInput = document.getElementById('featured-image');
+      if (featuredImageInput.files && featuredImageInput.files[0]) {
+        blogData.image = featuredImageInput.files[0];
+      }
+      
+      // Send to API
+      const createdBlog = await createBlog(blogData);
+      
+      // Show success notification
+      showNotification('Blog published successfully!', 'success');
+      
+      // Redirect to blogs list after a brief delay
       setTimeout(() => {
         window.location.href = './all_articles.html';
       }, 1500);
-    }, 1500);
+      
+    } catch (error) {
+      // Show error notification
+      showNotification(`Failed to create blog: ${error.message}`, 'error');
+        // Reset button state
+      savePublishBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Save & Publish Blog';
+      savePublishBtn.disabled = false;
+    }
   });
-  
-  // Save as draft
+    // Save as draft
   saveDraftBtn.addEventListener('click', function() {
     // Set status to draft
     document.querySelector('input[name="status"][value="draft"]').checked = true;
     
     // Submit the form
     const event = new Event('submit', { bubbles: true, cancelable: true });
-    articleForm.dispatchEvent(event);
+    blogForm.dispatchEvent(event);
   });
-  
-  // Discard changes
+    // Discard changes
   discardBtn.addEventListener('click', function() {
-    if (confirm('Are you sure you want to discard this article? All changes will be lost.')) {
+    if (confirm('Are you sure you want to discard this blog? All changes will be lost.')) {
       window.location.href = './all_articles.html';
     }
   });
   
-  // Notification system
-  function showNotification(message, type = 'info') {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `fixed top-20 right-4 max-w-xs bg-secondary border ${type === 'success' ? 'border-green-500' : 'border-red-500'} p-4 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-x-full`;
-    
-    notification.innerHTML = `
-      <div class="flex items-center">
-        <div class="${type === 'success' ? 'text-green-400' : 'text-red-400'} mr-3">
-          <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl"></i>
-        </div>
-        <div>
-          <p class="text-white">${message}</p>
-        </div>
-      </div>
-    `;
-    
-    // Add to DOM
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-      notification.classList.remove('translate-x-full');
-    }, 10);
-    
-    // Remove after delay
-    setTimeout(() => {
-      notification.classList.add('translate-x-full');
-      
-      setTimeout(() => {
-        notification.remove();
-      }, 300); // Match transition duration
-    }, 5000);
-  }
   
   // Auto-set meta fields based on main fields
   const titleField = document.getElementById('title');
