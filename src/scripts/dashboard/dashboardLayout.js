@@ -3,7 +3,17 @@
  * Handles loading dashboard layout components
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+import { initAuthGuard, initLogoutHandlers, getCurrentUser } from '../../utils/authGuard.js';
+
+document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize authentication guard for dashboard
+    await initAuthGuard({
+        protectedPages: ['dashboard.html', 'all_articles.html', 'new-article.html', 'edit-article.html']
+    });
+
+    // Get current user info for profile display
+    const user = await getCurrentUser();
+    
     const sidebarContainer = document.getElementById('sidebar-container');
     const headerContainer = document.getElementById('header-container');
     
@@ -22,18 +32,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                
-                <!-- Admin profile summary -->
+                  <!-- Admin profile summary -->
                 <div class="p-4 border-b border-gray-700">
                     <div class="flex items-center space-x-3">
                         <div class="h-12 w-12 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center">
-                            <span class="font-bold text-xl">N</span>
+                            <span class="font-bold text-xl">${user?.username?.charAt(0)?.toUpperCase() || 'A'}</span>
                         </div>
                         <div>
-                            <h3 class="font-medium">Admin User</h3>
-                            <p class="text-xs text-gray-400">Super Admin</p>
+                            <h3 class="font-medium">${user?.username || 'Admin User'}</h3>
+                            <p class="text-xs text-gray-400">${user?.role || 'Admin'}</p>
                         </div>
                     </div>
+                    <!-- Logout button -->
+                    <button class="logout mt-3 w-full text-left text-xs text-gray-400 hover:text-red-400 transition-colors duration-200 flex items-center space-x-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
                 </div>
                 
                 <!-- Navigation links -->
@@ -151,9 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageHeading = document.querySelector('h1');
     if (pageHeading) {
         pageHeading.textContent = pageTitle || currentPage || 'Dashboard';
-    }
-
-    // Highlight active nav link
+    }    // Highlight active nav link
     if (currentPage) {
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
@@ -162,4 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Initialize logout handlers after DOM is loaded
+    initLogoutHandlers();
 });

@@ -1,62 +1,86 @@
-import { BASE_URL } from '../../../config/config.js';
+/**
+ * Authentication Actions - Business Logic for Login/Logout
+ * This module contains the pure auth business logic that can be called from UI components
+ */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loginButton = document.querySelector('#loginButton');
+import { authManager } from '../../../utils/authManager.js';
+import { showNotification } from '../../../utils/notificationUtils.js';
+import { getPaths } from '../../../utils/paths.js';
 
-  if (loginButton) {
-    loginButton.addEventListener('click', async () => {
-      const username = document.querySelector('#userName').value;
-      const password = document.querySelector('#password').value;
+/**
+ * Perform user login action
+ * @param {Object} credentials - Login credentials
+ * @returns {Promise<Object>} Login result
+ */
+export async function performLogin(credentials) {
+  try {
+    // The authManager handles all validation, sanitization, loading states, and API calls
+    const result = await authManager.login(credentials);
 
+    if (result.success) {
+      // Trigger success animation if available
+      if (window.triggerSuccessAnimation) {
+        window.triggerSuccessAnimation();
+      }
       
-      if (!username || !password) {
-          alert('All fields have to be provided.');
-          return;
+      showNotification(result.message, 'success');
+      
+      // Wait a moment to ensure cookies are properly set before redirect
+      setTimeout(async () => {
+        // Verify authentication status before redirect
+        const authStatus = await authManager.checkAuthStatus();
+        
+       const paths = getPaths();
+       window.location.href = `${paths.pagesPath}dashboard.html`;
+      }, 1000); // Reduced from 1500 to 1000ms
+    } else {
+      // Handle login failure - authManager already handles field errors
+      if (result.errors && Object.keys(result.errors).length > 0) {
+        authManager.showValidationErrors(result.errors);
+      } else {
+        showNotification(result.message, 'error');
       }
+    }
 
-      const loginData = {
-        username,
-        password,
-      };
-
-      try {
-        const response = await fetch(`${BASE_URL}/auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(loginData),
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          const token = result.data.accessToken;
-          localStorage.setItem('token', token);
-          console.log({token});
-
-          alert(result.data.message);
-          window.location.href = '../views/dashboard.html';
-        } else {
-          alert(`Error: ${result.message}`);
-          console.error(`Error: ${result.message}`);
-        }
-      } catch (error) {
-        alert(`Error: ${error.message}`);
-        console.error(`Error: ${error.message}`);
-      }
-    });
+    return result;
+  } catch (error) {
+    showNotification('Network error. Please try again.', 'error');
+    return { success: false, message: 'Network error occurred' };
   }
+}
 
-  // Function to handle admin logout
-  function logout() {
-    localStorage.removeItem('token');
+/**
+ * Perform user logout action
+ * @returns {Promise<Object>} Logout result
+ */
+export async function performLogout() {
+  try {
+    // The authManager handles all logout logic and API calls
+    const result = await authManager.logout();
     
-    alert('You have been logged out');
-    window.location.href = "signin.html";
+    if (result.success) {
+      showNotification(result.message, 'success');
+      
+      // Redirect to signin page
+      const paths = getPaths();
+      setTimeout(() => {
+        window.location.href = `${paths.pagesPath}signin.html`;
+      }, 1000);
+    } else {
+      showNotification(result.message, 'error');
+    }
+    
+    return result;
+  } catch (error) {
+    showNotification('Logout failed', 'error');
+    return { success: false, message: 'Logout failed' };
   }
+}
 
-  const logoutButton = document.querySelector('.logout');
-  if (logoutButton) {
-    logoutButton.addEventListener('click', logout);
-  }
-});
+/**
+ * Check if user is currently authenticating
+ * @returns {boolean} Authentication status
+ */
+export function isAuthenticating() {
+  return authManager.isAuthenticating;
+}

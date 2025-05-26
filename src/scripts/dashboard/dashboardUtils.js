@@ -17,10 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
         dateElement.textContent = now.toLocaleDateString('en-US', options);
     }
     
-    // Other utility functions can be added here
+
+    const buttons = document.querySelectorAll('button');
+    const newArticleBtn = Array.from(buttons).find(btn => 
+        btn.textContent.includes('New Article')
+    );
     
-    // For example, you could add quick actions to the "New Article" button
-    const newArticleBtn = document.querySelector('button:contains("New Article")');
     if (newArticleBtn) {
         newArticleBtn.addEventListener('click', function() {
             window.location.href = './new-article.html';
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Helper function to find elements by text content
-// Used for the "New Article" button selector above
-Element.prototype.contains = function(text) {
-    return this.textContent.includes(text);
-};
+function findElementByText(selector, text) {
+    const elements = document.querySelectorAll(selector);
+    return Array.from(elements).find(el => el.textContent.includes(text));
+}
