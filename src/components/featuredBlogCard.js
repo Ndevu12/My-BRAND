@@ -83,8 +83,7 @@ function createFeaturedBlogCard(blog) {
                 <p class="text-sm font-medium">${blog.author || 'Ndevu'}</p>
                 <p class="text-xs text-gray-400">${formattedDate} · ${blog.readTime || '5 min read'}</p>
               </div>
-            </div>
-            <a href="./blog-detail.html?id=${blog.id}" class="text-yellow-400 hover:text-yellow-300 flex items-center gap-1 font-medium text-sm group-hover:gap-2 transition-all">
+            </div>            <a href="./blog-detail.html?id=${blog.id || blog._id}" class="text-yellow-400 hover:text-yellow-300 flex items-center gap-1 font-medium text-sm group-hover:gap-2 transition-all">
               Read Article
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

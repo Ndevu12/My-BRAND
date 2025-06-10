@@ -3,44 +3,145 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NdevuSpace - Sign In</title>
-
-    <link rel="stylesheet" type="text/css" href="../styles/common.css">
-    <link rel="stylesheet" type="text/css" href="../styles/header.css">
-    <link rel="stylesheet" type="text/css" href="../styles/signin.css">
-    <link rel="stylesheet" type="text/css" href="../styles/footer.css">
+    <title>NdevuSpace - Sign In</title>    
+      <link rel="stylesheet" type="text/css" href="../styles/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="icon" type="image/png" href="../images/logo1.png">
     
     <!-- Import the header component -->
     <script src="../components/header.js"></script>
-  </head>
-    <body>
-      <!-- Header is automatically inserted by the header.js script -->
-
-        <div class='loginPage'>
-          <div class="head">
-            <h3>Login</h3>
+  </head>  
+  <body class="min-h-screen bg-gradient-to-br from-primary via-secondary to-dark-blue font-roboto selection:bg-accent selection:text-primary">
+    <!-- Header is automatically inserted by the header.js script -->
+    
+    <!-- Background decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-dark-blue/30 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-secondary/40 rounded-full blur-3xl"></div>
+    </div>
+    
+    <!-- Main signin container -->
+    <div class="relative min-h-screen flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div class="max-w-md w-full space-y-8">        <!-- Logo and title section -->
+        <div class="text-center">
+          <div class="mx-auto h-16 w-16 bg-gradient-to-r from-accent to-button-hover rounded-xl flex items-center justify-center mb-6 shadow-2xl shadow-accent/25 hover:shadow-accent/40 transition-shadow duration-300">
+            <i class="fas fa-code text-2xl text-primary"></i>
           </div>
-          <div class='container'>
-            <div class="loginContent">
-              <div class="data">
-                <h3>Username</h3>
-                <input id="userName" name="userName" type="text">
+          <h1 class="text-3xl sm:text-4xl font-bold text-light-text mb-2 tracking-tight">Welcome Back</h1>
+          <p class="text-light-text/80 text-sm sm:text-base">Sign in to access your admin dashboard</p>
+        </div>        <!-- Login form card -->
+        <div class="bg-secondary/90 backdrop-blur-md rounded-2xl shadow-2xl border border-card-border/40 p-6 sm:p-8 hover:shadow-3xl hover:bg-secondary/95 transition-all duration-300 animate-fade-in">
+          <form id="loginForm" novalidate class="space-y-6" role="form" aria-label="Admin login form">
+            <!-- Username field -->
+            <div class="space-y-2">
+              <label for="userName" class="block text-sm font-medium text-light-text">
+                Username
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-user text-light-text/60"></i>
+                </div>
+                <input 
+                  id="userName" 
+                  name="userName"
+                  type="text" 
+                  placeholder="Enter your username"
+                  autocomplete="username"
+                  required
+                  aria-describedby="username-error"
+                  aria-invalid="false"
+                  class="w-full pl-10 pr-4 py-3 bg-primary/70 border border-card-border/30 rounded-lg text-light-text placeholder-light-text/50 focus:ring-2 focus:ring-accent focus:border-transparent focus:outline-none transition-all duration-200 backdrop-blur-sm hover:bg-primary/80"
+                >
               </div>
-              <div class="data">
-                <h3>Password</h3>
-                <input id="password" name="password" type="password">
+              <span id="username-error" class="form-error text-red-400 text-sm block" role="alert"></span>
+            </div>
+              <!-- Password field -->
+            <div class="space-y-2">
+              <label for="password" class="block text-sm font-medium text-light-text">
+                Password
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-lock text-light-text/60"></i>
+                </div>
+                <input 
+                  id="password" 
+                  name="password" 
+                  type="password" 
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                  aria-describedby="password-error"
+                  aria-invalid="false"
+                  class="w-full pl-10 pr-12 py-3 bg-primary/70 border border-card-border/30 rounded-lg text-light-text placeholder-light-text/50 focus:ring-2 focus:ring-accent focus:border-transparent focus:outline-none transition-all duration-200 backdrop-blur-sm hover:bg-primary/80"
+                >
+                <button 
+                  type="button" 
+                  class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-light-text/60 hover:text-light-text transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-transparent rounded-md p-1" 
+                  aria-label="Toggle password visibility"
+                  tabindex="0"
+                >
+                  <i class="fas fa-eye" id="password-toggle-icon"></i>
+                </button>
               </div>
-              <div class="data">
-                <button class="Button" id="loginButton">Login</button>
+              <span id="password-error" class="form-error text-red-400 text-sm block" role="alert"></span>
+            </div>
+              <!-- Remember me checkbox -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <input 
+                  type="checkbox" 
+                  id="rememberMe" 
+                  name="rememberMe"
+                  class="h-4 w-4 text-accent focus:ring-accent border-card-border/30 rounded bg-primary/70"
+                >
+                <label for="rememberMe" class="ml-2 block text-sm text-light-text">
+                  Remember me for 30 days
+                </label>
+              </div>
+              
+              <div class="text-sm">
+                <a href="#" id="forgotPasswordLink" class="text-accent hover:text-button-hover transition-colors duration-200">
+                  Forgot password?
+                </a>
               </div>
             </div>
+              <!-- Submit button -->
+            <div class="pt-4">
+              <button 
+                type="submit" 
+                id="loginButton"
+                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-primary bg-gradient-to-r from-accent to-button-hover hover:from-button-hover hover:to-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-accent/25"
+              >
+                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <i class="fas fa-sign-in-alt text-primary/80 group-hover:text-primary"></i>
+                </span>
+                <span class="button-text ml-6 font-semibold">Sign In</span>
+              </button>
+            </div>
+          </form>
+            <!-- Divider -->
+          <div class="mt-8 pt-6 border-t border-card-border/20">
+            <p class="text-center text-xs text-light-text/60">
+              Secure admin access to NdevuSpace dashboard
+            </p>
           </div>
         </div>
+        
+        <!-- Footer text -->
+        <div class="text-center">
+          <p class="text-xs text-light-text/50">
+            © 2025 NdevuSpace. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script type="module" src="../scripts/auth/authMain.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-        <script type="module" src="../scripts/auth.js"></script>
-
-    </body>
+  </body>
 </html>

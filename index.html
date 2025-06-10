@@ -178,72 +178,16 @@
           </a>
         </div>
       </div>
-    </section>
-
-    <!-- Blog Section -->
+    </section>    <!-- Blog Section -->
     <section class="py-16"> 
       <div class="max-w-6xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Latest <span class="text-yellow-400">Insights</span></h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Blog Post 1 -->
-          <div class="card flex flex-col md:flex-row gap-4 group">
-            <div class="w-full md:w-2/3">
-              <h3 class="text-xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
-                The Evolution of Modern Web Architecture
-              </h3>
-              <p class="text-gray-300">
-                Exploring how web development has transformed from monolithic applications to microservices, serverless computing, and JAMstack architectures—with insights on choosing the right approach for your project.
-              </p>
-            </div>
-            <div class="w-full md:w-1/3 overflow-hidden rounded-lg">
-              <img src="./src/images/shell.jfif" class="w-full h-32 md:h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Web architecture diagram">
-            </div>
-          </div>
-          
-          <!-- Blog Post 2 -->
-          <div class="card flex flex-col md:flex-row gap-4 group">
-            <div class="w-full md:w-2/3">
-              <h3 class="text-xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
-                Building Resilient Systems: Lessons from Real-World Projects
-              </h3>
-              <p class="text-gray-300">
-                Key principles and practices for creating software systems that can withstand failures, scale efficiently, and adapt to changing requirements—drawn from experience on enterprise-level applications.
-              </p>
-            </div>
-            <div class="w-full md:w-1/3 overflow-hidden rounded-lg">
-              <img src="./src/images/mypic.png" class="w-full h-32 md:h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="System architecture illustration">
-            </div>
-          </div>
-          
-          <!-- Blog Post 3 -->
-          <div class="card flex flex-col md:flex-row gap-4 group">
-            <div class="w-full md:w-2/3">
-              <h3 class="text-xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
-                The Psychology of User Interface Design
-              </h3>
-              <p class="text-gray-300">
-                How understanding cognitive principles and human behavior patterns can dramatically improve interface design, resulting in more intuitive, engaging, and effective digital products.
-              </p>
-            </div>
-            <div class="w-full md:w-1/3 overflow-hidden rounded-lg">
-              <img src="./src/images/mypic.png" class="w-full h-32 md:h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="UI/UX design process">
-            </div>
-          </div>
-          
-          <!-- Blog Post 4 -->
-          <div class="card flex flex-col md:flex-row gap-4 group">
-            <div class="w-full md:w-2/3">
-              <h3 class="text-xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
-                Optimizing Performance in Modern Web Applications
-              </h3>
-              <p class="text-gray-300">
-                Practical strategies and techniques for identifying and resolving performance bottlenecks in web applications, from frontend rendering optimizations to backend database tuning.
-              </p>
-            </div>
-            <div class="w-full md:w-1/3 overflow-hidden rounded-lg">
-              <img src="./src/images/mypic.png" class="w-full h-32 md:h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="Web performance metrics">
-            </div>
+        <!-- Dynamic Blog Container -->
+        <div id="homepage-blog-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Blog posts will be dynamically loaded here -->
+          <div class="col-span-full flex justify-center items-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
           </div>
         </div>
         
@@ -277,11 +221,10 @@
           </form>
         </div>
       </div>
-    </section>
-
-    <!-- Footer is automatically inserted by the footer.js script -->
+    </section>    <!-- Footer is automatically inserted by the footer.js script -->
 
     <!-- SCRIPTS -->
+    <script type="module" src="./src/scripts/homepage/homepageBlogs.js"></script>
     <script src="./src/scripts/contact_me.js" defer></script>
   </body>
 </html>

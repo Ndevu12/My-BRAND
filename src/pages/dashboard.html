@@ -299,16 +299,10 @@
     </div>
 
     <!-- Mobile overlay for sidebar -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black opacity-50 z-25 hidden md:hidden"></div>
-
-    <!-- Load dashboard layout components -->
-    <script src="../scripts/dashboard/dashboardLayout.js"></script>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black opacity-50 z-25 hidden md:hidden"></div>    <!-- Load dashboard layout components -->
+    <script type="module" src="../scripts/dashboard/dashboardLayout.js"></script>
     <script src="../scripts/dashboard/sidebarControl.js"></script>
     <script src="../scripts/dashboard/dashboardCharts.js"></script>
     <script src="../scripts/dashboard/dashboardUtils.js"></script>
-    <script type="module">
-        import { protectAdminRoute } from '../scripts/context/protectedRoute.js';
-        protectAdminRoute();
-    </script>
 </body>
 </html>

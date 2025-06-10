@@ -1,13 +1,26 @@
 /**
  * Public Blogs Page Script
  * Handles displaying blog posts on the public-facing blogs page
- * Uses dummy blog data instead of API calls
+ * Fetches blog data from the server API
  */
 
-import { dummyBlogs } from '../../data/dummyBlogs.js';
-import { createBlogCard } from '../../components/blogCard.js';
-import { createFeaturedBlogCard } from '../../components/featuredBlogCard.js';
-import { scrollToNewContent } from '../../utils/scrollHelper.js';
+// Import utility functions
+import { fetchBlogs, searchBlogs, fetchPopularBlogs, sortBlogs } from '../../utils/blogApiUtils.js';
+import { 
+  displayFeaturedArticle, 
+  displayArticleGrid, 
+  showLoader, 
+  showErrorMessage,
+  showEmptyState,
+  loadMoreArticles
+} from '../../utils/blogDisplayUtils.js';
+import {
+  setupSearch,
+  setupLoadMoreButton,
+  updateLoadMoreButton,
+  getCurrentCategoryFilter,
+  initializeCategories
+} from '../../utils/blogUiUtils.js';
 
 // Configuration for blog display
 const BLOGS_PER_PAGE = 4; // Number of blogs to show initially and on each "Load More" click
@@ -15,19 +28,56 @@ let currentlyDisplayedCount = 0;
 let filteredArticles = [];
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Get DOM elements
+  const blogsGrid = document.getElementById('blogs-grid');
+  const featuredContainer = document.getElementById('featured-article-container');
+  const loadMoreContainer = document.getElementById('load-more-container');
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  const sortSelect = document.getElementById('sort-options');
+  
   // Initialize CategoryManager for category tabs
-  initializeCategories();
+  initializeCategories(function(categoryId) {
+    // Reset display count when category changes
+    currentlyDisplayedCount = 0;
+    loadArticles(categoryId);
+  });
   
   // Load articles with initial filter
   const urlParams = new URLSearchParams(window.location.search);
   const categoryFilter = urlParams.get('category') || '';
-  loadArticles(categoryFilter);
+  const searchQuery = urlParams.get('search') || '';
+  
+  // Initialize with either search results or category filter
+  if (searchQuery) {
+    loadSearchResults(searchQuery);
+  } else {
+    loadArticles(categoryFilter);
+  }
   
   // Load popular posts for the sidebar
   loadPopularPosts();
   
+  // Set up search functionality
+  setupSearch(function(searchQuery) {
+    // Update URL to reflect search query
+    const url = new URL(window.location);
+    url.searchParams.set('search', searchQuery);
+    url.searchParams.delete('category'); // Remove category filter when searching
+    window.history.pushState({}, '', url);
+    
+    // Reset the active category tab if using CategoryManager
+    if (window.categoryManager) {
+      const allCategoriesTab = document.querySelector('.category-tab[data-category=""]');
+      if (allCategoriesTab) {
+        window.categoryManager.setActiveTab(allCategoriesTab);
+      }
+    }
+    
+    // Load search results
+    loadSearchResults(searchQuery);
+  });
+  
   // Add options to the sort dropdown if it exists
-  const sortSelect = document.getElementById('sort-options');
   if (sortSelect) {
     sortSelect.innerHTML = `
       <option value="newest">Newest First</option>
@@ -42,105 +92,58 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Set up load more button functionality
-  setupLoadMoreButton();
-});
-
-/**
- * Initialize categories using the CategoryManager
- */
-function initializeCategories() {
-  // Check if CategoryManager is loaded
-  if (window.categoryManager) {
-    const categoryTabsContainer = document.getElementById('category-tabs');
-    if (!categoryTabsContainer) return;
-    
-    // Get current category filter from URL if any
-    const urlParams = new URLSearchParams(window.location.search);
-    const activeCategory = urlParams.get('category') || '';
-    
-    // Render the category tabs
-    window.categoryManager.renderCategoryTabs('category-tabs', activeCategory, function(categoryId) {
-      // This callback is triggered when a category tab is clicked
+  if (loadMoreBtn) {
+    setupLoadMoreButton(loadMoreBtn, function() {
+      const categoryFilter = getCurrentCategoryFilter();
+      const sortOption = sortSelect ? sortSelect.value : 'newest';
       
-      // Update URL to reflect the filter
-      const url = new URL(window.location);
-      if (categoryId) {
-        url.searchParams.set('category', categoryId);
-      } else {
-        url.searchParams.delete('category');
-      }
-      window.history.pushState({}, '', url);
+      // Get the next batch of articles
+      const articlesToDisplay = filteredArticles.slice(
+        currentlyDisplayedCount, 
+        currentlyDisplayedCount + BLOGS_PER_PAGE
+      );
       
-      // Reset display count when category changes
-      currentlyDisplayedCount = 0;
-      loadArticles(categoryId);
+      // Load more articles with animation
+      loadMoreArticles(articlesToDisplay, blogsGrid, function() {
+        // Update the counter
+        currentlyDisplayedCount += articlesToDisplay.length;
+        
+        // Update load more button visibility
+        updateLoadMoreButton(loadMoreBtn, loadMoreContainer, filteredArticles.length - currentlyDisplayedCount);
+      });
     });
-  } else {
-    console.warn('CategoryManager not loaded. Categories will not be displayed correctly.');
   }
-}
-
-/**
- * Get current category filter from active tab
- */
-function getCurrentCategoryFilter() {
-  const activeTab = document.querySelector('.category-tab span.bg-yellow-500');
-  const parentTab = activeTab ? activeTab.closest('.category-tab') : null;
-  return parentTab ? parentTab.dataset.category : '';
-}
+});
 
 /**
  * Load and display articles with optional filtering and sorting
  */
-function loadArticles(categoryFilter = '', sortOption = 'newest') {
+async function loadArticles(categoryFilter = '', sortOption = 'newest') {
   const blogsGrid = document.getElementById('blogs-grid');
   const featuredContainer = document.getElementById('featured-article-container');
   const loadMoreContainer = document.getElementById('load-more-container');
+  const loadMoreBtn = document.getElementById('load-more-btn');
   
   if (!blogsGrid) return;
   
   // Show loading state
-  blogsGrid.innerHTML = `
-    <div class="col-span-full flex justify-center py-12">
-      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
-    </div>
-  `;
+  showLoader(blogsGrid);
   
   try {
-    // Use the dummy blogs data
-    filteredArticles = [...dummyBlogs]; // Create a copy to avoid modifying the original
+    // Fetch blogs from API
+    const blogs = await fetchBlogs(categoryFilter);
     
-    // Filter by category if specified
-    if (categoryFilter) {
-      filteredArticles = filteredArticles.filter(article => article.category === categoryFilter);
-    }
-    
-    // Sort articles
-    switch (sortOption) {
-      case 'newest':
-        filteredArticles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        break;
-      case 'oldest':
-        filteredArticles.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-        break;
-      case 'popular':
-        filteredArticles.sort((a, b) => (b.views || 0) - (a.views || 0));
-        break;
-      default:
-        break;
-    }
+    // Store fetched blogs in filteredArticles and sort them
+    filteredArticles = sortBlogs(blogs, sortOption);
     
     // Show empty state if no articles
+      // Show empty state if no articles
     if (filteredArticles.length === 0) {
-      blogsGrid.innerHTML = `
-        <div class="col-span-full bg-secondary rounded-xl p-10 text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-          <h3 class="text-xl font-bold mb-2">No Articles Found</h3>
-          <p class="text-gray-400">No articles available in this category yet. Check back later or try another category.</p>
-        </div>
-      `;
+      showEmptyState(
+        blogsGrid, 
+        "No Articles Found", 
+        "No articles available in this category yet. Check back later or try another category."
+      );
       
       // Clear featured article and hide load more button
       if (featuredContainer) {
@@ -160,28 +163,8 @@ function loadArticles(categoryFilter = '', sortOption = 'newest') {
       blogsGrid.innerHTML = '';
       
       // Display featured article (first article)
-      if (featuredContainer) {
-        const featuredArticle = filteredArticles[0];
-        
-        // Format the blog data for the featured component
-        const featuredBlogData = {
-          id: featuredArticle.id,
-          title: featuredArticle.title,
-          description: featuredArticle.description,
-          imageUrl: featuredArticle.imageUrl,
-          tags: featuredArticle.tags || [],
-          author: featuredArticle.author || 'Ndevu',
-          authorImage: '../images/mypic.png',
-          date: featuredArticle.createdAt,
-          readTime: featuredArticle.readTime || '5 min read'
-        };
-        
-        // Create featured card using our component
-        const featuredBlogCard = createFeaturedBlogCard(featuredBlogData);
-        
-        // Add the featured article to the featured container
-        featuredContainer.innerHTML = '';
-        featuredContainer.appendChild(featuredBlogCard);
+      if (featuredContainer && filteredArticles.length > 0) {
+        displayFeaturedArticle(filteredArticles[0], featuredContainer);
         
         // Skip the featured article in the regular grid
         currentlyDisplayedCount = 1;
@@ -197,42 +180,23 @@ function loadArticles(categoryFilter = '', sortOption = 'newest') {
     );
     
     // Render the current batch of articles
-    articlesToDisplay.forEach(article => {
-      // Format the blog data for the component
-      const blogData = {
-        id: article.id,
-        title: article.title,
-        description: article.description,
-        imageUrl: article.imageUrl,
-        author: article.author || 'Ndevu',
-        authorImage: '../images/mypic.png',
-        date: article.createdAt,
-        category: article.category,
-        isNew: article.isNew || false,
-        tags: article.tags
-      };
-      
-      // Create card using our component
-      const blogCard = createBlogCard(blogData);
-      
-      // Add the card to the grid
-      blogsGrid.appendChild(blogCard);
-    });
+    displayArticleGrid(articlesToDisplay, blogsGrid);
     
     // Update the counter
     currentlyDisplayedCount += articlesToDisplay.length;
     
     // Update load more button visibility
-    updateLoadMoreButton();
+    if (loadMoreBtn && loadMoreContainer) {
+      updateLoadMoreButton(loadMoreBtn, loadMoreContainer, filteredArticles.length - currentlyDisplayedCount);
+    }
     
   } catch (error) {
     console.error('Error loading articles:', error);
-    blogsGrid.innerHTML = `
-      <div class="col-span-full bg-secondary/70 rounded-xl p-10 text-center">
-        <h3 class="text-xl font-bold mb-2">Error Loading Articles</h3>
-        <p class="text-gray-400">There was a problem loading the articles. Please try again later.</p>
-      </div>
-    `;
+    showErrorMessage(
+      blogsGrid,
+      "Error Loading Articles",
+      "There was a problem loading the articles. Please try again later."
+    );
     
     // Hide load more button
     if (loadMoreContainer) {
@@ -242,162 +206,149 @@ function loadArticles(categoryFilter = '', sortOption = 'newest') {
 }
 
 /**
- * Set up load more button functionality
+ * Load search results based on query
  */
-function setupLoadMoreButton() {
-  const loadMoreBtn = document.getElementById('load-more-btn');
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', function() {
-      // Show loading state
-      this.innerHTML = `
-        <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-black mr-2"></div>
-        Loading...
-      `;
-      this.disabled = true;
-      
-      // Store current count to know which are new articles
-      const previousCount = document.getElementById('blogs-grid').children.length;
-      
-      // Simulate network delay
-      setTimeout(() => {
-        // Load more articles
-        const categoryFilter = getCurrentCategoryFilter();
-        const sortSelect = document.getElementById('sort-options');
-        const sortOption = sortSelect ? sortSelect.value : 'newest';
-        
-        // Load the next batch of articles
-        const blogsGrid = document.getElementById('blogs-grid');
-        const articlesToDisplay = filteredArticles.slice(
-          currentlyDisplayedCount, 
-          currentlyDisplayedCount + BLOGS_PER_PAGE
-        );
-        
-        // Render the articles
-        articlesToDisplay.forEach(article => {
-          const blogData = {
-            id: article.id,
-            title: article.title,
-            description: article.description,
-            imageUrl: article.imageUrl,
-            author: article.author || 'Ndevu',
-            authorImage: '../images/mypic.png',
-            date: article.createdAt,
-            category: article.category,
-            isNew: article.isNew || false,
-            tags: article.tags
-          };
-          
-          const blogCard = createBlogCard(blogData);
-          blogsGrid.appendChild(blogCard);
-        });
-        
-        // Add animation class to new articles
-        const children = Array.from(blogsGrid.children);
-        children.slice(previousCount).forEach(child => {
-          child.classList.add('blog-card-appearing');
-        });
-        
-        // Scroll to the first new article with a small offset
-        scrollToNewContent('blogs-grid', previousCount, { 
-          offset: 80,  // Offset to account for sticky header
-          behavior: 'smooth'
-        });
-        
-        // Update the counter
-        currentlyDisplayedCount += articlesToDisplay.length;
-        
-        // Reset button state
-        this.innerHTML = 'Load More';
-        this.disabled = false;
-        
-        // Update load more button visibility
-        updateLoadMoreButton();
-      }, 600); // Simulate network delay
-    });
-  }
-}
-
-/**
- * Update load more button visibility
- */
-function updateLoadMoreButton() {
+async function loadSearchResults(query) {
+  const blogsGrid = document.getElementById('blogs-grid');
+  const featuredContainer = document.getElementById('featured-article-container');
   const loadMoreContainer = document.getElementById('load-more-container');
   const loadMoreBtn = document.getElementById('load-more-btn');
   
-  if (!loadMoreContainer || !loadMoreBtn) return;
+  if (!blogsGrid) return;
   
-  const remainingArticles = filteredArticles.length - currentlyDisplayedCount;
+  // Show loading state
+  showLoader(blogsGrid);
   
-  if (remainingArticles > 0) {
-    // Show load more button
-    loadMoreContainer.classList.remove('hidden');
+  try {
+    // Update the search input with the query
+    const searchInput = document.querySelector('input[placeholder*="Search articles"]');
+    if (searchInput) {
+      searchInput.value = query;
+    }
     
-    // Update button text to show remaining count
-    loadMoreBtn.innerHTML = `Load More (${remainingArticles})`;
-  } else {
+    // Fetch search results from API
+    const blogs = await searchBlogs(query);
+    
+    // Store fetched blogs in filteredArticles
+    filteredArticles = blogs;
+    
+    // Show empty state if no articles found
+    if (filteredArticles.length === 0) {
+      showEmptyState(
+        blogsGrid,
+        "No Results Found",
+        `No articles found matching "${query}". Try a different search term or browse by category.`,
+        "M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" // Sad face icon
+      );
+      
+      // Clear featured article and hide load more button
+      if (featuredContainer) {
+        featuredContainer.innerHTML = '';
+      }
+      
+      if (loadMoreContainer) {
+        loadMoreContainer.classList.add('hidden');
+      }
+      
+      return;
+    }
+    
+    // Reset display counter
+    currentlyDisplayedCount = 0;
+    
+    // Clear the grid for new results
+    blogsGrid.innerHTML = '';
+    
+    // Display featured article if we have results
+    if (featuredContainer && filteredArticles.length > 0) {
+      displayFeaturedArticle(filteredArticles[0], featuredContainer);
+      
+      // Skip the featured article in the regular grid
+      currentlyDisplayedCount = 1;
+    }
+    
+    // Get the next batch of articles to display
+    const articlesToDisplay = filteredArticles.slice(
+      currentlyDisplayedCount, 
+      currentlyDisplayedCount + BLOGS_PER_PAGE
+    );
+    
+    // Render the current batch of articles
+    displayArticleGrid(articlesToDisplay, blogsGrid);
+    
+    // Update the counter
+    currentlyDisplayedCount += articlesToDisplay.length;
+    
+    // Update load more button visibility
+    if (loadMoreBtn && loadMoreContainer) {
+      updateLoadMoreButton(loadMoreBtn, loadMoreContainer, filteredArticles.length - currentlyDisplayedCount);
+    }
+    
+  } catch (error) {
+    console.error('Error searching articles:', error);
+    showErrorMessage(
+      blogsGrid,
+      "Error Searching Articles",
+      "There was a problem searching for articles. Please try again later."
+    );
+    
     // Hide load more button
-    loadMoreContainer.classList.add('hidden');
+    if (loadMoreContainer) {
+      loadMoreContainer.classList.add('hidden');
+    }
   }
 }
 
 /**
  * Load popular posts for the sidebar
  */
-function loadPopularPosts() {
+async function loadPopularPosts() {
   const popularPostsContainer = document.getElementById('popular-posts-container');
   if (!popularPostsContainer) return;
   
   try {
-    // Use dummy data for popular posts
-    // Sort by views (random number for each post) and take top 3
-    const popularArticles = [...dummyBlogs]
-      .sort((a, b) => (b.views || 0) - (a.views || 0))
-      .slice(0, 3);
+    // Show loading state
+    popularPostsContainer.innerHTML = `
+      <div class="flex justify-center py-4">
+        <div class="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-yellow-500"></div>
+      </div>
+    `;
+
+    // Fetch popular blogs (top 3 by likes)
+    const popularArticles = await fetchPopularBlogs(3);
     
     // If no articles, show message
-    if (popularArticles.length === 0) {
+    if (!popularArticles || popularArticles.length === 0) {
       popularPostsContainer.innerHTML = `<p class="text-center text-gray-400 py-2">No articles available yet.</p>`;
       return;
     }
     
     // Create HTML for each popular post
     popularPostsContainer.innerHTML = popularArticles.map(article => {
+      if (!article) return '';
+      
       // Format date
-      const date = new Date(article.createdAt).toLocaleDateString('en-US', {
+      const date = article.createdAt ? new Date(article.createdAt).toLocaleDateString('en-US', {
         month: 'short', day: 'numeric', year: 'numeric'
-      });
+      }) : '';
       
       // Create HTML
       return `
         <div class="flex gap-3 group">
-          <img src="${article.imageUrl}" 
-               alt="${article.title}" 
+          <img src="${article.imageUrl || '../images/blogImages/programming.jfif'}" 
+               alt="${article.title || 'Blog post'}" 
                class="w-16 h-16 rounded object-cover">
           <div>
-            <a href="./blog-detail.html?id=${article.id}" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm font-medium">
-              ${article.title}
+            <a href="./blog-detail.html?id=${article._id}" class="text-gray-300 hover:text-yellow-400 transition-colors text-sm font-medium">
+              ${article.title || 'Untitled Article'}
             </a>
             <p class="text-xs text-gray-400 mt-1">${date}</p>
           </div>
         </div>
       `;
     }).join('');
-    
   } catch (error) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}  }    paginationContainer.innerHTML = ''; // Remove pagination elements  if (paginationContainer) {  const paginationContainer = document.getElementById('pagination-container');  // We can either remove it or keep it for future use  // This function is no longer needed as we're using Load More instead of paginationfunction initializePagination(totalItems) { */ * Initialize pagination controls/**}  }    popularPostsContainer.innerHTML = `<p class="text-center text-gray-400 py-2">Unable to load popular posts.</p>`;    console.error('Error loading popular posts:', error);
+    console.error('Error loading popular posts:', error);
+    popularPostsContainer.innerHTML = `<p class="text-center text-gray-400 py-2">Unable to load popular posts.</p>`;
+  }
+}
