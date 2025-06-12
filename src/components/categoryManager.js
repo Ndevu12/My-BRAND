@@ -3,73 +3,179 @@
  * Centralized management of blog categories to prevent duplication and inconsistency
  */
 
+import { getAllCategories } from '../scripts/actions/categories/categoryActions.js';
+
 class CategoryManager {
     constructor() {
-        // Define all available categories with their properties as an array
-        this.categories = [
+        // Initialize with empty categories - will be loaded from API
+        this.categories = [];
+        this._categoryMap = {};
+        this._initialized = false;
+        this._loading = false;
+        
+        // Define fallback categories
+        this._fallbackCategories = [
             {
-                id: "programming",
-                name: "Programming",
-                description: "Articles about programming languages, paradigms, and best practices",
-                icon: "fa-code",
-                color: "blue",
-                bgClass: "bg-blue-600/30",
-                textClass: "text-blue-400",
-                hoverClass: "hover:bg-blue-500/30"
+                id: 'programming',
+                name: 'Programming',
+                description: 'Articles about programming and software development',
+                icon: 'fa-code',
+                color: 'blue',
+                bgClass: 'bg-blue-600/30',
+                textClass: 'text-blue-400',
+                hoverClass: 'hover:bg-blue-500/30'
             },
             {
-                id: "webdev",
-                name: "Web Development",
-                description: "Articles about frontend and backend web development",
-                icon: "fa-globe",
-                color: "green",
-                bgClass: "bg-green-600/30",
-                textClass: "text-green-400",
-                hoverClass: "hover:bg-green-500/30"
+                id: 'webdev',
+                name: 'Web Development',
+                description: 'Articles about web development',
+                icon: 'fa-globe',
+                color: 'green',
+                bgClass: 'bg-green-600/30',
+                textClass: 'text-green-400',
+                hoverClass: 'hover:bg-green-500/30'
             },
             {
-                id: "design",
-                name: "UX/UI Design",
-                description: "Articles about user experience and interface design",
-                icon: "fa-palette",
-                color: "pink",
-                bgClass: "bg-pink-600/30",
-                textClass: "text-pink-400",
-                hoverClass: "hover:bg-pink-500/30"
+                id: 'design',
+                name: 'UX/UI Design',
+                description: 'Articles about design and user experience',
+                icon: 'fa-palette',
+                color: 'pink',
+                bgClass: 'bg-pink-600/30',
+                textClass: 'text-pink-400',
+                hoverClass: 'hover:bg-pink-500/30'
             },
             {
-                id: "technology",
-                name: "Technology",
-                description: "General technology articles and news",
-                icon: "fa-microchip",
-                color: "purple",
-                bgClass: "bg-purple-600/30",
-                textClass: "text-purple-400",
-                hoverClass: "hover:bg-purple-500/30"
-            },
-            {
-                id: "career",
-                name: "Career",
-                description: "Articles about professional development and career growth",
-                icon: "fa-briefcase",
-                color: "orange",
-                bgClass: "bg-orange-600/30",
-                textClass: "text-orange-400",
-                hoverClass: "hover:bg-orange-500/30"
-            },
-            {
-                id: "entrepreneurship",
-                name: "Entrepreneurship",
-                description: "Articles about startups, business, and entrepreneurship",
-                icon: "fa-rocket",
-                color: "yellow",
-                bgClass: "bg-yellow-600/30",
-                textClass: "text-yellow-400",
-                hoverClass: "hover:bg-yellow-500/30"
+                id: 'technology',
+                name: 'Technology',
+                description: 'Articles about technology trends',
+                icon: 'fa-microchip',
+                color: 'purple',
+                bgClass: 'bg-purple-600/30',
+                textClass: 'text-purple-400',
+                hoverClass: 'hover:bg-purple-500/30'
             }
         ];
         
-        // Create a reference map for quick lookups by ID
+        // Initialize categories on construction
+        this._initializeCategories();
+    }
+
+    /**
+     * Initialize categories from API
+     * @private
+     */
+    async _initializeCategories() {
+        if (this._initialized || this._loading) return;
+        
+        this._loading = true;
+        
+        try {
+            const apiCategories = await getAllCategories();
+
+            if (Array.isArray(apiCategories) && apiCategories.length > 0) {
+                // Transform API categories to match current format
+                this.categories = apiCategories.map(category => this._enrichCategory(category));
+            } else {
+                // Use fallback categories
+                this.categories = [...this._fallbackCategories];
+            }
+            
+            this._updateCategoryMap();
+            this._initialized = true;
+        } catch (error) {
+            console.warn('Failed to load categories from API', );
+            // Use fallback categories when API fails
+            this.categories = [...this._fallbackCategories];
+            this._updateCategoryMap();
+            this._initialized = true;
+        } finally {
+            this._loading = false;
+        }
+    }
+
+    /**
+     * Enrich API category with styling
+     * @private
+     */
+    _enrichCategory(apiCategory) {
+        const id = apiCategory._id || apiCategory.id;
+        const name = apiCategory.name;
+        const description = apiCategory.description || `Articles about ${name.toLowerCase()}`;
+        
+        // Generate styling based on name
+        const style = this._generateCategoryStyle(name);
+        
+        return {
+            id,
+            name,
+            description,
+            ...style
+        };
+    }
+
+    /**
+     * Generate category styling dynamically
+     * @private
+     */
+    _generateCategoryStyle(categoryName) {
+        const normalizedName = categoryName.toLowerCase().trim();
+        
+        // Predefined styles for common categories
+        const styleMap = {
+            'programming': { icon: 'fa-code', color: 'blue' },
+            'web development': { icon: 'fa-globe', color: 'green' },
+            'webdev': { icon: 'fa-globe', color: 'green' },
+            'design': { icon: 'fa-palette', color: 'pink' },
+            'ux/ui design': { icon: 'fa-palette', color: 'pink' },
+            'technology': { icon: 'fa-microchip', color: 'purple' },
+            'career': { icon: 'fa-briefcase', color: 'orange' },
+            'entrepreneurship': { icon: 'fa-rocket', color: 'yellow' },
+            'business': { icon: 'fa-building', color: 'indigo' }
+        };
+        
+        // Try exact match or partial match
+        let style = styleMap[normalizedName];
+        if (!style) {
+            for (const [key, value] of Object.entries(styleMap)) {
+                if (normalizedName.includes(key) || key.includes(normalizedName)) {
+                    style = value;
+                    break;
+                }
+            }
+        }
+        
+        // Generate dynamic styling if no match found
+        if (!style) {
+            const colors = ['blue', 'green', 'purple', 'orange', 'pink', 'indigo', 'cyan', 'emerald', 'amber'];
+            const icons = ['fa-tag', 'fa-bookmark', 'fa-star', 'fa-heart', 'fa-gem', 'fa-folder', 'fa-file'];
+            
+            // Use hash for consistent styling
+            const hash = categoryName.split('').reduce((a, b) => {
+                a = ((a << 5) - a) + b.charCodeAt(0);
+                return a & a;
+            }, 0);
+            
+            style = {
+                icon: icons[Math.abs(hash) % icons.length],
+                color: colors[Math.abs(hash) % colors.length]
+            };
+        }
+        
+        return {
+            icon: style.icon,
+            color: style.color,
+            bgClass: `bg-${style.color}-600/30`,
+            textClass: `text-${style.color}-400`,
+            hoverClass: `hover:bg-${style.color}-500/30`
+        };
+    }
+
+    /**
+     * Update the category map for quick lookups
+     * @private
+     */
+    _updateCategoryMap() {
         this._categoryMap = {};
         this.categories.forEach(category => {
             this._categoryMap[category.id] = category;
@@ -100,15 +206,29 @@ class CategoryManager {
      */
     getDisplayName(id) {
         return this._categoryMap[id] ? this._categoryMap[id].name : id;
-    }
-
-    /**
+    }    /**
      * Check if a category exists
      * @param {string} id - Category ID
      * @returns {boolean} Whether the category exists
      */
     categoryExists(id) {
         return !!this._categoryMap[id];
+    }
+
+    /**
+     * Check if CategoryManager is ready/initialized
+     * @returns {boolean} Whether the CategoryManager has finished loading
+     */
+    isReady() {
+        return this._initialized;
+    }
+
+    /**
+     * Check if CategoryManager is currently loading
+     * @returns {boolean} Whether the CategoryManager is currently loading
+     */
+    isLoading() {
+        return this._loading;
     }
 
     /**

@@ -108,25 +108,39 @@ export function initializeCategories(onCategoryChange) {
   
   const categoryTabsContainer = document.getElementById('category-tabs');
   if (!categoryTabsContainer) return;
-  
-  // Get current category filter from URL if any
-  const urlParams = new URLSearchParams(window.location.search);
-  const activeCategory = urlParams.get('category') || '';
-  
-  // Render the category tabs
-  window.categoryManager.renderCategoryTabs('category-tabs', activeCategory, function(categoryId) {
-    // This callback is triggered when a category tab is clicked
-    
-    // Update URL to reflect the filter
-    const url = new URL(window.location);
-    if (categoryId) {
-      url.searchParams.set('category', categoryId);
+  // Wait for CategoryManager to be initialized
+  const waitForCategories = () => {
+    if (window.categoryManager.isReady()) {
+      renderCategoryTabs();
     } else {
-      url.searchParams.delete('category');
+      // Check again after a short delay
+      setTimeout(waitForCategories, 100);
     }
-    window.history.pushState({}, '', url);
+  };
+
+  const renderCategoryTabs = () => {
+    // Get current category filter from URL if any
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeCategory = urlParams.get('category') || '';
     
-    // Call the provided callback
-    onCategoryChange(categoryId);
-  });
+    // Render the category tabs
+    window.categoryManager.renderCategoryTabs('category-tabs', activeCategory, function(categoryId) {
+      // This callback is triggered when a category tab is clicked
+      
+      // Update URL to reflect the filter
+      const url = new URL(window.location);
+      if (categoryId) {
+        url.searchParams.set('category', categoryId);
+      } else {
+        url.searchParams.delete('category');
+      }
+      window.history.pushState({}, '', url);
+      
+      // Call the provided callback
+      onCategoryChange(categoryId);
+    });
+  };
+
+  // Start waiting for categories to be ready
+  waitForCategories();
 }

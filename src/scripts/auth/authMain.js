@@ -39,13 +39,17 @@ function initializeAuthUI() {
  */
 function setupFormSubmission() {
   const loginForm = document.getElementById('loginForm');
+  const loginText = document.getElementById('loginText');
   
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       // Prevent double submission
-      if (isAuthenticating()) return;
+      if (isAuthenticating()) {
+        loginText.textContent = 'Authenticating...';
+        return;
+      }
       
       // Get form values
       const { username, password, rememberMe } = getFormValues();

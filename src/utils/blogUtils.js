@@ -87,8 +87,10 @@ export function updateBlogContent(blog) {
       dateElement.textContent = date;
     }
   }
-  
-  if (authorElement) authorElement.textContent = blog.author || 'Ndevu';
+
+  let author = `${blog?.author?.firstName}` + '' + `${blog?.author?.lastName}`;
+
+  if (authorElement) authorElement.textContent = author || 'Jean Paul Elisa NIYOKWIEZERWA';
   if (featuredImageElement) featuredImageElement.src = blog.imageUrl;
   if (contentElement) contentElement.innerHTML = blog.content;
   
@@ -260,13 +262,7 @@ export async function loadAdjacentBlogPosts(currentBlogId, currentBlog) {
       return;
     }
     
-    // Sort blogs by date (most recent first)
-    const sortedBlogs = [...allBlogs].sort((a, b) => {
-      const dateA = a.createdAt ? new Date(a.createdAt) : new Date();
-      const dateB = b.createdAt ? new Date(b.createdAt) : new Date();
-      return dateB - dateA;
-    });// Find the index of the current blog
-    const currentIndex = sortedBlogs.findIndex(blog => 
+    const currentIndex = allBlogs.findIndex(blog => 
       blog._id === currentBlogId || blog.id === currentBlogId
     );
 
@@ -281,11 +277,11 @@ export async function loadAdjacentBlogPosts(currentBlogId, currentBlog) {
     // Define previous and next blogs
     // We're ensuring both next and previous blogs are properly assigned
     if (currentIndex > 0) {
-      nextBlog = sortedBlogs[currentIndex - 1]; // More recent = next
+      nextBlog = allBlogs[currentIndex - 1]; // More recent = next
     }
     
-    if (currentIndex < sortedBlogs.length - 1) {
-      prevBlog = sortedBlogs[currentIndex + 1]; // Less recent = previous
+    if (currentIndex < allBlogs.length - 1) {
+      prevBlog = allBlogs[currentIndex + 1]; // Less recent = previous
     }// Generate HTML for navigation with improved sizing and mobile compatibility
     const navigationHTML = `
       <div class="max-w-6xl mx-auto px-4 py-6">

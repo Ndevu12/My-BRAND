@@ -1241,27 +1241,6 @@ a {
 
 /* Section styling */
 
-.section-title {
-  position: relative;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-}
-
-@media (min-width: 768px) {
-  .section-title {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-}
-
-.section-title span {
-  --tw-text-opacity: 1;
-  color: rgb(250 204 21 / var(--tw-text-opacity, 1));
-}
-
 /* Card styling */
 
 .card {
@@ -1468,6 +1447,10 @@ body.light-theme .card {
 
 .top-4 {
   top: 1rem;
+}
+
+.left-3 {
+  left: 0.75rem;
 }
 
 .z-10 {
@@ -1682,6 +1665,10 @@ body.light-theme .card {
 
 .inline-block {
   display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -2648,10 +2635,6 @@ body.light-theme .card {
   background-color: rgb(234 88 12 / 0.2);
 }
 
-.bg-orange-600\/30 {
-  background-color: rgb(234 88 12 / 0.3);
-}
-
 .bg-pink-600\/20 {
   background-color: rgb(219 39 119 / 0.2);
 }
@@ -2780,8 +2763,9 @@ body.light-theme .card {
   background-color: rgb(202 138 4 / 0.2);
 }
 
-.bg-yellow-600\/30 {
-  background-color: rgb(202 138 4 / 0.3);
+.bg-blue-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-95 {
@@ -3391,6 +3375,11 @@ body.light-theme .card {
   color: rgb(133 77 14 / var(--tw-text-opacity, 1));
 }
 
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity, 1));
+}
+
 .placeholder-gray-400::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(156 163 175 / var(--tw-placeholder-opacity, 1));
@@ -3920,10 +3909,6 @@ body.light-theme a.text-gray-400:hover {
   background-color: rgb(22 163 74 / 0.3);
 }
 
-.hover\:bg-orange-500\/30:hover {
-  background-color: rgb(249 115 22 / 0.3);
-}
-
 .hover\:bg-orange-600\/30:hover {
   background-color: rgb(234 88 12 / 0.3);
 }
@@ -3951,10 +3936,6 @@ body.light-theme a.text-gray-400:hover {
 .hover\:bg-red-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
-}
-
-.hover\:bg-red-500\/30:hover {
-  background-color: rgb(239 68 68 / 0.3);
 }
 
 .hover\:bg-red-500\/80:hover {
@@ -3986,10 +3967,6 @@ body.light-theme a.text-gray-400:hover {
 .hover\:bg-yellow-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
-}
-
-.hover\:bg-yellow-500\/30:hover {
-  background-color: rgb(234 179 8 / 0.3);
 }
 
 .hover\:bg-yellow-600:hover {

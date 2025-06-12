@@ -31,6 +31,10 @@ async function createBlog(blogData) {
         formData.append(key, blogData[key]);
       }
     });
+
+    // DEBUGGING
+    console.log('Logging blog data: ', blogData);
+    console.log("Blog data after formatting: ", formData);
     
     requestBody = formData;
   } else {
@@ -53,7 +57,7 @@ async function createBlog(blogData) {
     }
 
     const data = await response.json();
-    return data.blog;
+    return data.data;
   } catch (error) {
     console.error('Error creating blog:', error);
     throw error;
@@ -323,11 +327,41 @@ async function likeBlog(blogId) {
 }
 
 /**
- * Get admin view of all blogs 
- * @returns {Promise<Array>} - Array of all blogs with admin details
+ * Get admin view of all blogs with pagination and filtering
+ * @param {Object} params - Query parameters for pagination and filtering
+ * @param {number} params.page - Page number (default: 1)
+ * @param {number} params.limit - Number of blogs per page (default: 10)
+ * @param {string} params.status - Filter by status ('published', 'draft', or empty for all)
+ * @param {string} params.category - Filter by category ID
+ * @param {string} params.search - Search term for title/description
+ * @param {string} params.sortBy - Sort field ('createdAt', 'title', 'views', etc.)
+ * @param {string} params.sortOrder - Sort order ('asc' or 'desc')
+ * @returns {Promise<Object>} - Paginated blogs data with metadata
  */
-async function getAdminBlogs() {
-  const endpoint = `${BASE_URL}/blogs`;
+async function getAdminBlogs(params = {}) {
+  const {
+    page = 1,
+    limit = 10,
+    status = '',
+    category = '',
+    search = '',
+    sortBy = 'createdAt',
+    sortOrder = 'desc'
+  } = params;
+
+  // Build query parameters
+  const queryParams = new URLSearchParams();
+  queryParams.append('page', page.toString());
+  queryParams.append('limit', limit.toString());
+  
+  if (status) queryParams.append('status', status);
+  if (category) queryParams.append('category', category);
+  if (search) queryParams.append('search', search);
+  if (sortBy) queryParams.append('sortBy', sortBy);
+  if (sortOrder) queryParams.append('sortOrder', sortOrder);
+
+  const endpoint = `${BASE_URL}/blogs?${queryParams.toString()}`;
+  
   try {
     const response = await fetch(endpoint, {
       credentials: 'include' // Include cookies in the request
@@ -339,7 +373,7 @@ async function getAdminBlogs() {
     }
 
     const data = await response.json();
-    return data.blogs;
+    return data.data; // Returns { blogs: [], pagination: {}, filters: {} }
   } catch (error) {
     console.error('Error fetching admin blogs:', error);
     throw error;

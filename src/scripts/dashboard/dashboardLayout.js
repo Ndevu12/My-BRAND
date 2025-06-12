@@ -97,14 +97,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                         </li>
                     </ul>
                 </nav>
-                
-                <!-- Logout button at bottom -->
-                <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
-                    <button id="logoutBtn" class="w-full flex items-center justify-center space-x-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 py-2 px-4 rounded-lg transition-colors duration-200">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Logout</span>
-                    </button>
-                </div>
             </aside>
         `;
     }
