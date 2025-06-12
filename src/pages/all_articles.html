@@ -36,19 +36,28 @@
             </header>
             
             <!-- Main content - flex-grow and overflow-y-auto to enable scrolling -->
-            <main class="p-6 flex-grow overflow-y-auto bg-gradient-to-b from-primary to-black/90">
+            <main class="p-6 flex-grow overflow-y-auto bg-gradient-to-b from-primary to-black/90">                
                 <!-- Page header with actions -->
                 <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold">Articles Management</h2>
-                        <p class="text-gray-400">View, edit, and manage all your blog articles</p>
+                        <h2 class="text-2xl font-bold">Blog Management</h2>
+                        <p class="text-gray-400">View, edit, and manage all your blog posts</p>
                     </div>
                     <div class="mt-4 md:mt-0 flex gap-4">
+                        <!-- Search input -->
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                placeholder="Search..." 
+                                class="bg-primary/50 border border-gray-700 rounded-lg px-4 py-2 pl-10 text-sm focus:outline-none focus:border-yellow-400 transition-colors w-64"
+                            >
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
                         <button id="filter-button" class="bg-secondary px-4 py-2 rounded-lg border border-gray-700 hover:border-yellow-500/50 transition-all text-sm flex items-center">
                             <i class="fas fa-filter mr-2"></i> Filter
                         </button>
                         <a href="./new-article.html" class="bg-yellow-500 px-4 py-2 rounded-lg text-gray-900 font-medium hover:bg-yellow-400 transition-colors text-sm flex items-center">
-                            <i class="fas fa-plus mr-2"></i> New Article
+                            <i class="fas fa-plus mr-2"></i> New Blog
                         </a>
                     </div>
                 </div>
@@ -58,7 +67,6 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <!-- Category filter -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Filter by Category</label>
                             <label for="category-filter" class="block text-sm font-medium text-gray-300 mb-2">Filter by Category</label>
                             <select id="category-filter" class="w-full bg-primary/50 border border-gray-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-yellow-400 transition-colors" aria-label="Filter by Category">
                                 <option value="">All Categories</option>
@@ -68,23 +76,25 @@
                         
                         <!-- Status filter -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Filter by Status</label>
                             <label for="status-filter" class="block text-sm font-medium text-gray-300 mb-2">Filter by Status</label>
                             <select id="status-filter" class="w-full bg-primary/50 border border-gray-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-yellow-400 transition-colors" aria-label="Filter by Status">
                                 <option value="">All Statuses</option>
                                 <option value="published">Published</option>
                                 <option value="draft">Draft</option>
+                                <option value="archived">Archived</option>
                             </select>
                         </div>
-                        
-                        <!-- Sort options -->
+                          <!-- Sort options -->
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-2">Sort By</label>
-                            <select id="sort-options" title="Sort articles by" class="w-full bg-primary/50 border border-gray-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-yellow-400 transition-colors">
-                                <option value="newest">Newest First</option>
-                                <option value="oldest">Oldest First</option>
+                            <select id="sort-options" title="Sort blogs by" class="w-full bg-primary/50 border border-gray-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+                                <option value="createdAt_desc">Newest First</option>
+                                <option value="createdAt_asc">Oldest First</option>
                                 <option value="title_asc">Title (A-Z)</option>
                                 <option value="title_desc">Title (Z-A)</option>
+                                <option value="viewsCount_desc">Most Viewed</option>
+                                <option value="likesCount_desc">Most Liked</option>
+                                <option value="updatedAt_desc">Recently Updated</option>
                             </select>
                         </div>
                         
@@ -99,9 +109,8 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Articles table -->
-                <div id="articles-table-container" class="bg-secondary rounded-xl shadow-lg p-6 border border-gray-700">
+                  <!-- Blogs table -->
+                <div id="blogs-table-container" class="bg-secondary rounded-xl shadow-lg p-6 border border-gray-700">
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-700">
                             <thead>
@@ -113,12 +122,12 @@
                                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="articles-table-body" class="divide-y divide-gray-700">
-                                <!-- Articles will be populated here -->
+                            <tbody id="blogs-table-body" class="divide-y divide-gray-700">
+                                <!-- Blogs will be populated here -->
                                 <tr>
                                     <td colspan="5" class="px-6 py-10 text-center text-gray-400">
                                         <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-yellow-500 mx-auto mb-4"></div>
-                                        Loading articles...
+                                        Loading blogs...
                                     </td>
                                 </tr>
                             </tbody>
@@ -133,16 +142,14 @@
     </div>
 
     <!-- Mobile overlay for sidebar -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black opacity-50 z-25 hidden md:hidden"></div>
-
-    <!-- Load scripts in the correct order -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black opacity-50 z-25 hidden md:hidden"></div>    <!-- Load scripts in the correct order -->
     <script src="../components/pagination.js"></script>
-    <script src="../scripts/dashboard/dashboardLayout.js"></script>
+    <script type="module" src="../scripts/dashboard/dashboardLayout.js"></script>
     <script src="../scripts/dashboard/sidebarControl.js"></script>
     <script src="../scripts/dashboard/dashboardPagination.js"></script>
-    <!-- Make sure CategoryManager is loaded before articlesListPagination -->
+    <!-- Make sure CategoryManager is loaded before adminBlogManager -->
     <script type="module" src="../scripts/dashboard/categoryIntegration.js"></script>
-    <script type="module" src="../scripts/dashboard/articlesListPagination.js"></script>
+    <script type="module" src="../scripts/dashboard/adminBlogManager.js"></script>
     <script type="module">
         import { protectAdminRoute } from '../scripts/context/protectedRoute.js';
         protectAdminRoute();

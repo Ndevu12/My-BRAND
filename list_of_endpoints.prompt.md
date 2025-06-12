@@ -25,6 +25,7 @@ The backend uses cookie-based authentication rather than bearer tokens:
 
 ### Blog Endpoints
 - **GET** `/blogs/public` - Get all blogs (public)
+- **GET** `/blogs/public/recent` - Get latest blogs (public)
 - **GET** `/blogs/public/:id` - Get specific blog by ID (public)
 - **GET** `/blogs/by-category/:id` - Get blogs by category
 - **GET** `/blogs/by-title` - Get blog by title

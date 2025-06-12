@@ -22,7 +22,8 @@ async function getAllCategories() {
     }
 
     const data = await response.json();
-    return data.categories;
+
+    return data.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
     throw error;

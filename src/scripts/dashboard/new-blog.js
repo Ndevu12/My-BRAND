@@ -53,11 +53,12 @@ document.addEventListener('DOMContentLoaded', function() {
     tagManager = createTagManager({
       inputSelector: '#tags',
       containerSelector: '#tags-container',
-      initialTags: ['javascript', 'tutorial']
+      initialTags: ['javascript', 'tutorial', 'technology']
     });
   } else {
     // Fallback to manual tag handling
-    const tagsInput = document.getElementById('tags');
+    const tagsInput = document.getElementById('tags-input');
+    const tagsHiddenInput = document.getElementById('tags');
     const tagsContainer = document.getElementById('tags-container');
     
     // Function to add tag
@@ -78,16 +79,21 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       tagsContainer.appendChild(tag);
+      updateHiddenTagsField(); // Update immediately after adding
     }
     
     // Update hidden field with all tags
     function updateHiddenTagsField() {
       const allTags = [];
       tagsContainer.querySelectorAll('span').forEach(tag => {
-        allTags.push(tag.textContent.trim());
+        // Get only the text content before the button
+        const tagText = tag.firstChild.textContent.trim();
+        if (tagText) {
+          allTags.push(tagText);
+        }
       });
       
-      tagsInput.value = allTags.join(', ');
+      tagsHiddenInput.value = allTags.join(', ');
     }
     
     // Handle tag input
@@ -102,8 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
+      // Initialize with example tags
+    addTag('javascript');
+    addTag('tutorial');
+    addTag('technology');
+    updateHiddenTagsField();
     
-    // Initialize with example tags
     tagsContainer.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', function() {
         btn.parentElement.remove();
@@ -144,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
     removeImageBtn.classList.add('hidden');
   });
   
-  // Preview functionality  const previewBtn = document.getElementById('preview-blog');
+  // Preview functionality
+  const previewBtn = document.getElementById('preview-blog');
   const previewModal = document.getElementById('preview-modal');
   const previewContent = document.getElementById('preview-content');
   const closePreviewBtns = document.querySelectorAll('#close-preview, #close-preview-btn');
@@ -317,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
         content: document.getElementById('content').value,
         categoryId: categoryId, // Use categoryId as per API requirements
         tags: tags,
-        readTime: parseInt(document.getElementById('reading-time').value || '5'),
+        readTime: document.getElementById('reading-time').value || '5',
         status: document.querySelector('input[name="status"]:checked').value,
         publishDate: document.getElementById('publish-date').value || new Date().toISOString(),
         metaTitle: document.getElementById('meta-title').value || document.getElementById('title').value,
@@ -333,14 +344,16 @@ document.addEventListener('DOMContentLoaded', function() {
       // Send to API
       const createdBlog = await createBlog(blogData);
       
+      if (createdBlog){
       // Show success notification
       showNotification('Blog published successfully!', 'success');
       
+      
       // Redirect to blogs list after a brief delay
       setTimeout(() => {
-        window.location.href = './all_articles.html';
+      window.location.href = './all_articles.html';
       }, 1500);
-      
+    }
     } catch (error) {
       // Show error notification
       showNotification(`Failed to create blog: ${error.message}`, 'error');
@@ -393,10 +406,16 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initializeCategories() {
   // Check if CategoryManager is loaded
-  if (window.categoryManager) {
-    const categoryContainer = document.getElementById('category-container');
-    if (!categoryContainer) return;
-    
+  if (!window.categoryManager) {
+    console.warn('CategoryManager not loaded. Categories will not be displayed correctly.');
+    return;
+  }
+
+  const categoryContainer = document.getElementById('category-container');
+  if (!categoryContainer) return;
+
+  // Function to render categories once they're ready
+  const renderCategories = () => {
     // Clear existing categories
     categoryContainer.innerHTML = '';
     
@@ -454,7 +473,18 @@ function initializeCategories() {
         });
       });
     });
-  } else {
-    console.warn('CategoryManager not loaded. Categories will not be displayed correctly.');
-  }
+  };
+
+  // Wait for CategoryManager to be ready
+  const waitForCategories = () => {
+    if (window.categoryManager.isReady()) {
+      renderCategories();
+    } else {
+      // Check again after a short delay
+      setTimeout(waitForCategories, 100);
+    }
+  };
+
+  // Start waiting for categories to be ready
+  waitForCategories();
 }

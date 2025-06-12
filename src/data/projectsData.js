@@ -97,6 +97,21 @@ const projectsData = [
         githubLink: "#",
         liveLink: "https://learn-social.ndevuspace.com",
         isLive: true
+    }, {
+        id: 7,
+        title: "Money Tasky Web App",
+        description: "A personnel financial management web application designed to help users track their income, expenses, and savings goals. It features a user-friendly interface, real-time financial analytics, and secure data storage.",
+        image: "../images/project/money-tasky.jpg",
+        category: "Web Apps",
+        techStack: [
+            { name: "React", color: "blue" },
+            { name: "Node.js", color: "green" },
+            { name: "MongoDB", color: "yellow" }
+        ],
+        caseStudyLink: "#",
+        githubLink: "#",
+        liveLink: "https://moneyTasky.netlify.app",
+        isLive: true
     }
 ];
 
