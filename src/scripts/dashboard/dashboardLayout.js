@@ -87,6 +87,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                                 <span class="bg-red-500 text-white text-xs rounded-full px-2 ml-auto">24</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="./messages.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors duration-200 nav-link" data-page="messages">
+                                <i class="fas fa-envelope w-5"></i>
+                                <span>Messages</span>
+                                <span id="unread-messages-badge" class="bg-yellow-500 text-gray-900 text-xs rounded-full px-2 ml-auto hidden">0</span>
+                            </a>
+                        </li>
                         
                         <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mt-6 mb-2">Administration</h4>
                         <li>
