@@ -208,14 +208,14 @@
           <p class="text-center text-gray-300 mb-8">Have a project in mind or interested in working together? I'd love to hear from you! Fill out the form below and I'll get back to you as soon as possible.</p>
           <form id="contact-form">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <input type="text" class="form-input" placeholder="Your Name" required>
-              <input type="email" class="form-input" placeholder="Your Email" required>
+              <input type="text" name="name" id="contact-name" class="form-input" placeholder="Your Name" required>
+              <input type="email" name="email" id="contact-email" class="form-input" placeholder="Your Email" required>
             </div>
-            <input type="text" class="form-input mb-6" placeholder="Subject">
-            <textarea class="form-input h-40 mb-6" placeholder="Your Message" required></textarea>
+            <input type="text" name="subject" id="contact-subject" class="form-input mb-6" placeholder="Subject">
+            <textarea name="message" id="contact-message" class="form-input h-40 mb-6" placeholder="Your Message" required></textarea>
             <div class="text-center">
-              <button type='submit' id="subId" class="btn-primary hover:bg-yellow-500 hover:text-black hover:border-yellow-500"> 
-                Send Message
+              <button type='submit' id="contact-submit-btn" class="btn-primary hover:bg-yellow-500 hover:text-black hover:border-yellow-500"> 
+                <span class="button-text">Send Message</span>
               </button>
             </div>
           </form>
@@ -225,6 +225,6 @@
 
     <!-- SCRIPTS -->
     <script type="module" src="./src/scripts/homepage/homepageBlogs.js"></script>
-    <script src="./src/scripts/contact_me.js" defer></script>
+    <script type="module" src="./src/scripts/contact_me.js"></script>
   </body>
 </html>

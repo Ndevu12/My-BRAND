@@ -177,7 +177,7 @@ export class AuthManager {
         const data = await response.json();
         return {
           isAuthenticated: true,
-          user: data.user || data.data?.user || null
+          user: data.data || null
         };
       } else {
         return { isAuthenticated: false, user: null };
@@ -227,13 +227,13 @@ export class AuthManager {
       if (response.ok) {
         return {
           success: true,
-          message: result.data?.message || result.message || 'Login successful!',
+          message: result.data || 'Login successful!',
           user: result.data?.user || result.user || null
         };
       } else {
         return {
           success: false,
-          message: result.message || 'Login failed',
+          message: result.data || 'Login failed',
           errors: result.errors || {}
         };
       }

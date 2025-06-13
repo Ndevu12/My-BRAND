@@ -1,38 +1,222 @@
+/**
+ * Contact Form Handler
+ * Handles contact form submission with API integration
+ */
+
+import { sendContactMessage } from './actions/messages/messageActions.js';
+import { showNotification } from '../utils/notificationUtils.js';
+import { validateEmail, validateRequired, sanitizeInput, validateContactForm } from '../utils/formValidation.js';
+
 document.addEventListener('DOMContentLoaded', function () {
-    const submitButton = document.getElementById('subId');
-    const messageInput = document.querySelector('.message');
-    const emailInput = document.querySelector('.get-email');
+    // Initialize contact form
+    initializeContactForm();
+});
 
-    if (submitButton && messageInput && emailInput) {
-        submitButton.addEventListener('click', function () {
-            const message = messageInput.value;
-            const email = emailInput.value;
+/**
+ * Initialize the contact form functionality
+ */
+function initializeContactForm() {
+    const contactForm = document.getElementById('contact-form');
+    
+    if (!contactForm) {
+        console.warn('Contact form not found on this page');
+        return;
+    }
 
-            // Validate email format using a regular expression
-            const emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+    // Get form elements
+    const elements = getFormElements(contactForm);
+    
+    if (!elements.isValid) {
+        console.error('Required form elements are missing');
+        return;
+    }
 
-            if (!emailRegex.test(email)) {
-                // Display an error message or handle invalid email format
-                alert('Invalid email format. Please enter a valid email address.');
-                return;
-            }
+    // Add form submit event listener
+    contactForm.addEventListener('submit', handleFormSubmit);
+    
+    // Add input validation listeners
+    addValidationListeners(elements);
+}
 
-            // Check if the message and email are not empty
-            if (message.trim() !== "" && email.trim() !== "") {
-                const existingData = JSON.parse(localStorage.getItem('contactData')) || [];
-                existingData.push({ message, email });
+/**
+ * Get and validate form elements
+ * @param {HTMLFormElement} form - The contact form
+ * @returns {Object} - Form elements and validation status
+ */
+function getFormElements(form) {
+    const nameInput = form.querySelector('input[name="name"]') || 
+                      form.querySelector('#contact-name') || 
+                      form.querySelector('.name');
+    
+    const emailInput = form.querySelector('input[name="email"]') || 
+                       form.querySelector('#contact-email') ||
+                       form.querySelector('.get-email');
+    
+    const subjectInput = form.querySelector('input[name="subject"]') || 
+                         form.querySelector('#contact-subject') ||
+                         form.querySelector('.subject');
+    
+    const messageInput = form.querySelector('textarea[name="message"]') || 
+                         form.querySelector('#contact-message') ||
+                         form.querySelector('.message');
+    
+    const submitButton = form.querySelector('button[type="submit"]') || 
+                         form.querySelector('#contact-submit-btn') ||
+                         form.querySelector('#subId') ||
+                         form.querySelector('.submit-btn');
 
-                // Store the updated array back to local storage
-                localStorage.setItem('contactData', JSON.stringify(existingData));
+    const isValid = nameInput && emailInput && messageInput && submitButton;
+    
+    return {
+        nameInput,
+        emailInput,
+        subjectInput,
+        messageInput,
+        submitButton,
+        isValid
+    };
+}
 
-                alert('Message sent successfully!');
+/**
+ * Handle form submission
+ * @param {Event} event - Submit event
+ */
+async function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent page reload
+    
+    const form = event.target;
+    const elements = getFormElements(form);
+    
+    if (!elements.isValid) {
+        showNotification('Form elements not found', 'error');
+        return;
+    }
 
-                // Clear the input fields
-                messageInput.value = "Write the message here";
-                emailInput.value = "Email Address";
+    // Get form data
+    const formData = getFormData(elements);
+    
+    // Validate form data
+    const validation = validateFormData(formData);
+    if (!validation.isValid) {
+        showNotification(validation.message, 'error');
+        return;
+    }
+
+    // Show loading state
+    showLoadingState(elements.submitButton);
+
+    try {
+        // Send message via API
+        const response = await sendContactMessage(formData);
+        
+        // Show success notification
+        showNotification('Message sent successfully! Thank you for reaching out.', 'success');
+        
+        // Clear form only after successful submission
+        clearForm(elements);
+        
+    } catch (error) {
+        console.error('Error sending message:', error);
+        showNotification(
+            error.message || 'Failed to send message. Please try again later.', 
+            'error'
+        );
+    } finally {
+        // Restore button state
+        hideLoadingState(elements.submitButton);
+    }
+}
+
+/**
+ * Get form data from elements
+ * @param {Object} elements - Form elements
+ * @returns {Object} - Form data
+ */
+function getFormData(elements) {
+    return {
+        name: sanitizeInput(elements.nameInput.value),
+        email: sanitizeInput(elements.emailInput.value),
+        subject: sanitizeInput(elements.subjectInput ? elements.subjectInput.value : ''),
+        message: sanitizeInput(elements.messageInput.value)
+    };
+}
+
+/**
+ * Validate form data
+ * @param {Object} formData - Form data to validate
+ * @returns {Object} - Validation result
+ */
+function validateFormData(formData) {
+    // Use the validation utility
+    const validation = validateContactForm(formData);
+    
+    if (!validation.isValid) {
+        return {
+            isValid: false,
+            message: validation.errors[0] // Show first error
+        };
+    }
+    
+    return { isValid: true };
+}
+
+/**
+ * Show loading state on submit button
+ * @param {HTMLElement} button - Submit button
+ */
+function showLoadingState(button) {
+    button.disabled = true;
+    const buttonText = button.querySelector('.button-text') || button;
+    button.dataset.originalText = buttonText.textContent;
+    buttonText.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+}
+
+/**
+ * Hide loading state on submit button
+ * @param {HTMLElement} button - Submit button
+ */
+function hideLoadingState(button) {
+    button.disabled = false;
+    const buttonText = button.querySelector('.button-text') || button;
+    buttonText.textContent = button.dataset.originalText || 'Send Message';
+}
+
+/**
+ * Clear form after successful submission
+ * @param {Object} elements - Form elements
+ */
+function clearForm(elements) {
+    elements.nameInput.value = '';
+    elements.emailInput.value = '';
+    if (elements.subjectInput) elements.subjectInput.value = '';
+    elements.messageInput.value = '';
+}
+
+/**
+ * Add validation listeners to form elements
+ * @param {Object} elements - Form elements
+ */
+function addValidationListeners(elements) {
+    // Real-time email validation
+    if (elements.emailInput) {
+        elements.emailInput.addEventListener('blur', function() {
+            const email = this.value.trim();
+            if (email && !validateEmail(email)) {
+                showNotification('Please enter a valid email address', 'warning');
             }
         });
-    } else {
-        console.error('One or more elements are missing in the DOM.');
     }
-});
+
+    // Real-time required field validation
+    [elements.nameInput, elements.messageInput].forEach(input => {
+        if (input) {
+            input.addEventListener('blur', function() {
+                const fieldName = this.getAttribute('name') || this.placeholder || 'Field';
+                const validation = validateRequired(this.value, fieldName);
+                if (!validation.isValid) {
+                    showNotification(validation.message, 'warning');
+                }
+            });
+        }
+    });
+}

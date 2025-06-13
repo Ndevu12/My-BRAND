@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../styles/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="icon" type="image/png" href="../images/logo1.png">
+    
+    <meta name="page-title" content="Messages">
+    <meta name="page-description" content="Admin messages management">
+    
+    <title>NdevuSpace | Messages</title>
+</head>
+<body class="bg-primary text-white font-roboto h-screen overflow-hidden" data-page="messages">
+    <!-- Main layout container -->
+    <div class="flex h-screen w-full overflow-hidden">
+        <!-- Include sidebar via JavaScript -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main content wrapper -->
+        <div class="dashboard-layout flex-1 flex flex-col h-screen">
+            <!-- Include header via JavaScript -->
+            <div id="header-container"></div>
+            
+            <!-- Main content area -->
+            <main class="p-6 flex-grow overflow-y-auto bg-gradient-to-b from-primary to-black/90">                <!-- Page header with basic actions -->                <div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold">Contact Messages</h2>
+                        <p class="text-gray-400" id="messagesSummary">Manage contact form submissions</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="refresh-messages" class="bg-secondary px-4 py-2 rounded-lg border border-gray-700 hover:border-yellow-500/50 transition-all text-sm flex items-center">
+                            <i class="fas fa-sync-alt mr-2"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Simple search and filter bar -->
+                <div class="mb-6 bg-secondary rounded-xl p-4 border border-gray-700">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <!-- Search bar -->
+                        <div class="flex-1">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-search text-gray-400"></i>
+                                </div>
+                                <input type="text" id="search-messages" placeholder="Search by name, email, or subject..." 
+                                       class="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-primary/50 text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <!-- Status filter -->
+                        <div class="flex items-center gap-2">
+                            <select id="status-filter" class="bg-primary border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                <option value="">All Messages</option>
+                                <option value="unread">Unread Only</option>
+                                <option value="read">Read Only</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Sort options -->
+                        <div class="flex items-center gap-2">
+                            <select id="sort-by" class="bg-primary border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                <option value="createdAt_desc">Newest First</option>
+                                <option value="createdAt_asc">Oldest First</option>
+                                <option value="name_asc">Name A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>                <!-- Messages Table -->
+                <div class="bg-secondary rounded-xl shadow-lg border border-gray-700 overflow-hidden">
+                    <!-- Loading state -->
+                    <div id="loading-state" class="hidden px-6 py-10 text-center">
+                        <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+                        <p class="text-gray-400">Loading messages...</p>
+                    </div>
+                    
+                    <!-- Empty state -->
+                    <div id="empty-state" class="hidden px-6 py-10 text-center text-gray-400">
+                        <i class="fas fa-inbox text-4xl mb-4"></i>
+                        <p class="text-lg font-medium">No Messages Found</p>
+                        <p class="text-sm">No contact messages match your current filters.</p>
+                    </div>
+
+                    <!-- Messages table -->
+                    <div id="messages-table" class="overflow-x-auto">                        <table class="min-w-full divide-y divide-gray-700">
+                            <thead class="bg-gray-800/50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">From</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Subject & Message</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="messages-table-body" class="divide-y divide-gray-700">
+                                <!-- Messages will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div id="pagination-container" class="px-6 py-4 border-t border-gray-700"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile overlay for sidebar -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black opacity-50 z-25 hidden md:hidden"></div>    <!-- Message Detail Modal -->
+    <div id="message-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-secondary rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden border border-gray-700">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-700">
+                <h3 class="text-xl font-bold">Message Details</h3>
+                <button id="close-message-modal" class="text-gray-400 hover:text-white" title="Close">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto max-h-[60vh]">
+                <div id="message-modal-content">
+                    <!-- Message details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>    <!-- Load scripts -->
+    <script src="../components/pagination.js"></script>
+    <script type="module" src="../scripts/dashboard/dashboardLayout.js"></script>
+    <script src="../scripts/dashboard/sidebarControl.js"></script>
+    <script src="../scripts/dashboard/dashboardPagination.js"></script>
+    <script type="module" src="../scripts/dashboard/messagesManager.js"></script>
+    <script type="module">
+        import { protectAdminRoute } from '../scripts/context/protectedRoute.js';
+        protectAdminRoute();
+    </script>
+</body>
+</html>
