@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "../styles/globals.css";
-
-const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-roboto",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "NdevuSpace | Full Stack Developer Portfolio",
@@ -72,8 +64,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${roboto.variable}`}>
-      <body className={`${roboto.className} bg-primary text-white`}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="bg-primary text-white font-roboto min-h-screen antialiased">
         {children}
       </body>
     </html>
