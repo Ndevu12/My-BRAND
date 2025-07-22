@@ -3,6 +3,7 @@ node_modules/
 
 #Just for now
 # /BackEnd/
+.next
 
 yarn.lock
 # Ignore macOS specific files
