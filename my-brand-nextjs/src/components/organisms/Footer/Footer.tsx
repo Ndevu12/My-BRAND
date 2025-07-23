@@ -1,14 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { SocialLink, FooterProps } from "@/types/navigation";
+import { useState } from "react";
 
 interface QuickLink {
   name: string;
   href: string;
 }
 
+interface ContactInfo {
+  icon: React.ReactNode;
+  content: React.ReactNode;
+}
+
 export function Footer({ className = "" }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
 
   const socialLinks: SocialLink[] = [
     {
@@ -41,7 +50,7 @@ export function Footer({ className = "" }: FooterProps) {
     },
     {
       name: "Email",
-      href: "mailto:contact@ndevuspace.com",
+      href: "mailto:ndevulion@gmail.com",
       ariaLabel: "Email Contact",
       icon: (
         <svg
@@ -58,23 +67,109 @@ export function Footer({ className = "" }: FooterProps) {
   const quickLinks: QuickLink[] = [
     { name: "Home", href: "/" },
     { name: "Skills", href: "/skills" },
-    { name: "About", href: "/#aboutme" },
-    { name: "Blog", href: "/blog" },
+    { name: "Projects", href: "/projects" },
+    { name: "Blogs", href: "/blog" },
     { name: "Contact", href: "/#contactme" },
-    { name: "Portfolio", href: "/projects" },
     { name: "Experience", href: "/experience" },
   ];
 
-  const technologies: string[] = [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Tailwind CSS",
-    "Python",
-    "PostgreSQL",
-    "MongoDB",
+  const contactInfo: ContactInfo[] = [
+    {
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+        </svg>
+      ),
+      content: <span className="text-gray-400">Gikondo, Kigali, Rwanda</span>,
+    },
+    {
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+      content: (
+        <a
+          href="mailto:ndevulion@gmail.com"
+          className="text-gray-400 hover:text-yellow-400 transition-colors duration-200"
+        >
+          ndevulion@gmail.com
+        </a>
+      ),
+    },
+    {
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+          />
+        </svg>
+      ),
+      content: (
+        <div className="text-gray-400">
+          <div>+250 785044398 (WhatsApp only)</div>
+          <div>+250 735007705 (call only)</div>
+        </div>
+      ),
+    },
   ];
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      // Newsletter subscription logic would go here
+      alert(`Thank you for subscribing with: ${email}`);
+      setEmail("");
+    }
+  };
+
+  // Handle anchor link clicks for same-page navigation
+  const handleAnchorClick = (href: string) => {
+    if (href.startsWith("/#")) {
+      const elementId = href.substring(2);
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <footer
@@ -120,15 +215,17 @@ export function Footer({ className = "" }: FooterProps) {
               </span>
             </Link>
             <p className="text-gray-400 leading-relaxed text-center md:text-left">
-              Transforming ideas into elegant code and creating digital
-              experiences that inspire and engage.
+              Passionate about transforming ideas into elegant, scalable
+              solutions. As a Full Stack Developer with expertise in modern
+              technologies, I create digital experiences that connect, inspire,
+              and drive meaningful impact across Africa and beyond.
             </p>
             <div className="flex gap-5 mt-4">
               {socialLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="bg-secondary/50 p-3 rounded-full border border-gray-700 hover:border-yellow-500 text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110 hover:bg-yellow-500/10"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary/50 text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-yellow-400/25"
                   aria-label={item.ariaLabel}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -152,7 +249,13 @@ export function Footer({ className = "" }: FooterProps) {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:translate-x-1 block py-1 hover:pl-2"
+                    onClick={(e) => {
+                      if (item.href.startsWith("/#")) {
+                        e.preventDefault();
+                        handleAnchorClick(item.href);
+                      }
+                    }}
+                    className="text-gray-400 hover:text-yellow-400 transition-all duration-300 block py-1 pl-4 relative before:content-['→'] before:absolute before:left-0 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 hover:pl-6"
                   >
                     {item.name}
                   </Link>
@@ -161,51 +264,81 @@ export function Footer({ className = "" }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 3: Technologies */}
+          {/* Column 3: Contact Info */}
           <div>
             <h3 className="text-xl font-bold mb-5 relative inline-block">
               <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
-                Technologies
+                Contact Info
               </span>
               <span className="absolute left-0 bottom-0 w-2/3 h-0.5 bg-gradient-to-r from-yellow-300 to-yellow-500"></span>
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="bg-secondary/50 px-3 py-1 rounded-full text-sm text-gray-300 border border-gray-700 hover:border-yellow-500 hover:text-yellow-400 transition-all duration-300"
-                >
-                  {tech}
-                </span>
+            <ul className="space-y-4">
+              {contactInfo.map((item, index) => (
+                <li key={index} className="flex items-start">
+                  <div className="text-yellow-400 mr-3 mt-1 flex-shrink-0">
+                    {item.icon}
+                  </div>
+                  {item.content}
+                </li>
               ))}
+            </ul>
+
+            {/* Newsletter Form */}
+            <div className="mt-6">
+              <h4 className="text-lg font-semibold mb-3 text-gray-300">
+                Subscribe to Newsletter
+              </h4>
+              <form onSubmit={handleNewsletterSubmit} className="flex">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-secondary/70 text-gray-200 px-3 py-2 rounded-l-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-yellow-400 w-full transition-all duration-200"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 rounded-r-md transition-colors duration-300 flex items-center justify-center transform hover:scale-105"
+                  aria-label="Subscribe to newsletter"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+              </form>
             </div>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800/50 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-center md:text-left">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} NdevuSpace. All rights reserved.
+        {/* Footer Bottom */}
+        <div className="pt-6 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-500 mb-4 md:mb-0">
+              &copy; {currentYear} NdevuSpace |{" "}
+              <Link
+                href="/signin"
+                className="text-gray-500 hover:text-yellow-400 transition-colors duration-200"
+              >
+                Ndevu
+              </Link>{" "}
+              | All rights reserved
             </p>
-            <p className="text-gray-500 text-xs mt-1">
-              Crafted with ❤️ using Next.js, TypeScript & Tailwind CSS
+            <p className="text-sm text-gray-500">
+              Full Stack Software Developer |{" "}
+              <span className="text-yellow-500">Gikondo-Kigali</span>
             </p>
-          </div>
-
-          <div className="flex items-center space-x-6 text-sm text-gray-400">
-            <Link
-              href="/privacy"
-              className="hover:text-yellow-400 transition-colors duration-200"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-yellow-400 transition-colors duration-200"
-            >
-              Terms of Service
-            </Link>
           </div>
         </div>
 

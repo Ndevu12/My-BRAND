@@ -14,11 +14,11 @@ export function HomePage() {
   return (
     <ClientLayout>
         <Hero
-          title="Welcome to My Portfolio"
-          subtitle="Frontend Developer & Designer"
+          title="Welcome to My Digital Space!"
+          subtitle="Crafting Digital Experiences That Matter"
           description="I build modern, responsive web experiences with a focus on usability and brand identity."
           profileImage="/images/profile.jpg"
-          profileAlt="Profile picture of [Your Name]"
+          profileAlt="Profile picture of Jean paul Elisa"
         />
 
         {/* 
