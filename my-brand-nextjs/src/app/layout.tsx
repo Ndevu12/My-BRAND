@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
   title: "NdevuSpace | Full Stack Developer Portfolio",
@@ -78,7 +79,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-primary text-white font-roboto min-h-screen antialiased">
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

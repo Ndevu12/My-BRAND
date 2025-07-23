@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -28,7 +29,25 @@ const config: Config = {
         'header-bg': 'rgb(17, 17, 33)',
         'footer-bg': '#0d0f16',
         'button-hover': 'rgb(224, 193, 16)',
-        'card-border': '#9f84c2'
+        'card-border': '#9f84c2',
+        // Light theme specific colors
+        'light': {
+          'primary': '#f3f4f6',      // gray-100 - main light background
+          'secondary': '#e5e7eb',    // gray-200 - secondary light background
+          'card': '#ffffff',         // white - card backgrounds
+          'header': 'rgba(255, 255, 255, 0.95)', // header background
+          'text': {
+            'primary': '#1f2937',    // gray-800 - main text
+            'secondary': '#374151',  // gray-700 - secondary text
+            'muted': '#4b5563',      // gray-600 - muted text
+            'hover': '#d97706'       // amber-600 - link hover
+          },
+          'border': {
+            'primary': '#e5e7eb',    // gray-200 - main borders
+            'input': '#d1d5db',      // gray-300 - input borders
+            'focus': '#fbbf24'       // yellow-400 - focus ring
+          }
+        }
       },
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif']

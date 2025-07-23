@@ -97,7 +97,7 @@ export function Footer({ className = "" }: FooterProps) {
           />
         </svg>
       ),
-      content: <span className="text-gray-400">Gikondo, Kigali, Rwanda</span>,
+      content: <span className="text-gray-400 light:text-gray-300">Gikondo, Kigali, Rwanda</span>,
     },
     {
       icon: (
@@ -119,7 +119,7 @@ export function Footer({ className = "" }: FooterProps) {
       content: (
         <a
           href="mailto:ndevulion@gmail.com"
-          className="text-gray-400 hover:text-yellow-400 transition-colors duration-200"
+          className="text-gray-400 hover:text-yellow-400 light:text-gray-300 light:hover:text-yellow-400 transition-colors duration-200"
         >
           ndevulion@gmail.com
         </a>
@@ -143,7 +143,7 @@ export function Footer({ className = "" }: FooterProps) {
         </svg>
       ),
       content: (
-        <div className="text-gray-400">
+        <div className="text-gray-400 light:text-gray-300">
           <div>+250 785044398 (WhatsApp only)</div>
           <div>+250 735007705 (call only)</div>
         </div>
@@ -173,7 +173,9 @@ export function Footer({ className = "" }: FooterProps) {
 
   return (
     <footer
-      className={`bg-footer-bg pt-16 pb-8 border-t border-gray-800/50 relative mt-20 ${className}`}
+      className={`bg-footer-bg pt-16 pb-8 border-t border-gray-800/50 relative mt-20 
+        light:bg-gray-800 light:border-gray-700 ${className}`}
+      id="main-footer"
     >
       {/* Wave SVG for top decoration */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-0 transform translate-y-[-85%] rotate-180">
@@ -214,7 +216,7 @@ export function Footer({ className = "" }: FooterProps) {
                 NdevuSpace
               </span>
             </Link>
-            <p className="text-gray-400 leading-relaxed text-center md:text-left">
+            <p className="text-gray-400 light:text-gray-300 leading-relaxed text-center md:text-left">
               Passionate about transforming ideas into elegant, scalable
               solutions. As a Full Stack Developer with expertise in modern
               technologies, I create digital experiences that connect, inspire,
@@ -255,7 +257,7 @@ export function Footer({ className = "" }: FooterProps) {
                         handleAnchorClick(item.href);
                       }
                     }}
-                    className="text-gray-400 hover:text-yellow-400 transition-all duration-300 block py-1 pl-4 relative before:content-['→'] before:absolute before:left-0 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 hover:pl-6"
+                    className="text-gray-400 hover:text-yellow-400 light:text-gray-300 light:hover:text-yellow-400 transition-all duration-300 block py-1 pl-4 relative before:content-['→'] before:absolute before:left-0 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 hover:pl-6"
                   >
                     {item.name}
                   </Link>
@@ -275,7 +277,7 @@ export function Footer({ className = "" }: FooterProps) {
             <ul className="space-y-4">
               {contactInfo.map((item, index) => (
                 <li key={index} className="flex items-start">
-                  <div className="text-yellow-400 mr-3 mt-1 flex-shrink-0">
+                  <div className="text-yellow-400 light:text-yellow-400 mr-3 mt-1 flex-shrink-0">
                     {item.icon}
                   </div>
                   {item.content}
@@ -340,30 +342,6 @@ export function Footer({ className = "" }: FooterProps) {
               <span className="text-yellow-500">Gikondo-Kigali</span>
             </p>
           </div>
-        </div>
-
-        {/* Scroll to top button */}
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="bg-secondary/50 p-3 rounded-full border border-gray-700 hover:border-yellow-500 text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110 hover:bg-yellow-500/10"
-            aria-label="Scroll to top"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 15l7-7 7 7"
-              />
-            </svg>
-          </button>
         </div>
       </div>
     </footer>
