@@ -30,6 +30,7 @@ const config: Config = {
         'footer-bg': '#0d0f16',
         'button-hover': 'rgb(224, 193, 16)',
         'card-border': '#9f84c2',
+        ghost: '#4a4a4bff',
         // Light theme specific colors
         'light': {
           'primary': '#f3f4f6',      // gray-100 - main light background

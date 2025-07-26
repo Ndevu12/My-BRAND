@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SocialLink, FooterProps } from "@/types/navigation";
-import { useState } from "react";
+import Newsletter from "@/features/newsletters/newsletter";
 
 interface QuickLink {
   name: string;
@@ -17,7 +17,6 @@ interface ContactInfo {
 
 export function Footer({ className = "" }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState("");
 
   const socialLinks: SocialLink[] = [
     {
@@ -155,13 +154,11 @@ export function Footer({ className = "" }: FooterProps) {
     },
   ];
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      // Newsletter subscription logic would go here
-      alert(`Thank you for subscribing with: ${email}`);
-      setEmail("");
-    }
+  const handleNewsletterSubmit = async (email: string) => {
+    // Newsletter subscription logic would go here
+    console.log(`Newsletter subscription from footer: ${email}`);
+    // In a real app, you would send this to your backend
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   // Handle anchor link clicks for same-page navigation
@@ -289,41 +286,15 @@ export function Footer({ className = "" }: FooterProps) {
             </ul>
 
             {/* Newsletter Form */}
-            <div className="mt-6">
-              <h4 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
-                Subscribe to Newsletter
-              </h4>
-              <form onSubmit={handleNewsletterSubmit} className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white dark:bg-secondary/70 text-gray-900 dark:text-gray-200 px-3 py-2 rounded-l-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-yellow-400 w-full transition-all duration-200"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 rounded-r-md transition-colors duration-300 flex items-center justify-center transform hover:scale-105"
-                  aria-label="Subscribe to newsletter"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </form>
-            </div>
+            <Newsletter
+              variant="default"
+              title="Subscribe to Newsletter"
+              description="Get the latest insights and updates delivered to your inbox"
+              placeholder="Your email"
+              buttonText=""
+              className="mt-6"
+              onSubmit={handleNewsletterSubmit}
+            />
           </div>
         </div>
 

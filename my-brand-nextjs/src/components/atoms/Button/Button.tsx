@@ -40,7 +40,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "bg-secondary text-white border border-gray-700 hover:border-yellow-400 hover:text-yellow-400",
       outline:
         "border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black",
-      ghost: "text-gray-300 hover:text-yellow-400 hover:bg-secondary/50",
+      ghost: "border border-yellow-400 dark:bg-ghost dark:text-gray-300 hover:text-yellow-400 hover:bg-secondary/50",
     };
 
     const sizes = {

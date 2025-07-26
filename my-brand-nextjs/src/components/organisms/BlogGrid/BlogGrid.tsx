@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import BlogCard, { BlogCardProps } from "@/components/molecules/BlogCard";
+import BlogCard, { BlogCardProps } from "@/features/home/components/BlogCard";
 import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
 import Pagination from "@/components/molecules/Pagination";

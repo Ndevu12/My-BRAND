@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import ProjectCard, {
   ProjectCardProps,
-} from "@/components/molecules/ProjectCard";
+} from "@/features/home/components/ProjectCard";
 import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
 import Pagination from "@/components/molecules/Pagination";
