@@ -97,7 +97,11 @@ export function Footer({ className = "" }: FooterProps) {
           />
         </svg>
       ),
-      content: <span className="text-gray-400">Gikondo, Kigali, Rwanda</span>,
+      content: (
+        <span className="text-gray-600 dark:text-gray-400">
+          Gikondo, Kigali, Rwanda
+        </span>
+      ),
     },
     {
       icon: (
@@ -119,7 +123,7 @@ export function Footer({ className = "" }: FooterProps) {
       content: (
         <a
           href="mailto:ndevulion@gmail.com"
-          className="text-gray-400 hover:text-yellow-400 transition-colors duration-200"
+          className="text-gray-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors duration-200"
         >
           ndevulion@gmail.com
         </a>
@@ -143,7 +147,7 @@ export function Footer({ className = "" }: FooterProps) {
         </svg>
       ),
       content: (
-        <div className="text-gray-400">
+        <div className="text-gray-600 dark:text-gray-400">
           <div>+250 785044398 (WhatsApp only)</div>
           <div>+250 735007705 (call only)</div>
         </div>
@@ -173,7 +177,8 @@ export function Footer({ className = "" }: FooterProps) {
 
   return (
     <footer
-      className={`bg-footer-bg pt-16 pb-8 border-t border-gray-800/50 relative mt-20 ${className}`}
+      className={`bg-gray-100 dark:bg-footer-bg pt-16 pb-8 border-t border-gray-300 dark:border-gray-800/50 relative mt-20 transition-colors duration-300 ${className}`}
+      id="main-footer"
     >
       {/* Wave SVG for top decoration */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-0 transform translate-y-[-85%] rotate-180">
@@ -186,7 +191,7 @@ export function Footer({ className = "" }: FooterProps) {
         >
           <path
             d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            className="fill-current text-footer-bg"
+            className="fill-current text-gray-100 dark:text-footer-bg"
           />
         </svg>
       </div>
@@ -210,11 +215,11 @@ export function Footer({ className = "" }: FooterProps) {
                   className="object-cover"
                 />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-yellow-300 group-hover:to-yellow-500 transition-all duration-300">
+              <span className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent group-hover:from-yellow-600 group-hover:to-yellow-500 dark:group-hover:from-yellow-300 dark:group-hover:to-yellow-500 transition-all duration-300">
                 NdevuSpace
               </span>
             </Link>
-            <p className="text-gray-400 leading-relaxed text-center md:text-left">
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-center md:text-left">
               Passionate about transforming ideas into elegant, scalable
               solutions. As a Full Stack Developer with expertise in modern
               technologies, I create digital experiences that connect, inspire,
@@ -225,7 +230,7 @@ export function Footer({ className = "" }: FooterProps) {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary/50 text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-yellow-400/25"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-secondary/50 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 shadow-lg hover:shadow-yellow-400/25"
                   aria-label={item.ariaLabel}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -255,7 +260,7 @@ export function Footer({ className = "" }: FooterProps) {
                         handleAnchorClick(item.href);
                       }
                     }}
-                    className="text-gray-400 hover:text-yellow-400 transition-all duration-300 block py-1 pl-4 relative before:content-['→'] before:absolute before:left-0 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 hover:pl-6"
+                    className="text-gray-600 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-all duration-300 block py-1 pl-4 relative before:content-['→'] before:absolute before:left-0 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 hover:pl-6"
                   >
                     {item.name}
                   </Link>
@@ -275,7 +280,7 @@ export function Footer({ className = "" }: FooterProps) {
             <ul className="space-y-4">
               {contactInfo.map((item, index) => (
                 <li key={index} className="flex items-start">
-                  <div className="text-yellow-400 mr-3 mt-1 flex-shrink-0">
+                  <div className="text-yellow-600 dark:text-yellow-400 mr-3 mt-1 flex-shrink-0">
                     {item.icon}
                   </div>
                   {item.content}
@@ -285,7 +290,7 @@ export function Footer({ className = "" }: FooterProps) {
 
             {/* Newsletter Form */}
             <div className="mt-6">
-              <h4 className="text-lg font-semibold mb-3 text-gray-300">
+              <h4 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
                 Subscribe to Newsletter
               </h4>
               <form onSubmit={handleNewsletterSubmit} className="flex">
@@ -294,7 +299,7 @@ export function Footer({ className = "" }: FooterProps) {
                   placeholder="Your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-secondary/70 text-gray-200 px-3 py-2 rounded-l-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-yellow-400 w-full transition-all duration-200"
+                  className="bg-white dark:bg-secondary/70 text-gray-900 dark:text-gray-200 px-3 py-2 rounded-l-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-yellow-400 w-full transition-all duration-200"
                   required
                 />
                 <button
@@ -323,47 +328,25 @@ export function Footer({ className = "" }: FooterProps) {
         </div>
 
         {/* Footer Bottom */}
-        <div className="pt-6 border-t border-gray-800">
+        <div className="pt-6 border-t border-gray-300 dark:border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500 mb-4 md:mb-0">
+            <p className="text-sm text-gray-500 dark:text-gray-500 mb-4 md:mb-0">
               &copy; {currentYear} NdevuSpace |{" "}
               <Link
                 href="/signin"
-                className="text-gray-500 hover:text-yellow-400 transition-colors duration-200"
+                className="text-gray-500 hover:text-yellow-600 dark:text-gray-500 dark:hover:text-yellow-400 transition-colors duration-200"
               >
                 Ndevu
               </Link>{" "}
               | All rights reserved
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-500">
               Full Stack Software Developer |{" "}
-              <span className="text-yellow-500">Gikondo-Kigali</span>
+              <span className="text-yellow-600 dark:text-yellow-500">
+                Gikondo-Kigali
+              </span>
             </p>
           </div>
-        </div>
-
-        {/* Scroll to top button */}
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="bg-secondary/50 p-3 rounded-full border border-gray-700 hover:border-yellow-500 text-gray-400 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110 hover:bg-yellow-500/10"
-            aria-label="Scroll to top"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 15l7-7 7 7"
-              />
-            </svg>
-          </button>
         </div>
       </div>
     </footer>
