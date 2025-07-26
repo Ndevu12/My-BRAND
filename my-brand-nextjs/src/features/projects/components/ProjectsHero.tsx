@@ -31,15 +31,17 @@ export function ProjectsHero() {
           variant="p"
           className="text-gray-600 dark:text-gray-300 text-lg md:text-xl leading-relaxed mb-6"
         >
-          Explore my projects where innovation meets creativity. Each project represents a unique 
-          challenge solved through thoughtful design, efficient code, and attention to user experience.
+          Explore my projects where innovation meets creativity. Each project
+          represents a unique challenge solved through thoughtful design,
+          efficient code, and attention to user experience.
         </Typography>
         <Typography
           variant="p"
           className="text-gray-500 dark:text-gray-400 text-base md:text-lg"
         >
-          From full-stack web applications to mobile solutions, discover how I turn ideas into 
-          functional, beautiful digital products that make a real impact.
+          From full-stack web applications to mobile solutions, discover how I
+          turn ideas into functional, beautiful digital products that make a
+          real impact.
         </Typography>
       </div>
     </section>
