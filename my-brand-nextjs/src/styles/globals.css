@@ -24,7 +24,7 @@ body {
 @layer components {
   /* Common button style */
   .btn-primary {
-    @apply bg-[#2f2b2b] border border-[#916868] text-white text-base py-2.5 px-6 rounded-full min-w-[150px] text-center transition-all duration-300 hover:bg-yellow-400 hover:text-black hover:border-yellow-400 hover:scale-105;
+    @apply bg-gray-200 dark:bg-[#2f2b2b] border border-gray-300 dark:border-[#916868] text-gray-900 dark:text-white text-base py-2.5 px-6 rounded-full min-w-[150px] text-center transition-all duration-300 hover:bg-yellow-400 hover:text-black hover:border-yellow-400 hover:scale-105;
   }
 
   /* Section styling */
@@ -42,20 +42,11 @@ body {
   
   /* Card styling */
   .card {
-    @apply bg-secondary p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 border border-gray-800;
+    @apply bg-white dark:bg-secondary p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 border border-gray-200 dark:border-gray-800;
   }
   
   /* Form elements */
   .form-input {
-    @apply bg-[#252547] border border-[#444464] rounded-lg px-4 py-3 w-full text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300;
+    @apply bg-gray-100 dark:bg-[#252547] border border-gray-300 dark:border-[#444464] rounded-lg px-4 py-3 w-full text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300;
   }
-}
-
-/* Light theme compatibility (for potential future use) */
-body.light-theme .card {
-  @apply bg-white border-gray-200 text-gray-900;
-}
-
-body.light-theme .form-input {
-  @apply bg-white border-gray-300 text-gray-900 placeholder:text-gray-500;
 }

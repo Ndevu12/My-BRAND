@@ -89,7 +89,7 @@ export function Header({ className = "" }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-header-bg/95 backdrop-blur-sm transition-all duration-300 border-b border-gray-800/50 shadow-lg ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-header-bg/95 backdrop-blur-sm transition-all duration-300 border-b border-gray-200 dark:border-gray-800/50 shadow-lg ${
         isScrolled ? "py-2" : "py-3"
       } px-4 ${className}`}
       id="main-header"
@@ -111,7 +111,7 @@ export function Header({ className = "" }: HeaderProps) {
                 className="object-cover"
               />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-yellow-300 group-hover:to-yellow-500 transition-all duration-300">
+            <span className="text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent group-hover:from-yellow-600 group-hover:to-yellow-500 dark:group-hover:from-yellow-300 dark:group-hover:to-yellow-500 transition-all duration-300">
               NdevuSpace
             </span>
           </Link>
@@ -121,7 +121,7 @@ export function Header({ className = "" }: HeaderProps) {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="bg-secondary/50 p-2 rounded-full border border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105"
+            className="bg-gray-200 dark:bg-secondary/50 p-2 rounded-full border border-gray-300 dark:border-gray-700 hover:border-yellow-500 transition-all duration-300 transform hover:scale-105"
             aria-label={`Switch to ${isDarkTheme ? "light" : "dark"} theme`}
             title={`Switch to ${isDarkTheme ? "light" : "dark"} theme`}
           >
@@ -155,7 +155,7 @@ export function Header({ className = "" }: HeaderProps) {
             <button
               id="mobile-menu-button"
               onClick={toggleMenu}
-              className="flex items-center p-2 rounded-lg border border-gray-700 hover:border-yellow-500 bg-secondary/50 transition-all duration-300 transform hover:scale-105"
+              className="flex items-center p-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:border-yellow-500 bg-gray-200 dark:bg-secondary/50 transition-all duration-300 transform hover:scale-105"
               aria-expanded={isMenuOpen ? "true" : "false"}
               aria-label="Toggle mobile menu"
             >
@@ -164,7 +164,7 @@ export function Header({ className = "" }: HeaderProps) {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                className="w-6 h-6 text-white"
+                className="w-6 h-6 text-gray-800 dark:text-white"
               >
                 <path
                   strokeLinecap="round"
@@ -188,9 +188,9 @@ export function Header({ className = "" }: HeaderProps) {
                     handleAnchorClick(item.href);
                   }
                 }}
-                className={`text-gray-300 hover:text-yellow-400 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-secondary/30 border border-transparent hover:border-yellow-400/20 relative before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-0.5 before:bg-yellow-400 before:transition-all before:duration-300 before:transform before:-translate-x-1/2 hover:before:w-3/5 nav-link ${
+                className={`text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-gray-100 dark:hover:bg-secondary/30 border border-transparent hover:border-yellow-400/20 relative before:content-[''] before:absolute before:bottom-0 before:left-1/2 before:w-0 before:h-0.5 before:bg-yellow-600 dark:before:bg-yellow-400 before:transition-all before:duration-300 before:transform before:-translate-x-1/2 hover:before:w-3/5 nav-link ${
                   isActive(item.href)
-                    ? "text-yellow-400 before:w-3/5 active-nav-item"
+                    ? "text-yellow-600 dark:text-yellow-400 before:w-3/5 active-nav-item"
                     : ""
                 }`}
               >
@@ -214,20 +214,22 @@ export function Header({ className = "" }: HeaderProps) {
           }}
         >
           <div
-            className={`h-screen w-4/5 max-w-sm ml-auto bg-secondary border-l border-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+            className={`h-screen w-4/5 max-w-sm ml-auto bg-white dark:bg-secondary border-l border-gray-200 dark:border-gray-800 shadow-2xl transform transition-transform duration-300 ease-in-out ${
               isMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex justify-between items-center p-8 border-b border-gray-800 flex-shrink-0 bg-gray-900/50">
-                <h2 className="text-2xl font-bold text-yellow-400">Menu</h2>
+              <div className="flex justify-between items-center p-8 border-b border-gray-200 dark:border-gray-800 flex-shrink-0 bg-gray-50 dark:bg-gray-900/50">
+                <h2 className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                  Menu
+                </h2>
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
                     document.body.style.overflow = "";
                   }}
-                  className="p-3 text-gray-400 hover:text-white transition-all duration-200 transform hover:scale-110 hover:bg-gray-700/50 rounded-lg"
+                  className="p-3 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white transition-all duration-200 transform hover:scale-110 hover:bg-gray-200 dark:hover:bg-gray-700/50 rounded-lg"
                   aria-label="Close menu"
                 >
                   <svg
@@ -251,9 +253,9 @@ export function Header({ className = "" }: HeaderProps) {
               <nav className="p-8 flex flex-col space-y-6 flex-1 overflow-y-auto pt-12">
                 <Link
                   href="/"
-                  className={`block text-gray-300 hover:text-yellow-400 py-5 px-6 rounded-lg text-xl font-medium transition-all duration-300 hover:bg-gray-700/30 border border-transparent hover:border-yellow-400/30 hover:pl-8 relative before:content-['→'] before:absolute before:left-6 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 ${
+                  className={`block text-gray-700 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400 py-5 px-6 rounded-lg text-xl font-medium transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700/30 border border-transparent hover:border-yellow-400/30 hover:pl-8 relative before:content-['→'] before:absolute before:left-6 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 ${
                     pathname === "/"
-                      ? "text-yellow-400 bg-gray-700/30 border-yellow-400/30 pl-8 before:opacity-100"
+                      ? "text-yellow-600 dark:text-yellow-400 bg-gray-100 dark:bg-gray-700/30 border-yellow-400/30 pl-8 before:opacity-100"
                       : ""
                   }`}
                   onClick={() => {
@@ -276,9 +278,9 @@ export function Header({ className = "" }: HeaderProps) {
                         document.body.style.overflow = "";
                       }
                     }}
-                    className={`block text-gray-300 hover:text-yellow-400 py-5 px-6 rounded-lg text-xl font-medium transition-all duration-300 hover:bg-gray-700/30 border border-transparent hover:border-yellow-400/30 hover:pl-8 relative before:content-['→'] before:absolute before:left-6 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 ${
+                    className={`block text-gray-700 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400 py-5 px-6 rounded-lg text-xl font-medium transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700/30 border border-transparent hover:border-yellow-400/30 hover:pl-8 relative before:content-['→'] before:absolute before:left-6 before:opacity-0 before:transition-all before:duration-300 hover:before:opacity-100 ${
                       isActive(item.href)
-                        ? "text-yellow-400 bg-gray-700/30 border-yellow-400/30 pl-8 before:opacity-100"
+                        ? "text-yellow-600 dark:text-yellow-400 bg-gray-100 dark:bg-gray-700/30 border-yellow-400/30 pl-8 before:opacity-100"
                         : ""
                     }`}
                   >

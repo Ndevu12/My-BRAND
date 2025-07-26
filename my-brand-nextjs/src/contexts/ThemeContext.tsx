@@ -22,27 +22,27 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (!mounted) return;
 
     const savedTheme = localStorage.getItem("theme");
-    const body = document.body;
+    const html = document.documentElement;
 
     if (savedTheme === "light") {
       setIsDarkTheme(false);
-      body.classList.add("light-theme");
+      html.classList.remove("dark");
     } else {
       setIsDarkTheme(true);
-      body.classList.remove("light-theme");
+      html.classList.add("dark");
     }
   }, [mounted]);
 
   const toggleTheme = () => {
-    const body = document.body;
+    const html = document.documentElement;
     const newTheme = isDarkTheme ? "light" : "dark";
 
     if (newTheme === "light") {
-      body.classList.add("light-theme");
+      html.classList.remove("dark");
       localStorage.setItem("theme", "light");
       setIsDarkTheme(false);
     } else {
-      body.classList.remove("light-theme");
+      html.classList.add("dark");
       localStorage.setItem("theme", "dark");
       setIsDarkTheme(true);
     }
