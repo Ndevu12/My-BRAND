@@ -97,7 +97,11 @@ export function Footer({ className = "" }: FooterProps) {
           />
         </svg>
       ),
-      content: <span className="text-gray-400 light:text-gray-300">Gikondo, Kigali, Rwanda</span>,
+      content: (
+        <span className="text-gray-400 light:text-gray-300">
+          Gikondo, Kigali, Rwanda
+        </span>
+      ),
     },
     {
       icon: (
@@ -287,7 +291,7 @@ export function Footer({ className = "" }: FooterProps) {
 
             {/* Newsletter Form */}
             <div className="mt-6">
-              <h4 className="text-lg font-semibold mb-3 text-gray-300">
+              <h4 className="text-lg font-semibold mb-3 text-gray-300 light:text-gray-200">
                 Subscribe to Newsletter
               </h4>
               <form onSubmit={handleNewsletterSubmit} className="flex">
@@ -296,12 +300,12 @@ export function Footer({ className = "" }: FooterProps) {
                   placeholder="Your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-secondary/70 text-gray-200 px-3 py-2 rounded-l-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-yellow-400 w-full transition-all duration-200"
+                  className="bg-secondary/70 light:bg-gray-700/70 text-gray-200 light:text-gray-200 px-3 py-2 rounded-l-md border border-gray-700 light:border-gray-600 focus:outline-none focus:ring-1 focus:ring-yellow-400 light:focus:ring-yellow-400 w-full transition-all duration-200"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 rounded-r-md transition-colors duration-300 flex items-center justify-center transform hover:scale-105"
+                  className="bg-yellow-500 hover:bg-yellow-600 light:bg-yellow-500 light:hover:bg-yellow-600 text-black px-4 rounded-r-md transition-colors duration-300 flex items-center justify-center transform hover:scale-105"
                   aria-label="Subscribe to newsletter"
                 >
                   <svg
@@ -325,21 +329,23 @@ export function Footer({ className = "" }: FooterProps) {
         </div>
 
         {/* Footer Bottom */}
-        <div className="pt-6 border-t border-gray-800">
+        <div className="pt-6 border-t border-gray-800 light:border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500 mb-4 md:mb-0">
+            <p className="text-sm text-gray-500 light:text-gray-400 mb-4 md:mb-0">
               &copy; {currentYear} NdevuSpace |{" "}
               <Link
                 href="/signin"
-                className="text-gray-500 hover:text-yellow-400 transition-colors duration-200"
+                className="text-gray-500 hover:text-yellow-400 light:text-gray-400 light:hover:text-yellow-400 transition-colors duration-200"
               >
                 Ndevu
               </Link>{" "}
               | All rights reserved
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 light:text-gray-400">
               Full Stack Software Developer |{" "}
-              <span className="text-yellow-500">Gikondo-Kigali</span>
+              <span className="text-yellow-500 light:text-yellow-400">
+                Gikondo-Kigali
+              </span>
             </p>
           </div>
         </div>
