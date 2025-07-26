@@ -2,15 +2,9 @@ import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Badge from "@/components/atoms/Badge";
+import { Experience } from "../data/experienceData";
 
-export interface ExperienceCardProps {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  period: string;
-  tags?: string[];
-  tagColors?: string[];
+export interface ExperienceCardProps extends Experience {
   className?: string;
   animationDelay?: number;
 }
@@ -21,6 +15,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   description,
   image,
   period,
+  location,
+  link,
+  linkText,
   tags = [],
   tagColors = [],
   className,
@@ -48,6 +45,48 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const processedDesc = processDescription(description);
   const displayText = isExpanded ? description : processedDesc.truncatedText;
 
+  /**
+   * Generate tag colors based on the tag type
+   */
+  const getTagColor = (
+    color: string
+  ):
+    | "blue"
+    | "green"
+    | "purple"
+    | "orange"
+    | "pink"
+    | "yellow"
+    | "red"
+    | "cyan"
+    | "indigo"
+    | "gray" => {
+    const colorMap: Record<
+      string,
+      | "blue"
+      | "green"
+      | "purple"
+      | "orange"
+      | "pink"
+      | "yellow"
+      | "red"
+      | "cyan"
+      | "indigo"
+      | "gray"
+    > = {
+      blue: "blue",
+      green: "green",
+      red: "red",
+      purple: "purple",
+      yellow: "yellow",
+      orange: "orange",
+      cyan: "cyan",
+      pink: "pink",
+    };
+
+    return colorMap[color] || "gray";
+  };
+
   // Determine animation class based on id
   const getAnimationClass = (cardId: number) => {
     const animations = [
@@ -68,10 +107,6 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         animationClass,
         className
       )}
-      style={{
-        animationDelay: `${delay}s`,
-        animationFillMode: "both",
-      }}
     >
       {/* Experience Image with Overlay */}
       <div className="h-[200px] overflow-hidden relative">
@@ -130,14 +165,30 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         <div className="mt-auto pt-4 border-t border-gray-700/50">
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-400 font-medium">
-              Professional Experience
+              {location}
             </span>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-xs text-green-400 font-medium">
-                Completed
-              </span>
-            </div>
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-yellow-400 hover:text-yellow-300 transition-colors group"
+            >
+              <span className="text-sm mr-1">{linkText}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
