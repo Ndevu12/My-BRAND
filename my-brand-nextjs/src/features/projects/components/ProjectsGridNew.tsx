@@ -1,13 +1,14 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react';
-import { ProjectCard } from './ProjectCard';
-import { CategoryFilter } from './CategoryFilter';
-import { projectsData, Project } from '../data/projectsData';
+import { useState, useEffect } from "react";
+import { ProjectCard } from "./ProjectCard";
+import { CategoryFilter } from "./CategoryFilter";
+import { projectsData, Project } from "../data/projectsData";
 
 export function ProjectsGrid() {
-  const [activeCategory, setActiveCategory] = useState('All Projects');
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>(projectsData);
+  const [activeCategory, setActiveCategory] = useState("All Projects");
+  const [filteredProjects, setFilteredProjects] =
+    useState<Project[]>(projectsData);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -15,11 +16,11 @@ export function ProjectsGrid() {
   }, []);
 
   useEffect(() => {
-    if (activeCategory === 'All Projects') {
+    if (activeCategory === "All Projects") {
       setFilteredProjects(projectsData);
     } else {
       setFilteredProjects(
-        projectsData.filter(project => project.category === activeCategory)
+        projectsData.filter((project) => project.category === activeCategory)
       );
     }
   }, [activeCategory]);
