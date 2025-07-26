@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import ExperienceCard, {
   ExperienceCardProps,
-} from "@/components/molecules/ExperienceCard";
+} from "@/features/experience/ExperienceCard";
 import Button from "@/components/atoms/Button";
 
 export interface ExperienceSectionProps {
