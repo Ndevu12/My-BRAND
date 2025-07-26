@@ -83,6 +83,7 @@ export default function ExperiencePage({ className }: ExperiencePageProps) {
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
+                    
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
