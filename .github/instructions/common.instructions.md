@@ -85,6 +85,8 @@ my-brand-nextjs/
 - Use **React Server Components** where applicable (static and non-interactive).
 - Use **Client Components** only when interactivity is required (`"use client"`).
 - All pages must define **`metadata`** using the new `metadata` API for SEO.
+- Always use `Typography` components for text elements.
+- Every component has to support both theme: `dark` and `light`. The default theme is `dark`. Theme witching will be performed by Tailwind css automatically so, `dark:` class has to be used for `dark` theme styling.
 
 ---
 

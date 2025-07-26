@@ -1,0 +1,5 @@
+export { ProjectsHero } from './ProjectsHero'
+export { ProjectCard } from './ProjectCard'
+export { CategoryFilter } from './CategoryFilter'
+export { ProjectsGrid } from './ProjectsGrid'
+export { ContactCTA } from './ContactCTA'

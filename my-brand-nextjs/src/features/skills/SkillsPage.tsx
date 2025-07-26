@@ -1,22 +1,27 @@
-import { Header } from '@/components/organisms/Header'
-import { Footer } from '@/components/organisms/Footer'
-{/*
-import { SkillsHero } from './components/SkillsHero'
-import { SkillsGrid } from './components/SkillsGrid'
-*/}
+"use client";
+
+import ClientLayout from "@/components/layout";
+import {
+  SkillsIntro,
+  TechnicalSkillsSection,
+  ProjectManagementSection,
+  EntrepreneurialSection,
+} from "./sections";
+import { useSkillsAnimations } from "./hooks";
+
 export function SkillsPage() {
+  useSkillsAnimations();
+
   return (
-    <div className="min-h-screen">
-      <Header />
-      
-      <main className="max-w-6xl mx-auto px-4 py-16">
-        {/*
-        <SkillsHero />
-        <SkillsGrid />
-        */}
-      </main>
-      
-      <Footer />
-    </div>
-  )
+    <ClientLayout>
+      <div className="bg-white dark:bg-primary text-gray-800 dark:text-white transition-colors duration-300">
+        <main className="max-w-6xl mx-auto px-4 py-16">
+          <SkillsIntro />
+          <TechnicalSkillsSection />
+          <ProjectManagementSection />
+          <EntrepreneurialSection />
+        </main>
+      </div>
+    </ClientLayout>
+  );
 }
