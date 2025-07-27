@@ -1,0 +1,155 @@
+import { BlogPost } from "@/types/blog";
+import Image from "next/image";
+import Link from "next/link";
+
+interface BlogSidebarProps {
+  popularPosts: BlogPost[];
+  tags: string[];
+}
+
+export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
+  return (
+    <div className="space-y-8">
+      {/* About Author */}
+      <div className="bg-white dark:bg-secondary rounded-xl overflow-hidden shadow-lg">
+        <div className="h-24 bg-gradient-to-r from-yellow-500/30 to-purple-500/30 relative">
+          <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-white dark:border-secondary">
+              <Image
+                src="/images/mypic.png"
+                alt="Ndevu"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="pt-12 p-6 text-center">
+          <h3 className="text-xl font-bold mb-1 text-gray-900 dark:text-white">
+            Ndevu
+          </h3>
+          <p className="text-yellow-500 dark:text-yellow-400 text-sm mb-3">
+            Full Stack Developer
+          </p>
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+            Passionate about creating elegant solutions to complex problems. I
+            share insights about web development, software engineering, and
+            technology.
+          </p>
+          <div className="flex justify-center gap-4">
+            <a
+              href="https://twitter.com"
+              className="text-gray-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors"
+              aria-label="Twitter"
+            >
+              <i className="fab fa-twitter text-lg"></i>
+            </a>
+            <a
+              href="https://github.com/Ndevu12"
+              className="text-gray-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors"
+              aria-label="GitHub"
+            >
+              <i className="fab fa-github text-lg"></i>
+            </a>
+            <a
+              href="https://linkedin.com/in/jean-paul-elisa"
+              className="text-gray-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors"
+              aria-label="LinkedIn"
+            >
+              <i className="fab fa-linkedin text-lg"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Popular Posts */}
+      <div className="bg-white dark:bg-secondary rounded-xl p-6 shadow-lg">
+        <h3 className="font-bold mb-4 flex items-center text-gray-900 dark:text-white">
+          <span className="inline-block w-3 h-10 bg-yellow-500 rounded-sm mr-2"></span>
+          Popular Posts
+        </h3>
+
+        <div className="space-y-4">
+          {popularPosts.map((post) => (
+            <div key={post.id} className="flex gap-3 group">
+              <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+                <Image
+                  src={post.imageUrl || "/images/placeholder-blog.jpg"}
+                  alt={post.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors overflow-hidden max-h-[2.5rem] mb-1">
+                  <Link href={`/blog/${post.slug}`} className="hover:underline">
+                    {post.title}
+                  </Link>
+                </h4>
+                <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                  <span>
+                    {new Date(post.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                  <span className="mx-1">•</span>
+                  <span className="flex items-center">
+                    <i className="fas fa-eye mr-1"></i>
+                    {post.views.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Topic Cloud */}
+      <div className="bg-white dark:bg-secondary rounded-xl p-6 shadow-lg">
+        <h3 className="font-bold mb-4 flex items-center text-gray-900 dark:text-white">
+          <span className="inline-block w-3 h-10 bg-yellow-500 rounded-sm mr-2"></span>
+          Topic Cloud
+        </h3>
+
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              className="px-3 py-1 bg-gray-100 dark:bg-primary text-gray-700 dark:text-gray-300 hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 rounded-full text-sm transition-colors duration-200"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Newsletter Signup */}
+      <div className="bg-white dark:bg-secondary rounded-xl overflow-hidden shadow-lg">
+        <div className="h-20 bg-gradient-to-r from-yellow-500 to-amber-600 flex items-center justify-center">
+          <h3 className="text-xl font-bold text-white">Join My Newsletter</h3>
+        </div>
+        <div className="p-6">
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+            Get notified about new articles and tech insights. No spam, just
+            valuable content.
+          </p>
+          <form className="space-y-3">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-primary border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-yellow-500 dark:focus:border-yellow-400 transition-all"
+              required
+            />
+            <button
+              type="submit"
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-4 rounded-lg transition-colors duration-200"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,99 @@
+import { BlogPost } from "@/types/blog";
+import Image from "next/image";
+import Link from "next/link";
+
+interface BlogCardProps {
+  post: BlogPost;
+}
+
+export function BlogCard({ post }: BlogCardProps) {
+  const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  return (
+    <article className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 group">
+      <div className="relative">
+        <div className="relative w-full h-48 overflow-hidden">
+          <Image
+            src={post.imageUrl || "/images/placeholder-blog.jpg"}
+            alt={post.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
+        {post.isNew && (
+          <div className="absolute top-0 right-0 bg-yellow-500 text-black font-bold text-xs px-3 py-1 m-2 rounded">
+            NEW
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+      </div>
+
+      <div className="p-5">
+        <div className="flex flex-wrap gap-2 mb-3">
+          <span
+            className={`text-xs px-2 py-1 rounded-full ${post.category.bgClass} ${post.category.textClass}`}
+          >
+            <i className={`fas fa-${post.category.icon} mr-1`}></i>
+            {post.category.name}
+          </span>
+          {post.tags.slice(0, 1).map((tag) => (
+            <span
+              key={tag}
+              className="text-xs bg-gray-200 dark:bg-gray-600/30 text-gray-600 dark:text-gray-400 px-2 py-1 rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors">
+          <Link href={`/blog/${post.slug}`} className="hover:underline">
+            {post.title}
+          </Link>
+        </h3>
+
+        <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed overflow-hidden max-h-[4.5rem]">
+          {post.description}
+        </p>
+
+        <div className="flex justify-between items-center border-t border-gray-200 dark:border-gray-700/50 pt-4 mt-auto">
+          <div className="flex items-center">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-yellow-500">
+              <Image
+                src={post.authorImage || "/images/mypic.png"}
+                alt={post.author}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="ml-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {formattedDate}
+              </p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">
+                {post.readTime}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center">
+              <i className="fas fa-eye mr-1"></i>
+              {post.views.toLocaleString()}
+            </span>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="text-yellow-500 dark:text-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-300 text-sm font-medium transition-colors"
+            >
+              Read
+            </Link>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
