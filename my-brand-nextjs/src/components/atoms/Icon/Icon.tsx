@@ -97,6 +97,42 @@ export const LocationIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
+export const UserIcon: React.FC<IconProps> = (props) => (
+    <Icon {...props} viewBox="0 0 24 24">
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M16 11a4 4 0 11-8 0 4 4 0 018 0zM6.5 20h11a2.5 2.5 0 002.5-2.5v-1a2.5 2.5 0 00-2.5-2.5h-11A2.5 2.5 0 004 16.5v1A2.5 2.5 0 006.5 20z"
+      />
+    </Icon>
+  );
+
+export const FaProjectDiagram: React.FC<IconProps> = (props) => (
+  <Icon {...props} viewBox="0 0 24 24">
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M12 4v16m8-8H4m16 0a2 2 0 11-4 0 2 2 0 014 0zm-8-8a2 2 0 11-4 0 2 2 0 014 0zm0 16a2 2 0 11-4 0 2 2 0 014 0z"
+    />
+  </Icon>
+);
+
+export const FaCog: React.FC<IconProps> = (props) => (
+  <Icon {...props} viewBox="0 0 24 24">
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-6a10 10 0 100 20 10 10 0 000-20zM6.93 6.93l1.414-1.414m9.192 9.192l1.414-1.414M6.93 17.07l1.414-1.414m9.192-9.192l1.414-1.414"
+    />
+  </Icon>
+);
+
 export const PhoneIcon: React.FC<IconProps> = (props) => (
   <Icon {...props} viewBox="0 0 24 24">
     <path

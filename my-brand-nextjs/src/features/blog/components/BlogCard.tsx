@@ -81,10 +81,6 @@ export function BlogCard({ post }: BlogCardProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center">
-              <i className="fas fa-eye mr-1"></i>
-              {post.views.toLocaleString()}
-            </span>
             <Link
               href={`/blog/${post.slug}`}
               className="text-yellow-500 dark:text-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-300 text-sm font-medium transition-colors"

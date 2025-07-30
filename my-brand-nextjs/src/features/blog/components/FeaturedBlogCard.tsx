@@ -72,11 +72,6 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-300 flex items-center">
-                <i className="fas fa-eye mr-1"></i>
-                {post.views.toLocaleString()}
-              </span>
-
               {/* Quick Share */}
               <div className="flex items-center gap-2">
                 <button

@@ -11,3 +11,7 @@ export const formatDate = (dateString: string) => {
       day: "numeric",
     });
   };
+
+export const randomNUmberGenerator = (range: number = 10) => {
+  return Math.floor(Math.random() * range);
+}
