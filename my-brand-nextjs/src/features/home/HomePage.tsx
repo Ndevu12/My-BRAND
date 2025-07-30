@@ -18,7 +18,7 @@ export function HomePage() {
     description:
       "Welcome to my digital portfolio where code meets creativity. I specialize in building robust, scalable applications that deliver exceptional user experiences. With expertise spanning frontend design to backend architecture, I transform ideas into functional, beautiful digital products that solve real-world challenges.",
     quote:
-      "Technology is best when it brings people together. My mission is to create digital solutions that connect, engage, and inspire users while solving meaningful problems that drive innovation and positive change.",
+      "Technology is best when it brings people together. My intention is to create digital solutions that connect, engage, and inspire users while solving meaningful problems that drive innovation and positive change.",
     profileImage: "/images/mypic.png",
     profileAlt: "Jean Paul Elisa NIYOKWIZERWA - Full Stack Software Engineer",
     socialLinks: [

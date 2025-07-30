@@ -12,7 +12,6 @@ export interface BlogPost {
   category: BlogCategory;
   tags: string[];
   readTime: string;
-  views: number;
   isNew?: boolean;
   isFeatured?: boolean;
 }

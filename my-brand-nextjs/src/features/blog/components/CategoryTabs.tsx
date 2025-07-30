@@ -18,7 +18,7 @@ export function CategoryTabs({
           className="flex gap-2 md:gap-4 justify-start md:justify-center min-w-max overflow-x-auto scrollbar-thin scrollbar-thumb-yellow-500 scrollbar-track-transparent snap-x snap-mandatory"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <button
               key={category.id}
               onClick={() => onCategoryChange(category.id)}

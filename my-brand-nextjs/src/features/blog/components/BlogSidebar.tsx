@@ -1,3 +1,4 @@
+import { randomNUmberGenerator } from "@/lib/utils";
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
@@ -94,10 +95,6 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
                     })}
                   </span>
                   <span className="mx-1">•</span>
-                  <span className="flex items-center">
-                    <i className="fas fa-eye mr-1"></i>
-                    {post.views.toLocaleString()}
-                  </span>
                 </div>
               </div>
             </div>
@@ -113,9 +110,9 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
         </h3>
 
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
+          {tags.map((tag, idx) => (
             <button
-              key={tag}
+              key={`${tag}-${randomNUmberGenerator()}`}
               className="px-3 py-1 bg-gray-100 dark:bg-primary text-gray-700 dark:text-gray-300 hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 rounded-full text-sm transition-colors duration-200"
             >
               {tag}

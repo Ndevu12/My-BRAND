@@ -11,6 +11,7 @@ yarn.lock
 
 # Ignore log files
 *.log
+.yarn
 
 # Ignore environment files
 *.env

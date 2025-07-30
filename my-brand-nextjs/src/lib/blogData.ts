@@ -77,7 +77,6 @@ export const dummyBlogs: BlogPost[] = [
         category: blogCategories.find(c => c.id === 'webdev')!,
         tags: ['Architecture', 'Web Development', 'Microservices', 'Serverless', 'Best Practices'],
         readTime: '8 min read',
-        views: 1245,
         content: `
       <p class="lead text-xl text-gray-300 mb-6 leading-relaxed">
         From monolithic applications to microservices and serverless computing—explore how web architecture has transformed and what approach might work best for your next project. This evolution reflects broader changes in development practices, infrastructure capabilities, and user expectations.
@@ -214,7 +213,6 @@ export const dummyBlogs: BlogPost[] = [
       category: blogCategories.find(c => c.id === 'webdev')!,
       tags: ['CSS', 'Responsive', 'Mobile-first', 'Design'],
       readTime: '6 min read',
-      views: 947,
       content: `
       <p class="lead text-xl text-gray-300 mb-6 leading-relaxed">
         Responsive web design is no longer optional—it's essential. With devices of all sizes accessing websites, your design must adapt seamlessly. This article explores the core principles of responsive design for 2023 and beyond.
@@ -447,7 +445,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '4',
@@ -546,7 +543,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '5',
@@ -654,7 +650,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '7',
@@ -773,7 +768,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '8',
@@ -872,7 +866,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '5',
@@ -980,7 +973,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '3',
@@ -1099,7 +1091,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '10',
@@ -1198,7 +1189,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
       id: '9',
@@ -1306,7 +1296,6 @@ export const dummyBlogs: BlogPost[] = [
       </p>
     `,
       slug: '',
-      views: 0
   },
   {
     id: '1',
@@ -1320,7 +1309,6 @@ export const dummyBlogs: BlogPost[] = [
     category: blogCategories.find(c => c.id === 'architecture')!,
     tags: ['Architecture', 'Web Development', 'Microservices', 'Serverless', 'Best Practices'],
     readTime: '8 min read',
-    views: 1245,
     isFeatured: true,
     content: `
       <p class="text-xl text-gray-300 dark:text-gray-300 mb-6 leading-relaxed">
@@ -1345,7 +1333,6 @@ export const dummyBlogs: BlogPost[] = [
     category: blogCategories.find(c => c.id === 'react')!,
     tags: ['React', 'Hooks', 'JavaScript', 'Frontend', 'Tutorial'],
     readTime: '12 min read',
-    views: 2156,
     isNew: true
   },
   {
@@ -1360,7 +1347,6 @@ export const dummyBlogs: BlogPost[] = [
     category: blogCategories.find(c => c.id === 'webdev')!,
     tags: ['Node.js', 'Express', 'API', 'Backend', 'JavaScript'],
     readTime: '10 min read',
-    views: 1876
   },
   {
     id: '4',
@@ -1374,7 +1360,6 @@ export const dummyBlogs: BlogPost[] = [
     category: blogCategories.find(c => c.id === 'career')!,
     tags: ['Career', 'Professional Development', 'Software Engineering', 'Growth'],
     readTime: '7 min read',
-    views: 3421
   },
   {
     id: '5',
@@ -1388,7 +1373,6 @@ export const dummyBlogs: BlogPost[] = [
     category: blogCategories.find(c => c.id === 'javascript')!,
     tags: ['TypeScript', 'JavaScript', 'Best Practices', 'Large Scale', 'Type Safety'],
     readTime: '9 min read',
-    views: 1654
   },
   {
     id: '6',
@@ -1402,14 +1386,11 @@ export const dummyBlogs: BlogPost[] = [
     category: blogCategories.find(c => c.id === 'webdev')!,
     tags: ['CSS', 'Grid', 'Flexbox', 'Responsive Design', 'Frontend'],
     readTime: '6 min read',
-    views: 987
   }
 ];
 
 export const getPopularPosts = (limit: number = 3): BlogPost[] => {
-  return [...dummyBlogs]
-    .sort((a, b) => b.views - a.views)
-    .slice(0, limit);
+  return [...dummyBlogs].sort(() => 0.5 - Math.random()).slice(0, limit);
 };
 
 export const getFeaturedPost = (): BlogPost | undefined => {
@@ -1418,7 +1399,7 @@ export const getFeaturedPost = (): BlogPost | undefined => {
 
 export const getPostsByCategory = (categoryId: string): BlogPost[] => {
   if (categoryId === 'all') return dummyBlogs;
-  return dummyBlogs.filter(post => post.category.id === categoryId);
+  return dummyBlogs.filter(post => (post.category as unknown as string) === categoryId);
 };
 
 export const getPostBySlug = (slug: string): BlogPost | undefined => {
