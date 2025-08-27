@@ -868,7 +868,7 @@ export const dummyBlogs: BlogPost[] = [
       slug: '',
   },
   {
-      id: '5',
+      id: '12',
       title: 'Starting Your Tech Startup: A Practical Guide',
       description: 'Essential tips for launching a successful technology startup in today\'s competitive landscape',
       author: 'Ndevu',
@@ -975,7 +975,7 @@ export const dummyBlogs: BlogPost[] = [
       slug: '',
   },
   {
-      id: '3',
+      id: '11',
       title: 'UI/UX Design Fundamentals for Developers',
       description: 'Learn the core principles of effective user interface design that every developer should understand',
       author: 'Ndevu',
@@ -1298,7 +1298,7 @@ export const dummyBlogs: BlogPost[] = [
       slug: '',
   },
   {
-    id: '1',
+    id: '13',
     slug: 'evolution-of-modern-web-architecture',
     title: 'The Evolution of Modern Web Architecture',
     description: 'From monolithic applications to microservices and serverless computing—explore how web architecture has transformed over time and what approach might work best for your next project.',
@@ -1322,7 +1322,7 @@ export const dummyBlogs: BlogPost[] = [
     `
   },
   {
-    id: '2',
+    id: '14',
     slug: 'mastering-react-hooks-complete-guide',
     title: 'Mastering React Hooks: A Complete Guide',
     description: 'Deep dive into React Hooks, from useState and useEffect to custom hooks. Learn patterns, best practices, and advanced techniques for modern React development.',
@@ -1336,7 +1336,7 @@ export const dummyBlogs: BlogPost[] = [
     isNew: true
   },
   {
-    id: '3',
+    id: '15',
     slug: 'building-scalable-apis-nodejs-express',
     title: 'Building Scalable APIs with Node.js and Express',
     description: 'Learn how to design and implement robust, scalable APIs using Node.js and Express. Cover authentication, validation, error handling, and performance optimization.',
@@ -1349,7 +1349,7 @@ export const dummyBlogs: BlogPost[] = [
     readTime: '10 min read',
   },
   {
-    id: '4',
+    id: '464646',
     slug: 'career-growth-junior-to-senior-developer',
     title: 'Career Growth: From Junior to Senior Developer',
     description: 'Navigate your career progression in software development. Essential skills, mindset shifts, and strategies to advance from junior to senior developer role.',
@@ -1362,7 +1362,7 @@ export const dummyBlogs: BlogPost[] = [
     readTime: '7 min read',
   },
   {
-    id: '5',
+    id: '59876',
     slug: 'typescript-best-practices-large-applications',
     title: 'TypeScript Best Practices for Large Applications',
     description: 'Effective TypeScript patterns and practices for maintaining large-scale applications. Type safety, performance, and developer experience considerations.',
