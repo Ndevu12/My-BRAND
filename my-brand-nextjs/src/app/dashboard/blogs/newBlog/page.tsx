@@ -1,5 +1,5 @@
 import React from "react";
-import NewBlog from "@/features/blog/newBlog/NewBlog";
+import NewBlog from "@/features/dashboard/blogs/newBlog/NewBlog";
 
 const NewBlogPage: React.FC = () => {
   return (

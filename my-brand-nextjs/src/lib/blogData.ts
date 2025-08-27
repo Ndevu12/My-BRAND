@@ -1406,6 +1406,46 @@ export const getPostBySlug = (slug: string): BlogPost | undefined => {
   return dummyBlogs.find(post => post.slug === slug);
 };
 
+export const getBlogById = (id: string): BlogPost | undefined => {
+  return dummyBlogs.find(post => post.id === id);
+};
+
+export const updateBlog = async (id: string, updatedData: Partial<BlogPost>): Promise<BlogPost | null> => {
+  const blogIndex = dummyBlogs.findIndex(blog => blog.id === id);
+  
+  if (blogIndex === -1) {
+    return null;
+  }
+
+  // Update the blog with new data
+  dummyBlogs[blogIndex] = {
+    ...dummyBlogs[blogIndex],
+    ...updatedData,
+    updatedAt: new Date().toISOString(),
+  };
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  return dummyBlogs[blogIndex];
+};
+
+export const createBlog = async (blogData: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>): Promise<BlogPost> => {
+  const newBlog: BlogPost = {
+    ...blogData,
+    id: (dummyBlogs.length + 1).toString(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
+  dummyBlogs.push(newBlog);
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  return newBlog;
+};
+
 export const getAllTags = (): string[] => {
   const allTags = dummyBlogs.flatMap(post => post.tags);
   return [...new Set(allTags)].sort();

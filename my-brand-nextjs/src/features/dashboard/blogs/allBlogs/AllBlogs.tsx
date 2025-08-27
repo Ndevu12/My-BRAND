@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { AllBlogsProps, BlogAdminFilters } from "./types";
 import { BlogActions } from "./components/BlogActions";
 import { BlogFilters } from "./components/BlogFilters";
@@ -12,6 +13,7 @@ import { BlogPost } from "@/types/blog";
 import Typography from "@/components/atoms/Typography/Typography";
 
 export const AllBlogs: React.FC<AllBlogsProps> = ({ className }) => {
+  const router = useRouter();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [pagination, setPagination] = useState({
     currentPage: 1,
@@ -149,15 +151,11 @@ export const AllBlogs: React.FC<AllBlogsProps> = ({ className }) => {
   };
 
   const handleEditBlog = (blogId: string) => {
-    // TODO: Navigate to edit page
-    console.log("Edit blog:", blogId);
-    // window.location.href = `/dashboard/blogs/edit/${blogId}`;
+    router.push(`/dashboard/blogs/edit/${blogId}`);
   };
 
   const handleViewBlog = (blogId: string) => {
-    // TODO: Navigate to blog detail page or open in new tab
-    console.log("View blog:", blogId);
-    // window.open(`/blog/${blogId}`, '_blank');
+    router.push(`/dashboard/blogs/view/${blogId}`);
   };
 
   const handleDeleteBlog = async (blogId: string) => {

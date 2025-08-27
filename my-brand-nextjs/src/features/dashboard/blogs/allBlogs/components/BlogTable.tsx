@@ -183,9 +183,13 @@ export const BlogTable: React.FC<BlogTableProps> = ({
                           }}
                         />
                         <div>
-                          <div className="text-sm font-medium text-white">
+                          <button
+                            onClick={() => onView(blog.id)}
+                            className="text-sm font-medium text-white hover:text-yellow-400 transition-colors text-left"
+                            title={`View blog: ${blog.title}`}
+                          >
                             {blog.title}
-                          </div>
+                          </button>
                           <div className="text-xs text-gray-400">
                             {blog.description?.substring(0, 60)}...
                           </div>
