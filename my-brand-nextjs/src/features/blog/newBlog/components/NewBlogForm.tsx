@@ -41,17 +41,12 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
       ref,
       () =>
         ({
-          addEventListener: (event: string, handler: EventListener) => {
-            if (event === "requestPreview") {
-              handler({ preventDefault: () => {} } as any);
-              handlePreview();
-            } else if (event === "saveDraft") {
-              handler({ preventDefault: () => {} } as any);
-              handleSaveDraft();
-            }
+          requestPreview: () => {
+            handlePreview();
           },
-          removeEventListener: () => {},
-          dispatchEvent: () => true,
+          saveDraft: () => {
+            handleSaveDraft();
+          },
         } as any)
     );
 

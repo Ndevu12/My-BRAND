@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Typography from "@/components/atoms/Typography";
 import Button from "@/components/atoms/Button";
-import { NewBlogForm } from "./components/NewBlogForm";
-import { PreviewModal } from "./components/PreviewModal";
+import { NewBlogForm, PreviewModal } from "./components";
 import { BlogFormData } from "./types";
 
 export interface NewBlogProps {
@@ -20,13 +19,6 @@ const NewBlog: React.FC<NewBlogProps> = ({ className }) => {
   const handlePreview = (data: BlogFormData) => {
     setFormData(data);
     setShowPreview(true);
-  };
-
-  const handleSaveDraft = () => {
-    if (formRef.current) {
-      const event = new CustomEvent("saveDraft");
-      formRef.current.dispatchEvent(event);
-    }
   };
 
   const handleSubmit = async (data: BlogFormData) => {
@@ -69,9 +61,8 @@ const NewBlog: React.FC<NewBlogProps> = ({ className }) => {
             variant="secondary"
             size="sm"
             onClick={() => {
-              if (formRef.current) {
-                const event = new CustomEvent("requestPreview");
-                formRef.current.dispatchEvent(event);
+              if (formRef.current && (formRef.current as any).requestPreview) {
+                (formRef.current as any).requestPreview();
               }
             }}
             icon={<i className="fas fa-eye" />}
@@ -82,7 +73,11 @@ const NewBlog: React.FC<NewBlogProps> = ({ className }) => {
           <Button
             variant="secondary"
             size="sm"
-            onClick={handleSaveDraft}
+            onClick={() => {
+              if (formRef.current && (formRef.current as any).saveDraft) {
+                (formRef.current as any).saveDraft();
+              }
+            }}
             icon={<i className="fas fa-save" />}
             iconPosition="left"
           >
@@ -100,9 +95,9 @@ const NewBlog: React.FC<NewBlogProps> = ({ className }) => {
       />
 
       {/* Preview modal */}
-      {showPreview && formData && (
+      {showPreview && formData ? (
         <PreviewModal data={formData} onClose={() => setShowPreview(false)} />
-      )}
+      ) : null}
     </div>
   );
 };
