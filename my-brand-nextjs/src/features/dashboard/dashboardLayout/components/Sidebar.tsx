@@ -18,10 +18,10 @@ const navLinks = [
     page: "blogs",
   },
   {
-    href: "/dashboard/projects",
-    label: "Projects",
+    href: "/dashboard/newsletters",
+    label: "Newsletters",
     icon: "fas fa-briefcase",
-    page: "projects",
+    page: "newsletters",
   }
 ];
 
@@ -151,20 +151,6 @@ const Sidebar: React.FC = () => {
             ))}
           </ul>
         </nav>
-
-        {/* Feedback tab */}
-        {!collapsed && (
-          <div className="px-4 py-3 border-t border-gray-700">
-            <a
-              href="/dashboard/feedback"
-              className="flex items-center space-x-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
-              aria-label="Feedback"
-            >
-              <i className="fas fa-comment-dots"></i>
-              <span>Feedback</span>
-            </a>
-          </div>
-        )}
 
         {/* Copyright */}
         {!collapsed && (

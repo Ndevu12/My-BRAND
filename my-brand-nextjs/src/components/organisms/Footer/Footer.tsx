@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SocialLink, FooterProps } from "@/types/navigation";
-import Newsletter from "@/features/newsletters/newsletter";
 
 interface QuickLink {
   name: string;
@@ -284,17 +283,6 @@ export function Footer({ className = "" }: FooterProps) {
                 </li>
               ))}
             </ul>
-
-            {/* Newsletter Form */}
-            <Newsletter
-              variant="default"
-              title="Subscribe to Newsletter"
-              description="Get the latest insights and updates delivered to your inbox"
-              placeholder="Your email"
-              buttonText=""
-              className="mt-6"
-              onSubmit={handleNewsletterSubmit}
-            />
           </div>
         </div>
 

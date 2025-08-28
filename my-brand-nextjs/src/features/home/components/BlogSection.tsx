@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import Button from "@/components/atoms/Button";
 import Typography from "@/components/atoms/Typography";
 import BlogCard from "@/features/home/components/BlogCard";
-import Newsletter from "@/features/newsletters/newsletter";
 
 export interface BlogPost {
   id: string;
@@ -229,21 +228,6 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 : "translate-y-8 opacity-0"
             )}
           >
-            {/* Enhanced Empty State with Newsletter */}
-            <Newsletter
-              variant="featured"
-              title="Stay Updated"
-              description="I'm crafting thoughtful articles about software development, AI innovations, and entrepreneurial insights. Subscribe to be notified when new content is published."
-              placeholder="Enter your email"
-              buttonText="Notify Me"
-              className="max-w-lg mx-auto"
-              onSubmit={async (email) => {
-                // Handle newsletter subscription
-                console.log("Newsletter subscription:", email);
-                // In a real app, you would send this to your backend
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-              }}
-            />
           </div>
         )}
 
@@ -412,20 +396,6 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               Want to stay updated with the latest insights? Subscribe to my
               newsletter.
             </Typography>
-
-            {/* Newsletter Component */}
-            <Newsletter
-              variant="compact"
-              placeholder="Enter your email address"
-              buttonText="Subscribe"
-              className="max-w-md mx-auto"
-              onSubmit={async (email) => {
-                // Handle newsletter subscription
-                console.log("Blog section newsletter subscription:", email);
-                // In a real app, you would send this to your backend
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-              }}
-            />
           </div>
         )}
 
