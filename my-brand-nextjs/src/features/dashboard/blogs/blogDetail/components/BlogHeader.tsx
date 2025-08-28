@@ -128,10 +128,12 @@ export const BlogHeader: React.FC<BlogHeaderProps> = ({
 
         <div className="text-center">
           <div className="text-2xl font-bold text-purple-400">
-            <i className={`fas fa-${blog.category.icon}`}></i>
+            <i className={`fas fa-${blog.category?.icon || "bookmark"}`}></i>
           </div>
           <div className="text-sm text-gray-400 mt-1">Category</div>
-          <div className="text-white font-medium">{blog.category.name}</div>
+          <div className="text-white font-medium">
+            {blog.category?.name || "Uncategorized"}
+          </div>
         </div>
       </div>
 

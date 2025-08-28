@@ -53,10 +53,12 @@ export const BlogTable: React.FC<BlogTableProps> = ({
 
     return (
       <span
-        className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${blog.category.bgClass} ${blog.category.textClass}`}
+        className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+          blog.category?.bgClass || "bg-gray-600/20"
+        } ${blog.category?.textClass || "text-gray-400"}`}
       >
-        <i className={`fas fa-${blog.category.icon} mr-1`}></i>
-        {blog.category.name}
+        <i className={`fas fa-${blog.category?.icon || "bookmark"} mr-1`}></i>
+        {blog.category?.name || "Uncategorized"}
       </span>
     );
   };

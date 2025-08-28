@@ -16,6 +16,14 @@ import Button from "@/components/atoms/Button/Button";
 
 const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
   ({ onSubmit, onPreview, isSubmitting = false, initialData }, ref) => {
+    // Create a stable default date that's consistent between server and client
+    const getDefaultPublishDate = () => {
+      // Use a fixed date format that's consistent across server/client
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      return now.toISOString().slice(0, 16);
+    };
+
     const [formData, setFormData] = useState<BlogFormData>({
       title: "",
       subtitle: "",
@@ -29,7 +37,7 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
       metaTitle: "",
       metaDescription: "",
       status: "published",
-      publishDate: new Date().toISOString().slice(0, 16),
+      publishDate: getDefaultPublishDate(),
       ...initialData,
     });
 
@@ -37,15 +45,37 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
       Partial<Record<keyof BlogFormData, string>>
     >({});
 
+    // Update form data when initialData changes (for edit mode)
+    useEffect(() => {
+      if (initialData) {
+        setFormData((prev) => ({
+          ...prev,
+          ...initialData,
+        }));
+      }
+    }, [initialData]);
+
     useImperativeHandle(
       ref,
       () =>
         ({
+          getFormData: () => formData,
           requestPreview: () => {
             handlePreview();
           },
           saveDraft: () => {
             handleSaveDraft();
+          },
+          submitForm: () => {
+            if (validateForm()) {
+              const submitData = {
+                ...formData,
+                metaTitle: formData.metaTitle || formData.title,
+                metaDescription:
+                  formData.metaDescription || formData.description,
+              };
+              onSubmit(submitData);
+            }
           },
         } as any)
     );
@@ -177,7 +207,7 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
                 )
               ) {
                 // TODO: Redirect to blogs list
-                console.log("Discarding changes...");
+                window.location.href = "/dashboard/blogs";
               }
             }}
             icon={<i className="fas fa-trash" />}

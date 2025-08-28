@@ -36,10 +36,16 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
           <div className="flex flex-wrap gap-2 mb-4">
             <span
-              className={`text-xs px-3 py-1 rounded-full ${post.category.bgClass} ${post.category.textClass} backdrop-blur-sm`}
+              className={`text-xs px-3 py-1 rounded-full ${
+                post.category?.bgClass || "bg-gray-600/20"
+              } ${
+                post.category?.textClass || "text-gray-400"
+              } backdrop-blur-sm`}
             >
-              <i className={`fas fa-${post.category.icon} mr-1`}></i>
-              {post.category.name}
+              <i
+                className={`fas fa-${post.category?.icon || "bookmark"} mr-1`}
+              ></i>
+              {post.category?.name || "Uncategorized"}
             </span>
           </div>
 

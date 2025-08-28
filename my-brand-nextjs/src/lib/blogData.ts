@@ -63,6 +63,33 @@ export const blogCategories: BlogCategory[] = [
     bgClass: 'bg-orange-600/20',
     textClass: 'text-orange-400',
     description: 'Software architecture and system design'
+  },
+  {
+    id: 'design',
+    name: 'Design',
+    slug: 'design',
+    icon: 'palette',
+    bgClass: 'bg-pink-600/20',
+    textClass: 'text-pink-400',
+    description: 'UI/UX design principles and best practices'
+  },
+  {
+    id: 'technology',
+    name: 'Technology',
+    slug: 'technology',
+    icon: 'microchip',
+    bgClass: 'bg-indigo-600/20',
+    textClass: 'text-indigo-400',
+    description: 'Latest technology trends and innovations'
+  },
+  {
+    id: 'entrepreneurship',
+    name: 'Entrepreneurship',
+    slug: 'entrepreneurship',
+    icon: 'rocket',
+    bgClass: 'bg-red-600/20',
+    textClass: 'text-red-400',
+    description: 'Business and startup insights'
   }
 ];
 

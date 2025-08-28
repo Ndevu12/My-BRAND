@@ -1,12 +1,17 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import Typography from '@/components/atoms/Typography';
-import Button from '@/components/atoms/Button';
-import { NewBlogForm, PreviewModal } from './components';
-import { BlogFormData } from './types';
-import { getBlogById, updateBlog, createBlog, blogCategories } from '@/lib/blogData';
-import { useRouter } from 'next/navigation';
+import React, { useState, useRef, useEffect } from "react";
+import Typography from "@/components/atoms/Typography";
+import Button from "@/components/atoms/Button";
+import { NewBlogForm, PreviewModal } from "./components";
+import { BlogFormData } from "./types";
+import {
+  getBlogById,
+  updateBlog,
+  createBlog,
+  blogCategories,
+} from "@/lib/blogData";
+import { useRouter } from "next/navigation";
 
 interface NewBlogProps {
   blogId?: string; // Optional blog ID for edit mode
@@ -17,10 +22,12 @@ export default function NewBlog({ blogId }: NewBlogProps) {
   const [previewData, setPreviewData] = useState<BlogFormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [initialData, setInitialData] = useState<Partial<BlogFormData> | undefined>(undefined);
-  const formRef = useRef<{ submitForm: () => void; getFormData: () => BlogFormData } | null>(null);
+  const [initialData, setInitialData] = useState<
+    Partial<BlogFormData> | undefined
+  >(undefined);
+  const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
-  
+
   const isEditMode = Boolean(blogId);
 
   // Load blog data for editing
@@ -30,30 +37,50 @@ export default function NewBlog({ blogId }: NewBlogProps) {
       try {
         const blog = getBlogById(blogId);
         if (blog) {
+          // Helper function to safely format dates
+          const formatDateForInput = (dateString?: string) => {
+            if (!dateString) return undefined;
+            try {
+              const date = new Date(dateString);
+              // Ensure we get a consistent format
+              date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+              return date.toISOString().slice(0, 16);
+            } catch {
+              return undefined;
+            }
+          };
+
           // Convert BlogPost to BlogFormData format
-          setInitialData({
+          const blogFormData = {
             title: blog.title,
-            subtitle: (blog as any).subtitle || '',
+            subtitle: (blog as any).subtitle || "",
             description: blog.description,
-            content: blog.content || '',
-            categoryId: typeof blog.category === 'object' ? blog.category.id : blog.category as string,
+            content: blog.content || "",
+            categoryId:
+              typeof blog.category === "object"
+                ? blog.category.id
+                : (blog.category as string),
             tags: blog.tags,
-            readingTime: blog.readTime?.replace(' min read', '') || '5',
+            readingTime: blog.readTime?.replace(" min read", "") || "5",
             author: blog.author,
             imageUrl: blog.imageUrl,
-            imageCaption: (blog as any).imageCaption || '',
+            imageCaption: (blog as any).imageCaption || "",
             metaTitle: (blog as any).metaTitle || blog.title,
             metaDescription: (blog as any).metaDescription || blog.description,
-            status: ((blog as any).status as 'published' | 'draft') || 'draft',
-            publishDate: (blog as any).publishDate ? new Date((blog as any).publishDate).toISOString().slice(0, 16) : undefined,
-          });
+            status: ((blog as any).status as "published" | "draft") || "draft",
+            publishDate:
+              formatDateForInput((blog as any).publishDate) ||
+              formatDateForInput(blog.createdAt),
+          };
+
+          setInitialData(blogFormData);
         } else {
-          console.error('Blog not found');
-          router.push('/dashboard/blogs');
+          console.error("Blog not found");
+          router.push("/dashboard/blogs");
         }
       } catch (error) {
-        console.error('Error loading blog:', error);
-        router.push('/dashboard/blogs');
+        console.error("Error loading blog:", error);
+        router.push("/dashboard/blogs");
       } finally {
         setIsLoading(false);
       }
@@ -70,41 +97,50 @@ export default function NewBlog({ blogId }: NewBlogProps) {
     try {
       if (isEditMode && blogId) {
         // Update existing blog
-        const categoryObj = blogCategories.find(cat => cat.id === data.categoryId) || blogCategories.find(cat => cat.id === 'webdev');
+        const categoryObj =
+          blogCategories.find((cat) => cat.id === data.categoryId) ||
+          blogCategories.find((cat) => cat.id === "webdev");
         await updateBlog(blogId, {
           title: data.title,
           description: data.description,
           content: data.content,
           category: categoryObj!, // Use the category object
           tags: data.tags,
-          readTime: data.readingTime ? `${data.readingTime} min read` : '5 min read',
+          readTime: data.readingTime
+            ? `${data.readingTime} min read`
+            : "5 min read",
           author: data.author,
           imageUrl: data.imageUrl,
           // Handle additional properties through type assertion
         } as any);
-        
-        console.log('Blog updated successfully!');
-        router.push('/dashboard/blogs');
+
+        router.push("/dashboard/blogs");
       } else {
         // Create new blog
-        const categoryObj = blogCategories.find(cat => cat.id === data.categoryId) || blogCategories.find(cat => cat.id === 'webdev');
+        const categoryObj =
+          blogCategories.find((cat) => cat.id === data.categoryId) ||
+          blogCategories.find((cat) => cat.id === "webdev");
         await createBlog({
           title: data.title,
           description: data.description,
           content: data.content,
           category: categoryObj!,
           tags: data.tags,
-          readTime: data.readingTime ? `${data.readingTime} min read` : '5 min read',
+          readTime: data.readingTime
+            ? `${data.readingTime} min read`
+            : "5 min read",
           author: data.author,
           imageUrl: data.imageUrl,
-          slug: data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
+          slug: data.title
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]/g, ""),
         } as any);
-        
-        console.log('Blog created successfully!');
-        router.push('/dashboard/blogs');
+
+        router.push("/dashboard/blogs");
       }
     } catch (error) {
-      console.error('Error saving blog:', error);
+      console.error("Error saving blog:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -113,7 +149,7 @@ export default function NewBlog({ blogId }: NewBlogProps) {
   const handleSaveDraft = () => {
     if (formRef.current) {
       const data = formRef.current.getFormData();
-      handleSubmit({ ...data, status: 'draft' });
+      handleSubmit({ ...data, status: "draft" });
     }
   };
 
@@ -139,10 +175,12 @@ export default function NewBlog({ blogId }: NewBlogProps) {
         <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <Typography variant="h1" className="text-2xl font-bold">
-              {isEditMode ? 'Edit Article' : 'Create New Article'}
+              {isEditMode ? "Edit Article" : "Create New Article"}
             </Typography>
             <Typography variant="p" className="text-gray-400">
-              {isEditMode ? 'Update your existing blog article' : 'Share your thoughts and expertise with the world'}
+              {isEditMode
+                ? "Update your existing blog article"
+                : "Share your thoughts and expertise with the world"}
             </Typography>
           </div>
           <div className="flex gap-3">
@@ -180,12 +218,12 @@ export default function NewBlog({ blogId }: NewBlogProps) {
               {isSubmitting ? (
                 <>
                   <i className="fas fa-spinner fa-spin mr-2"></i>
-                  {isEditMode ? 'Updating...' : 'Publishing...'}
+                  {isEditMode ? "Updating..." : "Publishing..."}
                 </>
               ) : (
                 <>
                   <i className="fas fa-rocket mr-2"></i>
-                  {isEditMode ? 'Update Article' : 'Publish Article'}
+                  {isEditMode ? "Update Article" : "Publish Article"}
                 </>
               )}
             </Button>

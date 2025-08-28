@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RichTextEditorProps } from "../types";
 
 declare global {
@@ -17,9 +17,18 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const editorInstanceRef = useRef<any>(null);
-  const editorId = useRef(`editor-${Math.random().toString(36).substr(2, 9)}`);
+  const [editorId, setEditorId] = useState<string>("");
+  const [isClient, setIsClient] = useState(false);
+
+  // Generate stable editor ID on client side only
+  useEffect(() => {
+    setIsClient(true);
+    setEditorId(`editor-${Date.now()}-${Math.floor(Math.random() * 1000)}`);
+  }, []);
 
   useEffect(() => {
+    if (!isClient || !editorId) return;
+
     const loadTinyMCE = async () => {
       // Load TinyMCE script if not already loaded
       if (!window.tinymce) {
@@ -73,6 +82,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           setup: (editor: any) => {
             editorInstanceRef.current = editor;
 
+            // Set initial content once editor is ready
+            editor.on("init", () => {
+              if (content) {
+                editor.setContent(content);
+              }
+            });
+
             editor.on("change", () => {
               const content = editor.getContent();
               onContentChange(content);
@@ -108,23 +124,33 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         editorInstanceRef.current = null;
       }
     };
-  }, []);
+  }, [isClient, editorId, placeholder, onContentChange]);
 
   // Update content when prop changes
   useEffect(() => {
-    if (
-      editorInstanceRef.current &&
-      editorInstanceRef.current.getContent() !== content
-    ) {
-      editorInstanceRef.current.setContent(content || "");
+    if (editorInstanceRef.current && content !== undefined) {
+      const currentContent = editorInstanceRef.current.getContent();
+      if (currentContent !== content) {
+        editorInstanceRef.current.setContent(content || "");
+      }
     }
   }, [content]);
+
+  if (!isClient || !editorId) {
+    return (
+      <div
+        className={`min-h-[400px] bg-primary/50 border border-gray-700 rounded-lg flex items-center justify-center ${className}`}
+      >
+        <div className="text-gray-400">Loading editor...</div>
+      </div>
+    );
+  }
 
   return (
     <div
       className={`min-h-[400px] bg-primary/50 border border-gray-700 rounded-lg ${className}`}
     >
-      <div ref={editorRef} id={editorId.current}></div>
+      <div ref={editorRef} id={editorId}></div>
     </div>
   );
 };

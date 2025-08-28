@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import DashboardLayout from "@/features/dashboard/dashboardLayout/DashboardLayout";
 import DashboardCard from "@/features/dashboard/dashboardLayout/components/DashboardCard";
 import { UserIcon, FaProjectDiagram } from "../../components/atoms/Icon";
 
@@ -44,7 +43,6 @@ export default function DashboardHomePage() {
   ];
 
   return (
-    <DashboardLayout>
       <main className="p-0 md:p-6 bg-gradient-to-b from-primary to-black/90 min-h-screen text-white font-roboto">
         {/* Analytics header with date and actions */}
         <section className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -200,6 +198,5 @@ export default function DashboardHomePage() {
           </div>
         </section>
       </main>
-    </DashboardLayout>
   );
 }
