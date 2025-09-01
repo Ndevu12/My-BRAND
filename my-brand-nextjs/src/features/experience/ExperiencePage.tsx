@@ -154,14 +154,14 @@ export default function ExperiencePage({ className }: ExperiencePageProps) {
                 variant="h2"
                 className="mb-4 text-gray-900 dark:text-white"
               >
-                Let's Work Together
+                Let&apos;s Work Together
               </Typography>
               <Typography
                 variant="p"
                 className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto"
               >
                 Interested in collaborating or learning more about my
-                experience? I'd love to discuss opportunities and share insights
+                experience? I&apos;d love to discuss opportunities and share insights
                 from my journey.
               </Typography>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

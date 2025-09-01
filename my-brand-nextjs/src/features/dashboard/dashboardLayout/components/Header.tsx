@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../../../contexts/AuthContext";
 import { MessageNotification } from "../../messages/components/MessageNotification";
 
 const Header: React.FC = () => {
@@ -13,10 +14,22 @@ const Header: React.FC = () => {
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { user, logout, isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push("/auth/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Redirect anyway
+      router.push("/auth/login");
+    }
+  };
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -42,20 +55,26 @@ const Header: React.FC = () => {
     };
   }, [mounted]);
 
-  // Dummy user data (replace with real data from context/store)
-  const user = {
-    username: "Admin User",
-    role: "Super Admin",
-    avatar: "/images/mypic.png",
-  };
+  // Display user info or loading state
+  const displayName = user
+    ? user.firstName && user.lastName
+      ? `${user.firstName} ${user.lastName}`
+      : user.username
+    : "Loading...";
+
+  const welcomeMessage = user
+    ? `Welcome back, ${
+        user.firstName || user.username
+      }! Ready to create content?`
+    : "Loading dashboard...";
 
   return (
     <header className="bg-secondary border-b border-gray-700 shadow-lg sticky top-0 z-20 w-full md:header-continuous">
       <div className="flex items-center justify-between px-6 py-3">
-        {/* Welcome message */}
+        {/* Dashboard Title & User Welcome */}
         <div className="flex-1 ml-4 md:ml-0">
-          <div className="flex items-center"></div>
-          <p className="text-sm text-gray-400">Welcome back, {user.username}</p>
+          <h1 className="text-xl font-bold text-white">My Brand Dashboard</h1>
+          <p className="text-sm text-gray-400">{welcomeMessage}</p>
         </div>
 
         {/* Search bar (desktop only) */}
@@ -69,12 +88,27 @@ const Header: React.FC = () => {
           />
         </div>
 
-        {/* User actions */}
+        {/* Right Actions - Messages, Notifications & Profile */}
         <div className="flex items-center space-x-4 ml-4">
           {/* Messages */}
-          <MessageNotification
-            onClick={() => router.push("/dashboard/messages")}
-          />
+          <div ref={notifRef} className="relative">
+            <MessageNotification
+              onClick={() => setNotifOpen((open: boolean) => !open)}
+            />
+
+            {notifOpen && (
+              <div className="absolute right-0 mt-2 w-80 bg-secondary border border-gray-700 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+                <div className="p-3">
+                  <h3 className="text-sm font-medium text-white mb-3">
+                    Recent Messages
+                  </h3>
+                  <p className="text-sm text-gray-400 text-center py-4">
+                    No new messages
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Notifications */}
           <div className="relative">
@@ -89,57 +123,95 @@ const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Profile dropdown */}
-          <div ref={profileRef} className="relative">
-            <button
-              className="h-8 w-8 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              aria-label="Profile"
-              onClick={() => setProfileOpen((open) => !open)}
-            >
-              {/* Use Next.js Image for avatar if available */}
-              <Image
-                src={user.avatar}
-                alt="Profile"
-                width={32}
-                height={32}
-                className="rounded-full object-cover"
-              />
-            </button>
-            {profileOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-secondary border border-gray-700 rounded-lg shadow-lg z-50">
-                <div className="p-4 border-b border-gray-700 flex items-center space-x-3">
-                  <div className="h-10 w-10 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center">
-                    <Image
-                      src={user.avatar}
-                      alt="Profile"
-                      width={40}
-                      height={40}
-                      className="rounded-full object-cover"
-                    />
+          {/* User Profile Dropdown */}
+          {isAuthenticated && user && (
+            <div ref={profileRef} className="relative">
+              <button
+                type="button"
+                className="flex items-center space-x-2 bg-gray-700/50 hover:bg-gray-600/50 px-3 py-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => setProfileOpen((open: boolean) => !open)}
+                aria-label="User Profile"
+              >
+                <Image
+                  src={user.avatar || "/images/anonymous.png"}
+                  alt="Profile"
+                  width={32}
+                  height={32}
+                  className="rounded-full object-cover border border-gray-600"
+                />
+                <span className="hidden md:block text-sm text-white font-medium">
+                  {user.firstName || user.username}
+                </span>
+                <i className="fas fa-chevron-down text-xs text-gray-400"></i>
+              </button>
+
+              {profileOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-secondary border border-gray-600 rounded-lg shadow-xl z-50">
+                  {/* Profile Header */}
+                  <div className="p-4 border-b border-gray-600">
+                    <div className="flex items-center space-x-3">
+                      <Image
+                        src={user.avatar || "/images/anonymous.png"}
+                        alt="Profile"
+                        width={48}
+                        height={48}
+                        className="rounded-full object-cover border-2 border-blue-500"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-white truncate">
+                          {displayName}
+                        </h4>
+                        <p className="text-sm text-gray-400 truncate">
+                          {user.email}
+                        </p>
+                        {user.bio && (
+                          <p className="text-xs text-gray-500 truncate mt-1">
+                            {user.bio}
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-medium text-white">{user.username}</h3>
-                    <p className="text-xs text-gray-400">{user.role}</p>
+
+                  {/* Profile Menu */}
+                  <div className="p-2">
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      <i className="fas fa-tachometer-alt mr-3 w-4"></i>
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/dashboard/settings"
+                      className="flex items-center px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-md transition-colors"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      <i className="fas fa-cog mr-3 w-4"></i>
+                      Settings
+                    </Link>
+                    <hr className="my-2 border-gray-600" />
+                    <button
+                      type="button"
+                      className="w-full flex items-center px-3 py-2 text-sm text-red-400 hover:bg-red-500/20 rounded-md transition-colors"
+                      onClick={handleLogout}
+                    >
+                      <i className="fas fa-sign-out-alt mr-3 w-4"></i>
+                      Sign Out
+                    </button>
                   </div>
                 </div>
-                <ul className="py-2">
-                  <li>
-                    <a
-                      href="/dashboard/settings"
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 transition-colors"
-                    >
-                      <i className="fas fa-cog mr-2"></i> Settings
-                    </a>
-                  </li>
-                  <li>
-                    <button className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/20 transition-colors flex items-center">
-                      <i className="fas fa-sign-out-alt mr-2"></i> Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
+
+          {/* Loading state for auth */}
+          {isLoading && (
+            <div className="flex items-center space-x-2 px-3 py-2">
+              <div className="animate-spin rounded-full h-6 w-6 border-2 border-gray-600 border-t-blue-500"></div>
+            </div>
+          )}
         </div>
       </div>
     </header>

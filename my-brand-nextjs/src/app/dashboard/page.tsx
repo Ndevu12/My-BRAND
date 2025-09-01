@@ -84,12 +84,6 @@ export default function DashboardHomePage() {
           accentColor="text-green-500"
         />
         <DashboardCard
-          title="Subscribers"
-          icon={<i className="fas fa-users"></i>}
-          count={320}
-          accentColor="text-yellow-500"
-        />
-        <DashboardCard
           title="Profile Views"
           icon={<UserIcon />}
           count={102}

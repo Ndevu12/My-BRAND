@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "NdevuSpace | Full Stack Developer Portfolio",
@@ -89,7 +90,9 @@ export default function RootLayout({
         className="bg-white dark:bg-primary text-gray-900 dark:text-white font-roboto min-h-screen antialiased transition-colors duration-300"
         suppressHydrationWarning={true}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
