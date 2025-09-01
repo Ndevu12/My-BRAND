@@ -17,12 +17,6 @@ const navLinks = [
     icon: "fas fa-newspaper",
     page: "blogs",
   },
-  {
-    href: "/dashboard/projects",
-    label: "Projects",
-    icon: "fas fa-briefcase",
-    page: "projects",
-  }
 ];
 
 const Sidebar: React.FC = () => {
@@ -30,8 +24,12 @@ const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Prevent hydration mismatch
+    setMounted(true);
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -42,6 +40,7 @@ const Sidebar: React.FC = () => {
 
   // Collapse/expand logic (desktop)
   const toggleSidebar = () => {
+    if (!mounted) return;
     setCollapsed((prev) => !prev);
     document.body.classList.toggle("sidebar-collapsed");
   };
@@ -62,6 +61,26 @@ const Sidebar: React.FC = () => {
     // Match by pathname
     return pathname === href;
   };
+
+  // Don't render until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <aside className="hidden md:flex flex-col w-64 h-screen bg-secondary border-r border-gray-700 shadow-xl">
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          <Link href="/" className="flex items-center space-x-3">
+            <img
+              src="/images/logo1.png"
+              className="h-10 w-10 rounded"
+              alt="NdevuSpace Logo"
+            />
+            <span className="text-lg font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              NdevuSpace
+            </span>
+          </Link>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <>
@@ -151,20 +170,6 @@ const Sidebar: React.FC = () => {
             ))}
           </ul>
         </nav>
-
-        {/* Feedback tab */}
-        {!collapsed && (
-          <div className="px-4 py-3 border-t border-gray-700">
-            <a
-              href="/dashboard/feedback"
-              className="flex items-center space-x-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
-              aria-label="Feedback"
-            >
-              <i className="fas fa-comment-dots"></i>
-              <span>Feedback</span>
-            </a>
-          </div>
-        )}
 
         {/* Copyright */}
         {!collapsed && (

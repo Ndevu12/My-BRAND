@@ -13,10 +13,9 @@ export function CategoryTabs({
 }: CategoryTabsProps) {
   return (
     <div className="bg-gray-100/50 dark:bg-gray-800/50 py-4 sticky top-16 z-10 backdrop-blur-sm border-y border-gray-200/50 dark:border-gray-700/50">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="mx-auto px-4">
         <div
-          className="flex gap-2 md:gap-4 justify-start md:justify-center min-w-max overflow-x-auto scrollbar-thin scrollbar-thumb-yellow-500 scrollbar-track-transparent snap-x snap-mandatory"
-          style={{ WebkitOverflowScrolling: "touch" }}
+          className="flex gap-2 md:gap-4 justify-start md:justify-center min-w-max overflow-x-auto"
         >
           {categories?.map((category) => (
             <button

@@ -35,10 +35,14 @@ export function BlogCard({ post }: BlogCardProps) {
       <div className="p-5">
         <div className="flex flex-wrap gap-2 mb-3">
           <span
-            className={`text-xs px-2 py-1 rounded-full ${post.category.bgClass} ${post.category.textClass}`}
+            className={`text-xs px-2 py-1 rounded-full ${
+              post.category?.bgClass || "bg-gray-600/20"
+            } ${post.category?.textClass || "text-gray-400"}`}
           >
-            <i className={`fas fa-${post.category.icon} mr-1`}></i>
-            {post.category.name}
+            <i
+              className={`fas fa-${post.category?.icon || "bookmark"} mr-1`}
+            ></i>
+            {post.category?.name || "Uncategorized"}
           </span>
           {post.tags.slice(0, 1).map((tag) => (
             <span

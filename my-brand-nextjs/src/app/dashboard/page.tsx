@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import DashboardLayout from "@/features/dashboard/dashboardLayout/DashboardLayout";
 import DashboardCard from "@/features/dashboard/dashboardLayout/components/DashboardCard";
 import { UserIcon, FaProjectDiagram } from "../../components/atoms/Icon";
 
@@ -44,7 +43,6 @@ export default function DashboardHomePage() {
   ];
 
   return (
-    <DashboardLayout>
       <main className="p-0 md:p-6 bg-gradient-to-b from-primary to-black/90 min-h-screen text-white font-roboto">
         {/* Analytics header with date and actions */}
         <section className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -56,7 +54,7 @@ export default function DashboardHomePage() {
             <button className="bg-secondary px-4 py-2 rounded-lg border border-gray-700 hover:border-yellow-500/50 transition-all text-sm flex items-center">
               <i className="fas fa-download mr-2"></i> Export Report
             </button>
-            <Link href="/dashboard/new-article">
+            <Link href="/dashboard/blogs/newBlog">
               <button className="bg-yellow-500 px-4 py-2 rounded-lg text-gray-900 font-medium hover:bg-yellow-400 transition-colors text-sm flex items-center">
                 <i className="fas fa-plus mr-2"></i> New Article
               </button>
@@ -200,6 +198,5 @@ export default function DashboardHomePage() {
           </div>
         </section>
       </main>
-    </DashboardLayout>
   );
 }

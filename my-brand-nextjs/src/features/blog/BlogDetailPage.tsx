@@ -17,25 +17,26 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
 
   if (!post) {
     return (
-        <ClientLayout>
-          <section className="flex flex-col min-h-screen">
-            <div className="max-w-4xl mx-auto px-4 py-12">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Blog Post Not Found</h1>
-              <p className="text-gray-600 dark:text-gray-300">
-                The blog post you are looking for does not exist or has been
-                removed.
-              </p>
-            </div>
-          </section>
-        </ClientLayout>
+      <ClientLayout>
+        <section className="flex flex-col min-h-screen">
+          <div className="max-w-4xl mx-auto px-4 py-12">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+              Blog Post Not Found
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              The blog post you are looking for does not exist or has been
+              removed.
+            </p>
+          </div>
+        </section>
+      </ClientLayout>
     );
   }
 
   const relatedPosts = dummyBlogs
     .filter(
       (p) =>
-        p.slug !== post.slug &&
-          p.tags.some((tag) => post.tags.includes(tag))
+        p.slug !== post.slug && p.tags.some((tag) => post.tags.includes(tag))
     )
     .slice(0, 3);
 
@@ -46,7 +47,12 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
   });
 
   // Generate the current URL for sharing
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://my-brand.com'}/blog/${post.slug}`;
+  const currentUrl =
+    typeof window !== "undefined"
+      ? window.location.href
+      : `${process.env.NEXT_PUBLIC_SITE_URL || "https://my-brand.com"}/blog/${
+          post.slug
+        }`;
 
   return (
     <ClientLayout>
@@ -87,10 +93,14 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
           {/* Category Badge */}
           <div className="mb-6">
             <span
-              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${post.category.bgClass} ${post.category.textClass}`}
+              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                post.category?.bgClass || "bg-gray-600/20"
+              } ${post.category?.textClass || "text-gray-400"}`}
             >
-              <i className={`fas fa-${post.category.icon} mr-2`}></i>
-              {post.category.name}
+              <i
+                className={`fas fa-${post.category?.icon || "bookmark"} mr-2`}
+              ></i>
+              {post.category?.name || "Uncategorized"}
             </span>
           </div>
 
@@ -124,10 +134,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
             <div className="flex items-center text-sm">
               <i className="fas fa-clock mr-2"></i>
               {post.readTime}
-            </div>
-            <div className="flex items-center text-sm">
-              <i className="fas fa-eye mr-2"></i>
-              {post.views.toLocaleString()} views
             </div>
           </div>
 
@@ -185,7 +191,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
                       Key Points
                     </h2>
-                    
+
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">
                       Core Concepts
                     </h3>
@@ -200,17 +206,17 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                       Implementation Strategies
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      When implementing these concepts, it's important to consider 
-                      the specific requirements of your project and choose the 
-                      approach that best fits your needs.
+                      When implementing these concepts, it's important to
+                      consider the specific requirements of your project and
+                      choose the approach that best fits your needs.
                     </p>
 
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
                       Best Practices
                     </h2>
                     <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Following industry best practices ensures that your implementation 
-                      is robust, maintainable, and scalable.
+                      Following industry best practices ensures that your
+                      implementation is robust, maintainable, and scalable.
                     </p>
 
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
@@ -244,7 +250,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
               </div>
 
               {/* Share Article */}
-              <ShareArticle 
+              <ShareArticle
                 title={post.title}
                 url={currentUrl}
                 className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
@@ -295,17 +301,17 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
           <aside className="lg:w-1/4 space-y-8">
             {/* Table of Contents */}
             <TableOfContents />
-            
+
             {/* Share Article for Mobile */}
             <div className="lg:hidden">
               <ShareArticle title={post.title} url={currentUrl} />
             </div>
-            
+
             {/* Blog Sidebar */}
             <BlogSidebar popularPosts={popularPosts} tags={allTags} />
           </aside>
         </div>
       </main>
-</ClientLayout>
+    </ClientLayout>
   );
 }

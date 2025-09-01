@@ -1,3 +1,4 @@
+import { MY_GITHUB_PROFILE_URL, MY_LINKEDIN_PROFILE_URL } from "@/lib/constants";
 import { randomNUmberGenerator } from "@/lib/utils";
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
@@ -46,14 +47,14 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
               <i className="fab fa-twitter text-lg"></i>
             </a>
             <a
-              href="https://github.com/Ndevu12"
+              href={MY_GITHUB_PROFILE_URL}
               className="text-gray-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors"
               aria-label="GitHub"
             >
               <i className="fab fa-github text-lg"></i>
             </a>
             <a
-              href="https://linkedin.com/in/jean-paul-elisa"
+              href={MY_LINKEDIN_PROFILE_URL}
               className="text-gray-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors"
               aria-label="LinkedIn"
             >
@@ -118,33 +119,6 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
               {tag}
             </button>
           ))}
-        </div>
-      </div>
-
-      {/* Newsletter Signup */}
-      <div className="bg-white dark:bg-secondary rounded-xl overflow-hidden shadow-lg">
-        <div className="h-20 bg-gradient-to-r from-yellow-500 to-amber-600 flex items-center justify-center">
-          <h3 className="text-xl font-bold text-white">Join My Newsletter</h3>
-        </div>
-        <div className="p-6">
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-            Get notified about new articles and tech insights. No spam, just
-            valuable content.
-          </p>
-          <form className="space-y-3">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-primary border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-yellow-500 dark:focus:border-yellow-400 transition-all"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-4 rounded-lg transition-colors duration-200"
-            >
-              Subscribe
-            </button>
-          </form>
         </div>
       </div>
     </div>

@@ -20,24 +20,6 @@ export const blogCategories: BlogCategory[] = [
     description: 'Frontend, backend, and full-stack development'
   },
   {
-    id: 'javascript',
-    name: 'JavaScript',
-    slug: 'javascript',
-    icon: 'js-square',
-    bgClass: 'bg-yellow-600/20',
-    textClass: 'text-yellow-400',
-    description: 'JavaScript and TypeScript tips and tutorials'
-  },
-  {
-    id: 'react',
-    name: 'React',
-    slug: 'react',
-    icon: 'react',
-    bgClass: 'bg-cyan-600/20',
-    textClass: 'text-cyan-400',
-    description: 'React ecosystem and best practices'
-  },
-  {
     id: 'career',
     name: 'Career',
     slug: 'career',
@@ -63,6 +45,33 @@ export const blogCategories: BlogCategory[] = [
     bgClass: 'bg-orange-600/20',
     textClass: 'text-orange-400',
     description: 'Software architecture and system design'
+  },
+  {
+    id: 'design',
+    name: 'Design',
+    slug: 'design',
+    icon: 'palette',
+    bgClass: 'bg-pink-600/20',
+    textClass: 'text-pink-400',
+    description: 'UI/UX design principles and best practices'
+  },
+  {
+    id: 'technology',
+    name: 'Technology',
+    slug: 'technology',
+    icon: 'microchip',
+    bgClass: 'bg-indigo-600/20',
+    textClass: 'text-indigo-400',
+    description: 'Latest technology trends and innovations'
+  },
+  {
+    id: 'entrepreneurship',
+    name: 'Entrepreneurship',
+    slug: 'entrepreneurship',
+    icon: 'rocket',
+    bgClass: 'bg-red-600/20',
+    textClass: 'text-red-400',
+    description: 'Business and startup insights'
   }
 ];
 
@@ -868,7 +877,7 @@ export const dummyBlogs: BlogPost[] = [
       slug: '',
   },
   {
-      id: '5',
+      id: '12',
       title: 'Starting Your Tech Startup: A Practical Guide',
       description: 'Essential tips for launching a successful technology startup in today\'s competitive landscape',
       author: 'Ndevu',
@@ -975,7 +984,7 @@ export const dummyBlogs: BlogPost[] = [
       slug: '',
   },
   {
-      id: '3',
+      id: '11',
       title: 'UI/UX Design Fundamentals for Developers',
       description: 'Learn the core principles of effective user interface design that every developer should understand',
       author: 'Ndevu',
@@ -1298,7 +1307,7 @@ export const dummyBlogs: BlogPost[] = [
       slug: '',
   },
   {
-    id: '1',
+    id: '13',
     slug: 'evolution-of-modern-web-architecture',
     title: 'The Evolution of Modern Web Architecture',
     description: 'From monolithic applications to microservices and serverless computing—explore how web architecture has transformed over time and what approach might work best for your next project.',
@@ -1322,7 +1331,7 @@ export const dummyBlogs: BlogPost[] = [
     `
   },
   {
-    id: '2',
+    id: '14',
     slug: 'mastering-react-hooks-complete-guide',
     title: 'Mastering React Hooks: A Complete Guide',
     description: 'Deep dive into React Hooks, from useState and useEffect to custom hooks. Learn patterns, best practices, and advanced techniques for modern React development.',
@@ -1336,7 +1345,7 @@ export const dummyBlogs: BlogPost[] = [
     isNew: true
   },
   {
-    id: '3',
+    id: '15',
     slug: 'building-scalable-apis-nodejs-express',
     title: 'Building Scalable APIs with Node.js and Express',
     description: 'Learn how to design and implement robust, scalable APIs using Node.js and Express. Cover authentication, validation, error handling, and performance optimization.',
@@ -1349,7 +1358,7 @@ export const dummyBlogs: BlogPost[] = [
     readTime: '10 min read',
   },
   {
-    id: '4',
+    id: '464646',
     slug: 'career-growth-junior-to-senior-developer',
     title: 'Career Growth: From Junior to Senior Developer',
     description: 'Navigate your career progression in software development. Essential skills, mindset shifts, and strategies to advance from junior to senior developer role.',
@@ -1362,7 +1371,7 @@ export const dummyBlogs: BlogPost[] = [
     readTime: '7 min read',
   },
   {
-    id: '5',
+    id: '59876',
     slug: 'typescript-best-practices-large-applications',
     title: 'TypeScript Best Practices for Large Applications',
     description: 'Effective TypeScript patterns and practices for maintaining large-scale applications. Type safety, performance, and developer experience considerations.',
@@ -1404,6 +1413,46 @@ export const getPostsByCategory = (categoryId: string): BlogPost[] => {
 
 export const getPostBySlug = (slug: string): BlogPost | undefined => {
   return dummyBlogs.find(post => post.slug === slug);
+};
+
+export const getBlogById = (id: string): BlogPost | undefined => {
+  return dummyBlogs.find(post => post.id === id);
+};
+
+export const updateBlog = async (id: string, updatedData: Partial<BlogPost>): Promise<BlogPost | null> => {
+  const blogIndex = dummyBlogs.findIndex(blog => blog.id === id);
+  
+  if (blogIndex === -1) {
+    return null;
+  }
+
+  // Update the blog with new data
+  dummyBlogs[blogIndex] = {
+    ...dummyBlogs[blogIndex],
+    ...updatedData,
+    updatedAt: new Date().toISOString(),
+  };
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  return dummyBlogs[blogIndex];
+};
+
+export const createBlog = async (blogData: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>): Promise<BlogPost> => {
+  const newBlog: BlogPost = {
+    ...blogData,
+    id: (dummyBlogs.length + 1).toString(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
+  dummyBlogs.push(newBlog);
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  return newBlog;
 };
 
 export const getAllTags = (): string[] => {

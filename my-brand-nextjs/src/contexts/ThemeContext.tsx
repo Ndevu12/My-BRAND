@@ -16,11 +16,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Prevent hydration mismatch by setting mounted state
   useEffect(() => {
     setMounted(true);
-  }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-
+    // Initialize theme immediately on mount
     const savedTheme = localStorage.getItem("theme");
     const html = document.documentElement;
 
@@ -31,7 +28,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setIsDarkTheme(true);
       html.classList.add("dark");
     }
-  }, [mounted]);
+  }, []);
 
   const toggleTheme = () => {
     const html = document.documentElement;

@@ -85,7 +85,10 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className="bg-white dark:bg-primary text-gray-900 dark:text-white font-roboto min-h-screen antialiased transition-colors duration-300">
+      <body
+        className="bg-white dark:bg-primary text-gray-900 dark:text-white font-roboto min-h-screen antialiased transition-colors duration-300"
+        suppressHydrationWarning={true}
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

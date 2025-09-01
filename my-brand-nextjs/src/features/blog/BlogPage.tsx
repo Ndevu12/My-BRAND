@@ -38,17 +38,19 @@ export function BlogPage() {
     // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      if (posts.length > 0){
+      if (posts.length > 0) {
         posts = posts.filter(
           (post: BlogPost) =>
             post.title.toLowerCase().includes(query) ||
             post.description.toLowerCase().includes(query) ||
-            post.tags.some((tag: string) => tag.toLowerCase().includes(query)) ||
-            post.category.name.toLowerCase().includes(query)
+            post.tags.some((tag: string) =>
+              tag.toLowerCase().includes(query)
+            ) ||
+            post.category?.name?.toLowerCase().includes(query)
         );
-    } else {
+      } else {
         posts = [];
-    }
+      }
     }
 
     // Apply sorting
@@ -58,9 +60,6 @@ export function BlogPage() {
           (a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
-        break;
-      case "popular":
-        posts.sort((a, b) => b.views - a.views);
         break;
       case "newest":
       default:
