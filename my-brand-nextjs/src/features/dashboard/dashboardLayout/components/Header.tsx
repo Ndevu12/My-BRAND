@@ -6,11 +6,18 @@ import Image from "next/image";
 const Header: React.FC = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Close dropdowns on outside click
   useEffect(() => {
+    if (!mounted) return;
+
     function handleClickOutside(event: MouseEvent) {
       if (
         profileRef.current &&
@@ -29,7 +36,7 @@ const Header: React.FC = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [mounted]);
 
   // Dummy user data (replace with real data from context/store)
   const user = {
@@ -41,7 +48,6 @@ const Header: React.FC = () => {
   return (
     <header className="bg-secondary border-b border-gray-700 shadow-lg sticky top-0 z-20 w-full md:header-continuous">
       <div className="flex items-center justify-between px-6 py-3">
-
         {/* Welcome message */}
         <div className="flex-1 ml-4 md:ml-0">
           <div className="flex items-center"></div>

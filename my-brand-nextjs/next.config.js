@@ -4,6 +4,12 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
 
+  // Experimental features to help with hydration
+  experimental: {
+    // Helps with hydration mismatches
+    optimizeCss: true,
+  },
+
   // Image optimization configuration
   images: {
     formats: ['image/webp', 'image/avif'],

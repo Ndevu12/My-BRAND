@@ -20,24 +20,6 @@ export const blogCategories: BlogCategory[] = [
     description: 'Frontend, backend, and full-stack development'
   },
   {
-    id: 'javascript',
-    name: 'JavaScript',
-    slug: 'javascript',
-    icon: 'js-square',
-    bgClass: 'bg-yellow-600/20',
-    textClass: 'text-yellow-400',
-    description: 'JavaScript and TypeScript tips and tutorials'
-  },
-  {
-    id: 'react',
-    name: 'React',
-    slug: 'react',
-    icon: 'react',
-    bgClass: 'bg-cyan-600/20',
-    textClass: 'text-cyan-400',
-    description: 'React ecosystem and best practices'
-  },
-  {
     id: 'career',
     name: 'Career',
     slug: 'career',
