@@ -8,19 +8,30 @@ import { MessageCard } from "./MessageCard";
 // Import design system components
 import Typography from "@/components/atoms/Typography/Typography";
 import Button from "@/components/atoms/Button/Button";
-import Input from "@/components/atoms/Input/Input";
 import Card from "@/components/molecules/Card/Card";
 import { Loading } from "@/components/atoms/Loading/Loading";
 
 interface MessageListProps {
+  filters?: MessageFilters;
+  sortBy?: "newest" | "oldest";
   onUnreadCountChange?: (count: number) => void;
+  onTotalCountChange?: (count: number) => void;
+  onFiltersChange?: (filters: MessageFilters) => void;
 }
 
-export function MessageList({ onUnreadCountChange }: MessageListProps) {
+export function MessageList({
+  filters: propFilters = {},
+  sortBy: propSortBy = "newest",
+  onUnreadCountChange,
+  onTotalCountChange,
+  onFiltersChange,
+}: MessageListProps) {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState<MessageFilters>({});
-  const [sortBy, setSortBy] = useState<"newest" | "oldest">("newest");
+
+  // Use props instead of local state
+  const filters = propFilters;
+  const sortBy = propSortBy;
 
   const loadMessages = async () => {
     try {
@@ -36,9 +47,10 @@ export function MessageList({ onUnreadCountChange }: MessageListProps) {
 
       setMessages(sortedMessages);
 
-      // Update unread count
+      // Update counts
       const unreadCount = sortedMessages.filter((msg) => !msg.isRead).length;
       onUnreadCountChange?.(unreadCount);
+      onTotalCountChange?.(sortedMessages.length);
     } catch (error) {
       console.error("Failed to load messages:", error);
     } finally {
@@ -49,14 +61,6 @@ export function MessageList({ onUnreadCountChange }: MessageListProps) {
   useEffect(() => {
     loadMessages();
   }, [filters, sortBy]);
-
-  const handleSearchChange = (search: string) => {
-    setFilters((prev) => ({ ...prev, search: search || undefined }));
-  };
-
-  const handleFilterChange = (isRead?: boolean) => {
-    setFilters((prev) => ({ ...prev, isRead }));
-  };
 
   const filteredMessages = messages;
   const unreadCount = messages.filter((msg) => !msg.isRead).length;
@@ -73,95 +77,54 @@ export function MessageList({ onUnreadCountChange }: MessageListProps) {
   }
 
   return (
-    <div className="space-y-6 font-roboto">
-      {/* Header with stats and filters */}
-      <Card variant="elevated" className="p-6 animate-fade-in">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div>
-            <Typography variant="h2" className="text-white font-roboto">
-              Messages
-            </Typography>
-            <Typography variant="p" className="text-gray-400">
-              {messages.length} total messages • {unreadCount} unread
-            </Typography>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* Search */}
-            <div className="relative">
-              <Input
-                type="text"
-                placeholder="Search messages..."
-                className="pl-10 pr-4 py-3"
-                onChange={(e) => handleSearchChange(e.target.value)}
-              />
-              <i className="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
-            </div>
-
-            {/* Filter buttons */}
-            <div className="flex gap-2">
-              <Button
-                variant={filters.isRead === undefined ? "primary" : "secondary"}
-                size="sm"
-                onClick={() => handleFilterChange(undefined)}
-              >
-                All
-              </Button>
-              <Button
-                variant={filters.isRead === false ? "primary" : "secondary"}
-                size="sm"
-                onClick={() => handleFilterChange(false)}
-              >
-                Unread ({unreadCount})
-              </Button>
-              <Button
-                variant={filters.isRead === true ? "primary" : "secondary"}
-                size="sm"
-                onClick={() => handleFilterChange(true)}
-              >
-                Read
-              </Button>
-            </div>
-
-            {/* Sort */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "newest" | "oldest")}
-              aria-label="Sort messages"
-              title="Sort messages"
-              className="px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-secondary text-white"
-            >
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
-            </select>
-          </div>
-        </div>
-      </Card>
-
+    <div className="space-y-6">
       {/* Messages */}
       <div className="space-y-4">
         {filteredMessages.length === 0 ? (
-          <Card variant="bordered" className="text-center py-12">
-            <div className="text-gray-400 text-6xl mb-4">
+          <Card
+            variant="bordered"
+            className="text-center py-16 bg-gradient-to-br from-secondary/50 to-secondary/20 border-gray-600/50"
+          >
+            <div className="text-accent text-8xl mb-6 animate-bounce">
               <i className="fas fa-envelope-open"></i>
             </div>
-            <Typography variant="h3" className="text-white mb-2">
-              No messages found
+            <Typography variant="h3" className="text-white mb-3 font-roboto">
+              {Object.keys(filters).length > 0 || filters.isRead !== undefined
+                ? "No messages match your filters"
+                : "No messages yet"}
             </Typography>
-            <Typography variant="p" className="text-gray-400">
-              {Object.keys(filters).length > 0
-                ? "Try adjusting your search or filters"
-                : "Messages from your contact form will appear here"}
+            <Typography
+              variant="p"
+              className="text-gray-400 max-w-md mx-auto leading-relaxed"
+            >
+              {Object.keys(filters).length > 0 || filters.isRead !== undefined
+                ? "Try adjusting your search terms or filter settings to find the messages you're looking for."
+                : "Messages from your contact form will appear here. When visitors reach out through your website, you'll be able to view and respond to them from this dashboard."}
             </Typography>
+
+            {(Object.keys(filters).length > 0 ||
+              filters.isRead !== undefined) && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  onFiltersChange?.({});
+                }}
+                className="mt-4 border-accent/50 text-accent hover:bg-accent hover:text-black transition-all duration-300"
+              >
+                <i className="fas fa-refresh mr-2"></i>
+                Clear filters
+              </Button>
+            )}
           </Card>
         ) : (
-          filteredMessages.map((message) => (
-            <MessageCard
-              key={message.id}
-              message={message}
-              onUpdate={loadMessages}
-            />
-          ))
+          <div className="space-y-4 animate-fade-in">
+            {filteredMessages.map((message) => (
+              <div key={message.id} className="animate-slide-in">
+                <MessageCard message={message} onUpdate={loadMessages} />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
