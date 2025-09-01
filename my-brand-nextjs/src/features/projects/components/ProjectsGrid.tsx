@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { CategoryFilter } from "./CategoryFilter";
-import { projectsData, Project } from "../data/projectsData";
 import { usePagination } from "../hooks/usePagination";
 import Button from "@/components/atoms/Button";
 import Typography from "@/components/atoms/Typography";
+import { Project } from "@/types/project";
+import { projectsData } from "@/lib/projectData";
 
 export function ProjectsGrid() {
   const [activeCategory, setActiveCategory] = useState("All Projects");

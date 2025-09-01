@@ -3,32 +3,6 @@ export interface TechStack {
   color: 'blue' | 'green' | 'yellow' | 'red' | 'purple' | 'pink' | 'orange' | 'cyan';
 }
 
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  shortDescription: string;
-  content?: string;
-  featuredImage?: File | null;
-  imageUrl?: string;
-  imageCaption?: string;
-  categoryId: string;
-  techStack: TechStack[];
-  status: 'published' | 'draft';
-  isLive: boolean;
-  githubLink?: string;
-  liveLink?: string;
-  caseStudyLink?: string;
-  author: string;
-  createdAt: string;
-  updatedAt: string;
-  tags: string[];
-  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration?: string;
-  clientName?: string;
-  projectYear?: string;
-}
-
 export interface ProjectCategory {
   id: string;
   name: string;
@@ -39,28 +13,6 @@ export interface ProjectCategory {
   description?: string;
 }
 
-export interface ProjectFormData {
-  title: string;
-  description: string;
-  shortDescription: string;
-  content: string;
-  featuredImage?: File | null;
-  imageUrl: string;
-  imageCaption: string;
-  categoryId: string;
-  techStack: TechStack[];
-  status: 'published' | 'draft';
-  isLive: boolean;
-  githubLink: string;
-  liveLink: string;
-  caseStudyLink: string;
-  author: string;
-  tags: string[];
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: string;
-  clientName: string;
-  projectYear: string;
-}
 
 export interface ProjectSearchFilters {
   category?: string;
@@ -88,9 +40,15 @@ export interface ProjectPageProps {
   metadata: ProjectMetadata;
 }
 
-export interface NewProjectFormProps {
-  onSubmit: (data: ProjectFormData) => void;
-  onPreview: (data: ProjectFormData) => void;
-  isSubmitting?: boolean;
-  initialData?: Partial<ProjectFormData>;
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  category: 'Web Apps' | 'Mobile' | 'UI/UX Design' | 'All Projects';
+  techStack: TechStack[];
+  caseStudyLink?: string;
+  githubLink?: string;
+  liveLink?: string;
+  isLive: boolean;
 }

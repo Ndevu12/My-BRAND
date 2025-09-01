@@ -4,92 +4,52 @@ export const blogCategories: BlogCategory[] = [
   {
     id: 'webdev',
     name: 'Web Development',
-    slug: 'web-development',
-    icon: 'code',
-    bgClass: 'bg-blue-600/20',
-    textClass: 'text-blue-400',
-    description: 'Frontend, backend, and full-stack development'
+    icon: 'code'
   },
   {
     id: 'devops',
     name: 'DevOps',
-    slug: 'devops',
-    icon: 'cogs',
-    bgClass: 'bg-teal-600/20',
-    textClass: 'text-teal-400',
-    description: 'CI/CD, automation, and infrastructure management'
+    icon: 'cogs'
   },
   {
     id: 'cloud',
     name: 'Cloud Computing',
-    slug: 'cloud-computing',
-    icon: 'cloud',
-    bgClass: 'bg-indigo-600/20',
-    textClass: 'text-indigo-400',
-    description: 'Cloud infrastructure, services, and deployment strategies'
-  },
+    icon: 'cloud'
+   },
   {
     id: 'philosophy',
     name: 'Philosophy',
-    slug: 'philosophy',
-    icon: 'book',
-    bgClass: 'bg-gray-600/20',
-    textClass: 'text-gray-400',
-    description: 'Exploring the fundamental nature of knowledge, reality, and existence'
-  },
+    icon: 'book'
+   },
   {
     id: 'career',
     name: 'Career',
-    slug: 'career',
-    icon: 'briefcase',
-    bgClass: 'bg-green-600/20',
-    textClass: 'text-green-400',
-    description: 'Professional development and career advice'
+    icon: 'briefcase'
   },
   {
     id: 'tutorial',
     name: 'Tutorials',
-    slug: 'tutorials',
-    icon: 'graduation-cap',
-    bgClass: 'bg-purple-600/20',
-    textClass: 'text-purple-400',
-    description: 'Step-by-step guides and tutorials'
+    icon: 'graduation-cap'
   },
   {
     id: 'architecture',
     name: 'Architecture',
-    slug: 'architecture',
-    icon: 'sitemap',
-    bgClass: 'bg-orange-600/20',
-    textClass: 'text-orange-400',
-    description: 'Software architecture and system design'
+    icon: 'sitemap'
   },
   {
     id: 'design',
     name: 'Design',
-    slug: 'design',
     icon: 'palette',
-    bgClass: 'bg-pink-600/20',
-    textClass: 'text-pink-400',
-    description: 'UI/UX design principles and best practices'
   },
   {
     id: 'technology',
     name: 'Technology',
-    slug: 'technology',
-    icon: 'microchip',
-    bgClass: 'bg-indigo-600/20',
-    textClass: 'text-indigo-400',
-    description: 'Latest technology trends and innovations'
+    icon: 'microchip'
   },
   {
     id: 'entrepreneurship',
     name: 'Entrepreneurship',
-    slug: 'entrepreneurship',
-    icon: 'rocket',
-    bgClass: 'bg-red-600/20',
-    textClass: 'text-red-400',
-    description: 'Business and startup insights'
+    icon: 'rocket'
   }
 ];
 

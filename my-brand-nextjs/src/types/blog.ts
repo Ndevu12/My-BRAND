@@ -14,16 +14,14 @@ export interface BlogPost {
   readTime: string;
   isNew?: boolean;
   isFeatured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface BlogCategory {
   id: string;
   name: string;
-  slug: string;
   icon: string;
-  bgClass: string;
-  textClass: string;
-  description?: string;
 }
 
 export interface BlogSearchFilters {
@@ -49,4 +47,10 @@ export interface BlogPageProps {
   categories: BlogCategory[];
   popularPosts: BlogPost[];
   metadata: BlogMetadata;
+}
+
+export interface BlogServerResponse {
+  posts: BlogPost[];
+  pagination: BlogMetadata;
+  filters: BlogSearchFilters;
 }

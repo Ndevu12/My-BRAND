@@ -1,20 +1,4 @@
-export interface TechStack {
-  name: string;
-  color: 'blue' | 'green' | 'yellow' | 'red' | 'purple' | 'pink' | 'orange';
-}
-
-export interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  category: 'Web Apps' | 'Mobile' | 'UI/UX Design' | 'All Projects';
-  techStack: TechStack[];
-  caseStudyLink?: string;
-  githubLink?: string;
-  liveLink?: string;
-  isLive: boolean;
-}
+import { Project } from "@/types/project";
 
 export const projectsData: Project[] = [
   {
@@ -135,3 +119,4 @@ export const projectCategories = [
   "Mobile",
   "UI/UX Design"
 ] as const;
+
