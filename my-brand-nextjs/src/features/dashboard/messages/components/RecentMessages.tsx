@@ -12,6 +12,7 @@ import Badge from "@/components/atoms/Badge/Badge";
 import Card from "@/components/molecules/Card/Card";
 import { Loading } from "@/components/atoms/Loading/Loading";
 import CustomLink from "@/components/atoms/Link/Link";
+import { TextLengthReducer } from "utils/textLengthReducer";
 
 export function RecentMessages() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
@@ -71,7 +72,7 @@ export function RecentMessages() {
       className="p-6 bg-gradient-to-br from-secondary via-secondary to-secondary/80 border-accent/20 shadow-xl shadow-black/20"
     >
       <div className="flex items-center justify-between mb-6">
-        <Typography variant="h3" className="text-white flex items-center">
+        <Typography variant="h5" className="text-white flex items-center">
           <div className="w-10 h-10 bg-gradient-to-br from-accent to-yellow-400 rounded-full flex items-center justify-center mr-3 shadow-lg shadow-accent/25">
             <i className="fas fa-envelope text-black"></i>
           </div>
@@ -127,6 +128,7 @@ export function RecentMessages() {
                     </Typography>
                   </div>
 
+                <div className="flex flex-col">
                   <Typography
                     variant="small"
                     className={`truncate mb-1 font-medium ${
@@ -142,8 +144,9 @@ export function RecentMessages() {
                     variant="small"
                     className="text-gray-400 truncate leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
                   >
-                    {message.message}
+                    {TextLengthReducer({ text: message.message, maxLength: 300 })}
                   </Typography>
+                  </div>
                 </div>
 
                 <div className="flex flex-col items-end ml-4 space-y-1">
