@@ -2,15 +2,6 @@ import { BlogPost, BlogCategory } from '@/types/blog';
 
 export const blogCategories: BlogCategory[] = [
   {
-    id: 'all',
-    name: 'All Posts',
-    slug: 'all',
-    icon: 'grid',
-    bgClass: 'bg-gray-600/20',
-    textClass: 'text-gray-400',
-    description: 'All blog posts'
-  },
-  {
     id: 'webdev',
     name: 'Web Development',
     slug: 'web-development',
@@ -18,6 +9,33 @@ export const blogCategories: BlogCategory[] = [
     bgClass: 'bg-blue-600/20',
     textClass: 'text-blue-400',
     description: 'Frontend, backend, and full-stack development'
+  },
+  {
+    id: 'devops',
+    name: 'DevOps',
+    slug: 'devops',
+    icon: 'cogs',
+    bgClass: 'bg-teal-600/20',
+    textClass: 'text-teal-400',
+    description: 'CI/CD, automation, and infrastructure management'
+  },
+  {
+    id: 'cloud',
+    name: 'Cloud Computing',
+    slug: 'cloud-computing',
+    icon: 'cloud',
+    bgClass: 'bg-indigo-600/20',
+    textClass: 'text-indigo-400',
+    description: 'Cloud infrastructure, services, and deployment strategies'
+  },
+  {
+    id: 'philosophy',
+    name: 'Philosophy',
+    slug: 'philosophy',
+    icon: 'book',
+    bgClass: 'bg-gray-600/20',
+    textClass: 'text-gray-400',
+    description: 'Exploring the fundamental nature of knowledge, reality, and existence'
   },
   {
     id: 'career',
