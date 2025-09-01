@@ -2,6 +2,9 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { MessageNotification } from "../../messages/components/MessageNotification";
 
 const Header: React.FC = () => {
   const [profileOpen, setProfileOpen] = useState(false);
@@ -9,6 +12,7 @@ const Header: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -68,27 +72,9 @@ const Header: React.FC = () => {
         {/* User actions */}
         <div className="flex items-center space-x-4 ml-4">
           {/* Messages */}
-          <div ref={notifRef} className="relative">
-            <button
-              className="relative p-2 rounded-full hover:bg-gray-700 transition-colors"
-              aria-label="Messages"
-              onClick={() => setNotifOpen((open) => !open)}
-            >
-              <i className="fas fa-envelope text-lg text-gray-400"></i>
-              {/* Notification badge */}
-              <span className="absolute top-1 right-1 bg-yellow-500 text-gray-900 text-xs rounded-full px-1.5 py-0.5">
-                2
-              </span>
-            </button>
-            {/* Dropdown (example) */}
-            {notifOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-secondary border border-gray-700 rounded-lg shadow-lg z-50">
-                <div className="p-4 text-sm text-gray-300">
-                  No new messages.
-                </div>
-              </div>
-            )}
-          </div>
+          <MessageNotification
+            onClick={() => router.push("/dashboard/messages")}
+          />
 
           {/* Notifications */}
           <div className="relative">
