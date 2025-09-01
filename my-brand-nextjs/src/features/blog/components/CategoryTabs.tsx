@@ -20,8 +20,8 @@ export function CategoryTabs({
 
   // All categories including "All Topics"
   const allCategories = [
-    { id: "all", name: "All Topics", icon: "grid" } as BlogCategory,
-    ...categories.filter((category) => category.id !== "all"),
+    { _id: "all", name: "All Topics", icon: "grid" } as any,
+    ...categories.filter((category) => category._id !== "all"),
   ];
 
   // Calculate category button sizes and adjust visibility
@@ -142,16 +142,16 @@ export function CategoryTabs({
           >
             {allCategories.map((category) => (
               <button
-                key={category.id}
-                data-category={category.id}
-                onClick={() => onCategoryChange(category.id)}
+                key={category._id}
+                data-category={category._id}
+                onClick={() => onCategoryChange(category._id)}
                 className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
-                  activeCategory === category.id
+                  activeCategory === category._id
                     ? "bg-yellow-500 text-black shadow-lg"
                     : "bg-white/70 dark:bg-secondary border border-gray-300 dark:border-gray-700 hover:border-yellow-400 dark:hover:border-yellow-400 text-gray-700 dark:text-white hover:shadow-md"
                 }`}
               >
-                {category.id !== "all" && (
+                {category._id !== "all" && (
                   <i className={`fas fa-${category.icon} mr-2`}></i>
                 )}
                 {category.name}

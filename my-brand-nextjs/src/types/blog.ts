@@ -1,25 +1,38 @@
+export interface Author {
+  _id: string;
+  user: string;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface BlogPost {
-  id: string;
+  _id: string; // MongoDB _id from server
+  id?: string; // Optional fallback id
   slug: string;
   title: string;
   description: string;
   content?: string;
-  author: string;
+  author: Author | string; // Can be object or string from server
   authorImage?: string;
   createdAt: string;
   updatedAt?: string;
   imageUrl?: string;
-  category: BlogCategory;
+  category?: BlogCategory | string; // Can be object or string from server
   tags: string[];
-  readTime: string;
+  readTime?: string;
   isNew?: boolean;
   isFeatured?: boolean;
   metaTitle?: string;
   metaDescription?: string;
+  likes?: number; // Likes count from server
+  comments?: string[]; // Comments from server
 }
 
 export interface BlogCategory {
-  id: string;
+  _id: string;
   name: string;
   icon: string;
 }

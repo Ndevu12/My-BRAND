@@ -1,4 +1,7 @@
-import { MY_GITHUB_PROFILE_URL, MY_LINKEDIN_PROFILE_URL } from "@/lib/constants";
+import {
+  MY_GITHUB_PROFILE_URL,
+  MY_LINKEDIN_PROFILE_URL,
+} from "@/lib/constants";
 import { randomNUmberGenerator } from "@/lib/utils";
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
@@ -73,7 +76,7 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
 
         <div className="space-y-4">
           {popularPosts.map((post) => (
-            <div key={post.id} className="flex gap-3 group">
+            <div key={post._id || post.id} className="flex gap-3 group">
               <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
                 <Image
                   src={post.imageUrl || "/images/placeholder-blog.jpg"}

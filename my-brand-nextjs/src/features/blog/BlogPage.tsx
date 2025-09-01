@@ -1,103 +1,221 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { BlogCard } from "./components/BlogCard";
 import { FeaturedBlogCard } from "./components/FeaturedBlogCard";
 import { BlogSidebar } from "./components/BlogSidebar";
 import { CategoryTabs } from "./components/CategoryTabs";
 import { BlogSearch } from "./components/BlogSearch";
 import {
-  blogCategories,
-  getPopularPosts,
-  getFeaturedPost,
-  getPostsByCategory,
-  getAllTags,
-} from "@/lib/blogData";
+  getAllBlogCategories,
+  getBlogsPaginated,
+} from "@/services/blogService";
 import ClientLayout from "@/components/layout";
-import { BlogPost } from "@/types";
+import { BlogPost, BlogCategory } from "@/types/blog";
 
 export function BlogPage() {
-  // Error boundary state
+  // State management
   const [error, setError] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "popular">(
     "newest"
   );
-  const [displayedPosts, setDisplayedPosts] = useState(6);
+  const [blogCategories, setBlogCategories] = useState<BlogCategory[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [blogsLoading, setBlogsLoading] = useState(true);
+  const [featuredPost, setFeaturedPost] = useState<BlogPost | null>(null);
+  const [popularPosts, setPopularPosts] = useState<BlogPost[]>([]);
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [hasMorePosts, setHasMorePosts] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  const featuredPost = getFeaturedPost();
-  const popularPosts = getPopularPosts(3);
-  const allTags = getAllTags();
+  const POSTS_PER_PAGE = 10;
 
-  // Filter and sort posts
+  // Fetch categories from server
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setCategoriesLoading(true);
+        const categories = await getAllBlogCategories();
+        setBlogCategories(categories);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+        setBlogCategories([]);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // Fetch initial blogs from server
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setBlogsLoading(true);
+        const response = await getBlogsPaginated(1, POSTS_PER_PAGE);
+
+        setBlogs(response.blogs);
+        setCurrentPage(response.currentPage);
+        setTotalPages(response.totalPages);
+        setHasMorePosts(response.hasMore);
+
+        // Set featured post as first blog if available
+        if (response.blogs.length > 0) {
+          setFeaturedPost(response.blogs[0]);
+        }
+
+        // Set popular posts as first 3 blogs
+        setPopularPosts(response.blogs.slice(0, 3));
+
+        // Extract all unique tags from blogs
+        const tags = [
+          ...new Set(response.blogs.flatMap((blog: any) => blog.tags || [])),
+        ];
+        setAllTags(tags);
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+        setError("Failed to load blogs");
+        setBlogs([]);
+        setFeaturedPost(null);
+        setPopularPosts([]);
+        setAllTags([]);
+      } finally {
+        setBlogsLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // Filter and sort posts from server data
   const filteredPosts = useMemo(() => {
-    let posts = getPostsByCategory(activeCategory);
+    let posts = [...blogs];
+
+    // Apply category filter
+    if (activeCategory !== "all") {
+      posts = posts.filter((post: BlogPost) => {
+        const categoryName =
+          typeof post.category === "string"
+            ? post.category
+            : post.category?.name;
+        return categoryName === activeCategory;
+      });
+    }
 
     // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      if (posts.length > 0) {
-        posts = posts.filter(
-          (post: BlogPost) =>
-            post.title.toLowerCase().includes(query) ||
-            post.description.toLowerCase().includes(query) ||
-            post.tags.some((tag: string) =>
-              tag.toLowerCase().includes(query)
-            ) ||
-            post.category?.name?.toLowerCase().includes(query)
+      posts = posts.filter((post: BlogPost) => {
+        const categoryName =
+          typeof post.category === "string"
+            ? post.category
+            : post.category?.name;
+        return (
+          post.title.toLowerCase().includes(query) ||
+          post.description?.toLowerCase().includes(query) ||
+          post.content?.toLowerCase().includes(query) ||
+          post.tags?.some((tag: string) => tag.toLowerCase().includes(query)) ||
+          categoryName?.toLowerCase().includes(query)
         );
-      } else {
-        posts = [];
-      }
+      });
     }
 
     // Apply sorting
     switch (sortBy) {
       case "oldest":
         posts.sort(
-          (a, b) =>
+          (a: BlogPost, b: BlogPost) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+        break;
+      case "popular":
+        posts.sort(
+          (a: BlogPost, b: BlogPost) => (b.likes || 0) - (a.likes || 0)
         );
         break;
       case "newest":
       default:
         posts.sort(
-          (a, b) =>
+          (a: BlogPost, b: BlogPost) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
         break;
     }
 
     return posts;
-  }, [activeCategory, searchQuery, sortBy]);
+  }, [blogs, activeCategory, searchQuery, sortBy]);
 
-  const postsToShow = filteredPosts.slice(0, displayedPosts);
-  const hasMorePosts = displayedPosts < filteredPosts.length;
+  const postsToShow = filteredPosts;
 
-  useEffect(() => {
-    if (filteredPosts.length === 0) {
-      setError("No articles found for this category.");
-    } else {
-      setError(null);
+  // Load more posts
+  const handleLoadMore = async () => {
+    if (loadingMore || !hasMorePosts) return;
+
+    try {
+      setLoadingMore(true);
+      const nextPage = currentPage + 1;
+      const response = await getBlogsPaginated(nextPage, POSTS_PER_PAGE);
+
+      setBlogs((prev) => [...prev, ...response.blogs]);
+      setCurrentPage(response.currentPage);
+      setHasMorePosts(response.hasMore);
+
+      // Update tags with new blogs
+      const allBlogs = [...blogs, ...response.blogs];
+      const tags = [
+        ...new Set(allBlogs.flatMap((blog: any) => blog.tags || [])),
+      ];
+      setAllTags(tags);
+    } catch (error) {
+      console.error("Failed to load more blogs:", error);
+    } finally {
+      setLoadingMore(false);
     }
-  }, [filteredPosts]);
-
-  const handleLoadMore = () => {
-    setDisplayedPosts((prev) => prev + 6);
   };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setDisplayedPosts(6); // Reset displayed posts when searching
+    setError(null);
   };
 
   const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);
-    setDisplayedPosts(6); // Reset displayed posts when changing category
-    setError(null); // Reset error on category change
+    setError(null);
   };
+
+  // Update error state when no posts found
+  useEffect(() => {
+    if (!blogsLoading && filteredPosts.length === 0 && blogs.length > 0) {
+      setError("No articles found for this category or search.");
+    } else if (!blogsLoading && blogs.length === 0) {
+      setError("No articles available.");
+    } else {
+      setError(null);
+    }
+  }, [filteredPosts, blogs, blogsLoading]);
+
+  // Show loading state
+  if (blogsLoading || categoriesLoading) {
+    return (
+      <ClientLayout>
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+          <div className="container mx-auto px-6 py-12">
+            <div className="flex justify-center items-center h-64">
+              <div className="text-xl text-gray-600 dark:text-gray-400">
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+      </ClientLayout>
+    );
+  }
 
   return (
     <ClientLayout>
@@ -126,11 +244,25 @@ export function BlogPage() {
       </section>
 
       {/* Category Tabs */}
-      <CategoryTabs
-        categories={blogCategories}
-        activeCategory={activeCategory}
-        onCategoryChange={handleCategoryChange}
-      />
+      {categoriesLoading ? (
+        <div className="bg-gray-100/50 dark:bg-secondary/50 py-4 sticky top-16 z-10 backdrop-blur-sm border-y border-gray-200/50 dark:border-gray-800/50">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex justify-center py-2">
+              <div className="animate-pulse flex space-x-2">
+                <div className="rounded-full bg-gray-300 dark:bg-gray-600 h-8 w-20"></div>
+                <div className="rounded-full bg-gray-300 dark:bg-gray-600 h-8 w-24"></div>
+                <div className="rounded-full bg-gray-300 dark:bg-gray-600 h-8 w-16"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <CategoryTabs
+          categories={blogCategories}
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+      )}
 
       {/* Blog Content */}
       <main className="max-w-6xl mx-auto px-4 py-12">
@@ -217,8 +349,8 @@ export function BlogPage() {
             ) : (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {postsToShow.map((post) => (
-                    <BlogCard key={post.id} post={post} />
+                  {postsToShow.map((post: BlogPost) => (
+                    <BlogCard key={post._id} post={post} />
                   ))}
                 </div>
 
@@ -227,10 +359,39 @@ export function BlogPage() {
                   <div className="my-12 text-center">
                     <button
                       onClick={handleLoadMore}
-                      className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-medium rounded-lg transition-colors inline-flex items-center"
+                      disabled={loadingMore}
+                      className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-300 text-black font-medium rounded-lg transition-colors inline-flex items-center"
                     >
-                      <i className="fas fa-plus mr-2"></i>
-                      Load More
+                      {loadingMore ? (
+                        <>
+                          <svg
+                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Loading...
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-plus mr-2"></i>
+                          Load More
+                        </>
+                      )}
                     </button>
                   </div>
                 )}

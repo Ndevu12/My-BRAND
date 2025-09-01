@@ -28,29 +28,51 @@ export const getRecentBlogsForHome = async (): Promise<any[]> => {
   return result.data?.blogs || [];
 };
 
-// Fetch all public blogs with pagination
-export async function getAllPublicBlogs(page: number = 1, limit: number = 10) {
-  const result = await safeFetch(`${API_BASE_URL}/blogs/public?page=${page}&limit=${limit}`);
+// Fetch all blog categories from server
+export async function getAllBlogCategories(): Promise<any[]> {
+  const result = await safeFetch(`${API_BASE_URL}/blog-category`);
+  
+  if (!result.success) {
+    console.error('Error fetching categories:', result.error);
+    return [];
+  }
+  
+  return result.data || [];
+}
 
-  if (result.success && result.data) {
-    return {
-      blogs: result.data.blogs || [],
-      pagination: result.data.pagination || null,
-      filters: result.data.filters || null
+// Fetch paginated blogs for blog page
+export async function getBlogsPaginated(page: number = 1, limit: number = 10): Promise<{
+  blogs: any[];
+  totalCount: number;
+  hasMore: boolean;
+  currentPage: number;
+  totalPages: number;
+  pagination: any;
+}> {
+  const result = await safeFetch(`${API_BASE_URL}/blogs/public?page=${page}&limit=${limit}`);
+  
+  if (!result.success) {
+    console.error('Error fetching paginated blogs:', result.error);
+    return { 
+      blogs: [], 
+      totalCount: 0, 
+      hasMore: false,
+      currentPage: 1,
+      totalPages: 1,
+      pagination: {}
     };
   }
   
-  // Log error for debugging but don't throw
-  if (result.error) {
-    const userMessage = getErrorMessage(result.error, result.code);
-    console.error('Error fetching all blogs:', userMessage, result.code ? `(${result.code})` : '');
-  }
+  const blogs = result.data?.blogs || [];
+  const pagination = result.data?.pagination || {};
   
-  // Return empty structure for graceful fallback
   return {
-    blogs: [],
-    pagination: null,
-    filters: null
+    blogs,
+    totalCount: pagination.totalBlogs || 0,
+    hasMore: pagination.hasNextPage || false,
+    currentPage: pagination.currentPage || page,
+    totalPages: pagination.totalPages || 1,
+    pagination
   };
 }
 
