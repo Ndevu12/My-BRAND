@@ -17,6 +17,12 @@ const navLinks = [
     icon: "fas fa-newspaper",
     page: "blogs",
   },
+  {
+    href: "/dashboard/messages",
+    label: "Messages",
+    icon: "fas fa-envelope",
+    page: "messages",
+  },
 ];
 
 const Sidebar: React.FC = () => {
