@@ -15,12 +15,12 @@ export interface BlogPost {
   title: string;
   description: string;
   content?: string;
-  author: Author | string; // Can be object or string from server
+  author: Author;
   authorImage?: string;
   createdAt: string;
   updatedAt?: string;
   imageUrl?: string;
-  category?: BlogCategory | string; // Can be object or string from server
+  category?: BlogCategory;
   tags: string[];
   readTime?: string;
   isNew?: boolean;

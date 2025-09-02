@@ -1,6 +1,7 @@
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import { getAuthorName, getAuthorImage } from "utils/blogUtils";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -13,25 +14,13 @@ export function BlogCard({ post }: BlogCardProps) {
     day: "numeric",
   });
 
-  // Helper function to get author name
-  const getAuthorName = (author: any): string => {
-    if (typeof author === "string") {
-      return author;
-    }
-    if (author?.firstName && author?.lastName) {
-      return `${author.firstName} ${author.lastName}`;
-    }
-    if (author?.firstName) {
-      return author.firstName;
-    }
-    return "Unknown Author";
-  };
-
   // Helper function to get category name
   const getCategoryName = (category: any): string => {
     if (typeof category === "string") {
       return category;
     }
+
+    // Handle single category object (server format)
     return category?.name || "Uncategorized";
   };
 
@@ -40,6 +29,8 @@ export function BlogCard({ post }: BlogCardProps) {
     if (typeof category === "string") {
       return "bookmark";
     }
+
+    // Handle single category object (server format)
     return category?.icon || "bookmark";
   };
 
@@ -96,7 +87,7 @@ export function BlogCard({ post }: BlogCardProps) {
           <div className="flex items-center">
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-yellow-500">
               <Image
-                src={post.authorImage || "/images/mypic.png"}
+                src={getAuthorImage(post)}
                 alt={authorName}
                 fill
                 className="object-cover"

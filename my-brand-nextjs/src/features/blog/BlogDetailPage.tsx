@@ -1,10 +1,16 @@
+"use client";
+
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { BlogSidebar } from "./components/BlogSidebar";
 import { ShareArticle } from "./components/ShareArticle";
 import { TableOfContents } from "./components/TableOfContents";
-import { getPopularPosts, getAllTags, dummyBlogs } from "@/lib/blogData";
+import { CommentForm, CommentList, Comment } from "@/features/comments";
+import { getRecentBlogs, getBlogsByCategory } from "@/services/blogService";
+import { getCommentsForBlog } from "@/services/comment/commentService";
+import { getAuthorName, getAuthorImage } from "utils/blogUtils";
 import ClientLayout from "@/components/layout";
 
 interface BlogDetailPageProps {
@@ -12,8 +18,59 @@ interface BlogDetailPageProps {
 }
 
 export function BlogDetailPage({ post }: BlogDetailPageProps) {
-  const popularPosts = getPopularPosts(3);
-  const allTags = getAllTags();
+  const [popularPosts, setPopularPosts] = useState<BlogPost[]>([]);
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentsLoading, setCommentsLoading] = useState(true);
+
+  // Fetch data on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch popular/recent posts for sidebar
+        const recentPosts = await getRecentBlogs(3);
+        setPopularPosts(recentPosts);
+
+        // Extract tags from all posts (simplified for now)
+        const tags = post.tags || [];
+        setAllTags(tags);
+
+        // Fetch related posts by category if available
+        if (post.category?._id) {
+          const categoryPosts = await getBlogsByCategory(
+            post.category._id,
+            1,
+            6
+          );
+          const filtered = categoryPosts.blogs
+            .filter((p: BlogPost) => p.slug !== post.slug)
+            .slice(0, 3);
+          setRelatedPosts(filtered);
+        }
+
+        // Fetch comments for this blog
+        setCommentsLoading(true);
+        const blogComments = await getCommentsForBlog(post._id);
+        setComments(blogComments);
+      } catch (error) {
+        console.error("Error fetching blog detail data:", error);
+        setPopularPosts([]);
+        setAllTags([]);
+        setRelatedPosts([]);
+        setComments([]);
+      } finally {
+        setCommentsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [post._id, post.slug, post.category, post.tags]);
+
+  // Handle new comment added
+  const handleCommentAdded = (newComment: Comment) => {
+    setComments((prev) => [newComment, ...prev]);
+  };
 
   if (!post) {
     return (
@@ -32,13 +89,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
       </ClientLayout>
     );
   }
-
-  const relatedPosts = dummyBlogs
-    .filter(
-      (p) =>
-        p.slug !== post.slug && p.tags.some((tag) => post.tags.includes(tag))
-    )
-    .slice(0, 3);
 
   const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
     year: "numeric",
@@ -93,9 +143,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
           {/* Category Badge */}
           <div className="mb-6">
             <span
-              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                post.category?.bgClass || "bg-gray-600/20"
-              } ${post.category?.textClass || "text-gray-400"}`}
+              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-600/20 text-gray-400`}
             >
               <i
                 className={`fas fa-${post.category?.icon || "bookmark"} mr-2`}
@@ -114,17 +162,16 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
             <div className="flex items-center">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-500 mr-3">
                 <Image
-                  src={post.authorImage || "/images/mypic.png"}
-                  alt={post.author}
+                  src={getAuthorImage(post)}
+                  alt={getAuthorName(post.author)}
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {post.author}
+                  {getAuthorName(post.author)}
                 </p>
-                <p className="text-sm">Full Stack Developer</p>
               </div>
             </div>
             <div className="flex items-center text-sm">
@@ -170,65 +217,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 {post.content ? (
                   <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 ) : (
-                  <div className="space-y-6">
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      This is a sample blog post content. In a real application,
-                      this would contain the full article content with proper
-                      formatting, code snippets, images, and other rich media
-                      elements.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Introduction
-                    </h2>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Key Points
-                    </h2>
-
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">
-                      Core Concepts
-                    </h3>
-                    <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>Understanding the fundamentals of the topic</li>
-                      <li>Best practices and common pitfalls to avoid</li>
-                      <li>Practical examples and real-world applications</li>
-                      <li>Future trends and considerations</li>
-                    </ul>
-
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">
-                      Implementation Strategies
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      When implementing these concepts, it's important to
-                      consider the specific requirements of your project and
-                      choose the approach that best fits your needs.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Best Practices
-                    </h2>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Following industry best practices ensures that your
-                      implementation is robust, maintainable, and scalable.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Conclusion
-                    </h2>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      In conclusion, this topic provides valuable insights for
-                      developers looking to improve their skills and stay
-                      current with industry trends. Continue learning and
-                      experimenting with these concepts.
-                    </p>
-                  </div>
+                  <div className="space-y-6"></div>
                 )}
               </div>
 
@@ -267,7 +256,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 <div className="grid md:grid-cols-3 gap-6">
                   {relatedPosts.map((relatedPost) => (
                     <Link
-                      key={relatedPost.id}
+                      key={relatedPost._id || relatedPost.id}
                       href={`/blog/${relatedPost.slug}`}
                       className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                     >
@@ -295,6 +284,18 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 </div>
               </section>
             )}
+
+            {/* Comments Section */}
+            <section className="mt-12 space-y-8">
+              {/* Display Comments */}
+              <CommentList comments={comments} isLoading={commentsLoading} />
+
+              {/* Comment Form */}
+              <CommentForm
+                blogId={post._id}
+                onCommentAdded={handleCommentAdded}
+              />
+            </section>
           </div>
 
           {/* Sidebar */}

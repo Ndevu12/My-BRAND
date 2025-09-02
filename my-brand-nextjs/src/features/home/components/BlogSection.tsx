@@ -8,24 +8,26 @@ import Typography from "@/components/atoms/Typography";
 import BlogCard from "@/features/home/components/BlogCard";
 
 export interface BlogPost {
-  id: string;
+  _id: string; // Server uses _id
+  id?: string; // Fallback
   title: string;
-  excerpt: string;
-  image?: string;
-  imageAlt?: string;
-  publishedAt: string;
+  description: string; // Server uses description, not excerpt
+  imageUrl?: string; // Server uses imageUrl
+  createdAt: string; // Server uses createdAt, not publishedAt
   readTime?: string;
-  category?: string;
+  category?: {
+    _id: string;
+    name: string;
+    icon: string;
+  };
   slug: string;
   author?: {
     name: string;
-    image?: string;
+    firstName?: string;
+    lastName?: string;
   };
-  tags?: Array<{
-    name: string;
-    color?: string;
-    icon?: string;
-  }>;
+  authorImage?: string;
+  tags?: string[];
 }
 
 export interface BlogSectionProps {
@@ -61,6 +63,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
 
   const displayedPosts = maxDisplay ? posts.slice(0, maxDisplay) : posts;
 
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -182,27 +185,26 @@ const BlogSection: React.FC<BlogSectionProps> = ({
             )}
           >
             {displayedPosts.map((post, index) => {
-              // Work directly with server response structure
               const blogCardProps = {
-                id: post._id || post.id, // Server uses _id
+                id: post._id || post.id, // Server
                 title: post.title,
                 description: post.description, // Server uses description (not excerpt)
                 imageUrl: post.imageUrl,
-                author: post.author?.name
-                  ? { name: post.author.name, image: post.authorImage }
-                  : defaultAuthor,
+                author: post.author.firstName && post.author.lastName ? { name: `${post.author.firstName} ${post.author.lastName}`, image: post.authorImage || defaultAuthor.image } : defaultAuthor,
                 date: post.createdAt, // Server uses createdAt (not publishedAt)
-                tags: post.tags || [],
+                tags: Array.isArray(post.tags)
+                  ? post.tags.map((tag: string) => ({
+                      name: tag,
+                      color: "yellow",
+                    }))
+                  : [],
                 category:
-                  Array.isArray(post.category) && post.category.length > 0
+                  post.category && typeof post.category === "object"
                     ? {
-                        name: post.category[0], // Take first category
+                        _id: post.category._id,
+                        name: post.category.name,
                         color: "yellow",
-                      }
-                    : post.category
-                    ? {
-                        name: post.category,
-                        color: "yellow",
+                        icon: post.category.icon || "bookmark",
                       }
                     : undefined,
                 href: `/blog/${post.slug}`,

@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import Badge from "@/components/atoms/Badge";
 import Avatar from "@/components/atoms/Avatar";
 
 export interface BlogCardProps {
@@ -22,6 +21,7 @@ export interface BlogCardProps {
     icon?: string;
   }>;
   category?: {
+    _id?: string;
     name: string;
     color?: string;
     icon?: string;
@@ -117,7 +117,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
                     key={index}
                     className="px-2 py-1 bg-yellow-400/10 dark:bg-yellow-400/10 text-yellow-600 dark:text-yellow-400 text-xs rounded-md border border-yellow-400/20 dark:border-yellow-400/20 backdrop-blur-sm"
                   >
-                    #{tag.name}
+                    #{typeof tag === "string" ? tag : tag.name}
                   </span>
                 ))}
               </div>

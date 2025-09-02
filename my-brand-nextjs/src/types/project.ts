@@ -1,7 +1,3 @@
-export interface TechStack {
-  name: string;
-  color: 'blue' | 'green' | 'yellow' | 'red' | 'purple' | 'pink' | 'orange' | 'cyan';
-}
 
 export interface ProjectCategory {
   id: string;
@@ -41,12 +37,14 @@ export interface ProjectPageProps {
 }
 
 export interface Project {
-  id: number;
+  id: string;
+  _id?: string;
   title: string;
+  imageAlt: string;
   description: string;
   image: string;
   category: 'Web Apps' | 'Mobile' | 'UI/UX Design' | 'All Projects';
-  techStack: TechStack[];
+  techStack: string[];
   caseStudyLink?: string;
   githubLink?: string;
   liveLink?: string;

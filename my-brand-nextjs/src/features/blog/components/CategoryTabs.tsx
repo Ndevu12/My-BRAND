@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { BlogCategory } from "@/types/blog";
 
 interface CategoryTabsProps {
@@ -19,10 +19,13 @@ export function CategoryTabs({
   const [isCalculated, setIsCalculated] = useState(false);
 
   // All categories including "All Topics"
-  const allCategories = [
-    { _id: "all", name: "All Topics", icon: "grid" } as any,
-    ...categories.filter((category) => category._id !== "all"),
-  ];
+  const allCategories = useMemo(
+    () => [
+      { _id: "all", name: "All Topics", icon: "grid" } as BlogCategory,
+      ...categories.filter((category) => category._id !== "all"),
+    ],
+    [categories]
+  );
 
   // Calculate category button sizes and adjust visibility
   useEffect(() => {
@@ -53,14 +56,13 @@ export function CategoryTabs({
         tempButton.className =
           "px-4 py-2 rounded-full font-medium whitespace-nowrap flex-shrink-0";
         tempButton.innerHTML = `${
-          category.id !== "all"
+          category._id !== "all"
             ? `<i class="fas fa-${category.icon} mr-2"></i>`
             : ""
         }${category.name}`;
         tempContainer.appendChild(tempButton);
         buttonWidths.push(tempButton.offsetWidth);
       });
-
       document.body.removeChild(tempContainer);
 
       // Apply responsive sizing to scroll container

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogDetailPage } from "@/features/blog";
-import { getPostBySlug, dummyBlogs } from "@/lib/blogData";
+import { getBlogBySlug } from "@/services/blogService";
 
 interface Props {
   params: { slug: string };
@@ -9,7 +9,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getBlogBySlug(slug);
 
   if (!post) {
     return {
@@ -18,12 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // Enhanced SEO with server metaTitle and metaDescription
+  const title = post.metaTitle || `${post.title} | NdevuSpace Blog`;
+  const description = post.metaDescription || post.description;
+
   return {
-    title: `${post.title} | NdevuSpace Blog`,
-    description: post.description,
+    title,
+    description,
     openGraph: {
-      title: post.title,
-      description: post.description,
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.description,
       url: `/blog/${post.slug}`,
       siteName: "NdevuSpace",
       images: [
@@ -37,13 +41,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: "en_US",
       type: "article",
       publishedTime: post.createdAt,
-      authors: [post.author],
+      authors: [post.author.firstName + " " + post.author.lastName],
       tags: post.tags,
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.description,
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.description,
       images: [post.imageUrl || "/images/blog-og.png"],
     },
   };
@@ -51,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPost({ params }: Props) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getBlogBySlug(slug);
 
   if (!post) {
     notFound();
@@ -60,8 +64,5 @@ export default async function BlogPost({ params }: Props) {
   return <BlogDetailPage post={post} />;
 }
 
-export async function generateStaticParams() {
-  return dummyBlogs.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// Remove static paths generation since we're fetching from server
+// Static paths will be generated on-demand with ISR

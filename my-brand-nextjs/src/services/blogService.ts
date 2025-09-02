@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '@/lib/constants';
 import { safeFetch } from 'utils/apiResponse';
+import { BlogCategory } from '@/types/blog';
 
 /**
  * Handle specific blog API errors with user-friendly messages
@@ -17,19 +18,25 @@ function getErrorMessage(error: string, code?: string): string {
   }
 }
 
-// Simple function to fetch recent blogs for home page
-export const getRecentBlogsForHome = async (): Promise<any[]> => {
-  const result = await safeFetch(`${API_BASE_URL}/blogs/public?page=1&limit=3`);
+// Fetch recent blogs (for recent endpoint)
+export async function getRecentBlogs(limit: number = 3): Promise<any[]> {
+  const result = await safeFetch(`${API_BASE_URL}/blogs/public/recent?limit=${limit}`);
   
   if (!result.success) {
+    console.error('Error fetching recent blogs:', result.error);
     return [];
   }
 
-  return result.data?.blogs || [];
+  return result.data?.blogs || result.data || [];
+}
+
+// Simple function to fetch recent blogs for home page
+export const getRecentBlogsForHome = async (): Promise<any[]> => {
+  return await getRecentBlogs(3);
 };
 
 // Fetch all blog categories from server
-export async function getAllBlogCategories(): Promise<any[]> {
+export async function getAllBlogCategories(): Promise<BlogCategory[]> {
   const result = await safeFetch(`${API_BASE_URL}/blog-category`);
   
   if (!result.success) {
@@ -91,4 +98,79 @@ export async function getBlogById(id: string) {
   }
   
   return null;
+}
+
+// Fetch single blog by slug
+export async function getBlogBySlug(slug: string) {
+  const result = await safeFetch(`${API_BASE_URL}/blogs/by-slug/${slug}`);
+  
+  if (result.success && result.data) {
+    return result.data;
+  }
+  
+  // Log error for debugging but don't throw
+  if (result.error) {
+    const userMessage = getErrorMessage(result.error, result.code);
+    console.error(`Error fetching blog by slug ${slug}:`, userMessage, result.code ? `(${result.code})` : '');
+  }
+  
+  return null;
+}
+
+// Fetch blogs by category
+export async function getBlogsByCategory(categoryId: string, page: number = 1, limit: number = 10) {
+  const result = await safeFetch(`${API_BASE_URL}/blogs/by-category/${categoryId}?page=${page}&limit=${limit}`);
+  
+  if (!result.success) {
+    console.error(`Error fetching blogs by category ${categoryId}:`, result.error);
+    return { 
+      blogs: [], 
+      totalCount: 0, 
+      hasMore: false,
+      currentPage: 1,
+      totalPages: 1,
+      pagination: {}
+    };
+  }
+  
+  const blogs = result.data?.blogs || [];
+  const pagination = result.data?.pagination || {};
+  
+  return {
+    blogs,
+    totalCount: pagination.totalBlogs || 0,
+    hasMore: pagination.hasNextPage || false,
+    currentPage: pagination.currentPage || page,
+    totalPages: pagination.totalPages || 1,
+    pagination
+  };
+}
+
+// Search blogs by title
+export async function searchBlogsByTitle(query: string, page: number = 1, limit: number = 10) {
+  const result = await safeFetch(`${API_BASE_URL}/blogs/by-title?title=${encodeURIComponent(query)}&page=${page}&limit=${limit}`);
+  
+  if (!result.success) {
+    console.error(`Error searching blogs by title "${query}":`, result.error);
+    return { 
+      blogs: [], 
+      totalCount: 0, 
+      hasMore: false,
+      currentPage: 1,
+      totalPages: 1,
+      pagination: {}
+    };
+  }
+  
+  const blogs = result.data?.blogs || [];
+  const pagination = result.data?.pagination || {};
+  
+  return {
+    blogs,
+    totalCount: pagination.totalBlogs || 0,
+    hasMore: pagination.hasNextPage || false,
+    currentPage: pagination.currentPage || page,
+    totalPages: pagination.totalPages || 1,
+    pagination
+  };
 }

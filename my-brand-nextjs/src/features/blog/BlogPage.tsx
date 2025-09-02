@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { BlogCard } from "./components/BlogCard";
 import { FeaturedBlogCard } from "./components/FeaturedBlogCard";
 import { BlogSidebar } from "./components/BlogSidebar";
@@ -9,6 +9,9 @@ import { BlogSearch } from "./components/BlogSearch";
 import {
   getAllBlogCategories,
   getBlogsPaginated,
+  getBlogsByCategory,
+  searchBlogsByTitle,
+  getRecentBlogs,
 } from "@/services/blogService";
 import ClientLayout from "@/components/layout";
 import { BlogPost, BlogCategory } from "@/types/blog";
@@ -25,6 +28,7 @@ export function BlogPage() {
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [blogsLoading, setBlogsLoading] = useState(true);
+  const [categoryLoading, setCategoryLoading] = useState(false);
   const [featuredPost, setFeaturedPost] = useState<BlogPost | null>(null);
   const [popularPosts, setPopularPosts] = useState<BlogPost[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
@@ -53,80 +57,11 @@ export function BlogPage() {
     fetchCategories();
   }, []);
 
-  // Fetch initial blogs from server
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        setBlogsLoading(true);
-        const response = await getBlogsPaginated(1, POSTS_PER_PAGE);
-
-        setBlogs(response.blogs);
-        setCurrentPage(response.currentPage);
-        setTotalPages(response.totalPages);
-        setHasMorePosts(response.hasMore);
-
-        // Set featured post as first blog if available
-        if (response.blogs.length > 0) {
-          setFeaturedPost(response.blogs[0]);
-        }
-
-        // Set popular posts as first 3 blogs
-        setPopularPosts(response.blogs.slice(0, 3));
-
-        // Extract all unique tags from blogs
-        const tags = [
-          ...new Set(response.blogs.flatMap((blog: any) => blog.tags || [])),
-        ];
-        setAllTags(tags);
-      } catch (error) {
-        console.error("Failed to fetch blogs:", error);
-        setError("Failed to load blogs");
-        setBlogs([]);
-        setFeaturedPost(null);
-        setPopularPosts([]);
-        setAllTags([]);
-      } finally {
-        setBlogsLoading(false);
-      }
-    };
-
-    fetchBlogs();
-  }, []);
-
   // Filter and sort posts from server data
   const filteredPosts = useMemo(() => {
     let posts = [...blogs];
 
-    // Apply category filter
-    if (activeCategory !== "all") {
-      posts = posts.filter((post: BlogPost) => {
-        const categoryName =
-          typeof post.category === "string"
-            ? post.category
-            : post.category?.name;
-        return categoryName === activeCategory;
-      });
-    }
-
-    // Apply search filter
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      posts = posts.filter((post: BlogPost) => {
-        const categoryName =
-          typeof post.category === "string"
-            ? post.category
-            : post.category?.name;
-        return (
-          post.title.toLowerCase().includes(query) ||
-          post.description?.toLowerCase().includes(query) ||
-          post.content?.toLowerCase().includes(query) ||
-          post.tags?.some((tag: string) => tag.toLowerCase().includes(query)) ||
-          categoryName?.toLowerCase().includes(query)
-        );
-      });
-    }
-
-    // Apply sorting
+    // Apply sorting (filtering by category and search are handled server-side now)
     switch (sortBy) {
       case "oldest":
         posts.sort(
@@ -149,9 +84,70 @@ export function BlogPage() {
     }
 
     return posts;
-  }, [blogs, activeCategory, searchQuery, sortBy]);
+  }, [blogs, sortBy]);
 
   const postsToShow = filteredPosts;
+
+  // Fetch blogs based on active filters
+  const fetchFilteredBlogs = useCallback(
+    async (fromCategoryChange = false) => {
+      if (fromCategoryChange) {
+        setCategoryLoading(true);
+        setLoadingMore(false); // Reset load more when changing category
+      } else {
+        setBlogsLoading(true);
+      }
+
+      try {
+        let data;
+
+        if (searchQuery.trim()) {
+          // Search by title
+          data = await searchBlogsByTitle(searchQuery.trim());
+        } else if (activeCategory && activeCategory !== "All") {
+          // Find category by _id and fetch filtered blogs
+          const categories = await getAllBlogCategories();
+          const category = categories.find(
+            (cat: BlogCategory) => cat._id === activeCategory
+          );
+          if (category) {
+            data = await getBlogsByCategory(category._id);
+          } else {
+            data = await getBlogsPaginated();
+          }
+        } else {
+          // Fetch all blogs
+          data = await getBlogsPaginated();
+        }
+
+        if (data?.blogs) {
+          setBlogs(data.blogs);
+          // Update featured post based on filtered results
+          if (data.blogs.length > 0) {
+            setFeaturedPost(data.blogs[0]);
+          } else {
+            setFeaturedPost(null);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching filtered blogs:", error);
+        setBlogs([]);
+        setFeaturedPost(null);
+      } finally {
+        if (fromCategoryChange) {
+          setCategoryLoading(false);
+        } else {
+          setBlogsLoading(false);
+        }
+      }
+    },
+    [activeCategory, searchQuery]
+  );
+
+  // Effect to fetch blogs when filters change
+  useEffect(() => {
+    fetchFilteredBlogs(); // Don't pass true for initial load
+  }, [fetchFilteredBlogs]);
 
   // Load more posts
   const handleLoadMore = async () => {
@@ -160,7 +156,31 @@ export function BlogPage() {
     try {
       setLoadingMore(true);
       const nextPage = currentPage + 1;
-      const response = await getBlogsPaginated(nextPage, POSTS_PER_PAGE);
+      let response;
+
+      // Use same filtering logic for load more
+      if (searchQuery.trim()) {
+        response = await searchBlogsByTitle(
+          searchQuery,
+          nextPage,
+          POSTS_PER_PAGE
+        );
+      } else if (activeCategory !== "all") {
+        const selectedCategory = blogCategories.find(
+          (cat) => cat._id === activeCategory
+        );
+        if (selectedCategory) {
+          response = await getBlogsByCategory(
+            selectedCategory._id,
+            nextPage,
+            POSTS_PER_PAGE
+          );
+        } else {
+          response = await getBlogsPaginated(nextPage, POSTS_PER_PAGE);
+        }
+      } else {
+        response = await getBlogsPaginated(nextPage, POSTS_PER_PAGE);
+      }
 
       setBlogs((prev) => [...prev, ...response.blogs]);
       setCurrentPage(response.currentPage);
@@ -168,10 +188,12 @@ export function BlogPage() {
 
       // Update tags with new blogs
       const allBlogs = [...blogs, ...response.blogs];
-      const tags = [
-        ...new Set(allBlogs.flatMap((blog: any) => blog.tags || [])),
-      ];
-      setAllTags(tags);
+      const allTags = allBlogs.flatMap((blog: any) => blog.tags || []);
+      const stringTags = allTags.filter(
+        (tag: any): tag is string => typeof tag === "string"
+      );
+      const uniqueTags: string[] = Array.from(new Set(stringTags));
+      setAllTags(uniqueTags);
     } catch (error) {
       console.error("Failed to load more blogs:", error);
     } finally {
@@ -181,12 +203,20 @@ export function BlogPage() {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setCurrentPage(1);
     setError(null);
+
+    // Fetch filtered blogs based on search
+    fetchFilteredBlogs();
   };
 
   const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);
+    setCurrentPage(1);
     setError(null);
+
+    // Fetch filtered blogs with category change flag
+    fetchFilteredBlogs(true);
   };
 
   // Update error state when no posts found
@@ -201,7 +231,7 @@ export function BlogPage() {
   }, [filteredPosts, blogs, blogsLoading]);
 
   // Show loading state
-  if (blogsLoading || categoriesLoading) {
+  if (blogsLoading) {
     return (
       <ClientLayout>
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -294,7 +324,6 @@ export function BlogPage() {
                 <FeaturedBlogCard post={featuredPost} />
               </div>
             )}
-
             {/* Blog Filter and Sort Options */}
             <div className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
               <h2 className="text-xl font-bold flex items-center text-gray-900 dark:text-white">
@@ -324,7 +353,6 @@ export function BlogPage() {
                 </select>
               </div>
             </div>
-
             {/* Blog Grid with Error Boundary */}
             {error ? (
               <div className="text-center py-12">
@@ -348,11 +376,42 @@ export function BlogPage() {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {postsToShow.map((post: BlogPost) => (
-                    <BlogCard key={post._id} post={post} />
-                  ))}
-                </div>
+                {/* Category Loading State - Simple message below categories */}
+                {categoryLoading ? (
+                  <div className="flex justify-center items-center py-12">
+                    <div className="flex items-center gap-3">
+                      <svg
+                        className="animate-spin h-6 w-6 text-yellow-500"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      <span className="text-lg text-gray-600 dark:text-gray-400">
+                        Loading articles...
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {postsToShow.map((post: BlogPost) => (
+                      <BlogCard key={post._id} post={post} />
+                    ))}
+                  </div>
+                )}
 
                 {/* Load More Button */}
                 {hasMorePosts && (
@@ -377,12 +436,12 @@ export function BlogPage() {
                               r="10"
                               stroke="currentColor"
                               strokeWidth="4"
-                            ></circle>
+                            />
                             <path
                               className="opacity-75"
                               fill="currentColor"
                               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
+                            />
                           </svg>
                           Loading...
                         </>
@@ -396,6 +455,47 @@ export function BlogPage() {
                   </div>
                 )}
               </>
+            )}{" "}
+            {/* Load More Button */}
+            {hasMorePosts && (
+              <div className="my-12 text-center">
+                <button
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                  className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-300 text-black font-medium rounded-lg transition-colors inline-flex items-center"
+                >
+                  {loadingMore ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-plus mr-2"></i>
+                      Load More
+                    </>
+                  )}
+                </button>
+              </div>
             )}
           </div>
 
