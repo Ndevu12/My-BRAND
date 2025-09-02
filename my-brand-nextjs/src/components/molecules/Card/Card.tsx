@@ -162,7 +162,7 @@ export interface BlogCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  tags?: Array<{ name: string; bgClass?: string; textClass?: string }>;
+  tags?: Array<string | { name: string; bgClass?: string; textClass?: string }>;
   author: string;
   authorImage?: string;
   date: string | Date;
@@ -220,11 +220,15 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                 key={index}
                 className={cn(
                   "text-xs px-2 py-1 rounded-full",
-                  tag.bgClass || "bg-gray-600/80",
-                  tag.textClass || "text-white"
+                  typeof tag === "object"
+                    ? tag.bgClass || "bg-gray-600/80"
+                    : "bg-gray-600/80",
+                  typeof tag === "object"
+                    ? tag.textClass || "text-white"
+                    : "text-white"
                 )}
               >
-                {tag.name}
+                {typeof tag === "string" ? tag : tag.name}
               </span>
             ))}
           </div>

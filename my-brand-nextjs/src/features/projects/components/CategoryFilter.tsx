@@ -1,5 +1,5 @@
 import Typography from "@/components/atoms/Typography";
-import { projectCategories } from "../data/projectsData";
+import { projectCategories } from "@/lib/projectData";
 
 interface CategoryFilterProps {
   activeCategory: string;

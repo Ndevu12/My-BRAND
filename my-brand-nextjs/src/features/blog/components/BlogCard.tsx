@@ -1,6 +1,7 @@
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import { getAuthorName, getAuthorImage } from "utils/blogUtils";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -12,6 +13,30 @@ export function BlogCard({ post }: BlogCardProps) {
     month: "short",
     day: "numeric",
   });
+
+  // Helper function to get category name
+  const getCategoryName = (category: any): string => {
+    if (typeof category === "string") {
+      return category;
+    }
+
+    // Handle single category object (server format)
+    return category?.name || "Uncategorized";
+  };
+
+  // Helper function to get category icon
+  const getCategoryIcon = (category: any): string => {
+    if (typeof category === "string") {
+      return "bookmark";
+    }
+
+    // Handle single category object (server format)
+    return category?.icon || "bookmark";
+  };
+
+  const authorName = getAuthorName(post.author);
+  const categoryName = getCategoryName(post.category);
+  const categoryIcon = getCategoryIcon(post.category);
 
   return (
     <article className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 group">
@@ -34,15 +59,9 @@ export function BlogCard({ post }: BlogCardProps) {
 
       <div className="p-5">
         <div className="flex flex-wrap gap-2 mb-3">
-          <span
-            className={`text-xs px-2 py-1 rounded-full ${
-              post.category?.bgClass || "bg-gray-600/20"
-            } ${post.category?.textClass || "text-gray-400"}`}
-          >
-            <i
-              className={`fas fa-${post.category?.icon || "bookmark"} mr-1`}
-            ></i>
-            {post.category?.name || "Uncategorized"}
+          <span className="text-xs px-2 py-1 rounded-full bg-gray-600/20 text-gray-400">
+            <i className={`fas fa-${categoryIcon} mr-1`}></i>
+            {categoryName}
           </span>
           {post.tags.slice(0, 1).map((tag) => (
             <span
@@ -68,8 +87,8 @@ export function BlogCard({ post }: BlogCardProps) {
           <div className="flex items-center">
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-yellow-500">
               <Image
-                src={post.authorImage || "/images/mypic.png"}
-                alt={post.author}
+                src={getAuthorImage(post)}
+                alt={authorName}
                 fill
                 className="object-cover"
               />
@@ -79,7 +98,7 @@ export function BlogCard({ post }: BlogCardProps) {
                 {formattedDate}
               </p>
               <p className="text-xs text-gray-400 dark:text-gray-500">
-                {post.readTime}
+                {post.readTime || "5 min read"}
               </p>
             </div>
           </div>

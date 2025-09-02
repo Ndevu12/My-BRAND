@@ -1,4 +1,7 @@
-import { MY_GITHUB_PROFILE_URL, MY_LINKEDIN_PROFILE_URL } from "@/lib/constants";
+import {
+  MY_GITHUB_PROFILE_URL,
+  MY_LINKEDIN_PROFILE_URL,
+} from "@/lib/constants";
 import { randomNUmberGenerator } from "@/lib/utils";
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
@@ -7,9 +10,16 @@ import Link from "next/link";
 interface BlogSidebarProps {
   popularPosts: BlogPost[];
   tags: string[];
+  onTagClick?: (tag: string) => void;
+  activeTag?: string | null;
 }
 
-export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
+export function BlogSidebar({
+  popularPosts,
+  tags,
+  onTagClick,
+  activeTag,
+}: BlogSidebarProps) {
   return (
     <div className="space-y-8">
       {/* About Author */}
@@ -73,7 +83,7 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
 
         <div className="space-y-4">
           {popularPosts.map((post) => (
-            <div key={post.id} className="flex gap-3 group">
+            <div key={post._id || post.id} className="flex gap-3 group">
               <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
                 <Image
                   src={post.imageUrl || "/images/placeholder-blog.jpg"}
@@ -111,14 +121,22 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
         </h3>
 
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag, idx) => (
-            <button
-              key={`${tag}-${randomNUmberGenerator()}`}
-              className="px-3 py-1 bg-gray-100 dark:bg-primary text-gray-700 dark:text-gray-300 hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 rounded-full text-sm transition-colors duration-200"
-            >
-              {tag}
-            </button>
-          ))}
+          {tags.map((tag, idx) => {
+            const isActive = activeTag === tag;
+            return (
+              <button
+                key={`${tag}-${randomNUmberGenerator()}`}
+                onClick={() => onTagClick?.(tag)}
+                className={`px-3 py-1 rounded-full text-sm transition-colors duration-200 ${
+                  isActive
+                    ? "bg-yellow-500 text-white dark:bg-yellow-400 dark:text-gray-900"
+                    : "bg-gray-100 dark:bg-primary text-gray-700 dark:text-gray-300 hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400"
+                }`}
+              >
+                {tag}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

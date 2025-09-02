@@ -1,6 +1,7 @@
 import { BlogPost } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import { getAuthorName, getAuthorImage } from "utils/blogUtils";
 
 interface FeaturedBlogCardProps {
   post: BlogPost;
@@ -12,6 +13,30 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
     month: "long",
     day: "numeric",
   });
+
+  // Helper function to get category name
+  const getCategoryName = (category: any): string => {
+    if (typeof category === "string") {
+      return category;
+    }
+
+    // Handle single category object (server format)
+    return category?.name || "Uncategorized";
+  };
+
+  // Helper function to get category icon
+  const getCategoryIcon = (category: any): string => {
+    if (typeof category === "string") {
+      return "bookmark";
+    }
+
+    // Handle single category object (server format)
+    return category?.icon || "bookmark";
+  };
+
+  const authorName = getAuthorName(post.author);
+  const categoryName = getCategoryName(post.category);
+  const categoryIcon = getCategoryIcon(post.category);
 
   return (
     <article className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
@@ -35,17 +60,9 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
         {/* Content Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
           <div className="flex flex-wrap gap-2 mb-4">
-            <span
-              className={`text-xs px-3 py-1 rounded-full ${
-                post.category?.bgClass || "bg-gray-600/20"
-              } ${
-                post.category?.textClass || "text-gray-400"
-              } backdrop-blur-sm`}
-            >
-              <i
-                className={`fas fa-${post.category?.icon || "bookmark"} mr-1`}
-              ></i>
-              {post.category?.name || "Uncategorized"}
+            <span className="text-xs px-3 py-1 rounded-full bg-gray-600/20 text-gray-400 backdrop-blur-sm">
+              <i className={`fas fa-${categoryIcon} mr-1`}></i>
+              {categoryName}
             </span>
           </div>
 
@@ -63,16 +80,16 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
             <div className="flex items-center">
               <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-500">
                 <Image
-                  src={post.authorImage || "/images/mypic.png"}
-                  alt={post.author}
+                  src={getAuthorImage(post)}
+                  alt={authorName}
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="ml-3">
-                <p className="font-medium text-white">{post.author}</p>
+                <p className="font-medium text-white">{authorName}</p>
                 <p className="text-sm text-gray-300">
-                  {formattedDate} • {post.readTime}
+                  {formattedDate} • {post.readTime || "5 min read"}
                 </p>
               </div>
             </div>

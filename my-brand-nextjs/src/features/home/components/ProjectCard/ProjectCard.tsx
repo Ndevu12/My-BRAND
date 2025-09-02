@@ -11,13 +11,11 @@ export interface ProjectCardProps {
   image: string;
   imageAlt?: string;
   category?: string;
-  techStack?: Array<{ name: string; color: string }>;
+  techStack?: string[];
   technologies?: string[];
   caseStudyLink?: string;
   githubLink?: string;
-  githubUrl?: string;
   liveLink?: string;
-  demoUrl?: string;
   isLive?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -31,21 +29,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   imageAlt,
   category,
   techStack = [],
-  technologies = [],
   caseStudyLink,
   githubLink,
-  githubUrl,
   liveLink,
-  demoUrl,
   isLive = false,
   className,
   style = {},
 }) => {
-  // Normalize props to handle both old and new formats
-  const normalizedGithubUrl = githubUrl || githubLink;
-  const normalizedDemoUrl = demoUrl || liveLink;
-  const normalizedTechnologies =
-    technologies.length > 0 ? technologies : techStack.map((tech) => tech.name);
 
   return (
     <div
@@ -96,9 +86,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
           {/* Action Buttons */}
           <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-            {normalizedDemoUrl && (
+            {liveLink && (
               <a
-                href={normalizedDemoUrl}
+                href={liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-yellow-400 hover:bg-yellow-500 text-black rounded-xl transition-colors duration-300 transform hover:scale-110"
@@ -119,9 +109,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 </svg>
               </a>
             )}
-            {normalizedGithubUrl && (
+            {githubLink && (
               <a
-                href={normalizedGithubUrl}
+                href={githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors duration-300 transform hover:scale-110 backdrop-blur-sm"
@@ -149,9 +139,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </p>
 
           {/* Technologies */}
-          {normalizedTechnologies && normalizedTechnologies.length > 0 && (
+          {techStack && techStack.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
-              {normalizedTechnologies.slice(0, 3).map((tech, techIndex) => (
+              {techStack.slice(0, 3).map((tech, techIndex) => (
                 <span
                   key={techIndex}
                   className="px-3 py-1 bg-yellow-400/20 dark:bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 font-medium rounded-full border border-yellow-400/30 dark:border-yellow-400/30 text-xs"
@@ -159,9 +149,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   {tech}
                 </span>
               ))}
-              {normalizedTechnologies.length > 3 && (
+              {techStack.length > 3 && (
                 <span className="px-3 py-1 bg-gray-100 dark:bg-gray-600/20 text-gray-600 dark:text-gray-400 font-medium rounded-full border border-gray-200 dark:border-gray-600/30 text-xs">
-                  +{normalizedTechnologies.length - 3} more
+                  +{techStack.length - 3} more
                 </span>
               )}
             </div>

@@ -1,5 +1,6 @@
 {
     "liveServer.settings.port": 5501,
     "files.autoSave": "afterDelay",
-    "editor.mouseWheelZoom": true
+    "editor.mouseWheelZoom": true,
+    "compile-hero.disable-compile-files-on-did-save-code": true
 }

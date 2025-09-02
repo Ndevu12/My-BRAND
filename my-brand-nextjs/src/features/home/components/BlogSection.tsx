@@ -8,33 +8,36 @@ import Typography from "@/components/atoms/Typography";
 import BlogCard from "@/features/home/components/BlogCard";
 
 export interface BlogPost {
-  id: string;
+  _id: string; // Server uses _id
+  id?: string; // Fallback
   title: string;
-  excerpt: string;
-  image?: string;
-  imageAlt?: string;
-  publishedAt: string;
+  description: string; // Server uses description, not excerpt
+  imageUrl?: string; // Server uses imageUrl
+  createdAt: string; // Server uses createdAt, not publishedAt
   readTime?: string;
-  category?: string;
+  category?: {
+    _id: string;
+    name: string;
+    icon: string;
+  };
   slug: string;
   author?: {
     name: string;
-    image?: string;
+    firstName?: string;
+    lastName?: string;
   };
-  tags?: Array<{
-    name: string;
-    color?: string;
-    icon?: string;
-  }>;
+  authorImage?: string;
+  tags?: string[];
 }
 
 export interface BlogSectionProps {
-  posts: BlogPost[];
+  posts: any[]; // Use any to work directly with server response
   className?: string;
   title?: string;
   subtitle?: string;
   showViewAll?: boolean;
   maxDisplay?: number;
+  loading?: boolean;
   defaultAuthor?: {
     name: string;
     image?: string;
@@ -48,8 +51,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
   subtitle = "Thoughts, tutorials, and insights from my development journey",
   showViewAll = true,
   maxDisplay = 3,
+  loading = false,
   defaultAuthor = {
-    name: "Ndevu Gigi",
+    name: "Jean Paul Elisa NIYOKWIZERWA",
     image: "/images/mypic.png",
   },
 }) => {
@@ -59,6 +63,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
 
   const displayedPosts = maxDisplay ? posts.slice(0, maxDisplay) : posts;
 
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -69,12 +74,13 @@ const BlogSection: React.FC<BlogSectionProps> = ({
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
+      if (currentSection) observer.unobserve(currentSection);
     };
   }, []);
 
@@ -164,7 +170,11 @@ const BlogSection: React.FC<BlogSectionProps> = ({
         </div>
 
         {/* Enhanced Blog Posts Grid */}
-        {displayedPosts.length > 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
+          </div>
+        ) : displayedPosts.length > 0 ? (
           <div
             className={cn(
               "grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12",
@@ -175,33 +185,40 @@ const BlogSection: React.FC<BlogSectionProps> = ({
             )}
           >
             {displayedPosts.map((post, index) => {
-              // Transform BlogPost to BlogCardProps
               const blogCardProps = {
-                id: post.id,
+                id: post._id || post.id, // Server
                 title: post.title,
-                description: post.excerpt,
-                imageUrl: post.image,
-                author: post.author || defaultAuthor,
-                date: post.publishedAt,
-                tags: post.tags || [],
-                category: post.category
-                  ? {
-                      name: post.category,
+                description: post.description, // Server uses description (not excerpt)
+                imageUrl: post.imageUrl,
+                author: post.author.firstName && post.author.lastName ? { name: `${post.author.firstName} ${post.author.lastName}`, image: post.authorImage || defaultAuthor.image } : defaultAuthor,
+                date: post.createdAt, // Server uses createdAt (not publishedAt)
+                tags: Array.isArray(post.tags)
+                  ? post.tags.map((tag: string) => ({
+                      name: tag,
                       color: "yellow",
-                    }
-                  : undefined,
+                    }))
+                  : [],
+                category:
+                  post.category && typeof post.category === "object"
+                    ? {
+                        _id: post.category._id,
+                        name: post.category.name,
+                        color: "yellow",
+                        icon: post.category.icon || "bookmark",
+                      }
+                    : undefined,
                 href: `/blog/${post.slug}`,
                 className: cn(
                   "transform transition-all duration-700 ease-out hover:scale-[1.02]",
-                  hoveredPost === post.id ? "z-10" : ""
+                  hoveredPost === (post._id || post.id) ? "z-10" : ""
                 ),
               };
 
               return (
                 <div
-                  key={post.id}
+                  key={post._id || post.id}
                   className="group relative"
-                  onMouseEnter={() => setHoveredPost(post.id)}
+                  onMouseEnter={() => setHoveredPost(post._id || post.id)}
                   onMouseLeave={() => setHoveredPost(null)}
                 >
                   {/* Enhanced Background glow effect */}
@@ -228,6 +245,33 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 : "translate-y-8 opacity-0"
             )}
           >
+            <div className="w-16 h-16 mx-auto mb-6 bg-gray-100 dark:bg-gray-700 rounded-2xl flex items-center justify-center">
+              <svg
+                className="w-8 h-8 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+            </div>
+            <Typography
+              variant="h3"
+              className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2"
+            >
+              No articles available
+            </Typography>
+            <Typography
+              variant="p"
+              className="text-gray-500 dark:text-gray-500"
+            >
+              Check back later for fresh insights and tutorials.
+            </Typography>
           </div>
         )}
 
@@ -393,8 +437,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               variant="p"
               className="text-gray-600 dark:text-gray-300 text-lg mb-8"
             >
-              Want to stay updated with the latest insights? Subscribe to my
-              newsletter.
+              Want to stay updated with the latest insights?
             </Typography>
           </div>
         )}

@@ -1,19 +1,97 @@
-import { BlogPost } from "@/types/blog";
+"use client";
+
+import { BlogPost, BlogComment } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { BlogSidebar } from "./components/BlogSidebar";
 import { ShareArticle } from "./components/ShareArticle";
 import { TableOfContents } from "./components/TableOfContents";
-import { getPopularPosts, getAllTags, dummyBlogs } from "@/lib/blogData";
+import { CommentForm, Comment } from "@/features/comments";
+import {
+  getRecentBlogs,
+  getBlogsByCategory,
+  getBlogsPaginated,
+} from "@/services/blogService";
+import { getAuthorName, getAuthorImage } from "utils/blogUtils";
 import ClientLayout from "@/components/layout";
+import { useRouter } from "next/navigation";
 
 interface BlogDetailPageProps {
   post: BlogPost;
 }
 
 export function BlogDetailPage({ post }: BlogDetailPageProps) {
-  const popularPosts = getPopularPosts(3);
-  const allTags = getAllTags();
+  const router = useRouter();
+  const [popularPosts, setPopularPosts] = useState<BlogPost[]>([]);
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [comments, setComments] = useState<BlogComment[]>([]);
+
+  // Handle tag click - navigate to blog page with tag filter
+  const handleTagClick = (tag: string) => {
+    router.push(`/blog?tag=${encodeURIComponent(tag)}`);
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch popular/recent posts for sidebar
+        const recentPosts = await getRecentBlogs(3);
+        setPopularPosts(recentPosts);
+
+        // Fetch comprehensive set of tags from multiple blogs instead of just current post tags
+        // This ensures the topic cloud shows all available tags, not just from current post
+        const allBlogsData = await getBlogsPaginated(1, 20); // Fetch first 20 blogs to get good tag coverage
+        const allTags =
+          allBlogsData.blogs?.flatMap((blog: any) => blog.tags || []) || [];
+        const stringTags = allTags.filter(
+          (tag: any): tag is string => typeof tag === "string"
+        );
+        const uniqueTags: string[] = Array.from(new Set(stringTags));
+        setAllTags(uniqueTags);
+
+        // Fetch related posts by category if available
+        if (post.category?._id) {
+          const categoryPosts = await getBlogsByCategory(
+            post.category._id,
+            1,
+            6
+          );
+          const filtered = categoryPosts.blogs
+            .filter((p: BlogPost) => p.slug !== post.slug)
+            .slice(0, 3);
+          setRelatedPosts(filtered);
+        }
+
+        // Use comments from the post data instead of making a separate API call
+        if (post.comments && Array.isArray(post.comments)) {
+          setComments(post.comments);
+        }
+      } catch (error) {
+        console.error("Error fetching blog detail data:", error);
+        setPopularPosts([]);
+        setAllTags([]);
+        setRelatedPosts([]);
+        setComments([]);
+      }
+    };
+
+    fetchData();
+  }, [post._id, post.slug, post.category, post.tags, post.comments]);
+
+  // Handle new comment added - convert Comment to BlogComment format
+  const handleCommentAdded = (newComment: Comment) => {
+    const blogComment: BlogComment = {
+      _id: newComment._id,
+      blogId: newComment.blogId,
+      content: newComment.content,
+      name: newComment.name,
+      createdAt: newComment.createdAt,
+    };
+    setComments((prev) => [blogComment, ...prev]);
+  };
 
   if (!post) {
     return (
@@ -32,13 +110,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
       </ClientLayout>
     );
   }
-
-  const relatedPosts = dummyBlogs
-    .filter(
-      (p) =>
-        p.slug !== post.slug && p.tags.some((tag) => post.tags.includes(tag))
-    )
-    .slice(0, 3);
 
   const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
     year: "numeric",
@@ -93,9 +164,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
           {/* Category Badge */}
           <div className="mb-6">
             <span
-              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                post.category?.bgClass || "bg-gray-600/20"
-              } ${post.category?.textClass || "text-gray-400"}`}
+              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-600/20 text-gray-400`}
             >
               <i
                 className={`fas fa-${post.category?.icon || "bookmark"} mr-2`}
@@ -114,17 +183,16 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
             <div className="flex items-center">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-500 mr-3">
                 <Image
-                  src={post.authorImage || "/images/mypic.png"}
-                  alt={post.author}
+                  src={getAuthorImage(post)}
+                  alt={getAuthorName(post.author)}
                   fill
                   className="object-cover"
                 />
               </div>
               <div>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {post.author}
+                  {getAuthorName(post.author)}
                 </p>
-                <p className="text-sm">Full Stack Developer</p>
               </div>
             </div>
             <div className="flex items-center text-sm">
@@ -170,65 +238,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 {post.content ? (
                   <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 ) : (
-                  <div className="space-y-6">
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      This is a sample blog post content. In a real application,
-                      this would contain the full article content with proper
-                      formatting, code snippets, images, and other rich media
-                      elements.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Introduction
-                    </h2>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Key Points
-                    </h2>
-
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">
-                      Core Concepts
-                    </h3>
-                    <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                      <li>Understanding the fundamentals of the topic</li>
-                      <li>Best practices and common pitfalls to avoid</li>
-                      <li>Practical examples and real-world applications</li>
-                      <li>Future trends and considerations</li>
-                    </ul>
-
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3">
-                      Implementation Strategies
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      When implementing these concepts, it's important to
-                      consider the specific requirements of your project and
-                      choose the approach that best fits your needs.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Best Practices
-                    </h2>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Following industry best practices ensures that your
-                      implementation is robust, maintainable, and scalable.
-                    </p>
-
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-                      Conclusion
-                    </h2>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      In conclusion, this topic provides valuable insights for
-                      developers looking to improve their skills and stay
-                      current with industry trends. Continue learning and
-                      experimenting with these concepts.
-                    </p>
-                  </div>
+                  <div className="space-y-6"></div>
                 )}
               </div>
 
@@ -239,12 +249,13 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <span
+                    <button
                       key={tag}
-                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors cursor-pointer"
+                      onClick={() => handleTagClick(tag)}
+                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                     >
                       #{tag}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -267,7 +278,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 <div className="grid md:grid-cols-3 gap-6">
                   {relatedPosts.map((relatedPost) => (
                     <Link
-                      key={relatedPost.id}
+                      key={relatedPost._id || relatedPost.id}
                       href={`/blog/${relatedPost.slug}`}
                       className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                     >
@@ -295,6 +306,72 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 </div>
               </section>
             )}
+
+            {/* Comments Section */}
+            <section className="mt-12 space-y-8">
+              {/* Display Comments */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                  Comments ({comments.length})
+                </h3>
+
+                {comments.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 dark:text-gray-400">
+                      No comments yet. Be the first to comment!
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {comments.map((comment) => (
+                      <div
+                        key={comment._id}
+                        className="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0 last:pb-0"
+                      >
+                        <div className="flex items-start space-x-4">
+                          {/* Avatar */}
+                          <div className="flex-shrink-0">
+                            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium">
+                              {comment.name.charAt(0).toUpperCase()}
+                            </div>
+                          </div>
+
+                          {/* Comment Content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center space-x-2 mb-2">
+                              <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                                {comment.name}
+                              </h4>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                                {new Date(comment.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )}
+                              </span>
+                            </div>
+                            <div className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                              {comment.content}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Comment Form */}
+              <CommentForm
+                blogId={post._id}
+                onCommentAdded={handleCommentAdded}
+              />
+            </section>
           </div>
 
           {/* Sidebar */}
@@ -308,7 +385,12 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
             </div>
 
             {/* Blog Sidebar */}
-            <BlogSidebar popularPosts={popularPosts} tags={allTags} />
+            <BlogSidebar
+              popularPosts={popularPosts}
+              tags={allTags}
+              onTagClick={handleTagClick}
+              activeTag={null}
+            />
           </aside>
         </div>
       </main>

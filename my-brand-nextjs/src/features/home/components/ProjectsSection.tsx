@@ -6,18 +6,8 @@ import { cn } from "@/lib/utils";
 import Button from "@/components/atoms/Button";
 import Typography from "@/components/atoms/Typography";
 import ProjectCard from "@/features/home/components/ProjectCard";
+import { Project } from "@/types/project";
 
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  technologies?: string[];
-  demoUrl?: string;
-  githubUrl?: string;
-  category?: string;
-}
 
 export interface ProjectsSectionProps {
   projects: Project[];
@@ -43,6 +33,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const displayedProjects = maxDisplay
     ? projects.slice(0, maxDisplay)
     : projects;
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -160,7 +151,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                   : "translate-y-16 opacity-0"
               )}
               style={{ transitionDelay: `${index * 200}ms` }}
-              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseEnter={() => setHoveredProject(project._id || project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
               <ProjectCard
@@ -170,10 +161,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 image={project.image}
                 imageAlt={project.imageAlt}
                 category={project.category}
-                technologies={project.technologies}
-                demoUrl={project.demoUrl}
-                githubUrl={project.githubUrl}
-                className={cn(hoveredProject === project.id ? "z-10" : "")}
+                techStack={project.techStack}
+                liveLink={project.liveLink}
+                githubLink={project.githubLink}
+                isLive={project.liveLink ? true : false}
+                className={cn(hoveredProject === project._id || project.id ? "z-10" : "")}
               />
             </div>
           ))}

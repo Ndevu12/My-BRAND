@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import ClientLayout from "@/components/layout";
 import {
   ProjectsSection,
@@ -9,8 +10,32 @@ import {
   AboutSection,
   SkillsSection,
 } from "./components";
+import { getRecentBlogsForHome } from "@/services/blogService";
+import { projectsData } from "@/lib/projectData";
 
 export function HomePage() {
+  // Blog state management
+  const [blogPosts, setBlogPosts] = useState<any[]>([]);
+  const [blogLoading, setBlogLoading] = useState(true);
+
+  // Fetch recent blogs on component mount
+  useEffect(() => {
+    const fetchRecentBlogs = async () => {
+      setBlogLoading(true);
+      try {
+        const blogs = await getRecentBlogsForHome();
+        setBlogPosts(blogs); // blogs will be empty array if error occurred
+      } catch (error) {
+        // This shouldn't happen since service handles errors gracefully
+        setBlogPosts([]); // Fallback to empty array
+      } finally {
+        setBlogLoading(false);
+      }
+    };
+
+    fetchRecentBlogs();
+  }, []);
+
   // Sample data - in a real app, this would come from an API or CMS
   const heroData = {
     title: "Crafting Digital Experiences That Matter",
@@ -100,96 +125,6 @@ export function HomePage() {
     },
   ];
 
-  const projectsData = [
-    {
-      id: "shell-implementation",
-      title: "Custom Shell Implementation",
-      description:
-        "Developed a Unix-like shell with advanced features including command parsing, process management, and I/O redirection, demonstrating deep understanding of system programming concepts.",
-      image: "/images/shell.jfif",
-      imageAlt: "Unix shell project",
-      technologies: ["C", "Unix", "System Programming", "Process Management"],
-      githubUrl:
-        "https://github.com/Jean Paul Elisa NIYOKWIZERWA12/simple_shell",
-      category: "System Programming",
-    },
-    {
-      id: "property-marketplace",
-      title: "Property Marketplace Platform",
-      description:
-        "Built a full-featured accommodation booking platform with secure user authentication, advanced search capabilities, integrated payment processing, and responsive design for optimal user experience.",
-      image: "/images/airbnb.png",
-      imageAlt: "AirBnB clone project",
-      technologies: ["Python", "Flask", "MySQL", "JavaScript", "Bootstrap"],
-      githubUrl:
-        "https://github.com/Jean Paul Elisa NIYOKWIZERWA12/AirBnB_clone_v4",
-      demoUrl: "#",
-      category: "Web Application",
-    },
-    {
-      id: "bytecode-interpreter",
-      title: "Bytecode Interpreter",
-      description:
-        "Created a robust interpreter for Monty bytecode, implementing stack and queue operations, memory management, and error handling—showcasing advanced algorithm design and low-level programming skills.",
-      image: "/images/monty.jfif",
-      imageAlt: "Monty interpreter project",
-      technologies: ["C", "Data Structures", "Algorithms", "Memory Management"],
-      githubUrl: "https://github.com/Jean Paul Elisa NIYOKWIZERWA12/monty",
-      category: "Interpreter",
-    },
-    {
-      id: "portfolio-website",
-      title: "Personal Portfolio Website",
-      description:
-        "Modern, responsive portfolio website built with Next.js and TypeScript, featuring advanced animations, optimized performance, and seamless user experience across all devices.",
-      image: "/images/web1.jpg",
-      imageAlt: "Portfolio website project",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      githubUrl: "https://github.com/Ndevu12/My-BRAND",
-      demoUrl: "https://ndevu-portfolio.vercel.app",
-      category: "Web Development",
-    },
-  ];
-
-  const blogData = [
-    {
-      id: "web-architecture-evolution",
-      title: "The Evolution of Modern Web Architecture",
-      excerpt:
-        "From monolithic applications to microservices and serverless computing—explore how web architecture has transformed over time and what approach might work best for your next project.",
-      publishedAt: "2023-02-15T10:30:00Z",
-      readTime: "8 min read",
-      category: "Architecture",
-      slug: "web-architecture-evolution",
-      image: "/images/technology.jpg",
-      imageAlt: "Web architecture evolution",
-    },
-    {
-      id: "react-performance-optimization",
-      title: "React Performance Optimization: A Developer's Guide",
-      excerpt:
-        "Learn practical techniques to optimize React applications for better user experience. From memo and useMemo to code splitting and lazy loading.",
-      publishedAt: "2023-01-22T14:15:00Z",
-      readTime: "12 min read",
-      category: "React",
-      slug: "react-performance-optimization",
-      image: "/images/web.jfif",
-      imageAlt: "React performance optimization",
-    },
-    {
-      id: "optimization",
-      title: "Performance Optimization: A Developer's Guide",
-      excerpt:
-        "Learn practical techniques to optimize React applications for better user experience. From memo and useMemo to code splitting and lazy loading.",
-      publishedAt: "2023-01-22T14:15:00Z",
-      readTime: "12 min read",
-      category: "React",
-      slug: "react-performance-optimization",
-      image: "/images/web.jfif",
-      imageAlt: "React performance optimization",
-    },
-  ];
-
   return (
     <ClientLayout>
       <Hero
@@ -234,11 +169,12 @@ export function HomePage() {
       />
 
       <BlogSection
-        posts={blogData}
+        posts={blogPosts}
         title="Latest Insights"
         subtitle="Thoughts, tutorials, and insights from my development journey and industry experience"
         maxDisplay={3}
         showViewAll={true}
+        loading={blogLoading}
       />
 
       <ContactSection

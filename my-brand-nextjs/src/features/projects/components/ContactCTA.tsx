@@ -35,8 +35,8 @@ export function ContactCTA() {
           variant="p"
           className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto text-lg"
         >
-          I'm always excited to work on new challenges and bring innovative
-          ideas to life. Let's discuss how we can create something amazing
+          I&apos;m always excited to work on new challenges and bring innovative
+          ideas to life. Let&apos;s discuss how we can create something amazing
           together.
         </Typography>
 
