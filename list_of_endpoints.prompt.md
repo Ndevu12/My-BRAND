@@ -24,7 +24,7 @@ The backend uses cookie-based authentication rather than bearer tokens:
 - **DELETE** `/auth/users` - Delete all users (admin only)
 
 ### Blog Endpoints
-- **GET** `/blogs/public` - Get all blogs (public)
+- **GET** `/blogs/public?page=1&limit=10` - Get all blogs (public)
 - **GET** `/blogs/public/recent` - Get latest blogs (public)
 - **GET** `/blogs/public/:id` - Get specific blog by ID (public)
 - **GET** `/blogs/by-category/:id` - Get blogs by category
@@ -36,6 +36,7 @@ The backend uses cookie-based authentication rather than bearer tokens:
 - **GET** `/blogs` - Get all blogs (admin view)
 - **PUT** `/blogs/like/:id` - Like a blog (authenticated users)
 - **GET** `/blogs/author/:id` - Get author by blog ID
+- **GET** `/blogs/by-slug/:slug` - Get blog by slug 
 
 ### Blog Category Endpoints
 - **POST** `/blog-category/create` - Create category (admin only)
