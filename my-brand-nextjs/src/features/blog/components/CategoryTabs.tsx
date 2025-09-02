@@ -7,12 +7,14 @@ interface CategoryTabsProps {
   categories: BlogCategory[];
   activeCategory: string;
   onCategoryChange: (categoryId: string) => void;
+  isSearchActive?: boolean; // Add search state prop
 }
 
 export function CategoryTabs({
   categories,
   activeCategory,
   onCategoryChange,
+  isSearchActive = false,
 }: CategoryTabsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -148,8 +150,10 @@ export function CategoryTabs({
                 data-category={category._id}
                 onClick={() => onCategoryChange(category._id)}
                 className={`px-4 py-2 rounded-full font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
-                  activeCategory === category._id
+                  activeCategory === category._id && !isSearchActive
                     ? "bg-yellow-500 text-black shadow-lg"
+                    : isSearchActive
+                    ? "bg-gray-200 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 text-gray-500 dark:text-gray-400 opacity-60"
                     : "bg-white/70 dark:bg-secondary border border-gray-300 dark:border-gray-700 hover:border-yellow-400 dark:hover:border-yellow-400 text-gray-700 dark:text-white hover:shadow-md"
                 }`}
               >

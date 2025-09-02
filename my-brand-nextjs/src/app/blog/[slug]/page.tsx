@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogDetailPage } from "@/features/blog";
 import { getBlogBySlug } from "@/services/blogService";
+import { getAuthorName } from "utils/blogUtils";
 
 interface Props {
   params: { slug: string };
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: "en_US",
       type: "article",
       publishedTime: post.createdAt,
-      authors: [post.author.firstName + " " + post.author.lastName],
+      authors: [getAuthorName(post.author)],
       tags: post.tags,
     },
     twitter: {
@@ -63,6 +64,3 @@ export default async function BlogPost({ params }: Props) {
 
   return <BlogDetailPage post={post} />;
 }
-
-// Remove static paths generation since we're fetching from server
-// Static paths will be generated on-demand with ISR

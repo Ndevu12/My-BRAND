@@ -10,9 +10,16 @@ import Link from "next/link";
 interface BlogSidebarProps {
   popularPosts: BlogPost[];
   tags: string[];
+  onTagClick?: (tag: string) => void;
+  activeTag?: string | null;
 }
 
-export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
+export function BlogSidebar({
+  popularPosts,
+  tags,
+  onTagClick,
+  activeTag,
+}: BlogSidebarProps) {
   return (
     <div className="space-y-8">
       {/* About Author */}
@@ -114,14 +121,22 @@ export function BlogSidebar({ popularPosts, tags }: BlogSidebarProps) {
         </h3>
 
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag, idx) => (
-            <button
-              key={`${tag}-${randomNUmberGenerator()}`}
-              className="px-3 py-1 bg-gray-100 dark:bg-primary text-gray-700 dark:text-gray-300 hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 rounded-full text-sm transition-colors duration-200"
-            >
-              {tag}
-            </button>
-          ))}
+          {tags.map((tag, idx) => {
+            const isActive = activeTag === tag;
+            return (
+              <button
+                key={`${tag}-${randomNUmberGenerator()}`}
+                onClick={() => onTagClick?.(tag)}
+                className={`px-3 py-1 rounded-full text-sm transition-colors duration-200 ${
+                  isActive
+                    ? "bg-yellow-500 text-white dark:bg-yellow-400 dark:text-gray-900"
+                    : "bg-gray-100 dark:bg-primary text-gray-700 dark:text-gray-300 hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400"
+                }`}
+              >
+                {tag}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

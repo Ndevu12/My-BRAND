@@ -1,28 +1,37 @@
 "use client";
 
-import { BlogPost } from "@/types/blog";
+import { BlogPost, BlogComment } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { BlogSidebar } from "./components/BlogSidebar";
 import { ShareArticle } from "./components/ShareArticle";
 import { TableOfContents } from "./components/TableOfContents";
-import { CommentForm, CommentList, Comment } from "@/features/comments";
-import { getRecentBlogs, getBlogsByCategory } from "@/services/blogService";
-import { getCommentsForBlog } from "@/services/comment/commentService";
+import { CommentForm, Comment } from "@/features/comments";
+import {
+  getRecentBlogs,
+  getBlogsByCategory,
+  getBlogsPaginated,
+} from "@/services/blogService";
 import { getAuthorName, getAuthorImage } from "utils/blogUtils";
 import ClientLayout from "@/components/layout";
+import { useRouter } from "next/navigation";
 
 interface BlogDetailPageProps {
   post: BlogPost;
 }
 
 export function BlogDetailPage({ post }: BlogDetailPageProps) {
+  const router = useRouter();
   const [popularPosts, setPopularPosts] = useState<BlogPost[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [commentsLoading, setCommentsLoading] = useState(true);
+  const [comments, setComments] = useState<BlogComment[]>([]);
+
+  // Handle tag click - navigate to blog page with tag filter
+  const handleTagClick = (tag: string) => {
+    router.push(`/blog?tag=${encodeURIComponent(tag)}`);
+  };
 
   // Fetch data on component mount
   useEffect(() => {
@@ -32,9 +41,16 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
         const recentPosts = await getRecentBlogs(3);
         setPopularPosts(recentPosts);
 
-        // Extract tags from all posts (simplified for now)
-        const tags = post.tags || [];
-        setAllTags(tags);
+        // Fetch comprehensive set of tags from multiple blogs instead of just current post tags
+        // This ensures the topic cloud shows all available tags, not just from current post
+        const allBlogsData = await getBlogsPaginated(1, 20); // Fetch first 20 blogs to get good tag coverage
+        const allTags =
+          allBlogsData.blogs?.flatMap((blog: any) => blog.tags || []) || [];
+        const stringTags = allTags.filter(
+          (tag: any): tag is string => typeof tag === "string"
+        );
+        const uniqueTags: string[] = Array.from(new Set(stringTags));
+        setAllTags(uniqueTags);
 
         // Fetch related posts by category if available
         if (post.category?._id) {
@@ -49,27 +65,32 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
           setRelatedPosts(filtered);
         }
 
-        // Fetch comments for this blog
-        setCommentsLoading(true);
-        const blogComments = await getCommentsForBlog(post._id);
-        setComments(blogComments);
+        // Use comments from the post data instead of making a separate API call
+        if (post.comments && Array.isArray(post.comments)) {
+          setComments(post.comments);
+        }
       } catch (error) {
         console.error("Error fetching blog detail data:", error);
         setPopularPosts([]);
         setAllTags([]);
         setRelatedPosts([]);
         setComments([]);
-      } finally {
-        setCommentsLoading(false);
       }
     };
 
     fetchData();
-  }, [post._id, post.slug, post.category, post.tags]);
+  }, [post._id, post.slug, post.category, post.tags, post.comments]);
 
-  // Handle new comment added
+  // Handle new comment added - convert Comment to BlogComment format
   const handleCommentAdded = (newComment: Comment) => {
-    setComments((prev) => [newComment, ...prev]);
+    const blogComment: BlogComment = {
+      _id: newComment._id,
+      blogId: newComment.blogId,
+      content: newComment.content,
+      name: newComment.name,
+      createdAt: newComment.createdAt,
+    };
+    setComments((prev) => [blogComment, ...prev]);
   };
 
   if (!post) {
@@ -228,12 +249,13 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <span
+                    <button
                       key={tag}
-                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors cursor-pointer"
+                      onClick={() => handleTagClick(tag)}
+                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-yellow-100 dark:hover:bg-yellow-500/20 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                     >
                       #{tag}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -288,7 +310,61 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
             {/* Comments Section */}
             <section className="mt-12 space-y-8">
               {/* Display Comments */}
-              <CommentList comments={comments} isLoading={commentsLoading} />
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                  Comments ({comments.length})
+                </h3>
+
+                {comments.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 dark:text-gray-400">
+                      No comments yet. Be the first to comment!
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {comments.map((comment) => (
+                      <div
+                        key={comment._id}
+                        className="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-b-0 last:pb-0"
+                      >
+                        <div className="flex items-start space-x-4">
+                          {/* Avatar */}
+                          <div className="flex-shrink-0">
+                            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium">
+                              {comment.name.charAt(0).toUpperCase()}
+                            </div>
+                          </div>
+
+                          {/* Comment Content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center space-x-2 mb-2">
+                              <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                                {comment.name}
+                              </h4>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                                {new Date(comment.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )}
+                              </span>
+                            </div>
+                            <div className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                              {comment.content}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Comment Form */}
               <CommentForm
@@ -309,7 +385,12 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
             </div>
 
             {/* Blog Sidebar */}
-            <BlogSidebar popularPosts={popularPosts} tags={allTags} />
+            <BlogSidebar
+              popularPosts={popularPosts}
+              tags={allTags}
+              onTagClick={handleTagClick}
+              activeTag={null}
+            />
           </aside>
         </div>
       </main>

@@ -29,6 +29,7 @@ The backend uses cookie-based authentication rather than bearer tokens:
 - **GET** `/blogs/public/:id` - Get specific blog by ID (public)
 - **GET** `/blogs/by-category/:id` - Get blogs by category
 - **GET** `/blogs/by-title` - Get blog by title
+- **GET** `/blogs/by-tag` - Get blogs by signle tag
 - **POST** `/blogs/create` - Create new blog (admin only)
 - **PUT** `/blogs/update/:id` - Update blog (author or admin)
 - **DELETE** `/blogs/delete/:id` - Delete blog (author or admin)

@@ -119,10 +119,17 @@ export async function getBlogBySlug(slug: string) {
 
 // Fetch blogs by category
 export async function getBlogsByCategory(categoryId: string, page: number = 1, limit: number = 10) {
-  const result = await safeFetch(`${API_BASE_URL}/blogs/by-category/${categoryId}?page=${page}&limit=${limit}`);
+  console.log("🔗 [blogService] getBlogsByCategory called:");
+  console.log("  - categoryId:", categoryId);
+  console.log("  - page:", page);
+  console.log("  - limit:", limit);
   
+  const url = `${API_BASE_URL}/blogs/by-category/${categoryId}?page=${page}&limit=${limit}`;
+  console.log("  - API URL:", url);
+  
+  const result = await safeFetch(url);
+    
   if (!result.success) {
-    console.error(`Error fetching blogs by category ${categoryId}:`, result.error);
     return { 
       blogs: [], 
       totalCount: 0, 
@@ -133,7 +140,7 @@ export async function getBlogsByCategory(categoryId: string, page: number = 1, l
     };
   }
   
-  const blogs = result.data?.blogs || [];
+  const blogs = result.data.blogs || [];
   const pagination = result.data?.pagination || {};
   
   return {
@@ -143,6 +150,51 @@ export async function getBlogsByCategory(categoryId: string, page: number = 1, l
     currentPage: pagination.currentPage || page,
     totalPages: pagination.totalPages || 1,
     pagination
+  };
+}
+
+// Fetch blogs by tag
+export async function getBlogsByTag(tag: string, page: number = 1, limit: number = 10, sortBy?: string, sortOrder?: string, status?: string) {
+  // Build URL with parameters
+  const params = new URLSearchParams({
+    tag: tag,
+    page: page.toString(),
+    limit: limit.toString(),
+  });
+  
+  if (sortBy) params.append('sortBy', sortBy);
+  if (sortOrder) params.append('sortOrder', sortOrder);
+  if (status) params.append('status', status);
+  
+  const url = `${API_BASE_URL}/blogs/by-tag?${params.toString()}`;
+  
+  const result = await safeFetch(url);
+    
+  if (!result.success) {
+    console.error(`Error fetching blogs by tag "${tag}":`, result.error);
+    return { 
+      blogs: [], 
+      totalCount: 0, 
+      hasMore: false,
+      currentPage: 1,
+      totalPages: 1,
+      pagination: {},
+      filters: {}
+    };
+  }
+  
+  const blogs = result.data?.blogs || [];
+  const pagination = result.data?.pagination || {};
+  const filters = result.data?.filters || {};
+  
+  return {
+    blogs,
+    totalCount: pagination.totalBlogs || 0,
+    hasMore: pagination.hasNextPage || false,
+    currentPage: pagination.currentPage || page,
+    totalPages: pagination.totalPages || 1,
+    pagination,
+    filters
   };
 }
 

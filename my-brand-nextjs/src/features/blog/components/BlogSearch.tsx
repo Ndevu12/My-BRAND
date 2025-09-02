@@ -1,34 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface BlogSearchProps {
   onSearch: (query: string) => void;
+  searchQuery?: string; // Add external search query prop
   placeholder?: string;
 }
 
 export function BlogSearch({
   onSearch,
+  searchQuery: externalSearchQuery = "",
   placeholder = "Search articles by keyword or topic...",
 }: BlogSearchProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(externalSearchQuery);
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Sync internal state with external search query changes
+  useEffect(() => {
+    setQuery(externalSearchQuery);
+  }, [externalSearchQuery]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(query);
+    // Clear any pending debounced search
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
+    // Trigger immediate search on submit
+    onSearch(query.trim());
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-
-    // Debounced search - could be enhanced with useDebounce hook
-    const timeoutId = setTimeout(() => {
-      onSearch(newQuery);
-    }, 300);
-
-    return () => clearTimeout(timeoutId);
+    // Note: Removed auto-search on typing - now only searches on submit button click
   };
+
+  // Cleanup timeout on component unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="max-w-2xl mx-auto relative opacity-100 transition-opacity duration-800">

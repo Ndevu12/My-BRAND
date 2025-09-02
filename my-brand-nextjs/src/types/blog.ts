@@ -8,6 +8,15 @@ export interface Author {
   __v: number;
 }
 
+export interface BlogComment {
+  _id: string;
+  blogId: string;
+  content: string;
+  name: string;
+  createdAt: string;
+  __v?: number;
+}
+
 export interface BlogPost {
   _id: string; // MongoDB _id from server
   id?: string; // Optional fallback id
@@ -28,7 +37,7 @@ export interface BlogPost {
   metaTitle?: string;
   metaDescription?: string;
   likes?: number; // Likes count from server
-  comments?: string[]; // Comments from server
+  comments?: BlogComment[]; // Comments from server
 }
 
 export interface BlogCategory {
