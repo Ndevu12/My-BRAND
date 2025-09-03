@@ -23,6 +23,7 @@ export interface NewBlogFormProps {
   onPreview: (data: BlogFormData) => void;
   isSubmitting?: boolean;
   initialData?: Partial<BlogFormData>;
+  isEditMode?: boolean; // Add isEditMode prop
 }
 
 export interface PreviewModalProps {

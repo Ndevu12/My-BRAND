@@ -15,7 +15,16 @@ import { PublishingSection } from "./PublishingSection";
 import Button from "@/components/atoms/Button/Button";
 
 const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
-  ({ onSubmit, onPreview, isSubmitting = false, initialData }, ref) => {
+  (
+    {
+      onSubmit,
+      onPreview,
+      isSubmitting = false,
+      initialData,
+      isEditMode = false,
+    },
+    ref
+  ) => {
     // Create a stable default date that's consistent between server and client
     const getDefaultPublishDate = () => {
       // Use a fixed date format that's consistent across server/client
@@ -175,7 +184,12 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
         />
 
         {/* Content */}
-        <ContentSection data={data} errors={errors} onChange={updateFormData} />
+        <ContentSection
+          data={data}
+          errors={errors}
+          onChange={updateFormData}
+          isEditMode={isEditMode}
+        />
 
         {/* Categorization */}
         <CategorySection

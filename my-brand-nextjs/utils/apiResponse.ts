@@ -72,6 +72,8 @@ export async function safeFetch<T = any>(
     
     // Parse successful response
     const apiResponse: ApiResponse<T> = await response.json();
+    console.log(`API Response:`, apiResponse);
+    console.log(`API Response Data:`, apiResponse.data);
     return extractApiResponse(apiResponse);
     
   } catch (error) {

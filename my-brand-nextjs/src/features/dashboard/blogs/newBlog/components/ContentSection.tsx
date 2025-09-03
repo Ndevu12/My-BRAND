@@ -4,17 +4,20 @@ import React from "react";
 import { BlogFormData } from "../types";
 import Typography from "@/components/atoms/Typography/Typography";
 import { RichTextEditor } from "./RichTextEditor";
+import { CustomRichTextEditor } from "./CustomRichTextEditor";
 
 interface ContentSectionProps {
   data: BlogFormData;
   errors: Partial<Record<keyof BlogFormData, string>>;
   onChange: (field: keyof BlogFormData, value: any) => void;
+  isEditMode?: boolean; // New prop for edit mode detection
 }
 
 export const ContentSection: React.FC<ContentSectionProps> = ({
   data,
   errors,
   onChange,
+  isEditMode = false,
 }) => {
   return (
     <div className="bg-secondary rounded-xl shadow-lg p-6 border border-gray-700">
@@ -31,18 +34,29 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
           Main Content <span className="text-red-400">*</span>
         </label>
 
-        <RichTextEditor
-          content={data.content}
-          onContentChange={(content) => onChange("content", content)}
-          placeholder="Start writing your content here..."
-        />
+        {/* Conditional Editor Rendering */}
+        {isEditMode ? (
+          <CustomRichTextEditor
+            content={data.content}
+            onContentChange={(content) => onChange("content", content)}
+            placeholder="Start writing your content here..."
+          />
+        ) : (
+          <RichTextEditor
+            content={data.content}
+            onContentChange={(content) => onChange("content", content)}
+            placeholder="Start writing your content here..."
+          />
+        )}
 
         {errors.content && (
           <p className="text-sm text-red-500 mt-2">{errors.content}</p>
         )}
 
         <p className="text-xs text-gray-400 mt-1">
-          Use the toolbar to format text, add images, and embed media
+          {isEditMode
+            ? "Use the rich toolbar above to format your content. All existing formatting will be preserved."
+            : "Use the toolbar to format text, add images, and embed media"}
         </p>
       </div>
     </div>

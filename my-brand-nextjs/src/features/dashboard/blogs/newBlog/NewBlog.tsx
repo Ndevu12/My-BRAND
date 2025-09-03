@@ -153,15 +153,6 @@ export default function NewBlog({ blogId }: NewBlogProps) {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400"></div>
-        <span className="ml-2 text-gray-400">Loading blog...</span>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary to-black/90">
       <div className="max-w-6xl mx-auto p-6">
@@ -225,19 +216,14 @@ export default function NewBlog({ blogId }: NewBlogProps) {
         </div>
 
         {/* Form */}
-        {(!isEditMode || initialData) && (
-          <NewBlogForm
-            ref={formRef}
-            onSubmit={handleSubmit}
-            onPreview={handlePreview}
-            isSubmitting={isSubmitting}
-            initialData={initialData}
-          />
-        )}
-
-        {/* Show loading state for edit mode when initial data is not loaded */}
-        {isEditMode && !initialData && !isLoading && ( <Loading text="Loading blog data..." size="lg" />
-        )}
+        <NewBlogForm
+          ref={formRef}
+          onSubmit={handleSubmit}
+          onPreview={handlePreview}
+          isSubmitting={isSubmitting}
+          initialData={initialData}
+          isEditMode={isEditMode}
+        />
 
         {/* Preview Modal */}
         {isPreviewOpen && previewData && (

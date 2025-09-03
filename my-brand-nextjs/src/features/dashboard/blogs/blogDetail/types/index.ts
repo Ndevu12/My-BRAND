@@ -1,4 +1,5 @@
 import { BlogPost } from '@/types/blog';
+import { AdminBlogPost } from '../../allBlogs/types';
 
 export interface BlogDetailProps {
   blogId: string;
@@ -12,18 +13,18 @@ export interface AdminBlogDetailProps extends BlogDetailProps {
 }
 
 export interface BlogHeaderProps {
-  blog: BlogPost;
+  blog: AdminBlogPost;
   onEdit?: (blogId: string) => void;
   onDelete?: (blogId: string) => void;
   onBack?: () => void;
 }
 
 export interface BlogContentProps {
-  blog: BlogPost;
+  blog: AdminBlogPost;
 }
 
 export interface BlogStatsProps {
-  blog: BlogPost;
+  blog: AdminBlogPost;
   stats?: {
     views: number;
     likes: number;
@@ -41,14 +42,14 @@ export interface BlogActionsProps {
 }
 
 export interface BlogMetaProps {
-  blog: BlogPost;
+  blog: AdminBlogPost;
   showEditHistory?: boolean;
 }
 
 export type BlogStatus = 'published' | 'draft' | 'archived' | 'scheduled';
 
 export interface BlogDetailService {
-  getBlogById: (id: string) => Promise<BlogPost | null>;
+  getBlogById: (id: string) => Promise<AdminBlogPost | null>;
   updateBlogStatus: (id: string, status: BlogStatus) => Promise<void>;
   deleteBlog: (id: string) => Promise<void>;
   duplicateBlog: (id: string) => Promise<string>;
