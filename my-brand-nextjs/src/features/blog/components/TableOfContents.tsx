@@ -26,7 +26,6 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
         document.querySelector("article") ||
         document.querySelector("main");
 
-      console.log("Article content found:", articleContent); // Debug log
 
       if (!articleContent) {
         console.log("No article content found"); // Debug log
@@ -34,7 +33,6 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
       }
 
       const headings = articleContent.querySelectorAll("h2, h3");
-      console.log("Headings found:", headings.length); // Debug log
 
       const items: TocItem[] = [];
 
@@ -53,7 +51,6 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
         });
       });
 
-      console.log("TOC items generated:", items); // Debug log
       setTocItems(items);
     };
 
@@ -96,7 +93,6 @@ export function TableOfContents({ className = "" }: TableOfContentsProps) {
     // Also try to regenerate TOC after a longer delay in case content loads slowly
     const fallbackTimer = setTimeout(() => {
       if (tocItems.length === 0) {
-        console.log("Fallback: Trying to regenerate TOC...");
         generateTOC();
       }
     }, 2000);

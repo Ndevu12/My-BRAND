@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -74,10 +75,12 @@ const Sidebar: React.FC = () => {
       <aside className="hidden md:flex flex-col w-64 h-screen bg-secondary border-r border-gray-700 shadow-xl">
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <Link href="/" className="flex items-center space-x-3">
-            <img
+            <Image
               src="/images/logo1.png"
-              className="h-10 w-10 rounded"
               alt="NdevuSpace Logo"
+              width={40}
+              height={40}
+              className="rounded"
             />
             <span className="text-lg font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               NdevuSpace
@@ -115,10 +118,12 @@ const Sidebar: React.FC = () => {
         {/* Logo & collapse/close button */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <Link href="/" className="flex items-center space-x-3">
-            <img
+            <Image
               src="/images/logo1.png"
-              className="h-10 w-10 rounded"
               alt="NdevuSpace Logo"
+              width={40}
+              height={40}
+              className="rounded"
             />
             {!collapsed && (
               <span className="text-lg font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">

@@ -1,12 +1,17 @@
 import { BlogPost, BlogCategory } from '@/types/blog';
 
+// Extended BlogPost interface with admin-specific properties
+export interface AdminBlogPost extends BlogPost {
+  status?: 'published' | 'draft' | 'archived';
+}
+
 export interface BlogAdminFilters {
   page: number;
   limit: number;
   status: string;
   category: string;
   search: string;
-  sortBy: 'createdAt' | 'updatedAt' | 'title' | 'viewsCount' | 'likesCount';
+  sortBy: 'createdAt' | 'updatedAt' | 'title';
   sortOrder: 'asc' | 'desc';
 }
 
@@ -18,7 +23,7 @@ export interface BlogAdminPagination {
 }
 
 export interface BlogAdminResponse {
-  blogs: BlogPost[];
+  blogs: AdminBlogPost[];
   pagination: BlogAdminPagination;
 }
 
@@ -27,7 +32,7 @@ export interface AllBlogsProps {
 }
 
 export interface BlogTableProps {
-  blogs: BlogPost[];
+  blogs: AdminBlogPost[];
   onEdit: (blogId: string) => void;
   onView: (blogId: string) => void;
   onDelete: (blogId: string) => void;

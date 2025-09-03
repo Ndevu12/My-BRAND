@@ -1,131 +1,176 @@
 import { BlogPost } from '@/types/blog';
-import { BlogAdminFilters, BlogAdminResponse } from './types';
-import { dummyBlogs } from '@/lib/blogData';
+import { BlogAdminFilters, BlogAdminResponse, AdminBlogPost } from './types';
+import { API_BASE_URL } from '@/lib/constants';
+import { safeFetch } from 'utils/apiResponse';
 
-// Mock API service that can be easily replaced with real API calls
+/**
+ * Handle admin-specific blog API errors with user-friendly messages
+ */
+function getAdminErrorMessage(error: string | null, code?: string): string {
+  switch (code) {
+    case 'UNAUTHORIZED':
+      return 'You are not authorized to access this resource';
+    case 'FORBIDDEN':
+      return 'Admin access required';
+    case 'INVALID_LIMIT':
+      return 'Invalid number of items requested';
+    case 'INVALID_PAGE':
+      return 'Invalid page number';
+    case 'INVALID_SORT_FIELD':
+      return 'Invalid sorting option';
+    default:
+      return error || 'Failed to load admin data';
+  }
+}
+
+// API service for admin blog operations
 export class BlogAdminService {
   
-  // Simulate API delay
-  private async delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  // Get all blogs with filtering, sorting, and pagination
+  // Get all blogs with filtering, sorting, and pagination (Admin view)
   async getAdminBlogs(filters: BlogAdminFilters): Promise<BlogAdminResponse> {
-    await this.delay(300); // Simulate network delay
+    // Build query parameters
+    const queryParams = new URLSearchParams();
     
-    let filteredBlogs = [...dummyBlogs];
+    // Add pagination
+    queryParams.append('page', filters.page.toString());
+    queryParams.append('limit', filters.limit.toString());
     
-    // Apply search filter
+    // Add search if provided
     if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
-      filteredBlogs = filteredBlogs.filter(blog => 
-        blog.title.toLowerCase().includes(searchLower) ||
-        blog.description.toLowerCase().includes(searchLower) ||
-        blog.tags.some(tag => tag.toLowerCase().includes(searchLower))
-      );
+      queryParams.append('search', filters.search);
     }
     
-    // Apply category filter
+    // Add category filter if provided
     if (filters.category) {
-      filteredBlogs = filteredBlogs.filter(blog => 
-        blog.category.id === filters.category
-      );
+      queryParams.append('category', filters.category);
     }
     
-    // Apply status filter (for now, assume all blogs are published)
+    // Add status filter if provided
     if (filters.status) {
-      // Add status to blog posts if not present
-      filteredBlogs = filteredBlogs.filter(blog => {
-        const status = (blog as any).status || 'published';
-        return status === filters.status;
-      });
+      queryParams.append('status', filters.status);
     }
     
-    // Apply sorting
-    filteredBlogs.sort((a, b) => {
-      let aValue: any, bValue: any;
-      
-      switch (filters.sortBy) {
-        case 'title':
-          aValue = a.title;
-          bValue = b.title;
-          break;
-        case 'createdAt':
-          aValue = new Date(a.createdAt);
-          bValue = new Date(b.createdAt);
-          break;
-        case 'updatedAt':
-          aValue = new Date(a.updatedAt || a.createdAt);
-          bValue = new Date(b.updatedAt || b.createdAt);
-          break;
-        case 'viewsCount':
-          aValue = (a as any).viewsCount || 0;
-          bValue = (b as any).viewsCount || 0;
-          break;
-        case 'likesCount':
-          aValue = (a as any).likesCount || 0;
-          bValue = (b as any).likesCount || 0;
-          break;
-        default:
-          aValue = new Date(a.createdAt);
-          bValue = new Date(b.createdAt);
-      }
-      
-      if (filters.sortOrder === 'asc') {
-        return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
-      } else {
-        return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
-      }
+    // Add sorting
+    if (filters.sortBy) {
+      queryParams.append('sortBy', filters.sortBy);
+    }
+    if (filters.sortOrder) {
+      queryParams.append('sortOrder', filters.sortOrder);
+    }
+
+    const url = `${API_BASE_URL}/blogs?${queryParams.toString()}`;
+    
+    const result = await safeFetch(url, {
+      method: 'GET',
+      credentials: 'include', // Include cookies for authentication
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     
-    // Calculate pagination
-    const totalBlogs = filteredBlogs.length;
-    const totalPages = Math.ceil(totalBlogs / filters.limit);
-    const startIndex = (filters.page - 1) * filters.limit;
-    const endIndex = startIndex + filters.limit;
-    const paginatedBlogs = filteredBlogs.slice(startIndex, endIndex);
-    
-    // Add mock data to blogs for admin purposes
-    const blogsWithAdminData = paginatedBlogs.map(blog => ({
-      ...blog,
-      status: (blog as any).status || 'published',
-      viewsCount: (blog as any).viewsCount || Math.floor(Math.random() * 1000) + 100,
-      likesCount: (blog as any).likesCount || Math.floor(Math.random() * 100) + 10,
-    }));
-    
+    if (!result.success) {
+      const errorMessage = getAdminErrorMessage(result.error, result.code);
+      throw new Error(errorMessage);
+    }
+
+    // Extract blogs and pagination from response
+    const blogs = result.data?.blogs || [];
+    const pagination = result.data?.pagination || {
+      currentPage: filters.page,
+      totalPages: 1,
+      totalBlogs: 0,
+      blogsPerPage: filters.limit,
+    };
+
     return {
-      blogs: blogsWithAdminData,
-      pagination: {
-        currentPage: filters.page,
-        totalPages,
-        totalBlogs,
-        blogsPerPage: filters.limit,
-      }
+      blogs,
+      pagination,
     };
   }
   
-  // Delete a blog
+  // Delete a blog (Admin only)
   async deleteBlog(blogId: string): Promise<void> {
-    await this.delay(200);
+    const result = await safeFetch(`${API_BASE_URL}/blogs/delete/${blogId}`, {
+      method: 'DELETE',
+      credentials: 'include', // Include cookies for authentication
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     
-    // In a real implementation, this would make an API call
-    // For now, we'll just simulate the deletion
-    console.log(`Blog ${blogId} would be deleted`);
-    
-    // You could also remove from the dummyBlogs array if needed for persistence during session
-    // const index = dummyBlogs.findIndex(blog => blog.id === blogId);
-    // if (index > -1) {
-    //   dummyBlogs.splice(index, 1);
-    // }
+    if (!result.success) {
+      const errorMessage = getAdminErrorMessage(result.error, result.code);
+      throw new Error(errorMessage);
+    }
   }
   
-  // Update blog status
+  // Update blog status (Admin only)
   async updateBlogStatus(blogId: string, status: 'published' | 'draft' | 'archived'): Promise<void> {
-    await this.delay(200);
+    const result = await safeFetch(`${API_BASE_URL}/blogs/update/${blogId}`, {
+      method: 'PUT',
+      credentials: 'include', // Include cookies for authentication
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status }),
+    });
     
-    // In a real implementation, this would make an API call
-    console.log(`Blog ${blogId} status would be updated to ${status}`);
+    if (!result.success) {
+      const errorMessage = getAdminErrorMessage(result.error, result.code);
+      throw new Error(errorMessage);
+    }
+  }
+  
+  // Get single blog with admin data (Admin only)
+  async getAdminBlog(blogId: string): Promise<AdminBlogPost> {
+    const result = await safeFetch(`${API_BASE_URL}/blogs/${blogId}`, {
+      method: 'GET',
+      credentials: 'include', // Include cookies for authentication
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!result.success) {
+      const errorMessage = getAdminErrorMessage(result.error, result.code);
+      throw new Error(errorMessage);
+    }
+    
+    return result.data;
+  }
+  
+  // Create a new blog (Admin only) - FormData only
+  async createBlog(formData: FormData): Promise<AdminBlogPost> {
+    const result = await safeFetch(`${API_BASE_URL}/blogs/create`, {
+      method: 'POST',
+      credentials: 'include', // Include cookies for authentication
+      // No Content-Type header - let browser set multipart/form-data
+      body: formData,
+    });
+    
+    if (!result.success) {
+      const errorMessage = getAdminErrorMessage(result.error, result.code);
+      throw new Error(errorMessage);
+    }
+    
+    return result.data;
+  }
+  
+  // Update an existing blog (Admin only) - FormData only
+  async updateBlog(blogId: string, formData: FormData): Promise<AdminBlogPost> {
+    const result = await safeFetch(`${API_BASE_URL}/blogs/update/${blogId}`, {
+      method: 'PUT',
+      credentials: 'include', // Include cookies for authentication
+      // No Content-Type header - let browser set multipart/form-data
+      body: formData,
+    });
+    
+    if (!result.success) {
+      const errorMessage = getAdminErrorMessage(result.error, result.code);
+      throw new Error(errorMessage);
+    }
+    
+    return result.data;
   }
 }
 

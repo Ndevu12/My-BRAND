@@ -292,7 +292,7 @@ export function Footer({ className = "" }: FooterProps) {
             <p className="text-sm text-gray-500 dark:text-gray-500 mb-4 md:mb-0">
               &copy; {currentYear} NdevuSpace |{" "}
               <Link
-                href="/signin"
+                href="/auth/login"
                 className="text-gray-500 hover:text-yellow-600 dark:text-gray-500 dark:hover:text-yellow-400 transition-colors duration-200"
               >
                 Ndevu

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Button from "@/components/atoms/Button";
 import Typography from "@/components/atoms/Typography";
 import BlogCard from "@/features/home/components/BlogCard";
+import { getAuthorName } from "utils/blogUtils";
 
 export interface BlogPost {
   _id: string; // Server uses _id
@@ -190,13 +191,13 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 title: post.title,
                 description: post.description, // Server uses description (not excerpt)
                 imageUrl: post.imageUrl,
-                author: post.author.firstName && post.author.lastName ? { name: `${post.author.firstName} ${post.author.lastName}`, image: post.authorImage || defaultAuthor.image } : defaultAuthor,
+                author: {
+                  name: getAuthorName(post.author),
+                  image: post.authorImage || defaultAuthor.image,
+                },
                 date: post.createdAt, // Server uses createdAt (not publishedAt)
                 tags: Array.isArray(post.tags)
-                  ? post.tags.map((tag: string) => ({
-                      name: tag,
-                      color: "yellow",
-                    }))
+                  ? post.tags
                   : [],
                 category:
                   post.category && typeof post.category === "object"

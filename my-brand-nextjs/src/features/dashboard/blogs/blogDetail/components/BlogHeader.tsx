@@ -65,7 +65,7 @@ export const BlogHeader: React.FC<BlogHeaderProps> = ({
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
             <h1 className="text-3xl font-bold text-white">{blog.title}</h1>
-            {getStatusBadge()}
+            {getStatusBadge(blog.status)}
           </div>
 
           {blog.description && (
@@ -81,7 +81,7 @@ export const BlogHeader: React.FC<BlogHeaderProps> = ({
             variant="primary"
             size="sm"
             className="bg-blue-600 hover:bg-blue-700 text-white"
-            onClick={() => onEdit?.(blog.id)}
+            onClick={() => onEdit?.(blog._id || blog.id || "")}
           >
             <i className="fas fa-edit mr-2"></i>
             Edit
@@ -90,7 +90,7 @@ export const BlogHeader: React.FC<BlogHeaderProps> = ({
             variant="ghost"
             size="sm"
             className="bg-red-600 hover:bg-red-700 text-white"
-            onClick={() => onDelete?.(blog.id)}
+            onClick={() => onDelete?.(blog._id || blog.id || "")}
           >
             <i className="fas fa-trash-alt mr-2"></i>
             Delete
@@ -105,7 +105,11 @@ export const BlogHeader: React.FC<BlogHeaderProps> = ({
             <i className="fas fa-user-circle"></i>
           </div>
           <div className="text-sm text-gray-400 mt-1">Author</div>
-          <div className="text-white font-medium">{blog.author}</div>
+          <div className="text-white font-medium">
+            {typeof blog.author === "object"
+              ? `${blog.author.firstName} ${blog.author.lastName}`
+              : blog.author || "Unknown Author"}
+          </div>
         </div>
 
         <div className="text-center">

@@ -2,6 +2,7 @@ export { BasicInfoSection } from './BasicInfoSection';
 export { CategorySection } from './CategorySection';
 export { CategorySelector } from './CategorySelector';
 export { ContentSection } from './ContentSection';
+export { CustomRichTextEditor } from './CustomRichTextEditor';
 export { ImageUploader } from './ImageUploader';
 export { NewBlogForm } from './NewBlogForm';
 export { PreviewModal } from './PreviewModal';

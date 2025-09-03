@@ -4,7 +4,8 @@ export const MY_GITHUB_PROFILE_URL = "https://github.com/Ndevu12";
 export const MY_CV_DOWNLOAD_URL = "/files/Jean Paul Elisa NIYOKWIZERWA_cv.pdf";
 
 // API Configuration
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const TINYMCE_CDN_URL = process.env.NEXT_PUBLIC_TINYMCE_CDN_URL;
 
 // Project-related constants
 export const PROJECTS_PER_PAGE = 6;

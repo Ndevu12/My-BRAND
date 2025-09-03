@@ -47,6 +47,18 @@ export async function getAllBlogCategories(): Promise<BlogCategory[]> {
   return result.data || [];
 }
 
+// Fetch a single category by ID
+export async function getCategoryById(id: string): Promise<BlogCategory | null> {
+  const result = await safeFetch(`${API_BASE_URL}/blog-category/${id}`);
+  
+  if (!result.success) {
+    console.error(`Error fetching category ${id}:`, result.error);
+    return null;
+  }
+  
+  return result.data || null;
+}
+
 // Fetch paginated blogs for blog page
 export async function getBlogsPaginated(page: number = 1, limit: number = 10): Promise<{
   blogs: any[];
@@ -119,13 +131,7 @@ export async function getBlogBySlug(slug: string) {
 
 // Fetch blogs by category
 export async function getBlogsByCategory(categoryId: string, page: number = 1, limit: number = 10) {
-  console.log("🔗 [blogService] getBlogsByCategory called:");
-  console.log("  - categoryId:", categoryId);
-  console.log("  - page:", page);
-  console.log("  - limit:", limit);
-  
   const url = `${API_BASE_URL}/blogs/by-category/${categoryId}?page=${page}&limit=${limit}`;
-  console.log("  - API URL:", url);
   
   const result = await safeFetch(url);
     

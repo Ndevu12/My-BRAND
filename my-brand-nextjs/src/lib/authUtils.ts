@@ -1,30 +1,15 @@
 import { useState, useCallback } from 'react';
-import { ValidationResult, ValidationRule, LoginCredentials, RegisterData } from '@/types/auth';
+import { ValidationResult, ValidationRule, LoginCredentials } from '@/types/auth';
 
-// Simplified validation rules - keeping only critical validations
+// Validation rules for login only
 export const authValidationRules = {
   username: [
     { required: true, message: 'Username is required' },
     { minLength: 3, message: 'Username must be at least 3 characters' },
   ],
-  email: [
-    { required: true, message: 'Email is required' },
-    { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Please enter a valid email address' },
-  ],
   password: [
     { required: true, message: 'Password is required' },
     { minLength: 4, message: 'Password must be at least 4 characters' },
-  ],
-  firstName: [
-    { required: true, message: 'First name is required' },
-    { minLength: 2, message: 'First name must be at least 2 characters' },
-  ],
-  lastName: [
-    { required: true, message: 'Last name is required' },
-    { minLength: 2, message: 'Last name must be at least 2 characters' },
-  ],
-  confirmPassword: [
-    { required: true, message: 'Please confirm your password' },
   ],
 };
 
@@ -78,55 +63,15 @@ export function validateLoginForm(credentials: LoginCredentials): ValidationResu
   };
 }
 
-export function validateRegisterForm(userData: RegisterData): ValidationResult {
-  const errors: Record<string, string> = {};
-
-  const usernameError = validateField(userData.username, authValidationRules.username);
-  if (usernameError) errors.username = usernameError;
-
-  const emailError = validateField(userData.email, authValidationRules.email);
-  if (emailError) errors.email = emailError;
-
-  const passwordError = validateField(userData.password, authValidationRules.password);
-  if (passwordError) errors.password = passwordError;
-
-  const firstNameError = validateField(userData.firstName, authValidationRules.firstName);
-  if (firstNameError) errors.firstName = firstNameError;
-
-  const lastNameError = validateField(userData.lastName, authValidationRules.lastName);
-  if (lastNameError) errors.lastName = lastNameError;
-
-  // Check password confirmation if provided
-  if (userData.confirmPassword !== undefined) {
-    const confirmPasswordError = validateField(userData.confirmPassword, authValidationRules.confirmPassword);
-    if (confirmPasswordError) {
-      errors.confirmPassword = confirmPasswordError;
-    } else if (userData.password !== userData.confirmPassword) {
-      errors.confirmPassword = 'Passwords do not match';
-    }
-  }
-
-  return {
-    isValid: Object.keys(errors).length === 0,
-    errors,
-  };
-}
-
-// Custom hook for form validation
+// Custom hook for form validation - login only
 export function useFormValidation() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isValidating, setIsValidating] = useState(false);
 
-  const validateForm = useCallback((data: any, validationType: 'login' | 'register'): ValidationResult => {
+  const validateForm = useCallback((data: LoginCredentials): ValidationResult => {
     setIsValidating(true);
     
-    let result: ValidationResult;
-    
-    if (validationType === 'login') {
-      result = validateLoginForm(data as LoginCredentials);
-    } else {
-      result = validateRegisterForm(data as RegisterData);
-    }
+    const result = validateLoginForm(data);
     
     setErrors(result.errors);
     setIsValidating(false);
@@ -275,10 +220,7 @@ export const authStorage = {
 const authUtils = {
   validateField,
   validateLoginForm,
-  validateRegisterForm,
   isPasswordValid,
   isValidString,
   authStorage,
-};
-
-export default authUtils;
+};export default authUtils;

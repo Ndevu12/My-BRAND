@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AdminBlogDetailProps } from "./types";
-import { BlogPost } from "@/types/blog";
+import { AdminBlogPost } from "../allBlogs/types";
 import { adminBlogDetailService } from "./services";
 import { BlogHeader } from "./components/BlogHeader";
 import { BlogContent } from "./components/BlogContent";
@@ -19,7 +19,7 @@ export const AdminBlogDetail: React.FC<AdminBlogDetailProps> = ({
   className = "",
 }) => {
   const router = useRouter();
-  const [blog, setBlog] = useState<BlogPost | null>(null);
+  const [blog, setBlog] = useState<AdminBlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -69,7 +69,9 @@ export const AdminBlogDetail: React.FC<AdminBlogDetailProps> = ({
       }
     } catch (error) {
       console.error("Failed to delete blog:", error);
-      // TODO: Show error notification
+      setError(
+        error instanceof Error ? error.message : "Failed to delete blog"
+      );
     }
   };
 
@@ -79,14 +81,18 @@ export const AdminBlogDetail: React.FC<AdminBlogDetailProps> = ({
       router.push(`/dashboard/blogs/edit/${newBlogId}`);
     } catch (error) {
       console.error("Failed to duplicate blog:", error);
-      // TODO: Show error notification
+      setError(
+        error instanceof Error ? error.message : "Failed to duplicate blog"
+      );
     }
   };
 
   const handleToggleStatus = async (id: string) => {
+    if (!blog) return;
+
     try {
-      // This would toggle between published/draft status
-      const currentStatus = "published"; // In real app, get from blog data
+      // Toggle between published/draft status based on current status
+      const currentStatus = blog.status || "draft";
       const newStatus = currentStatus === "published" ? "draft" : "published";
 
       await adminBlogDetailService.updateBlogStatus(id, newStatus);
@@ -98,7 +104,9 @@ export const AdminBlogDetail: React.FC<AdminBlogDetailProps> = ({
       }
     } catch (error) {
       console.error("Failed to toggle blog status:", error);
-      // TODO: Show error notification
+      setError(
+        error instanceof Error ? error.message : "Failed to update blog status"
+      );
     }
   };
 
@@ -203,7 +211,7 @@ export const AdminBlogDetail: React.FC<AdminBlogDetailProps> = ({
           {/* Right Column - Admin Actions */}
           <div className="w-full xl:w-80 space-y-6">
             <AdminBlogActions
-              blogId={blog.id}
+              blogId={blog._id || blog.id || blogId}
               onEdit={handleEdit}
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}

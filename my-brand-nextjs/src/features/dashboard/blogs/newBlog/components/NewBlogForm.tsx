@@ -15,7 +15,16 @@ import { PublishingSection } from "./PublishingSection";
 import Button from "@/components/atoms/Button/Button";
 
 const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
-  ({ onSubmit, onPreview, isSubmitting = false, initialData }, ref) => {
+  (
+    {
+      onSubmit,
+      onPreview,
+      isSubmitting = false,
+      initialData,
+      isEditMode = false,
+    },
+    ref
+  ) => {
     // Create a stable default date that's consistent between server and client
     const getDefaultPublishDate = () => {
       // Use a fixed date format that's consistent across server/client
@@ -24,21 +33,26 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
       return now.toISOString().slice(0, 16);
     };
 
-    const [formData, setFormData] = useState<BlogFormData>({
+    // Default form data
+    const defaultData: BlogFormData = {
       title: "",
       subtitle: "",
       description: "",
       content: "",
       categoryId: "",
-      tags: ["javascript", "tutorial", "technology"], // Default tags
+      tags: [],
       readingTime: "5",
       author: "Ndevu",
+      imageUrl: "",
       imageCaption: "",
       metaTitle: "",
       metaDescription: "",
-      status: "published",
+      status: "draft",
       publishDate: getDefaultPublishDate(),
-      ...initialData,
+    };
+
+    const [data, setData] = useState<BlogFormData>(() => {
+      return initialData ? { ...defaultData, ...initialData } : defaultData;
     });
 
     const [errors, setErrors] = useState<
@@ -47,8 +61,8 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
 
     // Update form data when initialData changes (for edit mode)
     useEffect(() => {
-      if (initialData) {
-        setFormData((prev) => ({
+      if (initialData && Object.keys(initialData).length > 0) {
+        setData((prev) => ({
           ...prev,
           ...initialData,
         }));
@@ -59,7 +73,7 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
       ref,
       () =>
         ({
-          getFormData: () => formData,
+          getFormData: () => data,
           requestPreview: () => {
             handlePreview();
           },
@@ -69,10 +83,9 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
           submitForm: () => {
             if (validateForm()) {
               const submitData = {
-                ...formData,
-                metaTitle: formData.metaTitle || formData.title,
-                metaDescription:
-                  formData.metaDescription || formData.description,
+                ...data,
+                metaTitle: data.metaTitle || data.title,
+                metaDescription: data.metaDescription || data.description,
               };
               onSubmit(submitData);
             }
@@ -81,7 +94,7 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
     );
 
     const updateFormData = (field: keyof BlogFormData, value: any) => {
-      setFormData((prev) => ({
+      setData((prev) => ({
         ...prev,
         [field]: value,
       }));
@@ -98,27 +111,27 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
     const validateForm = (): boolean => {
       const newErrors: Partial<Record<keyof BlogFormData, string>> = {};
 
-      if (!formData.title.trim()) {
+      if (!data.title.trim()) {
         newErrors.title = "Title is required";
       }
 
-      if (!formData.description.trim()) {
+      if (!data.description.trim()) {
         newErrors.description = "Description is required";
       }
 
-      if (!formData.content.trim()) {
+      if (!data.content.trim()) {
         newErrors.content = "Content is required";
       }
 
-      if (!formData.categoryId) {
+      if (!data.categoryId) {
         newErrors.categoryId = "Category is required";
       }
 
-      if (formData.tags.length === 0) {
+      if (data.tags.length === 0) {
         newErrors.tags = "At least one tag is required";
       }
 
-      if (!formData.featuredImage && !formData.imageUrl) {
+      if (!data.featuredImage && !data.imageUrl) {
         newErrors.featuredImage = "Featured image is required";
       }
 
@@ -129,19 +142,18 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
     const handlePreview = () => {
       // Auto-set meta fields if not provided
       const previewData = {
-        ...formData,
-        metaTitle: formData.metaTitle || formData.title,
-        metaDescription: formData.metaDescription || formData.description,
+        ...data,
+        metaTitle: data.metaTitle || data.title,
+        metaDescription: data.metaDescription || data.description,
       };
       onPreview(previewData);
     };
 
     const handleSaveDraft = () => {
       const draftData = {
-        ...formData,
+        ...data,
         status: "draft" as const,
       };
-      setFormData(draftData);
       onSubmit(draftData);
     };
 
@@ -154,9 +166,9 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
 
       // Auto-set meta fields if not provided
       const submitData = {
-        ...formData,
-        metaTitle: formData.metaTitle || formData.title,
-        metaDescription: formData.metaDescription || formData.description,
+        ...data,
+        metaTitle: data.metaTitle || data.title,
+        metaDescription: data.metaDescription || data.description,
       };
 
       await onSubmit(submitData);
@@ -166,31 +178,32 @@ const NewBlogForm = forwardRef<HTMLFormElement, NewBlogFormProps>(
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Basic Information */}
         <BasicInfoSection
-          data={formData}
+          data={data}
           errors={errors}
           onChange={updateFormData}
         />
 
         {/* Content */}
         <ContentSection
-          data={formData}
+          data={data}
           errors={errors}
           onChange={updateFormData}
+          isEditMode={isEditMode}
         />
 
         {/* Categorization */}
         <CategorySection
-          data={formData}
+          data={data}
           errors={errors}
           onChange={updateFormData}
         />
 
         {/* SEO Settings */}
-        <SEOSection data={formData} errors={errors} onChange={updateFormData} />
+        <SEOSection data={data} errors={errors} onChange={updateFormData} />
 
         {/* Publishing Options */}
         <PublishingSection
-          data={formData}
+          data={data}
           errors={errors}
           onChange={updateFormData}
         />
