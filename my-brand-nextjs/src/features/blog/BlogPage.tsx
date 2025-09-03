@@ -137,15 +137,12 @@ export function BlogPage() {
           // Filter by tag
           data = await getBlogsByTag(activeTag, 1, POSTS_PER_PAGE);
         } else if (activeCategory && activeCategory !== "all") {
- 
           const category = blogCategories.find(
             (cat: BlogCategory) => cat._id === activeCategory
           );
 
           if (category) {
-
             data = await getBlogsByCategory(category._id, 1, POSTS_PER_PAGE);
-
           } else {
             data = await getBlogsPaginated(1, POSTS_PER_PAGE);
           }
@@ -397,7 +394,7 @@ export function BlogPage() {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="sticky top-16 z-10 backdrop-blur-sm">
           {searchQuery.trim() && (
             <div className="bg-yellow-50 dark:bg-yellow-900/20 border-b border-yellow-200 dark:border-yellow-800 py-3">
               <div className="max-w-6xl mx-auto px-4">

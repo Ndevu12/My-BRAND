@@ -135,7 +135,7 @@ export function CategoryTabs({
   }, [activeCategory, isCalculated]);
 
   return (
-    <div className="bg-gray-100/50 dark:bg-secondary/50 py-4 sticky top-16 z-10 backdrop-blur-sm border-y border-gray-200/50 dark:border-gray-800/50">
+    <div className="bg-gray-100/50 dark:bg-secondary/50 py-4 border-y border-gray-200/50 dark:border-gray-800/50">
       <div className="max-w-6xl mx-auto px-4" ref={containerRef}>
         <div className="overflow-x-auto scrollbar-hide">
           <div

@@ -139,15 +139,13 @@ export class BlogAdminService {
     return result.data;
   }
   
-  // Create a new blog (Admin only)
-  async createBlog(blogData: Omit<AdminBlogPost, '_id' | 'createdAt' | 'updatedAt'>): Promise<AdminBlogPost> {
+  // Create a new blog (Admin only) - FormData only
+  async createBlog(formData: FormData): Promise<AdminBlogPost> {
     const result = await safeFetch(`${API_BASE_URL}/blogs/create`, {
       method: 'POST',
       credentials: 'include', // Include cookies for authentication
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(blogData),
+      // No Content-Type header - let browser set multipart/form-data
+      body: formData,
     });
     
     if (!result.success) {
@@ -158,15 +156,13 @@ export class BlogAdminService {
     return result.data;
   }
   
-  // Update an existing blog (Admin only)
-  async updateBlog(blogId: string, updatedData: Partial<AdminBlogPost>): Promise<AdminBlogPost> {
+  // Update an existing blog (Admin only) - FormData only
+  async updateBlog(blogId: string, formData: FormData): Promise<AdminBlogPost> {
     const result = await safeFetch(`${API_BASE_URL}/blogs/update/${blogId}`, {
       method: 'PUT',
       credentials: 'include', // Include cookies for authentication
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
+      // No Content-Type header - let browser set multipart/form-data
+      body: formData,
     });
     
     if (!result.success) {

@@ -5,6 +5,7 @@ import Typography from "@/components/atoms/Typography";
 import Button from "@/components/atoms/Button";
 import { NewBlogForm, PreviewModal } from "./components";
 import { BlogFormData } from "./types";
+import { buildBlogFormData } from "./utils/dataTransform";
 import { blogAdminService } from "../allBlogs/services";
 import { useRouter } from "next/navigation";
 import { getAuthorName } from "utils/blogUtils";
@@ -98,39 +99,15 @@ export default function NewBlog({ blogId }: NewBlogProps) {
   const handleSubmit = async (data: BlogFormData) => {
     setIsSubmitting(true);
     try {
-      if (isEditMode && blogId) {
-        // Update existing blog
-        await blogAdminService.updateBlog(blogId, {
-          title: data.title,
-          description: data.description,
-          content: data.content,
-          category: data.categoryId, // Send categoryId directly
-          tags: data.tags,
-          readTime: data.readingTime
-            ? `${data.readingTime} min read`
-            : "5 min read",
-          // Handle additional properties through type assertion
-        } as any);
+      const formData = buildBlogFormData(data);
 
+      if (isEditMode && blogId) {
+        // Update existing blog - FormData only
+        await blogAdminService.updateBlog(blogId, formData);
         router.push("/dashboard/blogs");
       } else {
-        // Create new blog
-        await blogAdminService.createBlog({
-          title: data.title,
-          description: data.description,
-          content: data.content,
-          category: data.categoryId, // Send categoryId directly
-          tags: data.tags,
-          readTime: data.readingTime
-            ? `${data.readingTime} min read`
-            : "5 min read",
-          imageUrl: data.imageUrl,
-          slug: data.title
-            .toLowerCase()
-            .replace(/\s+/g, "-")
-            .replace(/[^\w-]/g, ""),
-        } as any);
-
+        // Create new blog - FormData only
+        await blogAdminService.createBlog(formData);
         router.push("/dashboard/blogs");
       }
     } catch (error) {
