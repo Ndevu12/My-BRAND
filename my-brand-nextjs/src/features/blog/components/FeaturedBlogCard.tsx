@@ -46,6 +46,7 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
             src={post.imageUrl || "/images/placeholder-blog.jpg"}
             alt={post.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
@@ -83,6 +84,7 @@ export function FeaturedBlogCard({ post }: FeaturedBlogCardProps) {
                   src={getAuthorImage(post)}
                   alt={authorName}
                   fill
+                  sizes="40px"
                   className="object-cover"
                 />
               </div>

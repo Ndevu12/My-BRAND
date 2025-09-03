@@ -131,13 +131,7 @@ export async function getBlogBySlug(slug: string) {
 
 // Fetch blogs by category
 export async function getBlogsByCategory(categoryId: string, page: number = 1, limit: number = 10) {
-  console.log("🔗 [blogService] getBlogsByCategory called:");
-  console.log("  - categoryId:", categoryId);
-  console.log("  - page:", page);
-  console.log("  - limit:", limit);
-  
   const url = `${API_BASE_URL}/blogs/by-category/${categoryId}?page=${page}&limit=${limit}`;
-  console.log("  - API URL:", url);
   
   const result = await safeFetch(url);
     

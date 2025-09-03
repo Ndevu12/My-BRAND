@@ -212,11 +212,168 @@ export const CustomRichTextEditor: React.FC<RichTextEditorProps> = ({
     }
   };
 
-  // Handle paste events to clean HTML
+  // Handle paste events with HTML recognition and auto-styling
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
-    const text = e.clipboardData.getData("text/plain");
-    executeCommand("insertText", text);
+
+    const clipboardData = e.clipboardData;
+    const htmlContent = clipboardData.getData("text/html");
+    const plainText = clipboardData.getData("text/plain");
+
+    if (htmlContent && htmlContent.trim()) {
+      // Process HTML content with smart cleaning and auto-styling
+      const processedHtml = processAndCleanHtml(htmlContent);
+      insertHtmlAtCursor(processedHtml);
+    } else if (plainText) {
+      // Fallback to plain text
+      executeCommand("insertText", plainText);
+    }
+  };
+
+  // Process and clean HTML content while preserving semantic elements
+  const processAndCleanHtml = (htmlContent: string): string => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlContent;
+
+    // Walk through nodes and clean/style them
+    walkAndCleanNodes(tempDiv);
+
+    return tempDiv.innerHTML;
+  };
+
+  // Walk through DOM nodes and apply semantic cleaning and auto-styling
+  const walkAndCleanNodes = (element: Element): void => {
+    const allowedElements: Record<string, string> = {
+      // Headings
+      h1: "text-2xl font-bold mb-4 mt-6 text-white",
+      h2: "text-xl font-bold mb-3 mt-5 text-white",
+      h3: "text-lg font-bold mb-3 mt-4 text-white",
+      h4: "text-base font-bold mb-2 mt-3 text-white",
+      h5: "text-sm font-bold mb-2 mt-3 text-white",
+      h6: "text-xs font-bold mb-2 mt-3 text-white",
+
+      // Text formatting
+      strong: "font-bold",
+      b: "font-bold",
+      em: "italic",
+      i: "italic",
+      u: "underline",
+      s: "line-through",
+      del: "line-through",
+
+      // Structure
+      p: "mb-4 leading-relaxed text-white",
+      div: "text-white",
+      span: "",
+
+      // Lists
+      ul: "list-disc pl-6 mb-4 text-white",
+      ol: "list-decimal pl-6 mb-4 text-white",
+      li: "mb-1 text-white",
+
+      // Links
+      a: "text-blue-400 underline hover:text-blue-300",
+
+      // Code
+      code: "bg-gray-700 text-green-400 px-2 py-1 rounded text-sm font-mono",
+      pre: "bg-gray-800 text-green-400 p-4 rounded-md overflow-x-auto font-mono text-sm mb-4",
+
+      // Quotes
+      blockquote: "border-l-4 border-yellow-500 pl-4 italic my-4 text-gray-300",
+
+      // Tables
+      table: "border-collapse border border-gray-600 mb-4 w-full",
+      thead: "",
+      tbody: "",
+      tr: "border-b border-gray-600",
+      th: "border border-gray-600 px-4 py-2 font-bold bg-gray-700 text-white",
+      td: "border border-gray-600 px-4 py-2 text-white",
+    };
+
+    const children = Array.from(element.children);
+
+    children.forEach((child) => {
+      const tagName = child.tagName.toLowerCase();
+
+      if (allowedElements[tagName] !== undefined) {
+        // Clean unwanted attributes
+        const allowedAttrs = ["href", "src", "alt", "title"];
+        const attrs = Array.from(child.attributes);
+
+        attrs.forEach((attr) => {
+          if (!allowedAttrs.includes(attr.name)) {
+            child.removeAttribute(attr.name);
+          }
+        });
+
+        // Apply semantic styling
+        const styling = allowedElements[tagName];
+        if (styling) {
+          child.className = styling;
+        }
+
+        // Convert deprecated elements
+        if (tagName === "b") {
+          const strong = document.createElement("strong");
+          strong.innerHTML = child.innerHTML;
+          strong.className = allowedElements["b"];
+          child.parentNode?.replaceChild(strong, child);
+        } else if (tagName === "i") {
+          const em = document.createElement("em");
+          em.innerHTML = child.innerHTML;
+          em.className = allowedElements["i"];
+          child.parentNode?.replaceChild(em, child);
+        }
+
+        // Recursively process children
+        walkAndCleanNodes(child);
+      } else {
+        // Remove unwanted elements but preserve their text content
+        const textContent = child.textContent || "";
+        if (textContent.trim()) {
+          const span = document.createElement("span");
+          span.textContent = textContent;
+          span.className = "text-white";
+          child.parentNode?.replaceChild(span, child);
+        } else {
+          child.remove();
+        }
+      }
+    });
+  };
+
+  // Insert HTML content at cursor position
+  const insertHtmlAtCursor = (html: string): void => {
+    const selection = window.getSelection();
+
+    if (!selection || selection.rangeCount === 0) {
+      // No selection, append to editor
+      if (editorRef.current) {
+        editorRef.current.innerHTML += html;
+      }
+    } else {
+      // Insert at cursor position
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = html;
+
+      const fragment = document.createDocumentFragment();
+      while (tempDiv.firstChild) {
+        fragment.appendChild(tempDiv.firstChild);
+      }
+
+      range.insertNode(fragment);
+
+      // Move cursor to end of inserted content
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+
+    handleContentChange();
+    updateEditorState();
   };
 
   // Handle key events
@@ -526,7 +683,26 @@ export const CustomRichTextEditor: React.FC<RichTextEditorProps> = ({
         onMouseUp={updateEditorState}
         onKeyUp={updateEditorState}
         onPaste={handlePaste}
-        className="min-h-[400px] p-4 text-white focus:outline-none leading-relaxed text-sm"
+        className="editor-content min-h-[400px] p-4 text-white focus:outline-none leading-relaxed text-sm prose prose-invert max-w-none 
+                  [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:mt-6 [&_h1]:text-white
+                  [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-3 [&_h2]:mt-5 [&_h2]:text-white  
+                  [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-3 [&_h3]:mt-4 [&_h3]:text-white
+                  [&_h4]:text-base [&_h4]:font-bold [&_h4]:mb-2 [&_h4]:mt-3 [&_h4]:text-white
+                  [&_h5]:text-sm [&_h5]:font-bold [&_h5]:mb-2 [&_h5]:mt-3 [&_h5]:text-white
+                  [&_h6]:text-xs [&_h6]:font-bold [&_h6]:mb-2 [&_h6]:mt-3 [&_h6]:text-white
+                  [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-white
+                  [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-white
+                  [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-white
+                  [&_li]:mb-1 [&_li]:text-white
+                  [&_strong]:font-bold [&_em]:italic [&_u]:underline [&_s]:line-through [&_del]:line-through
+                  [&_a]:text-blue-400 [&_a]:underline hover:[&_a]:text-blue-300
+                  [&_code]:bg-gray-700 [&_code]:text-green-400 [&_code]:px-2 [&_code]:py-1 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
+                  [&_pre]:bg-gray-800 [&_pre]:text-green-400 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-x-auto [&_pre]:font-mono [&_pre]:text-sm [&_pre]:mb-4
+                  [&_blockquote]:border-l-4 [&_blockquote]:border-yellow-500 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-4 [&_blockquote]:text-gray-300
+                  [&_table]:border-collapse [&_table]:border [&_table]:border-gray-600 [&_table]:mb-4 [&_table]:w-full
+                  [&_tr]:border-b [&_tr]:border-gray-600
+                  [&_th]:border [&_th]:border-gray-600 [&_th]:px-4 [&_th]:py-2 [&_th]:font-bold [&_th]:bg-gray-700 [&_th]:text-white
+                  [&_td]:border [&_td]:border-gray-600 [&_td]:px-4 [&_td]:py-2 [&_td]:text-white"
         data-placeholder={placeholder}
         suppressContentEditableWarning={true}
       />

@@ -31,6 +31,7 @@ export function BlogSidebar({
                 src="/images/mypic.png"
                 alt="Ndevu"
                 fill
+                sizes="80px"
                 className="object-cover"
               />
             </div>
@@ -89,6 +90,7 @@ export function BlogSidebar({
                   src={post.imageUrl || "/images/placeholder-blog.jpg"}
                   alt={post.title}
                   fill
+                  sizes="64px"
                   className="object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
