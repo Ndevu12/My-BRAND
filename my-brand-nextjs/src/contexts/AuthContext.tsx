@@ -14,10 +14,7 @@ import {
   AuthAction,
   LoginCredentials,
 } from "../types/auth";
-import {
-  validateCredentials,
-  AUTH_STORAGE_KEYS,
-} from "../lib/mockData/authMockData";
+import { authService } from "../services/authService";
 
 const initialState: AuthState = {
   user: null,
@@ -73,79 +70,6 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
   }
 }
 
-// Mock Authentication Service
-class MockAuthService {
-  async login(
-    credentials: LoginCredentials
-  ): Promise<{ success: boolean; user?: User; error?: string }> {
-    // Simulate API delay for realistic experience
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    const user = validateCredentials(
-      credentials.username,
-      credentials.password
-    );
-
-    if (user) {
-      // Store in localStorage to persist session
-      localStorage.setItem(
-        AUTH_STORAGE_KEYS.TOKEN,
-        "mock-jwt-token-" + Date.now()
-      );
-      localStorage.setItem(AUTH_STORAGE_KEYS.USER, JSON.stringify(user));
-
-      if (credentials.rememberMe) {
-        localStorage.setItem(AUTH_STORAGE_KEYS.REMEMBER_ME, "true");
-      }
-
-      return {
-        success: true,
-        user,
-      };
-    }
-
-    return {
-      success: false,
-      error:
-        "Invalid username or password. Try admin/admin123 or author/author123",
-    };
-  }
-
-  async logout(): Promise<void> {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Clear stored auth data
-    localStorage.removeItem(AUTH_STORAGE_KEYS.TOKEN);
-    localStorage.removeItem(AUTH_STORAGE_KEYS.USER);
-    localStorage.removeItem(AUTH_STORAGE_KEYS.REMEMBER_ME);
-  }
-
-  async checkAuthStatus(): Promise<User | null> {
-    // Simulate checking stored token with slight delay
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
-    const token = localStorage.getItem(AUTH_STORAGE_KEYS.TOKEN);
-    const userStr = localStorage.getItem(AUTH_STORAGE_KEYS.USER);
-
-    if (token && userStr) {
-      try {
-        const user = JSON.parse(userStr) as User;
-        // Validate that the stored user is still active
-        return user.isActive ? user : null;
-      } catch {
-        // Clear invalid data
-        localStorage.removeItem(AUTH_STORAGE_KEYS.TOKEN);
-        localStorage.removeItem(AUTH_STORAGE_KEYS.USER);
-      }
-    }
-
-    return null;
-  }
-}
-
-const authService = new MockAuthService();
-
 const AuthContext = createContext<AuthContextType | null>(null);
 
 interface AuthProviderProps {
@@ -161,19 +85,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const result = await authService.login(credentials);
 
-      if (result.success && result.user) {
+      // Immediately set the user in the state
+      if (result.user) {
         dispatch({ type: "AUTH_SUCCESS", payload: { user: result.user } });
       } else {
-        dispatch({
-          type: "AUTH_ERROR",
-          payload: { error: result.error || "Login failed" },
-        });
+        // If no user data returned, fetch it
+        const user = await authService.getCurrentUser();
+        if (user) {
+          dispatch({ type: "AUTH_SUCCESS", payload: { user } });
+        } else {
+          throw new Error("Failed to get user data after login");
+        }
       }
     } catch (error) {
       dispatch({
         type: "AUTH_ERROR",
-        payload: { error: "Network error. Please try again." },
+        payload: {
+          error: error instanceof Error ? error.message : "Login failed",
+        },
       });
+      throw error; // Re-throw so login page can handle it
     }
   };
 
@@ -196,8 +127,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Check authentication status on mount
   useEffect(() => {
     const checkAuth = async () => {
+      dispatch({ type: "AUTH_START" });
+
       try {
-        const user = await authService.checkAuthStatus();
+        const user = await authService.getCurrentUser();
 
         if (user) {
           dispatch({ type: "AUTH_SUCCESS", payload: { user } });
@@ -205,6 +138,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           dispatch({ type: "AUTH_LOGOUT" });
         }
       } catch (error) {
+        console.log("Auth check failed:", error);
         dispatch({ type: "AUTH_LOGOUT" });
       }
     };

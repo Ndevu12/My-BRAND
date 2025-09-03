@@ -1,18 +1,22 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useFormValidation } from "../../../lib/authUtils";
+import { useGuestGuard } from "../../../hooks/useAuthGuard";
 import { LoginCredentials } from "../../../types/auth";
 import Button from "@/components/atoms/Button/Button";
 import Typography from "@/components/atoms/Typography/Typography";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, isLoading, error, isAuthenticated } = useAuth();
+  const { login, isLoading, error } = useAuth();
   const { errors, validateForm, clearFieldError } = useFormValidation();
+
+  // Use guest guard to redirect authenticated users
+  const { isLoading: guestLoading } = useGuestGuard();
 
   const [formData, setFormData] = useState<LoginCredentials>({
     username: "",
@@ -22,13 +26,6 @@ export default function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/dashboard");
-    }
-  }, [isAuthenticated, router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -46,7 +43,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const validation = validateForm(formData, "login");
+    const validation = validateForm(formData);
     if (!validation.isValid) {
       return;
     }
@@ -55,7 +52,8 @@ export default function LoginPage() {
 
     try {
       await login(formData);
-      // Success will trigger redirect through useEffect above
+      // Manually redirect after successful login
+      router.push('/dashboard');
     } catch (error) {
       console.error("Login error:", error);
     } finally {
@@ -63,7 +61,7 @@ export default function LoginPage() {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || guestLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary via-black to-primary">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
@@ -81,7 +79,7 @@ export default function LoginPage() {
               variant="h1"
               className="text-accent font-bold text-3xl mb-2"
             >
-              My BRAND
+              NdevuSpace
             </Typography>
           </Link>
           <Typography variant="p" className="text-gray-300">

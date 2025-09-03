@@ -33,7 +33,6 @@ export interface PreviewModalProps {
 export interface CategorySelectorProps {
   selectedCategoryId?: string;
   onCategoryChange: (categoryId: string) => void;
-  categories?: BlogCategory[];
 }
 
 export interface TagManagerProps {

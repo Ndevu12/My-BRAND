@@ -74,11 +74,11 @@ export function useGuestGuard(redirectTo = '/dashboard'): UseGuestGuardReturn {
  * Permission checking utilities for different user roles
  */
 export const permissions = {
-  canCreateBlog: (user: any) => user && user.isActive,
-  canEditBlog: (user: any) => user && user.isActive,
-  canDeleteBlog: (user: any) => user && user.isActive,
-  canManageUsers: (user: any) => user && user.isActive,
-  canViewDashboard: (user: any) => user && user.isActive,
+  canCreateBlog: (user: any) => user && user._id,
+  canEditBlog: (user: any) => user && user._id,
+  canDeleteBlog: (user: any) => user && user._id,
+  canManageUsers: (user: any) => user && user._id,
+  canViewDashboard: (user: any) => user && user._id,
 } as const;
 
 /**

@@ -52,11 +52,7 @@ export const BlogTable: React.FC<BlogTableProps> = ({
     }
 
     return (
-      <span
-        className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-          blog.category?.bgClass || "bg-gray-600/20"
-        } ${blog.category?.textClass || "text-gray-400"}`}
-      >
+      <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-600/20 text-blue-400">
         <i className={`fas fa-${blog.category?.icon || "bookmark"} mr-1`}></i>
         {blog.category?.name || "Uncategorized"}
       </span>
@@ -66,7 +62,7 @@ export const BlogTable: React.FC<BlogTableProps> = ({
   const handleDelete = (blog: BlogPost) => {
     const confirmMessage = `Are you sure you want to delete "${blog.title}"? This action cannot be undone.`;
     if (window.confirm(confirmMessage)) {
-      onDelete(blog.id);
+      onDelete(blog._id);
     }
   };
 
@@ -163,14 +159,13 @@ export const BlogTable: React.FC<BlogTableProps> = ({
               blogs.map((blog) => {
                 const blogWithStatus = blog as BlogPost & {
                   status?: string;
-                  viewsCount?: number;
                 };
                 const fallbackImage =
                   "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjMzc0MTUxIi8+Cjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOUNBM0FGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CbG9nPC90ZXh0Pgo8L3N2Zz4K";
 
                 return (
                   <tr
-                    key={blog.id}
+                    key={blog._id}
                     className="hover:bg-gray-800/30 transition-colors"
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -186,7 +181,7 @@ export const BlogTable: React.FC<BlogTableProps> = ({
                         />
                         <div>
                           <button
-                            onClick={() => onView(blog.id)}
+                            onClick={() => onView(blog._id)}
                             className="text-sm font-medium text-white hover:text-yellow-400 transition-colors text-left"
                             title={`View blog: ${blog.title}`}
                           >
@@ -205,11 +200,6 @@ export const BlogTable: React.FC<BlogTableProps> = ({
                       <div className="text-sm text-gray-300">
                         {formatDate(blog.createdAt)}
                       </div>
-                      {blogWithStatus.viewsCount && (
-                        <div className="text-xs text-gray-400">
-                          {blogWithStatus.viewsCount.toLocaleString()} views
-                        </div>
-                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(blogWithStatus.status || "published")}
@@ -217,25 +207,33 @@ export const BlogTable: React.FC<BlogTableProps> = ({
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end gap-2">
                         <button
-                          onClick={() => onEdit(blog.id)}
-                          className="text-blue-400 hover:text-blue-300 p-2 rounded-md hover:bg-blue-400/10 transition-colors"
-                          title="Edit Blog"
+                          onClick={() => onEdit(blog._id)}
+                          className="text-indigo-400 hover:text-indigo-300 font-medium"
+                          title="Edit blog"
                         >
-                          <i className="fas fa-edit"></i>
+                          Edit
                         </button>
                         <button
-                          onClick={() => onView(blog.id)}
-                          className="text-yellow-400 hover:text-yellow-300 p-2 rounded-md hover:bg-yellow-400/10 transition-colors"
-                          title="View Blog"
+                          onClick={() => onView(blog._id)}
+                          className="text-blue-400 hover:text-blue-300 font-medium"
+                          title="View blog"
                         >
-                          <i className="fas fa-eye"></i>
+                          View
                         </button>
                         <button
-                          onClick={() => handleDelete(blog)}
-                          className="text-red-400 hover:text-red-300 p-2 rounded-md hover:bg-red-400/10 transition-colors"
-                          title="Delete Blog"
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                "Are you sure you want to delete this blog?"
+                              )
+                            ) {
+                              onDelete(blog._id);
+                            }
+                          }}
+                          className="text-red-400 hover:text-red-300 font-medium"
+                          title="Delete blog"
                         >
-                          <i className="fas fa-trash-alt"></i>
+                          Delete
                         </button>
                       </div>
                     </td>

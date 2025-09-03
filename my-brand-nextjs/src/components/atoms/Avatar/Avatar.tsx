@@ -49,11 +49,13 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     // Generate initials from alt text as fallback
     const getInitials = (name: string) => {
       return name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2);
+        ? name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase()
+            .slice(0, 2)
+        : "";
     };
 
     const baseClasses = cn(

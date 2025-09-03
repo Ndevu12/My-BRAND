@@ -2,19 +2,18 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { AllBlogsProps, BlogAdminFilters } from "./types";
+import { AllBlogsProps, BlogAdminFilters, AdminBlogPost } from "./types";
 import { BlogActions } from "./components/BlogActions";
 import { BlogFilters } from "./components/BlogFilters";
 import { BlogTable } from "./components/BlogTable";
 import { BlogPagination } from "./components/BlogPagination";
 import { blogAdminService } from "./services";
 import { blogCategories } from "@/lib/blogData";
-import { BlogPost } from "@/types/blog";
 import Typography from "@/components/atoms/Typography/Typography";
 
 export const AllBlogs: React.FC<AllBlogsProps> = ({ className }) => {
   const router = useRouter();
-  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [blogs, setBlogs] = useState<AdminBlogPost[]>([]);
   const [pagination, setPagination] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -89,6 +88,7 @@ export const AllBlogs: React.FC<AllBlogsProps> = ({ className }) => {
     filters.sortBy,
     filters.sortOrder,
     debouncedSearch, // Use debounced search
+    loadBlogs, // Add loadBlogs dependency
   ]);
 
   // Handle filter changes
@@ -186,7 +186,7 @@ export const AllBlogs: React.FC<AllBlogsProps> = ({ className }) => {
       {/* Filters Panel */}
       <BlogFilters
         filters={filters}
-        categories={blogCategories.filter((cat) => cat.id !== "all")} // Exclude 'all' category from filters
+        categories={blogCategories.filter((cat) => cat._id !== "all")} // Exclude 'all' category from filters
         onFiltersChange={handleFiltersChange}
         onApplyFilters={handleApplyFilters}
         onClearFilters={handleClearFilters}

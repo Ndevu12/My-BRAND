@@ -31,7 +31,7 @@ export const BlogFilters: React.FC<BlogFiltersProps> = ({
           >
             <option value="">All Categories</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
@@ -79,9 +79,8 @@ export const BlogFilters: React.FC<BlogFiltersProps> = ({
             <option value="createdAt_asc">Oldest First</option>
             <option value="title_asc">Title (A-Z)</option>
             <option value="title_desc">Title (Z-A)</option>
-            <option value="viewsCount_desc">Most Viewed</option>
-            <option value="likesCount_desc">Most Liked</option>
             <option value="updatedAt_desc">Recently Updated</option>
+            <option value="updatedAt_asc">Least Recently Updated</option>
           </select>
         </div>
 

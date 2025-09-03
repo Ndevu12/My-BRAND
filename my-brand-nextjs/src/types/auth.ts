@@ -1,12 +1,12 @@
 export interface User {
-  id: string;
+  _id: string;
   username: string;
   email: string;
   firstName: string;
   lastName: string;
+  role: string;
   avatar?: string;
   bio?: string;
-  isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -15,16 +15,6 @@ export interface LoginCredentials {
   username: string;
   password: string;
   rememberMe?: boolean;
-}
-
-export interface RegisterData {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword?: string;
-  firstName: string;
-  lastName: string;
-  acceptTerms?: boolean;
 }
 
 export interface AuthResult {

@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { RichTextEditorProps } from "../types";
+import { TINYMCE_CDN_URL } from "@/lib/constants";
+import { Loading } from "@/components/atoms/Loading";
 
 declare global {
   interface Window {
@@ -17,8 +19,15 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const editorInstanceRef = useRef<any>(null);
+  const onContentChangeRef = useRef(onContentChange);
+  const isUpdatingContentRef = useRef(false);
   const [editorId, setEditorId] = useState<string>("");
   const [isClient, setIsClient] = useState(false);
+
+  // Update the ref when onContentChange changes
+  useEffect(() => {
+    onContentChangeRef.current = onContentChange;
+  }, [onContentChange]);
 
   // Generate stable editor ID on client side only
   useEffect(() => {
@@ -30,16 +39,25 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     if (!isClient || !editorId) return;
 
     const loadTinyMCE = async () => {
+      // Check if TinyMCE CDN URL is available
+      if (!TINYMCE_CDN_URL) {
+        console.error(
+          "TINYMCE_CDN_URL is not defined. Please set NEXT_PUBLIC_TINYMCE_CDN_URL in your environment variables."
+        );
+        return;
+      }
+
       // Load TinyMCE script if not already loaded
       if (!window.tinymce) {
         const script = document.createElement("script");
-        script.src =
-          "https://cdn.tiny.cloud/1/4iabi3d7p3d926q6v4vtnxz133n8z0jctasjh2ow5eoomrw0/tinymce/6/tinymce.min.js";
+        script.src = TINYMCE_CDN_URL;
         script.setAttribute("referrerpolicy", "origin");
         document.head.appendChild(script);
 
-        await new Promise((resolve) => {
+        await new Promise((resolve, reject) => {
           script.onload = resolve;
+          script.onerror = () =>
+            reject(new Error("Failed to load TinyMCE script"));
         });
       }
 
@@ -82,21 +100,23 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           setup: (editor: any) => {
             editorInstanceRef.current = editor;
 
-            // Set initial content once editor is ready
+            // Set up event handlers
             editor.on("init", () => {
-              if (content) {
-                editor.setContent(content);
-              }
+              // Editor is ready - content will be set by separate useEffect
             });
 
             editor.on("change", () => {
-              const content = editor.getContent();
-              onContentChange(content);
+              if (!isUpdatingContentRef.current) {
+                const content = editor.getContent();
+                onContentChangeRef.current(content);
+              }
             });
 
             editor.on("keyup", () => {
-              const content = editor.getContent();
-              onContentChange(content);
+              if (!isUpdatingContentRef.current) {
+                const content = editor.getContent();
+                onContentChangeRef.current(content);
+              }
             });
           },
           images_upload_handler: (blobInfo: any) => {
@@ -115,7 +135,9 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       }
     };
 
-    loadTinyMCE();
+    loadTinyMCE().catch((error) => {
+      console.error("Failed to initialize TinyMCE:", error);
+    });
 
     // Cleanup
     return () => {
@@ -124,26 +146,47 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         editorInstanceRef.current = null;
       }
     };
-  }, [isClient, editorId, placeholder, onContentChange]);
+  }, [isClient, editorId, placeholder]);
 
-  // Update content when prop changes
+  // Update content when prop changes (separate from initialization)
   useEffect(() => {
-    if (editorInstanceRef.current && content !== undefined) {
-      const currentContent = editorInstanceRef.current.getContent();
-      if (currentContent !== content) {
-        editorInstanceRef.current.setContent(content || "");
+    const updateEditorContent = () => {
+      if (editorInstanceRef.current && content !== undefined) {
+        const currentContent = editorInstanceRef.current.getContent();
+
+        // Only update if content is different
+        if (currentContent !== content) {
+          isUpdatingContentRef.current = true;
+
+          try {
+            editorInstanceRef.current.setContent(content || "");
+          } catch (error) {
+            console.error("Error setting editor content:", error);
+          } finally {
+            // Re-enable content change detection after a brief delay
+            setTimeout(() => {
+              isUpdatingContentRef.current = false;
+            }, 100);
+          }
+        }
       }
+    };
+
+    // If editor is already initialized, update content immediately
+    if (editorInstanceRef.current) {
+      updateEditorContent();
+    } else {
+      // If editor is not ready, wait for it with a small delay
+      const timeout = setTimeout(() => {
+        updateEditorContent();
+      }, 500);
+
+      return () => clearTimeout(timeout);
     }
   }, [content]);
 
   if (!isClient || !editorId) {
-    return (
-      <div
-        className={`min-h-[400px] bg-primary/50 border border-gray-700 rounded-lg flex items-center justify-center ${className}`}
-      >
-        <div className="text-gray-400">Loading editor...</div>
-      </div>
-    );
+    return <Loading text="Loading editor..." size="lg" />;
   }
 
   return (
