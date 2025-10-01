@@ -13,7 +13,7 @@ export default function NotFound() {
           Blog Post Not Found
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-          Sorry, the blog post you're looking for doesn't exist or may have been
+          Sorry, the blog post you&apos;re looking for doesn&apos;t exist or may have been
           moved.
         </p>
 
