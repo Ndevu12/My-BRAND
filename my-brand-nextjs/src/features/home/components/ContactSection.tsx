@@ -311,7 +311,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                   variant="p"
                   className="text-gray-600 dark:text-gray-400"
                 >
-                  I'll get back to you as soon as possible
+                  I&apos;ll get back to you as soon as possible
                 </Typography>
               </div>
 
