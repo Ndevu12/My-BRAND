@@ -18,7 +18,7 @@ export function SkillsIntro() {
           variant="p"
           className="text-gray-600 dark:text-gray-300 text-lg md:text-xl leading-relaxed mb-6"
         >
-          Welcome to my skills showcase! Here you'll find a comprehensive
+          Welcome to my skills showcase! Here you&apos;ll find a comprehensive
           overview of my technical capabilities, project management approach,
           and entrepreneurial mindset.
         </Typography>
@@ -26,7 +26,7 @@ export function SkillsIntro() {
           variant="p"
           className="text-gray-500 dark:text-gray-400 text-base md:text-lg"
         >
-          Each section highlights the tools and technologies I've mastered to
+          Each section highlights the tools and technologies I&apos;ve mastered to
           deliver exceptional digital solutions that drive innovation and create
           meaningful impact.
         </Typography>
