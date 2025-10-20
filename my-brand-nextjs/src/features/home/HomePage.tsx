@@ -18,7 +18,7 @@ export function HomePage() {
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
 
-  // Fetch recent blogs on component mount
+  // Fetch recent blogs on component mount with timeout handling
   useEffect(() => {
     const fetchRecentBlogs = async () => {
       setBlogLoading(true);
@@ -27,13 +27,17 @@ export function HomePage() {
         setBlogPosts(blogs); // blogs will be empty array if error occurred
       } catch (error) {
         // This shouldn't happen since service handles errors gracefully
+        console.warn('Failed to fetch recent blogs:', error);
         setBlogPosts([]); // Fallback to empty array
       } finally {
         setBlogLoading(false);
       }
     };
 
-    fetchRecentBlogs();
+    // Use setTimeout to prevent blocking initial render
+    const timeoutId = setTimeout(fetchRecentBlogs, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, []);
 
   // Sample data - in a real app, this would come from an API or CMS
