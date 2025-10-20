@@ -238,7 +238,7 @@ const Hero: React.FC<HeroProps> = ({
                       </Typography>
                       {/* Decorative Quote Mark */}
                       <div className="absolute -top-4 -right-4 text-6xl text-yellow-400/30 dark:text-yellow-400/20 font-serif transition-colors duration-300">
-                        "
+                        &quot;
                       </div>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ const Hero: React.FC<HeroProps> = ({
                             variant="p"
                             className="italic text-gray-700 dark:text-gray-300 font-medium text-lg leading-relaxed pl-4 transition-colors duration-300"
                           >
-                            "{quote}"
+                            &quot;{quote}&quot;
                           </Typography>
                         </div>
                       </div>

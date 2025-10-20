@@ -84,7 +84,7 @@ export function TechnicalSkillsSection() {
           variant="p"
           className="text-center text-gray-600 dark:text-gray-300"
         >
-          I'm a Full-Stack Developer with expertise across the entire
+          I&apos;m a Full-Stack Developer with expertise across the entire
           development spectrum, from low-level systems programming to modern web
           deployment
         </Typography>

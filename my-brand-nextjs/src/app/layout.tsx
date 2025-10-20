@@ -85,6 +85,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
       </head>
       <body
         className="bg-white dark:bg-primary text-gray-900 dark:text-white font-roboto min-h-screen antialiased transition-colors duration-300"

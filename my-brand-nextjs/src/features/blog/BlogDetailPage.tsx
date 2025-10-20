@@ -269,44 +269,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
               />
             </article>
 
-            {/* Related Posts */}
-            {relatedPosts.length > 0 && (
-              <section className="mt-12">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  Related Articles
-                </h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                  {relatedPosts.map((relatedPost) => (
-                    <Link
-                      key={relatedPost._id || relatedPost.id}
-                      href={`/blog/${relatedPost.slug}`}
-                      className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                    >
-                      <div className="relative w-full h-40">
-                        <Image
-                          src={
-                            relatedPost.imageUrl ||
-                            "/images/placeholder-blog.jpg"
-                          }
-                          alt={relatedPost.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2 overflow-hidden max-h-[3rem]">
-                          {relatedPost.title}
-                        </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {relatedPost.readTime}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
-
             {/* Comments Section */}
             <section className="mt-12 space-y-8">
               {/* Display Comments */}
@@ -372,6 +334,45 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 onCommentAdded={handleCommentAdded}
               />
             </section>
+
+                        {/* Related Posts */}
+            {relatedPosts.length > 0 && (
+              <section className="mt-12">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  Related Articles
+                </h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {relatedPosts.map((relatedPost) => (
+                    <Link
+                      key={relatedPost._id || relatedPost.id}
+                      href={`/blog/${relatedPost.slug}`}
+                      className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    >
+                      <div className="relative w-full h-40">
+                        <Image
+                          src={
+                            relatedPost.imageUrl ||
+                            "/images/placeholder-blog.jpg"
+                          }
+                          alt={relatedPost.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2 overflow-hidden max-h-[3rem]">
+                          {relatedPost.title}
+                        </h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {relatedPost.readTime}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
           </div>
 
           {/* Sidebar */}
