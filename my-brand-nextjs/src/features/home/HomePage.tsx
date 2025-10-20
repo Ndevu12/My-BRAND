@@ -14,33 +14,28 @@ import { getRecentBlogsForHome } from "@/services/blogService";
 import { projectsData } from "@/lib/projectData";
 
 export function HomePage() {
-  // Blog state management
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [blogLoading, setBlogLoading] = useState(true);
 
-  // Fetch recent blogs on component mount with timeout handling
   useEffect(() => {
     const fetchRecentBlogs = async () => {
       setBlogLoading(true);
       try {
         const blogs = await getRecentBlogsForHome();
-        setBlogPosts(blogs); // blogs will be empty array if error occurred
+        setBlogPosts(blogs);
       } catch (error) {
-        // This shouldn't happen since service handles errors gracefully
         console.warn('Failed to fetch recent blogs:', error);
-        setBlogPosts([]); // Fallback to empty array
+        setBlogPosts([]); 
       } finally {
         setBlogLoading(false);
       }
     };
 
-    // Use setTimeout to prevent blocking initial render
     const timeoutId = setTimeout(fetchRecentBlogs, 100);
     
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Sample data - in a real app, this would come from an API or CMS
   const heroData = {
     title: "Crafting Digital Experiences That Matter",
     subtitle: "I'm Jean Paul Elisa NIYOKWIZERWA, Full Stack Software Engineer.",
