@@ -5,7 +5,7 @@ import { getBlogBySlug } from "@/services/blogService";
 import { getAuthorName } from "utils/blogUtils";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
