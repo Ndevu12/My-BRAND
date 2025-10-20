@@ -12,7 +12,6 @@ export const projectsData: Project[] = [
       "Node.js", "green",
       "MongoDB", "yellow"
     ],
-    caseStudyLink: "#",
     githubLink: "#",
     liveLink: "https://e-commerce-demo.ndevuspace.com",
     isLive: true,
@@ -29,7 +28,6 @@ export const projectsData: Project[] = [
       "Express", "blue",
       "PostgreSQL", "red"
     ],
-    caseStudyLink: "#",
     githubLink: "#",
     isLive: false,
     imageAlt: ""
@@ -45,7 +43,6 @@ export const projectsData: Project[] = [
       "NestJS", "green",
       "TypeORM", "yellow"
     ],
-    caseStudyLink: "#",
     githubLink: "#",
     liveLink: "https://digital-land.ndevuspace.com",
     isLive: true,
@@ -62,7 +59,6 @@ export const projectsData: Project[] = [
       "Firebase", "yellow",
       "ML Kit", "green"
     ],
-    caseStudyLink: "#",
     githubLink: "#",
     isLive: false,
     imageAlt: ""
@@ -78,7 +74,6 @@ export const projectsData: Project[] = [
       "D3.js", "orange",
       "GraphQL", "pink"
     ],
-    caseStudyLink: "#",
     githubLink: "#",
     liveLink: "https://portfolio-dash.ndevuspace.com",
     isLive: true,
@@ -91,7 +86,6 @@ export const projectsData: Project[] = [
     image: "/images/social life.jpg",
     category: "Web Apps",
     techStack: ["Angular", "red", "Django", "green", "WebRTC", "blue"],
-    caseStudyLink: "#",
     githubLink: "#",
     liveLink: "https://learn-social.ndevuspace.com",
     isLive: true,
@@ -108,7 +102,6 @@ export const projectsData: Project[] = [
       "Node.js", "green",
       "MongoDB", "yellow"
     ],
-    caseStudyLink: "#",
     githubLink: "#",
     liveLink: "https://moneyTasky.netlify.app",
     isLive: true,

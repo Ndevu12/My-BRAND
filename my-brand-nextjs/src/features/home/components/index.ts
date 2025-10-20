@@ -8,6 +8,6 @@ export { default as SkillsSection} from "./SkillsSection";
 export type { SkillsSectionProps } from "./SkillsSection";
 export type { AboutSectionProps } from "./AboutSection";
 export type { HeroProps, SocialLink } from "./Hero";
-export type { Project, ProjectsSectionProps } from './ProjectsSection';
-export type { BlogPost, BlogSectionProps } from './BlogSection';
+export type { ProjectsSectionProps } from './ProjectsSection';
+export type { BlogSectionProps } from './BlogSection';
 export type { ContactSectionProps, ContactFormData } from './ContactSection';

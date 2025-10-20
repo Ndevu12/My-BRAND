@@ -13,7 +13,6 @@ export interface ProjectCardProps {
   category?: string;
   techStack?: string[];
   technologies?: string[];
-  caseStudyLink?: string;
   githubLink?: string;
   liveLink?: string;
   isLive?: boolean;
@@ -29,7 +28,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   imageAlt,
   category,
   techStack = [],
-  caseStudyLink,
   githubLink,
   liveLink,
   isLive = false,
@@ -142,7 +140,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {/* Learn More Link */}
           <div className="flex items-center justify-between">
             <Link
-              href={caseStudyLink || `/projects/${id}`}
+              href={`/projects/${id}`}
               className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
             >
               Learn More

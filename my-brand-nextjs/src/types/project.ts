@@ -45,7 +45,6 @@ export interface Project {
   image: string;
   category: 'Web Apps' | 'Mobile' | 'UI/UX Design' | 'All Projects';
   techStack: string[];
-  caseStudyLink?: string;
   githubLink?: string;
   liveLink?: string;
   isLive: boolean;

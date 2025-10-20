@@ -1,30 +1,13 @@
 import Image from "next/image";
 import Typography from "@/components/atoms/Typography";
 import Button from "@/components/atoms/Button";
-import { Project, TechStack } from "../data/projectsData";
-import {
-  navigateToContactForm,
-  openExternalLink,
-  openCaseStudy,
-} from "../utils/navigation";
+import { Project } from "@/types/project";
+import { navigateToContactForm, openExternalLink } from "../utils/navigation";
 
 interface ProjectCardProps {
   project: Project;
   delay?: string;
 }
-
-const techStackColors = {
-  blue: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
-  green: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-  yellow:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
-  red: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
-  purple:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
-  pink: "bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300",
-  orange:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
-};
 
 export function ProjectCard({ project, delay = "0s" }: ProjectCardProps) {
   return (
@@ -75,11 +58,9 @@ export function ProjectCard({ project, delay = "0s" }: ProjectCardProps) {
           {project.techStack.map((tech, index) => (
             <span
               key={index}
-              className={`px-2 py-1 rounded-md text-xs font-medium ${
-                techStackColors[tech.color]
-              }`}
+              className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-md border border-gray-200 dark:border-gray-700 text-xs"
             >
-              {tech.name}
+              {tech}
             </span>
           ))}
         </div>
@@ -138,34 +119,6 @@ export function ProjectCard({ project, delay = "0s" }: ProjectCardProps) {
 
           {/* Secondary Actions Row */}
           <div className="flex gap-2">
-            {project.caseStudyLink && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex-1 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-600"
-                onClick={() =>
-                  openCaseStudy(project.id, project.caseStudyLink!)
-                }
-                icon={
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                }
-                iconPosition="left"
-              >
-                Case Study
-              </Button>
-            )}
             <Button
               variant="ghost"
               size="sm"
