@@ -447,7 +447,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "w-full group bg-gradient-to-r from-yellow-500 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-black font-semibold px-8 py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
+                  "w-full",
                   isSubmitting && "animate-pulse"
                 )}
               >
