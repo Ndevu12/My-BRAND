@@ -9,7 +9,6 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    // Explicitly define the breakpoints to ensure they're working properly
     screens: {
       'sm': '640px',
       'md': '768px',
@@ -23,12 +22,27 @@ const config: Config = {
         foreground: "var(--foreground)",
         'primary': '#101426',
         'secondary': '#1a1e32',
-        'accent': '#FFD43B',
+        // Accent now aligns with brand for a more professional, less yellow look
+        'accent': '#2563eb',
+        // Unified brand palette (solid tones, no gradients)
+        brand: {
+          DEFAULT: '#2563eb', // blue-600
+          light: '#3b82f6',   // blue-500
+          dark: '#1e40af',    // blue-800
+        },
+        // Remap commonly used yellow keys to brand blues so legacy `yellow-400/500` usages
+        // (e.g., border-yellow-400, bg-yellow-500/20) automatically adopt the new accent
+        yellow: {
+          300: '#60a5fa', // blue-400
+          400: '#2563eb', // brand DEFAULT
+          500: '#3b82f6', // brand light
+          600: '#1e40af', // brand dark
+        },
         'dark-blue': '#1f2d74',
         'light-text': '#d8d3d5',
         'header-bg': 'rgb(17, 17, 33)',
         'footer-bg': '#0d0f16',
-        'button-hover': 'rgb(224, 193, 16)',
+        'button-hover': '#1e40af', // brand dark
         'card-border': '#9f84c2',
         ghost: '#4a4a4bff',
         // Light theme specific colors
@@ -41,12 +55,12 @@ const config: Config = {
             'primary': '#1f2937',    // gray-800 - main text
             'secondary': '#374151',  // gray-700 - secondary text
             'muted': '#4b5563',      // gray-600 - muted text
-            'hover': '#d97706'       // amber-600 - link hover
+            'hover': '#2563eb'       // brand DEFAULT for link hover
           },
           'border': {
             'primary': '#e5e7eb',    // gray-200 - main borders
             'input': '#d1d5db',      // gray-300 - input borders
-            'focus': '#fbbf24'       // yellow-400 - focus ring
+            'focus': '#3b82f6'       // brand light - focus ring
           }
         }
       },
@@ -114,7 +128,7 @@ const config: Config = {
               lineHeight: '1.6',
             },
             a: {
-              color: theme('colors.yellow.400'),
+              color: theme('colors.brand.DEFAULT'),
               textDecoration: 'underline',
               fontWeight: '500',
             },
@@ -147,7 +161,7 @@ const config: Config = {
             },
             blockquote: {
               fontStyle: 'italic',
-              borderLeftColor: theme('colors.yellow.400'),
+              borderLeftColor: theme('colors.brand.DEFAULT'),
               borderLeftWidth: '4px',
               marginLeft: '0',
               paddingLeft: '1rem',
@@ -180,7 +194,7 @@ const config: Config = {
           css: {
             color: theme('colors.gray.300'),
             a: {
-              color: theme('colors.yellow.400'),
+              color: theme('colors.brand.light'),
             },
             h2: {
               color: theme('colors.white'),
