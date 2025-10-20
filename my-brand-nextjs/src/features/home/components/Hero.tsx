@@ -188,7 +188,7 @@ const Hero: React.FC<HeroProps> = ({
             {/* Main Content Grid */}
             <div className="relative bg-white/85 dark:bg-white/10 backdrop-blur-xl border border-gray-200/30 dark:border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl transition-colors duration-300">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-                {/* Left Column - Subtitle & Description */}
+                {/* Left Column */}
                 <div className="lg:col-span-2 space-y-8">
                   {/* Enhanced Subtitle Section */}
                   <div
@@ -206,21 +206,19 @@ const Hero: React.FC<HeroProps> = ({
                       <div className="space-y-3">
                         <Typography
                           variant="h2"
-                          className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-brand dark:text-brand-light"
+                          className="mb-4 text-2xl md:text-4xl lg:text-5xl font-bold dark:text-brand-light"
                         >
                           {subtitle}
                         </Typography>
                         <Typography
-                          variant="h3"
-                          className="text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 font-medium transition-colors duration-300"
+                          variant="h2"
+                          className="mt-4 text-sm leading-relaxed md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 font-medium transition-colors duration-300"
                         >
                           Turning complex problems into elegant solutions
                         </Typography>
                       </div>
                     </div>
                   </div>
-
-                  {/* Enhanced Description */}
                   <div
                     className={cn(
                       "transform transition-all duration-1000 ease-out delay-500",
@@ -236,7 +234,6 @@ const Hero: React.FC<HeroProps> = ({
                       >
                         {description}
                       </Typography>
-                      {/* Decorative Quote Mark */}
                       <div className="absolute -top-4 -right-4 text-6xl text-brand/20 dark:text-brand/20 font-serif transition-colors duration-300">
                         &quot;
                       </div>

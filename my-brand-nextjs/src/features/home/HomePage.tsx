@@ -38,7 +38,7 @@ export function HomePage() {
 
   const heroData = {
     title: "Crafting Digital Experiences That Matter",
-    subtitle: "I'm Jean Paul Elisa NIYOKWIZERWA, Full Stack Software Engineer.",
+    subtitle: "I'm Jean Paul Elisa NIYOKWIZERWA, A Full Stack Software Engineer.",
     description:
       "Welcome to my digital portfolio where code meets creativity. I specialize in building robust, scalable applications that deliver exceptional user experiences. With expertise spanning frontend design to backend architecture, I transform ideas into functional, beautiful digital products that solve real-world challenges.",
     quote:
@@ -66,7 +66,7 @@ export function HomePage() {
 
   const aboutData = {
     description: [
-      "With over 5 years of experience in software development, I've built a diverse skill set that allows me to handle complex projects from conception to deployment. I'm passionate about creating intuitive user interfaces backed by robust, efficient code.",
+      "With over 3 years of experience in software development, I've built a diverse skill set that allows me to handle complex projects from conception to deployment. I'm passionate about creating intuitive user interfaces backed by robust, efficient code.",
       "My approach combines technical excellence with creative problem-solving. I specialize in JavaScript ecosystems (React, Node.js), modern CSS frameworks, and cloud-native architectures, always focusing on performance, accessibility, and maintainability.",
       "Beyond coding, I'm deeply committed to continuous learning and sharing knowledge with the developer community. I believe in the power of technology to solve real-world problems and create meaningful impact.",
     ],
