@@ -27,8 +27,13 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
   const [allTags, setAllTags] = useState<string[]>([]);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [comments, setComments] = useState<BlogComment[]>([]);
+  const [currentUrl, setCurrentUrl] = useState<string>("");
 
-  // Handle tag click - navigate to blog page with tag filter
+  // Set current URL only on client side to avoid hydration mismatch
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
+
   const handleTagClick = (tag: string) => {
     router.push(`/blog?tag=${encodeURIComponent(tag)}`);
   };
@@ -37,13 +42,10 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch popular/recent posts for sidebar
         const recentPosts = await getRecentBlogs(3);
         setPopularPosts(recentPosts);
 
-        // Fetch comprehensive set of tags from multiple blogs instead of just current post tags
-        // This ensures the topic cloud shows all available tags, not just from current post
-        const allBlogsData = await getBlogsPaginated(1, 20); // Fetch first 20 blogs to get good tag coverage
+        const allBlogsData = await getBlogsPaginated(1, 20);
         const allTags =
           allBlogsData.blogs?.flatMap((blog: any) => blog.tags || []) || [];
         const stringTags = allTags.filter(
@@ -52,7 +54,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
         const uniqueTags: string[] = Array.from(new Set(stringTags));
         setAllTags(uniqueTags);
 
-        // Fetch related posts by category if available
         if (post.category?._id) {
           const categoryPosts = await getBlogsByCategory(
             post.category._id,
@@ -65,7 +66,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
           setRelatedPosts(filtered);
         }
 
-        // Use comments from the post data instead of making a separate API call
         if (post.comments && Array.isArray(post.comments)) {
           setComments(post.comments);
         }
@@ -81,7 +81,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
     fetchData();
   }, [post._id, post.slug, post.category, post.tags, post.comments]);
 
-  // Handle new comment added - convert Comment to BlogComment format
   const handleCommentAdded = (newComment: Comment) => {
     const blogComment: BlogComment = {
       _id: newComment._id,
@@ -116,14 +115,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
     month: "long",
     day: "numeric",
   });
-
-  // Generate the current URL for sharing
-  const currentUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `${process.env.NEXT_PUBLIC_SITE_URL || "https://my-brand.com"}/blog/${
-          post.slug
-        }`;
 
   return (
     <ClientLayout>
@@ -261,12 +252,14 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
               </div>
 
               {/* Share Article */}
-              <ShareArticle
-                title={post.title}
-                url={currentUrl}
-                className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
-                inline={true}
-              />
+              {currentUrl && (
+                <ShareArticle
+                  title={post.title}
+                  url={currentUrl}
+                  className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
+                  inline={true}
+                />
+              )}
             </article>
 
             {/* Comments Section */}
@@ -335,7 +328,7 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
               />
             </section>
 
-                        {/* Related Posts */}
+            {/* Related Posts */}
             {relatedPosts.length > 0 && (
               <section className="mt-12">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
@@ -372,7 +365,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
                 </div>
               </section>
             )}
-
           </div>
 
           {/* Sidebar */}
@@ -382,7 +374,9 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
 
             {/* Share Article for Mobile */}
             <div className="lg:hidden">
-              <ShareArticle title={post.title} url={currentUrl} />
+              {currentUrl && (
+                <ShareArticle title={post.title} url={currentUrl} />
+              )}
             </div>
 
             {/* Blog Sidebar */}
