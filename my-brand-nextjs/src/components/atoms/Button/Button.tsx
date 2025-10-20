@@ -31,17 +31,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseClasses =
-      "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none";
+      "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
       primary:
         "relative inline-flex items-center gap-3 bg-brand hover:bg-brand-dark text-white font-bold px-10 py-5 rounded-3xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-brand/20",
       secondary:
-        "bg-secondary text-white border border-gray-700 hover:border-yellow-400 hover:text-yellow-400",
+        "bg-secondary text-white border border-gray-100 hover:border-gray-400 hover:text-gray-400",
       outline:
-        "border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black",
+        "border border-gray-100 text-gray-400 hover:bg-gray-400 hover:text-black",
       ghost:
-        "border border-yellow-400 dark:bg-ghost dark:text-gray-300 hover:text-yellow-400 hover:bg-secondary/50",
+        "border border-gray-100 dark:bg-ghost dark:text-gray-300 hover:text-gray-400 hover:bg-secondary/50",
     };
 
     const sizes = {

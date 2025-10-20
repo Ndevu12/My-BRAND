@@ -36,21 +36,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   className,
   style = {},
 }) => {
-
   return (
-    <div
-      className={cn(
-        "group relative transform transition-all duration-700 ease-out",
-        "hover:scale-105 hover:-translate-y-2",
-        className
-      )}
-      style={style}
-    >
-      {/* Background glow effect */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/40 via-yellow-300/20 to-yellow-500/30 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+    <div className={cn("relative", className)} style={style}>
       {/* Main Card */}
-      <div className="relative bg-gradient-to-br from-white/95 to-gray-50/95 dark:from-secondary/60 dark:via-secondary/40 dark:to-yellow-400/15 border border-gray-200 dark:border-yellow-400/50 rounded-2xl overflow-hidden hover:border-yellow-400/70 dark:hover:border-yellow-400/70 transition-all duration-500 backdrop-blur-sm">
+      <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
         {/* Project Image */}
         <div className="relative aspect-video overflow-hidden">
           <Image
@@ -58,18 +47,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             alt={imageAlt || title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            className="object-cover"
           />
-
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-          {/* Yellow gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-transparent to-yellow-500/10 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Category Badge */}
           {category && (
-            <div className="absolute top-4 left-4 bg-yellow-400/90 text-black text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+            <div className="absolute top-4 left-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-medium px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">
               {category}
             </div>
           )}
@@ -77,21 +60,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {/* Live Status Badge */}
           {isLive && (
             <div className="absolute top-4 right-4">
-              <Badge variant="status" color="green" size="sm">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-1" />
+              <Badge variant="status" color="gray" size="sm">
                 Live
               </Badge>
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+          <div className="absolute bottom-4 right-4 flex gap-2">
             {liveLink && (
               <a
                 href={liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-yellow-400 hover:bg-yellow-500 text-black rounded-xl transition-colors duration-300 transform hover:scale-110"
+                className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg border border-gray-200 dark:border-gray-700"
                 title="Live Demo"
               >
                 <svg
@@ -114,7 +96,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 href={githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-colors duration-300 transform hover:scale-110 backdrop-blur-sm"
+                className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg border border-gray-200 dark:border-gray-700"
                 title="Source Code"
               >
                 <svg
@@ -131,7 +113,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {/* Content Section */}
         <div className="p-6">
-          <h3 className="text-xl font-bold mb-3 text-transparent bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text transition-colors duration-300">
+          <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
             {title}
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed line-clamp-3">
@@ -144,13 +126,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               {techStack.slice(0, 3).map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="px-3 py-1 bg-yellow-400/20 dark:bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 font-medium rounded-full border border-yellow-400/30 dark:border-yellow-400/30 text-xs"
+                  className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium rounded-full border border-gray-200 dark:border-gray-700 text-xs"
                 >
                   {tech}
                 </span>
               ))}
               {techStack.length > 3 && (
-                <span className="px-3 py-1 bg-gray-100 dark:bg-gray-600/20 text-gray-600 dark:text-gray-400 font-medium rounded-full border border-gray-200 dark:border-gray-600/30 text-xs">
+                <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-medium rounded-full border border-gray-200 dark:border-gray-700 text-xs">
                   +{techStack.length - 3} more
                 </span>
               )}
@@ -161,11 +143,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="flex items-center justify-between">
             <Link
               href={caseStudyLink || `/projects/${id}`}
-              className="inline-flex items-center gap-2 text-yellow-500 dark:text-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-300 font-medium transition-colors duration-300 group/link"
+              className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
             >
               Learn More
               <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
