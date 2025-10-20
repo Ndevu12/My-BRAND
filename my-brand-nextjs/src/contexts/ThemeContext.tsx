@@ -5,6 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 interface ThemeContextType {
   isDarkTheme: boolean;
   toggleTheme: () => void;
+  mounted?: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -45,13 +46,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Don't render children until mounted to prevent hydration mismatch
-  if (!mounted) {
-    return null;
-  }
-
+  // Always render children, but use a loading state for theme-dependent content
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );

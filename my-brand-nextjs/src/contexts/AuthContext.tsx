@@ -124,7 +124,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     dispatch({ type: "CLEAR_ERROR" });
   };
 
-  // Check authentication status on mount
+  // Check authentication status on mount with timeout handling
   useEffect(() => {
     const checkAuth = async () => {
       dispatch({ type: "AUTH_START" });
@@ -143,7 +143,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
     };
 
-    checkAuth();
+    // Use setTimeout to prevent blocking initial render
+    const timeoutId = setTimeout(checkAuth, 50);
+    
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const value: AuthContextType = {

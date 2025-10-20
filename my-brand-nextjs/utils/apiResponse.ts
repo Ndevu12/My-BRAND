@@ -52,7 +52,17 @@ export async function safeFetch<T = any>(
   options?: RequestInit
 ): Promise<ApiResult<T>> {
   try {
-    const response = await fetch(url, options);
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+    
+    const fetchOptions = {
+      ...options,
+      signal: controller.signal,
+    };
+    
+    const response = await fetch(url, fetchOptions);
+    clearTimeout(timeoutId);
     
     // Check if response is ok (status 200-299)
     if (!response.ok) {
@@ -76,6 +86,14 @@ export async function safeFetch<T = any>(
     
   } catch (error) {
     // Handle network errors, JSON parsing errors, etc.
+    if (error instanceof Error && error.name === 'AbortError') {
+      return {
+        success: false,
+        data: null,
+        error: 'Request timeout - please check your connection',
+      };
+    }
+    
     return {
       success: false,
       data: null,

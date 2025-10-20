@@ -8,6 +8,15 @@ const nextConfig = {
   experimental: {
     // Helps with hydration mismatches
     optimizeCss: true,
+    // Enable faster builds
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
 
   // Image optimization configuration
