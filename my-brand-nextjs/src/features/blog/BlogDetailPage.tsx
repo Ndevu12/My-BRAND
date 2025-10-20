@@ -29,7 +29,6 @@ export function BlogDetailPage({ post }: BlogDetailPageProps) {
   const [comments, setComments] = useState<BlogComment[]>([]);
   const [currentUrl, setCurrentUrl] = useState<string>("");
 
-  // Set current URL only on client side to avoid hydration mismatch
   useEffect(() => {
     setCurrentUrl(window.location.href);
   }, []);

@@ -12,12 +12,23 @@ export const BlogStats: React.FC<BlogStatsProps> = ({ blog, stats }) => {
     if (!stats) {
       const loadStats = async () => {
         try {
-          const fetchedStats = await adminBlogDetailService.getBlogStats(
-            blog.id
-          );
+          // Prefer Mongo _id, fall back to id; guard if missing
+          const safeId = blog._id ?? blog.id;
+          if (!safeId) {
+            console.warn("BlogStats: Missing blog id; using default stats.");
+            setBlogStats({
+              views: 0,
+              likes: 0,
+              comments: 0,
+              shares: 0,
+            });
+            setLoading(false);
+            return;
+          }
+          const fetchedStats = await adminBlogDetailService.getBlogStats(safeId);
           setBlogStats(fetchedStats);
         } catch (error) {
-          console.error("Failed to load blog stats:", error);
+          console.error("Failed to load blog stats");
           setBlogStats({
             views: 0,
             likes: 0,
@@ -31,7 +42,7 @@ export const BlogStats: React.FC<BlogStatsProps> = ({ blog, stats }) => {
 
       loadStats();
     }
-  }, [blog.id, stats]);
+  }, [blog._id, blog.id, stats]);
 
   if (loading) {
     return (

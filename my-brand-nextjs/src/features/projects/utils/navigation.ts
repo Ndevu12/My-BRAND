@@ -40,12 +40,3 @@ export const navigateToContactForm = (projectTitle?: string) => {
 export const openExternalLink = (url: string) => {
   window.open(url, '_blank', 'noopener,noreferrer');
 };
-
-/**
- * Handles case study navigation with analytics tracking
- */
-export const openCaseStudy = (projectId: number, caseStudyUrl: string) => {
-  // You can add analytics tracking here if needed
-  console.log(`Opening case study for project ${projectId}`);
-  openExternalLink(caseStudyUrl);
-};

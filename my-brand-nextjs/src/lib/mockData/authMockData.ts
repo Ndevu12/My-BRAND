@@ -6,14 +6,14 @@ import { User } from '../../types/auth';
  */
 export const MOCK_USERS: User[] = [
   {
-    id: '1',
+    _id: '1',
     username: 'admin',
     email: 'admin@mybrand.com',
-    firstName: 'Your',
-    lastName: 'Name',
+    firstName: 'Jean Paul Elisa',
+    lastName: 'Niyokwizerwa',
+    role: 'admin',
     avatar: '/images/anonymous.png',
-    bio: 'Website Owner & Content Creator - Managing My Brand platform and creating all blog content.',
-    isActive: true,
+    bio: 'Backend Engineer & Full Stack Developer - Building scalable solutions and sharing technical insights.',
     createdAt: '2024-01-15T10:00:00.000Z',
     updatedAt: new Date().toISOString(),
   },
@@ -60,7 +60,7 @@ export function getUserByUsername(username: string): User | undefined {
  * Get user by ID
  */
 export function getUserById(id: string): User | undefined {
-  return MOCK_USERS.find(user => user.id === id);
+  return MOCK_USERS.find(user => user._id === id);
 }
 
 /**
@@ -69,7 +69,7 @@ export function getUserById(id: string): User | undefined {
 export function validateCredentials(username: string, password: string): User | null {
   const user = getUserByUsername(username);
   
-  if (!user || !user.isActive) {
+  if (!user) {
     return null;
   }
 
