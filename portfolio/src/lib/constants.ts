@@ -1,15 +1,12 @@
 // Personal Information
 export const PERSONAL_INFO = {
   name: "Jean Paul Elisa NIYOKWIZERWA",
-  shortName: "Ndevu",
-  title: "Full Stack Software Engineer",
-  email: "ndevulion@gmail.com",
-  phone: {
-    whatsapp: "+250 785044398",
-    call: "+250 735007705",
-  },
-  location: "Gikondo, Kigali, Rwanda",
-  bio: "I specialize in building robust, scalable applications that deliver exceptional user experiences. With expertise spanning frontend design to backend architecture, I transform ideas into functional, beautiful digital products.",
+  shortName: "Jean Paul Elisa",
+  title: "Tech Lead & Software Engineer | Entrepreneur",
+  email: "hello@ndevuspace.com",
+  location: "Kigali, Rwanda",
+  bio: "I build scalable products, lead engineering teams, and turn ideas into impactful digital solutions.",
+  profileImage: "/images/my-profile-pc.jpeg",
 };
 
 // Social Links
@@ -26,11 +23,19 @@ export const NAV_ITEMS = [
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
+  { name: "CV", href: "/cv" },
   { name: "Contact", href: "#contact" },
 ];
 
-// External Links
+// External Links - Multiple CV options for different roles
 export const EXTERNAL_LINKS = {
   blog: "https://dev.ndevuspace.com",
-  cvDownload: "/files/cv.pdf",
+  cvDownload: "/files/Jean_Paul_Elisa_CV.pdf",
+  cvOptions: {
+    softwareEngineer: "/files/Jean_Paul_Elisa_CV.pdf",
+    aiMl: "/files/Jean_Paul_Elisa_CV.pdf",
+    backend: "/files/Jean_Paul_Elisa_CV.pdf",
+    business: "/files/Jean_Paul_Elisa_CV.pdf",
+    general: "/files/Jean_Paul_Elisa_CV.pdf",
+  },
 };

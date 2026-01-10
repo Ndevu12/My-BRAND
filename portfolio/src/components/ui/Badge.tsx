@@ -52,9 +52,10 @@ export function TechBadge({ children, className }: TechBadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium",
-        "bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10",
-        "transition-colors duration-200 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white",
+        "inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium tracking-wide",
+        "bg-gray-100 dark:bg-white/[0.06] text-gray-700 dark:text-gray-300",
+        "border border-gray-200/80 dark:border-white/10",
+        "transition-colors duration-200",
         className
       )}
     >

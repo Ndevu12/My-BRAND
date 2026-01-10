@@ -1,0 +1,30 @@
+{
+  "name": "Jean Paul Elisa NIYOKWIZERWA",
+  "shortName": "Jean Paul Elisa",
+  "title": "Tech Lead & Software Engineer | Entrepreneur",
+  "email": "hello@ndevuspace.com",
+  "location": "Kigali, Rwanda",
+  "bio": "Software Engineer & Tech Lead with 4+ years of experience architecting and delivering scalable web applications, backend systems, and AI-powered platforms. I've built and led engineering teams, founded tech ventures, and shipped products serving thousands of users. Passionate about entrepreneurship and empowering the next generation of African developers through mentorship and competitive programming coaching.",
+  "tagline": "Building Scalable Solutions That Drive Innovation Across Africa",
+  "yearsOfExperience": "4+",
+  "projectsCompleted": "50+",
+  "happyClients": "30+",
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/jean-paul-elisa",
+    "github": "https://github.com/Ndevu12",
+    "twitter": "https://twitter.com/ndevu",
+    "email": "mailto:hello@ndevuspace.com"
+  },
+  "cvs": {
+    "software_engineer": "/files/Jean_Paul_Elisa_NIYOKWIZERWA_CV_SE.pdf",
+    "ai_ml": "/files/Jean_Paul_Elisa_AI_ML_CV.pdf",
+    "backend": "/files/Backend_engineer_cv.pdf",
+    "business": "/files/business-cv.pdf",
+    "default": "/files/cv.pdf"
+  },
+  "availability": {
+    "status": "open",
+    "preferredWork": ["Part-time", "Contract", "Freelance"],
+    "remote": true
+  }
+}

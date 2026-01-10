@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Ndevu | Full Stack Software Engineer",
+  title: "Jean Paul Elisa | Software Engineer",
   description:
     "Jean Paul Elisa NIYOKWIZERWA - Full Stack Software Engineer specializing in building robust, scalable applications that deliver exceptional user experiences.",
   keywords: [
@@ -23,8 +31,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://ndevuspace.com",
-    siteName: "NdevuSpace",
-    title: "Ndevu | Full Stack Software Engineer",
+    siteName: "Jean Paul Elisa",
+    title: "Jean Paul Elisa | Software Engineer",
     description:
       "Full Stack Software Engineer specializing in building robust, scalable applications that deliver exceptional user experiences.",
     images: [
@@ -32,15 +40,15 @@ export const metadata: Metadata = {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ndevu - Full Stack Software Engineer",
+        alt: "Jean Paul Elisa - Software Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@ndevu",
-    creator: "@ndevu",
-    title: "Ndevu | Full Stack Software Engineer",
+    site: "@jeanpaulelisa",
+    creator: "@jeanpaulelisa",
+    title: "Jean Paul Elisa | Software Engineer",
     description:
       "Full Stack Software Engineer specializing in building robust, scalable applications that deliver exceptional user experiences.",
     images: ["/images/og-image.png"],
@@ -68,20 +76,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="bg-primary text-white antialiased">
+    <html lang="en" className={`${inter.variable} dark scroll-smooth`}>
+      <body className="font-sans bg-primary text-white antialiased">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

@@ -1,0 +1,118 @@
+{
+  "categories": [
+    {
+      "id": "backend",
+      "title": "Backend Development",
+      "description": "Designing scalable APIs and server-side applications with robust security and optimal performance.",
+      "icon": "server",
+      "technologies": [
+        { "name": "Node.js", "level": "expert", "years": 4 },
+        { "name": "Java/Spring Boot", "level": "advanced", "years": 3 },
+        { "name": "Python", "level": "advanced", "years": 3 },
+        { "name": "FastAPI", "level": "advanced", "years": 2 },
+        { "name": "Django", "level": "intermediate", "years": 2 },
+        { "name": "TypeScript", "level": "expert", "years": 3 },
+        { "name": "GraphQL", "level": "expert", "years": 3 },
+        { "name": "REST APIs", "level": "expert", "years": 4 }
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend Development",
+      "description": "Building responsive, performant, and accessible user interfaces with modern frameworks.",
+      "icon": "layout",
+      "technologies": [
+        { "name": "React", "level": "expert", "years": 4 },
+        { "name": "Next.js", "level": "advanced", "years": 2 },
+        { "name": "TypeScript", "level": "expert", "years": 3 },
+        { "name": "Redux", "level": "advanced", "years": 3 },
+        { "name": "Tailwind CSS", "level": "expert", "years": 3 },
+        { "name": "HTML/CSS", "level": "expert", "years": 4 }
+      ]
+    },
+    {
+      "id": "database",
+      "title": "Database Management",
+      "description": "Database design, optimization, stored procedures, and ensuring data integrity across systems.",
+      "icon": "database",
+      "technologies": [
+        { "name": "PostgreSQL", "level": "expert", "years": 4 },
+        { "name": "MongoDB", "level": "advanced", "years": 3 },
+        { "name": "MySQL", "level": "advanced", "years": 3 },
+        { "name": "SQL", "level": "expert", "years": 4 },
+        { "name": "Supabase", "level": "advanced", "years": 2 },
+        { "name": "Redis", "level": "intermediate", "years": 2 }
+      ]
+    },
+    {
+      "id": "cloud",
+      "title": "Cloud & DevOps",
+      "description": "Cloud architecture, containerization, CI/CD pipelines, and infrastructure management.",
+      "icon": "cloud",
+      "technologies": [
+        { "name": "Microsoft Azure", "level": "advanced", "years": 2 },
+        { "name": "AWS", "level": "intermediate", "years": 2 },
+        { "name": "Docker", "level": "advanced", "years": 3 },
+        { "name": "Kubernetes", "level": "intermediate", "years": 2 },
+        { "name": "CI/CD Pipelines", "level": "advanced", "years": 3 },
+        { "name": "Linux/Bash", "level": "advanced", "years": 4 },
+        { "name": "Nginx", "level": "intermediate", "years": 2 }
+      ]
+    },
+    {
+      "id": "ai-ml",
+      "title": "AI & Machine Learning",
+      "description": "Implementing intelligent solutions including NLP, recommender systems, and MLOps.",
+      "icon": "cpu",
+      "technologies": [
+        { "name": "TensorFlow", "level": "intermediate", "years": 2 },
+        { "name": "Scikit-learn", "level": "intermediate", "years": 2 },
+        { "name": "NLP", "level": "intermediate", "years": 1 },
+        { "name": "Recommender Systems", "level": "intermediate", "years": 1 },
+        { "name": "Chatbots/AI Agents", "level": "intermediate", "years": 1 },
+        { "name": "Data Analysis", "level": "intermediate", "years": 2 }
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "Tools & Practices",
+      "description": "Development tools, testing frameworks, and engineering best practices.",
+      "icon": "git-branch",
+      "technologies": [
+        { "name": "Git/GitHub", "level": "expert", "years": 4 },
+        { "name": "Jest/Mocha", "level": "advanced", "years": 3 },
+        { "name": "Postman", "level": "expert", "years": 4 },
+        { "name": "Agile/Scrum", "level": "expert", "years": 4 },
+        { "name": "Jira/Trello", "level": "advanced", "years": 3 },
+        { "name": "Swagger/OpenAPI", "level": "advanced", "years": 3 }
+      ]
+    }
+  ],
+  "coreCompetencies": [
+    "System Architecture Design",
+    "API Design & Development (REST/GraphQL)",
+    "Database Design & Query Optimization",
+    "Cloud Infrastructure (Azure/AWS)",
+    "Authentication & Security (JWT, OAuth)",
+    "Technical Leadership & Mentorship",
+    "Agile/Scrum Methodology",
+    "Code Review & Best Practices",
+    "Performance Optimization",
+    "Cross-functional Collaboration"
+  ],
+  "softSkills": [
+    "Technical Leadership",
+    "Team Mentorship",
+    "Problem Solving",
+    "Project Management",
+    "Technical Documentation",
+    "Client Communication",
+    "Fast Learner",
+    "Innovation & Creativity"
+  ],
+  "languages": [
+    { "name": "Kinyarwanda", "level": "Native" },
+    { "name": "English", "level": "Fluent" },
+    { "name": "French", "level": "Intermediate" }
+  ]
+}

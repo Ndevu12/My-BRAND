@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { NAV_ITEMS, PERSONAL_INFO, EXTERNAL_LINKS } from "@/lib/constants";
@@ -14,9 +15,12 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const scrollDirection = useScrollDirection();
   const activeSection = useScrollSpy(
-    NAV_ITEMS.map((item) => item.href.replace("#", ""))
+    NAV_ITEMS.filter((item) => item.href.startsWith("#")).map((item) =>
+      item.href.replace("#", "")
+    )
   );
   const { isDark, toggleTheme } = useTheme();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,9 +45,15 @@ export function Header() {
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+
+    // Check if it's a page route (like /cv) vs hash link
+    if (href.startsWith("/")) {
+      router.push(href);
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -90,7 +100,9 @@ export function Header() {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
               {NAV_ITEMS.map((item) => {
-                const isActive = activeSection === item.href.replace("#", "");
+                const isHashLink = item.href.startsWith("#");
+                const isActive =
+                  isHashLink && activeSection === item.href.replace("#", "");
                 return (
                   <button
                     key={item.name}

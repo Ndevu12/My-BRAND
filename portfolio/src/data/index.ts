@@ -1,166 +1,141 @@
 import { Project, Skill, Experience } from '@/types';
 
+// Import JSON data
+import profileJson from './json/profile.json';
+import experienceJson from './json/experience.json';
+import skillsJson from './json/skills.json';
+import projectsJson from './json/projects.json';
+
+// ============================================
+// PROFILE DATA
+// ============================================
+export const profileData = profileJson;
+
+// ============================================
+// PROJECTS DATA
+// ============================================
+
+// Transform JSON projects to match the Project type
 export const projectsData: Project[] = [
-  {
-    id: "1",
-    title: "E-commerce Platform",
-    description: "A comprehensive online shopping platform with real-time inventory management, secure payment processing, and customer support features.",
-    image: "/images/projects/e-commerce.jpg",
-    category: "Web Apps",
-    techStack: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
-    githubLink: "https://github.com/Ndevu12",
-    liveLink: "https://e-commerce-demo.ndevuspace.com",
-    featured: true,
-  },
-  {
-    id: "2",
-    title: "Green Mobility Solution",
-    description: "An innovative platform for sustainable urban transportation with real-time tracking, route optimization, and carbon footprint calculation.",
-    image: "/images/projects/green.jpg",
-    category: "Mobile",
-    techStack: ["React Native", "Express", "PostgreSQL", "Google Maps API"],
-    githubLink: "https://github.com/Ndevu12",
-    featured: true,
-  },
-  {
-    id: "3",
-    title: "Digital Land Platform (Global Real Estate)",
-    description: "A secure marketplace for property transactions with blockchain-verified ownership documentation, virtual property tours, and automated contract generation.",
-    image: "/images/projects/GRE.jpg",
-    category: "Web Apps",
-    techStack: ["Next.js", "NestJS", "TypeORM", "PostgreSQL"],
-    githubLink: "https://github.com/Ndevu12",
-    liveLink: "https://digital-land.ndevuspace.com",
-    featured: true,
-  },
-  {
-    id: "4",
-    title: "Money Tasky Web App",
-    description: "A personal financial management web application designed to help users track their income, expenses, and savings goals. It features a user-friendly interface, real-time financial analytics, and secure data storage.",
-    image: "/images/projects/money-tasky.jpg",
-    category: "Web Apps",
-    techStack: ["React", "Node.js", "MongoDB", "Chart.js"],
-    githubLink: "https://github.com/Ndevu12",
-    liveLink: "https://moneyTasky.netlify.app",
-    featured: true,
-  },
-  {
-    id: "5",
-    title: "Health Monitoring App",
-    description: "Mobile application for tracking health metrics, medication schedules, and providing personalized wellness recommendations based on user data.",
-    image: "/images/projects/web1.jpg",
-    category: "Mobile",
-    techStack: ["Flutter", "Firebase", "ML Kit", "TensorFlow"],
-    githubLink: "https://github.com/Ndevu12",
-  },
-  {
-    id: "6",
-    title: "Social Learning Platform",
-    description: "Educational platform connecting students and mentors through collaborative learning environments and interactive course materials.",
-    image: "/images/projects/social life.jpg",
-    category: "Web Apps",
-    techStack: ["Angular", "Django", "WebRTC", "PostgreSQL"],
-    githubLink: "https://github.com/Ndevu12",
-    liveLink: "https://learn-social.ndevuspace.com",
-  },
+  // Featured projects first
+  ...projectsJson.featured.map((project) => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    image: project.image,
+    category: project.category === 'fullstack' ? 'Web Apps' : 
+              project.category === 'frontend' ? 'Web Apps' : 
+              project.category === 'backend' ? 'Backend' : 
+              project.category === 'mobile' ? 'Mobile' : 'Web Apps',
+    techStack: project.technologies,
+    githubLink: project.links.github || 'https://github.com/Ndevu12',
+    liveLink: project.links.demo || undefined,
+    featured: project.featured,
+  })),
+  // Other projects
+  ...projectsJson.projects.map((project) => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    image: project.image,
+    category: project.category === 'fullstack' ? 'Web Apps' : 
+              project.category === 'frontend' ? 'Web Apps' : 
+              project.category === 'backend' ? 'Backend' : 
+              project.category === 'mobile' ? 'Mobile' : 'Web Apps',
+    techStack: project.technologies,
+    githubLink: project.links.github || 'https://github.com/Ndevu12',
+    liveLink: project.links.demo || undefined,
+    featured: false,
+  })),
 ];
 
-export const skillsData: Skill[] = [
-  {
-    id: "frontend",
-    title: "Frontend Development",
-    description: "Building responsive, performant, and accessible user interfaces with modern frameworks and best practices.",
-    icon: "layout",
-    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js", "Angular"],
-  },
-  {
-    id: "backend",
-    title: "Backend Development",
-    description: "Designing scalable APIs and server-side applications with robust security and optimal performance.",
-    icon: "server",
-    technologies: ["Node.js", "Express", "NestJS", "Python", "Django", "GraphQL"],
-  },
-  {
-    id: "database",
-    title: "Database & Cloud",
-    description: "Managing data infrastructure and cloud deployments for high availability and scalability.",
-    icon: "database",
-    technologies: ["PostgreSQL", "MongoDB", "Redis", "AWS", "Docker", "Kubernetes"],
-  },
-  {
-    id: "mobile",
-    title: "Mobile Development",
-    description: "Creating cross-platform mobile applications with native-like performance and user experience.",
-    icon: "smartphone",
-    technologies: ["React Native", "Flutter", "iOS", "Android", "Expo"],
-  },
-  {
-    id: "devops",
-    title: "DevOps & Tools",
-    description: "Implementing CI/CD pipelines, infrastructure as code, and development workflow optimization.",
-    icon: "git-branch",
-    technologies: ["Git", "GitHub Actions", "Jenkins", "Terraform", "Linux", "Nginx"],
-  },
-  {
-    id: "design",
-    title: "UI/UX Design",
-    description: "Crafting intuitive user experiences with focus on usability, accessibility, and visual appeal.",
-    icon: "palette",
-    technologies: ["Figma", "Adobe XD", "Sketch", "Prototyping", "User Research"],
-  },
-];
+// Export raw project data for more detailed views
+export const featuredProjects = projectsJson.featured;
+export const allProjects = projectsJson.projects;
+export const projectCategories = projectsJson.categories;
 
+// ============================================
+// SKILLS DATA
+// ============================================
+
+// Transform JSON skills to match the Skill type
+export const skillsData: Skill[] = skillsJson.categories.map((category) => ({
+  id: category.id,
+  title: category.title,
+  description: category.description,
+  icon: category.icon,
+  technologies: category.technologies.map((tech) => tech.name),
+}));
+
+// Export detailed skills data with proficiency levels
+export const skillsDetailed = skillsJson.categories;
+export const coreCompetencies = skillsJson.coreCompetencies;
+export const languageSkills = skillsJson.languages;
+
+// ============================================
+// EXPERIENCE DATA
+// ============================================
+
+// Transform JSON experience to match the Experience type
 export const experienceData: Experience[] = [
-  {
-    id: "1",
-    title: "Co-Founder and CTO at Global Real Estate",
-    company: "Global Real Estate",
-    location: "Kigali, Rwanda",
-    period: "2023 - Present",
-    description: [
-      "Leading the technical development of an innovative platform for buying and selling properties",
-      "Overseeing architectural design, platform development, and team coordination",
-      "Implementing cutting-edge technologies and maintaining high code quality standards",
-      "Managing end-to-end product lifecycle from ideation to deployment",
-    ],
-    technologies: ["Next.js", "NestJS", "PostgreSQL", "TypeORM", "AWS"],
-    type: "work",
-  },
-  {
-    id: "2",
-    title: "ALX Software Engineering",
-    company: "ALX Africa",
-    location: "Remote Program",
-    period: "2022 - 2023",
-    description: [
-      "Successfully completed the ALX Software Engineering program with backend specialization",
-      "Strengthened expertise in modern backend technologies and best practices",
-      "Mastered API design, database optimization, and server architecture",
-      "Collaborated on multiple team projects using agile methodologies",
-    ],
-    technologies: ["Python", "C", "SQL", "System Design", "DevOps"],
-    type: "education",
-  },
-  {
-    id: "3",
-    title: "Andela Technical Leadership Program (ATLP)",
-    company: "Andela",
-    location: "Rwanda, Kigali",
-    period: "2021 - 2022",
-    description: [
-      "Enhanced skills in software development, teamwork, and leadership",
-      "Focused on creating scalable and efficient solutions",
-      "Gained hands-on experience with modern web technologies",
-      "Practiced best practices in software engineering and agile development",
-    ],
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Git"],
-    type: "education",
-  },
+  // Work experience
+  ...experienceJson.work.map((exp, index) => ({
+    id: `work-${index + 1}`,
+    title: exp.title,
+    company: exp.company,
+    location: exp.location,
+    period: exp.period,
+    description: exp.description,
+    technologies: exp.technologies,
+    type: 'work' as const,
+  })),
+  // Education
+  ...experienceJson.education.map((edu, index) => ({
+    id: `edu-${index + 1}`,
+    title: edu.title,
+    company: edu.company,
+    location: edu.location,
+    period: edu.period,
+    description: edu.description,
+    technologies: edu.technologies || [],
+    type: 'education' as const,
+  })),
 ];
+
+// Export separate arrays for more granular access
+export const workExperience = experienceJson.work;
+export const education = experienceJson.education;
+export const certifications = experienceJson.certifications;
+export const awards = experienceJson.awards;
+export const volunteering = experienceJson.volunteering;
+
+// ============================================
+// STATS DATA
+// ============================================
 
 export const statsData = [
   { label: "Projects Completed", value: "50+" },
-  { label: "Years Experience", value: "5+" },
-  { label: "Technologies", value: "20+" },
-  { label: "Happy Clients", value: "25+" },
+  { label: "Years Experience", value: "4+" },
+  { label: "Technologies", value: "25+" },
+  { label: "Happy Clients", value: "30+" },
 ];
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+// Get featured projects only
+export const getFeaturedProjects = () => projectsData.filter(p => p.featured);
+
+// Get projects by category
+export const getProjectsByCategory = (category: string) => 
+  category === 'all' ? projectsData : projectsData.filter(p => p.category === category);
+
+// Get skill by ID
+export const getSkillById = (id: string) => skillsData.find(s => s.id === id);
+
+// Get work experience only
+export const getWorkExperience = () => experienceData.filter(e => e.type === 'work');
+
+// Get education only
+export const getEducation = () => experienceData.filter(e => e.type === 'education');

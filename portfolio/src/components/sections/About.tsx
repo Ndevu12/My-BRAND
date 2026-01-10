@@ -3,7 +3,6 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { Section, SectionHeader, Button } from "@/components/ui";
 import { PERSONAL_INFO } from "@/lib/constants";
 import { statsData } from "@/data";
@@ -63,8 +62,8 @@ export function About() {
       >
         <SectionHeader
           badge="About Me"
-          title="Passionate About Innovation"
-          subtitle="Building digital experiences that make a difference"
+          title="Engineer, Entrepreneur & Mentor"
+          subtitle="Building scalable solutions that drive innovation across Africa"
         />
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -77,7 +76,7 @@ export function About() {
               {/* Main image */}
               <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10">
                 <Image
-                  src="/images/about.jpg"
+                  src={PERSONAL_INFO.profileImage}
                   alt="About Jean Paul"
                   width={600}
                   height={500}
@@ -115,47 +114,50 @@ export function About() {
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                 With over{" "}
                 <span className="text-gray-900 dark:text-white font-medium">
-                  5 years of experience
+                  4+ years of experience
                 </span>{" "}
-                in software development, I've built a diverse skill set that
-                allows me to handle complex projects from conception to
-                deployment. I'm passionate about creating intuitive user
-                interfaces backed by robust, efficient code.
+                in software development, I specialize in architecting and
+                delivering scalable web applications and backend systems. As a{" "}
+                <span className="text-gray-900 dark:text-white font-medium">
+                  Tech Lead & Solutions Architect
+                </span>
+                , I&apos;ve built and led engineering teams creating innovative
+                digital platforms with AI-powered features.
               </p>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                My approach combines{" "}
+                My expertise spans{" "}
                 <span className="text-gray-900 dark:text-white font-medium">
-                  technical excellence
+                  Node.js, Java/Spring, Python, PostgreSQL
                 </span>{" "}
-                with creative problem-solving. I specialize in JavaScript
-                ecosystems (React, Node.js), modern CSS frameworks, and
-                cloud-native architectures, always focusing on performance,
-                accessibility, and maintainability.
+                and cloud platforms like Azure and AWS. I&apos;ve founded
+                multiple tech ventures, combining technical excellence with
+                entrepreneurial vision to build products that solve real-world
+                problems and serve thousands of users.
               </p>
               <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                Beyond coding, I'm deeply committed to{" "}
+                Beyond building products, I&apos;m passionate about{" "}
                 <span className="text-gray-900 dark:text-white font-medium">
-                  continuous learning
+                  mentoring the next generation
                 </span>{" "}
-                and sharing knowledge with the developer community. I believe in
-                the power of technology to solve real-world problems and create
-                meaningful impact.
+                of African developers. As a DSA Coach for the Rwanda and
+                Pan-African Informatics Olympiad, I help young talents unlock
+                their potential in competitive programming.
               </p>
             </motion.div>
 
             {/* Highlights Grid */}
             <motion.div variants={itemVariants}>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-5">
                 {highlights.map((item, index) => (
                   <div
                     key={index}
-                    className="p-4 rounded-xl bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.08] hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300 shadow-sm dark:shadow-none"
+                    className="flex flex-col p-5 rounded-xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/[0.06] hover:border-gray-300 dark:hover:border-white/15 transition-all duration-300 shadow-sm hover:shadow-md dark:shadow-none"
                   >
-                    <item.icon className="w-6 h-6 text-blue-500 dark:text-blue-400 mb-3" />
-                    <h4 className="text-gray-900 dark:text-white font-medium mb-1">
+                    <item.icon className="w-6 h-6 text-blue-600 dark:text-blue-400 mb-4" />
+                    <h4 className="text-gray-900 dark:text-white font-semibold text-base mb-2">
                       {item.title}
                     </h4>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -176,7 +178,7 @@ export function About() {
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
               >
-                Let's Work Together
+                Let&apos;s Work Together
               </Button>
               <Button
                 variant="secondary"

@@ -1,0 +1,157 @@
+{
+  "featured": [
+    {
+      "id": "gre-platform",
+      "title": "Global Real Estate Platform",
+      "description": "A scalable digital real estate platform enabling instant property transactions with AI-powered features, land registry integration, tax calculations, and loan verification systems.",
+      "longDescription": "As CTO, I architected and deployed this comprehensive property marketplace integrating with Rwanda's land registry APIs, tax calculation systems, and financial loan verification. Features AI-powered recommender models, fraud detection, and NLP-based assistants improving accessibility for underserved users. Achieved 99.5% uptime and 40% query performance improvement.",
+      "image": "/images/projects/gre-platform.jpg",
+      "technologies": ["Node.js", "Java/Spring", "PostgreSQL", "GraphQL", "Azure", "Docker", "AI/ML", "NLP"],
+      "category": "fullstack",
+      "status": "live",
+      "highlights": [
+        "99.5% system uptime with Azure deployment",
+        "AI-powered fraud detection and recommendations",
+        "NLP assistants for accessibility",
+        "40% improvement in database query performance"
+      ],
+      "links": {
+        "demo": "https://globalrealestate.rw",
+        "github": null
+      },
+      "featured": true,
+      "year": 2024
+    },
+    {
+      "id": "geofinda",
+      "title": "GEOFINDA - Property Discovery Platform",
+      "description": "A web-based accommodation and property discovery platform built for Africa's rental and listing market, enabling seamless connections between hosts and seekers.",
+      "longDescription": "Founded and built GEOFINDA to address Africa's fragmented rental market. The platform features real-time property listings, advanced search filters, booking management, and a sustainable payment model for local hosts and agents. Built on Supabase for rapid development with GraphQL APIs.",
+      "image": "/images/projects/geofinda.jpg",
+      "technologies": ["React", "Supabase", "GraphQL", "Node.js", "PostgreSQL", "Tailwind CSS"],
+      "category": "fullstack",
+      "status": "live",
+      "highlights": [
+        "Founder & CEO - Full ownership of product",
+        "Sustainable revenue model for local agents",
+        "Real-time booking and listing management",
+        "Focus on Africa's rental market"
+      ],
+      "links": {
+        "demo": "https://geofinda.com",
+        "github": null
+      },
+      "featured": true,
+      "year": 2023
+    },
+    {
+      "id": "mobylife",
+      "title": "MobyLife - AI-Powered Mobility Platform",
+      "description": "A pioneering AI and IoT-powered mobility solution designed to transform Rwanda's public transport system with real-time tracking and smart routing.",
+      "longDescription": "Co-founded MobyLife to tackle urban mobility challenges in Rwanda. Led system architecture combining AI for demand prediction, IoT for vehicle tracking, and mobile apps for passengers. Incubated at the AI & IoT Innovation Program with partnerships with local transport operators.",
+      "image": "/images/projects/mobylife.jpg",
+      "technologies": ["React Native", "Node.js", "AI/ML", "IoT", "PostgreSQL", "Real-time APIs"],
+      "category": "mobile",
+      "status": "archived",
+      "highlights": [
+        "Selected for AI & IoT Innovation Program",
+        "Partnerships with transport operators",
+        "AI-powered demand prediction",
+        "Real-time vehicle tracking"
+      ],
+      "links": {
+        "demo": null,
+        "github": null
+      },
+      "featured": true,
+      "year": 2022
+    },
+    {
+      "id": "portfolio",
+      "title": "Personal Portfolio & Blog",
+      "description": "A modern, high-performance portfolio showcasing my work with dark/light themes, smooth animations, and dynamic content management.",
+      "longDescription": "This portfolio website featuring a blog system, theme switching, contact form integration, and optimized performance. Built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion for smooth animations.",
+      "image": "/images/projects/portfolio.jpg",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "category": "frontend",
+      "status": "live",
+      "highlights": [
+        "Dark/Light theme with system preference",
+        "Smooth scroll animations",
+        "Dynamic JSON-based content",
+        "SEO optimized"
+      ],
+      "links": {
+        "demo": "https://www.ndevuspace.com",
+        "github": "https://github.com/Ndevu12/My-BRAND"
+      },
+      "featured": true,
+      "year": 2024
+    }
+  ],
+  "projects": [
+    {
+      "id": "andela-ecommerce",
+      "title": "E-Commerce Marketplace",
+      "description": "Multi-vendor e-commerce platform with role-based access, secure payments, and real-time inventory management built at Andela.",
+      "image": "/images/projects/ecommerce.jpg",
+      "technologies": ["React", "Redux", "Node.js", "PostgreSQL", "JWT", "Stripe"],
+      "category": "fullstack",
+      "status": "completed",
+      "links": {
+        "demo": null,
+        "github": "https://github.com/Ndevu12"
+      },
+      "year": 2024
+    },
+    {
+      "id": "nlp-assistant",
+      "title": "NLP Accessibility Assistant",
+      "description": "An NLP-powered chatbot assistant designed to improve platform accessibility for underserved and illiterate users in Rwanda.",
+      "image": "/images/projects/nlp-assistant.jpg",
+      "technologies": ["Python", "NLP", "Node.js", "REST API", "PostgreSQL"],
+      "category": "backend",
+      "status": "completed",
+      "links": {
+        "demo": null,
+        "github": null
+      },
+      "year": 2024
+    },
+    {
+      "id": "fraud-detection",
+      "title": "Real Estate Fraud Detection System",
+      "description": "AI-powered fraud detection system for identifying suspicious property transactions and protecting platform users.",
+      "image": "/images/projects/fraud-detection.jpg",
+      "technologies": ["Python", "Machine Learning", "PostgreSQL", "Node.js", "Azure"],
+      "category": "backend",
+      "status": "completed",
+      "links": {
+        "demo": null,
+        "github": null
+      },
+      "year": 2024
+    },
+    {
+      "id": "alx-projects",
+      "title": "ALX Backend Projects",
+      "description": "Collection of backend projects built during ALX Software Engineering program including APIs, system design, and DevOps.",
+      "image": "/images/projects/alx.jpg",
+      "technologies": ["Python", "C/C++", "Node.js", "SQL", "Linux", "DevOps"],
+      "category": "backend",
+      "status": "completed",
+      "links": {
+        "demo": null,
+        "github": "https://github.com/Ndevu12"
+      },
+      "year": 2024
+    }
+  ],
+  "categories": [
+    { "id": "all", "label": "All Projects" },
+    { "id": "fullstack", "label": "Full Stack" },
+    { "id": "frontend", "label": "Frontend" },
+    { "id": "backend", "label": "Backend" },
+    { "id": "mobile", "label": "Mobile" }
+  ]
+}
