@@ -1,21 +1,40 @@
-# Ignore node_modules directory
-node_modules/
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/unplugged
+.yarn/install-state.gz
 
-#Just for now
-# /BackEnd/
-.next
+# Testing
+/coverage
 
-yarn.lock
-# Ignore macOS specific files
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
+
+# Misc
 .DS_Store
+*.pem
 
-# Ignore log files
-*.log
-.yarn
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Ignore environment files
-*.env
+# Local env files
+.env*.local
+.env
 
-# Ignore vs code linter files
-*.hintrc
-.codegpt
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.idea
+.vscode
