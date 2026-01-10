@@ -1,1 +1,0 @@
-export { useSkillsAnimations } from './useSkillsAnimations'
