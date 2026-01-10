@@ -30,12 +30,5 @@ export const NAV_ITEMS = [
 // External Links - Multiple CV options for different roles
 export const EXTERNAL_LINKS = {
   blog: "https://dev.ndevuspace.com",
-  cvDownload: "/files/Jean_Paul_Elisa_CV.pdf",
-  cvOptions: {
-    softwareEngineer: "/files/Jean_Paul_Elisa_CV.pdf",
-    aiMl: "/files/Jean_Paul_Elisa_CV.pdf",
-    backend: "/files/Jean_Paul_Elisa_CV.pdf",
-    business: "/files/Jean_Paul_Elisa_CV.pdf",
-    general: "/files/Jean_Paul_Elisa_CV.pdf",
-  },
+  cvDownload: "/cv"
 };
