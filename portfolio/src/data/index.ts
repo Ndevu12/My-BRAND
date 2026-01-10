@@ -6,6 +6,9 @@ import experienceJson from './json/experience.json';
 import skillsJson from './json/skills.json';
 import projectsJson from './json/projects.json';
 
+// Re-export SEO data
+export * from './seo';
+
 // ============================================
 // PROFILE DATA
 // ============================================
