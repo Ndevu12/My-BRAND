@@ -51,12 +51,10 @@ export function Projects() {
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projectsData.slice(0, 6).map((project, index) => (
+          {projectsData.slice(0, 6).map((project) => (
             <motion.div
               key={project.id}
               variants={itemVariants}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
             >
               <Card className="h-full group overflow-hidden" hover>
                 {/* Project Image */}
