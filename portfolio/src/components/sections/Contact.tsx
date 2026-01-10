@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Section, SectionHeader, Button, Card } from "@/components/ui";
@@ -9,12 +9,31 @@ import {
   Send,
   Mail,
   MapPin,
-  Phone,
   Github,
   Linkedin,
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+// Email obfuscation - renders only on client to prevent bot scraping
+function ObfuscatedEmail() {
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Only reveal email on client-side (bots can't execute JS)
+    setEmail("hello" + "@" + "ndevuspace" + "." + "com");
+  }, []);
+
+  if (!email) return <span>hello [at] ndevuspace [dot] com</span>;
+  return <span>{email}</span>;
+}
 
 interface FormData {
   name: string;
@@ -85,14 +104,8 @@ export function Contact() {
     {
       icon: Mail,
       label: "Email",
-      value: PERSONAL_INFO.email,
+      value: <ObfuscatedEmail />,
       href: `mailto:${PERSONAL_INFO.email}`,
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: PERSONAL_INFO.phone.whatsapp,
-      href: `https://wa.me/${PERSONAL_INFO.phone.whatsapp.replace(/\s/g, "")}`,
     },
     {
       icon: MapPin,
@@ -127,11 +140,11 @@ export function Contact() {
           <motion.div variants={itemVariants} className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-                Let's start a conversation
+                Let&apos;s start a conversation
               </h3>
               <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
                 Whether you have a project idea, a question, or just want to say
-                hi, I'm always open to discussing new opportunities and
+                hi, I&apos;m always open to discussing new opportunities and
                 collaborations. Fill out the form or reach out directly through
                 any of the channels below.
               </p>
@@ -343,7 +356,7 @@ export function Contact() {
                   <div className="flex items-center gap-2 text-green-400 text-sm">
                     <CheckCircle className="w-5 h-5" />
                     <span>
-                      Message sent successfully! I'll get back to you soon.
+                      Message sent successfully! I&apos;ll get back to you soon.
                     </span>
                   </div>
                 )}

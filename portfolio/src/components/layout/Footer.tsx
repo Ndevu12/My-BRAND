@@ -168,8 +168,7 @@ export function Footer() {
 
             {/* Made with love */}
             <p className="flex items-center gap-2 text-gray-500 text-sm">
-              Made with <Heart className="w-4 h-4 text-red-500 fill-current" />{" "}
-              in Rwanda
+              Built to show up!
             </p>
 
             {/* Scroll to top */}

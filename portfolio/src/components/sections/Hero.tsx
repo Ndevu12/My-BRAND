@@ -84,7 +84,7 @@ export function Hero() {
             {/* Name & Title */}
             <motion.div variants={itemVariants}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
-                Hi, I'm{" "}
+                Hi, I&apos;m{" "}
                 <span className="text-gradient">{PERSONAL_INFO.shortName}</span>
               </h1>
               <p className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 font-medium mb-6">
@@ -109,9 +109,9 @@ export function Hero() {
                 variant="primary"
                 size="lg"
                 leftIcon={<Download className="w-5 h-5" />}
-                onClick={() => window.open(EXTERNAL_LINKS.cvDownload, "_blank")}
+                onClick={() => (window.location.href = "/cv")}
               >
-                Download CV
+                View CV
               </Button>
               <Button
                 variant="secondary"
@@ -177,7 +177,7 @@ export function Hero() {
               {/* Image container */}
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden border-2 border-gray-200 dark:border-white/10 shadow-2xl">
                 <Image
-                  src="/images/profile.png"
+                  src={PERSONAL_INFO.profileImage}
                   alt={PERSONAL_INFO.name}
                   fill
                   className="object-cover"
@@ -190,7 +190,7 @@ export function Hero() {
               {/* Floating badges */}
               <div className="absolute -right-4 top-1/4 px-3 py-2 rounded-lg bg-white dark:bg-secondary border border-gray-200 dark:border-white/10 shadow-xl">
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                  5+ Years
+                  4+ Years
                 </span>
               </div>
               <div className="absolute -left-4 bottom-1/4 px-3 py-2 rounded-lg bg-white dark:bg-secondary border border-gray-200 dark:border-white/10 shadow-xl">

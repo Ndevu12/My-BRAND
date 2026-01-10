@@ -53,9 +53,9 @@ export function Projects() {
         animate={isInView ? "visible" : "hidden"}
       >
         <SectionHeader
-          badge="Portfolio"
-          title="Featured Projects"
-          subtitle="A selection of projects that showcase my skills and experience"
+          badge="My Work"
+          title="Projects & Ventures"
+          subtitle="Products I've built, companies I've founded, and solutions I've delivered"
         />
 
         {/* Category Filter */}

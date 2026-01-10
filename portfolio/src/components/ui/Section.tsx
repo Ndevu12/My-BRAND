@@ -72,7 +72,7 @@ export function SectionHeader({
         </div>
       )}
 
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-5 leading-tight">
         {title.split(" ").map((word, index, arr) => (
           <span key={index}>
             {index === arr.length - 1 ? (
@@ -87,7 +87,7 @@ export function SectionHeader({
       {subtitle && (
         <p
           className={cn(
-            "text-gray-500 dark:text-gray-400 text-lg md:text-xl leading-relaxed",
+            "text-gray-600 dark:text-gray-400 text-lg md:text-xl leading-relaxed",
             align === "center" ? "max-w-3xl mx-auto" : "max-w-2xl"
           )}
         >
