@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Section, SectionHeader, Button, Card } from "@/components/ui";
 import { PERSONAL_INFO, SOCIAL_LINKS } from "@/lib/constants";
+import { submitContactForm, type ContactFormData } from "@/services/contact";
 import {
   Send,
   Mail,
@@ -14,13 +15,6 @@ import {
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
-
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
 
 // Email obfuscation - renders only on client to prevent bot scraping
 function ObfuscatedEmail() {
@@ -35,17 +29,10 @@ function ObfuscatedEmail() {
   return <span>{email}</span>;
 }
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     subject: "",
@@ -55,6 +42,7 @@ export function Contact() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const containerVariants = {
@@ -81,23 +69,34 @@ export function Contact() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    // Clear error when user starts typing
+    if (submitStatus === "error") {
+      setSubmitStatus(null);
+      setErrorMessage(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setErrorMessage(null);
 
-    try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+    const result = await submitContactForm(formData);
+
+    if (result.success) {
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (error) {
+    } else {
       setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
+      // Combine message and error for complete user feedback
+      const fullMessage = result.error
+        ? `${result.message} ${result.error}`
+        : result.message;
+      setErrorMessage(fullMessage);
     }
+
+    setIsSubmitting(false);
   };
 
   const contactInfo = [
@@ -353,7 +352,7 @@ export function Contact() {
 
                 {/* Status Messages */}
                 {submitStatus === "success" && (
-                  <div className="flex items-center gap-2 text-green-400 text-sm">
+                  <div className="flex items-center gap-2 text-green-500 dark:text-green-400 text-sm">
                     <CheckCircle className="w-5 h-5" />
                     <span>
                       Message sent successfully! I&apos;ll get back to you soon.
@@ -361,9 +360,12 @@ export function Contact() {
                   </div>
                 )}
                 {submitStatus === "error" && (
-                  <div className="flex items-center gap-2 text-red-400 text-sm">
+                  <div className="flex items-center gap-2 text-red-500 dark:text-red-400 text-sm">
                     <AlertCircle className="w-5 h-5" />
-                    <span>Something went wrong. Please try again.</span>
+                    <span>
+                      {errorMessage ||
+                        "Something went wrong. Please try again."}
+                    </span>
                   </div>
                 )}
               </form>

@@ -41,7 +41,7 @@ const iconMap: Record<string, React.ElementType> = {
   paintbrush: Paintbrush,
 };
 
-const stack = [
+export const stack = [
               // Frontend
               "React",
               "Next.js",

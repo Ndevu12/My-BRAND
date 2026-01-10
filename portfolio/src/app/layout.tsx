@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import {
+  SITE_CONFIG,
+  SEO_KEYWORDS,
+  SOCIAL_PROFILES,
+  getPersonSchema,
+  getWebsiteSchema,
+} from "@/data/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,47 +19,33 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jean Paul Elisa | Software Engineer",
-  description:
-    "Jean Paul Elisa NIYOKWIZERWA - Full Stack Software Engineer specializing in building robust, scalable applications that deliver exceptional user experiences.",
-  keywords: [
-    "Full Stack Developer",
-    "Software Engineer",
-    "React Developer",
-    "Node.js Developer",
-    "Web Development",
-    "Portfolio",
-    "Kigali",
-    "Rwanda",
-  ],
-  authors: [{ name: "Jean Paul Elisa NIYOKWIZERWA" }],
-  creator: "Jean Paul Elisa NIYOKWIZERWA",
-  metadataBase: new URL("https://ndevuspace.com"),
+  title: {
+    default: `${SITE_CONFIG.name} | ${SITE_CONFIG.title}`,
+    template: `%s | ${SITE_CONFIG.name}`,
+  },
+  description: SITE_CONFIG.description.long,
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: SITE_CONFIG.fullName, url: SITE_CONFIG.url }],
+  creator: SITE_CONFIG.fullName,
+  publisher: SITE_CONFIG.fullName,
+  metadataBase: new URL(SITE_CONFIG.url),
+  alternates: {
+    canonical: SITE_CONFIG.url,
+  },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://ndevuspace.com",
-    siteName: "Jean Paul Elisa",
-    title: "Jean Paul Elisa | Software Engineer",
-    description:
-      "Full Stack Software Engineer specializing in building robust, scalable applications that deliver exceptional user experiences.",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Jean Paul Elisa - Software Engineer",
-      },
-    ],
+    locale: SITE_CONFIG.locale,
+    url: SITE_CONFIG.url,
+    siteName: `${SITE_CONFIG.name} - Portfolio`,
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.title}`,
+    description: SITE_CONFIG.description.short,
   },
   twitter: {
     card: "summary_large_image",
-    site: "@jeanpaulelisa",
-    creator: "@jeanpaulelisa",
-    title: "Jean Paul Elisa | Software Engineer",
-    description:
-      "Full Stack Software Engineer specializing in building robust, scalable applications that deliver exceptional user experiences.",
-    images: ["/images/og-image.png"],
+    site: `@${SOCIAL_PROFILES.twitterHandle}`,
+    creator: `@${SOCIAL_PROFILES.twitterHandle}`,
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.title}`,
+    description: SITE_CONFIG.description.short,
   },
   robots: {
     index: true,
@@ -75,9 +69,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Get JSON-LD schemas from centralized SEO data
+  const personSchema = getPersonSchema();
+  const websiteSchema = getWebsiteSchema();
+
   return (
     <html lang="en" className={`${inter.variable} dark scroll-smooth`}>
-      <body className="font-sans bg-primary text-white antialiased">
+      <head>
+        <Script
+          id="person-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
+      <body
+        className="font-sans bg-primary text-white antialiased"
+        suppressHydrationWarning
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
