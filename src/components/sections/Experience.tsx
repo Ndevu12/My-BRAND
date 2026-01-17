@@ -286,9 +286,7 @@ export function Experience() {
                     {/* Tech Stack */}
                     {item.technologies && item.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-2 pt-4 mt-auto border-t border-gray-100 dark:border-white/[0.06]">
-                        {item.technologies
-                          .slice(0, 3)
-                          .map((tech, techIndex) => (
+                        {item.technologies?.slice(0, 3)?.map((tech, techIndex) => (
                             <TechBadge key={techIndex}>{tech}</TechBadge>
                           ))}
                       </div>
