@@ -4,7 +4,7 @@ export const PERSONAL_INFO = {
   shortName: "Jean Paul Elisa",
   title: "Tech Lead & Software Engineer | Entrepreneur",
   email: "hello@ndevuspace.com",
-  location: "Kigali, Rwanda",
+  location: "Norrsken House Kigali, Rwanda",
   bio: "I build scalable products, lead engineering teams, and turn ideas into impactful digital solutions.",
   profileImage: "/images/my-profile-pc.jpeg",
 };
@@ -29,6 +29,6 @@ export const NAV_ITEMS = [
 
 // External Links - Multiple CV options for different roles
 export const EXTERNAL_LINKS = {
-  blog: "https://dev.ndevuspace.com",
+  blog: "https://blog.ndevuspace.com",
   cvDownload: "/cv"
 };

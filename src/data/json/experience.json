@@ -1,11 +1,49 @@
 {
   "work": [
+        {
+      "id": "geofinda",
+      "title": "Tech Lead",
+      "company": "GEOFINDA Ltd",
+      "location": "Norrsken House Kigali",
+      "period": "Jan 2026 - Present",
+      "type": "work",
+      "description": [
+        "Founded a web-based accommodation and property discovery platform focusing on Africa's rental and listing market",
+        "Designed the technical architecture built on Supabase and GraphQL for rapid development and scalability",
+        "Created sustainable business and payment models ensuring revenue generation for local hosts and agents",
+        "Oversaw brand development, product roadmap, and customer experience alignment with market needs"
+      ],
+      "technologies": ["Supabase", "GraphQL", "React", "Node.js"],
+      "achievements": [
+        "Successfully launched platform in Rwanda market",
+        "Built sustainable revenue model for local agents"
+      ]
+    },
+        {
+      "id": "freelance",
+      "title": "Full-Stack Software Engineer (Freelance)",
+      "company": "Self-Employed (5-Star Upwork)",
+      "location": "Remote / Hybrid",
+      "period": "2024 - Present",
+      "type": "work",
+      "description": [
+        "Delivered end-to-end web applications, platforms, and systems for diverse international and local clients as a 5-star rated Upwork freelancer",
+        "Developed RESTful and GraphQL APIs integrated with PostgreSQL, MongoDB, and Supabase backend services",
+        "Implemented serverless architecture solutions and cloud-based backend services, optimizing costs and scalability",
+        "Applied automated testing practices and CI/CD pipelines to ensure reliable deployments"
+      ],
+      "technologies": ["Node.js", "React", "Java/Spring", "Python", "PostgreSQL", "MongoDB", "Supabase", "GraphQL"],
+      "achievements": [
+        "Maintained 5-star rating on Upwork",
+        "Completed 50+ projects with 95% client satisfaction"
+      ]
+    },
     {
       "id": "gre-cto",
       "title": "Co-Founder & Chief Technology Officer",
       "company": "Global Real Estate Ltd",
       "location": "Kigali, Rwanda",
-      "period": "Apr 2024 - Present",
+      "period": "Apr 2024 - Jan 2026",
       "type": "work",
       "description": [
         "Architected and deployed a scalable digital real estate platform with integration to external APIs for land registry data, tax calculations, and loan verification systems",
@@ -43,27 +81,8 @@
       ]
     },
     {
-      "id": "freelance",
-      "title": "Full-Stack Developer (Freelance)",
-      "company": "Self-Employed (5-Star Upwork)",
-      "location": "Remote / Hybrid",
-      "period": "2024 - Present",
-      "type": "work",
-      "description": [
-        "Delivered end-to-end web applications for diverse international and local clients as a 5-star rated Upwork freelancer",
-        "Developed RESTful and GraphQL APIs integrated with PostgreSQL, MongoDB, and Supabase backend services",
-        "Implemented serverless architecture solutions and cloud-based backend services, optimizing costs and scalability",
-        "Applied automated testing practices and CI/CD pipelines to ensure reliable deployments"
-      ],
-      "technologies": ["Node.js", "React", "Java/Spring", "Python", "PostgreSQL", "MongoDB", "Supabase", "GraphQL"],
-      "achievements": [
-        "Maintained 5-star rating on Upwork",
-        "Completed 50+ projects with 95% client satisfaction"
-      ]
-    },
-    {
       "id": "andela",
-      "title": "Web Developer",
+      "title": "Web Developer Aparenticeship",
       "company": "Andela Rwanda",
       "location": "Remote",
       "period": "Feb 2024 - Nov 2024",
@@ -81,30 +100,11 @@
       ]
     },
     {
-      "id": "geofinda",
-      "title": "Founder & CEO",
-      "company": "GEOFINDA",
-      "location": "Kigali, Rwanda",
-      "period": "2023 - Present",
-      "type": "work",
-      "description": [
-        "Founded a web-based accommodation and property discovery platform focusing on Africa's rental and listing market",
-        "Designed the technical architecture built on Supabase and GraphQL for rapid development and scalability",
-        "Created sustainable business and payment models ensuring revenue generation for local hosts and agents",
-        "Oversaw brand development, product roadmap, and customer experience alignment with market needs"
-      ],
-      "technologies": ["Supabase", "GraphQL", "React", "Node.js"],
-      "achievements": [
-        "Successfully launched platform in Rwanda market",
-        "Built sustainable revenue model for local agents"
-      ]
-    },
-    {
       "id": "mobylife",
       "title": "Co-Founder & CTO",
       "company": "MobyLife Ltd",
       "location": "Kigali, Rwanda",
-      "period": "2022 - 2024",
+      "period": "2023 - 2024",
       "type": "work",
       "description": [
         "Developed a pioneering AI and IoT-powered mobility platform designed to address Rwanda's public transport challenges",
@@ -153,7 +153,7 @@
     },
     {
       "id": "alx",
-      "title": "Software Engineering Program",
+      "title": "Full stack Software Engineering",
       "company": "ALX Africa",
       "location": "Remote",
       "period": "Aug 2023 - Nov 2024",
@@ -169,6 +169,18 @@
         "Completed program successfully",
         "Gained backend specialization"
       ]
+    },
+    {
+      "id": "andela",
+      "title": "Web Development",
+      "company": "Andela",
+      "location":"Remote / Hybrid",
+      "period":"2024",
+      "type": "education",
+      "description": ["Collaborated in peer-programming and agile team environments"
+      ],
+      "technologies": ["Typescript", "Node.js", "Next.js", "React.js", "Postgresql", "HTML/CSS", "e-commerce"],
+      "achievements": ["Completed program successfully"]
     }
   ],
   "certifications": [
@@ -211,7 +223,7 @@
     },
     {
       "name": "Coach (Data Structures & Algorithms)",
-      "organization": "Rwanda Informatics Olympiad",
+      "organization": "Rwanda Computing Olympiad",
       "year": "Feb 2024 - Present"
     },
     {
@@ -243,7 +255,7 @@
     {
       "id": "rio-coach",
       "role": "DSA Coach",
-      "organization": "Rwanda Informatics Olympiad (RIO)",
+      "organization": "Rwanda Computing Olympiad (RCO)",
       "location": "Kigali, Rwanda",
       "period": "Feb 2024 - Present",
       "type": "volunteering",
