@@ -1,6 +1,5 @@
 "use client";
 
-import { Header, Footer } from "@/components/layout";
 import {
   Hero,
   About,
@@ -13,16 +12,12 @@ import {
 export default function Home() {
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Experience />
+      <Contact />
     </>
   );
 }

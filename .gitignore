@@ -4,7 +4,7 @@
 .pnp.*
 .yarn/unplugged
 .yarn/install-state.gz
-
+/.yarn/
 # Testing
 /coverage
 

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { Header, Footer } from "@/components/layout";
 import {
   SITE_CONFIG,
   SEO_KEYWORDS,
@@ -66,11 +68,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   // Get JSON-LD schemas from centralized SEO data
   const personSchema = getPersonSchema();
   const websiteSchema = getWebsiteSchema();
@@ -93,7 +91,14 @@ export default function RootLayout({
         className="font-sans bg-primary text-white antialiased"
         suppressHydrationWarning
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        {/* Global grid pattern */}
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,var(--primary)_1px,transparent_1px),linear-gradient(to_bottom,var(--primary)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.05]" />
+
+        <ThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>
