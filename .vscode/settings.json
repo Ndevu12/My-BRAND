@@ -1,6 +1,11 @@
 {
-    "liveServer.settings.port": 5501,
-    "files.autoSave": "afterDelay",
-    "editor.mouseWheelZoom": true,
-    "compile-hero.disable-compile-files-on-did-save-code": true
+  "liveServer.settings.port": 5501,
+  "files.autoSave": "afterDelay",
+  "editor.mouseWheelZoom": true,
+  "compile-hero.disable-compile-files-on-did-save-code": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.yarn": true
+  },
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

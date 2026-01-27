@@ -55,7 +55,7 @@ portfolio/
 ### Prerequisites
 
 - Node.js 18+ 
-- npm or yarn
+- Yarn
 
 ### Installation
 
@@ -67,15 +67,11 @@ portfolio/
 2. Install dependencies:
    ```bash
    yarn install
-   # or
-   npm install
    ```
 
 3. Run the development server:
    ```bash
    yarn dev
-   # or
-   npm run dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
