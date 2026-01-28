@@ -8,12 +8,12 @@
       "period": "Jan 2026 - Present",
       "type": "work",
       "description": [
-        "Founded a web-based accommodation and property discovery platform focusing on Africa's rental and listing market",
+        "Lead and architected development of a web-based accommodation and property discovery platform focusing on Africa's rental and listing market",
         "Designed the technical architecture built on Supabase and GraphQL for rapid development and scalability",
         "Created sustainable business and payment models ensuring revenue generation for local hosts and agents",
         "Oversaw brand development, product roadmap, and customer experience alignment with market needs"
       ],
-      "technologies": ["Supabase", "GraphQL", "React", "Node.js"],
+      "technologies": ["Supabase", "RESTFul API", "React", "Node.js", "PostgreSQL", "Payment Integration"],
       "achievements": [
         "Successfully launched platform in Rwanda market",
         "Built sustainable revenue model for local agents"
