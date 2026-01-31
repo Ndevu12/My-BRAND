@@ -40,7 +40,7 @@ export function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
-    null
+    null,
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -63,7 +63,7 @@ export function Contact() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -104,7 +104,7 @@ export function Contact() {
       icon: Mail,
       label: "Email",
       value: <ObfuscatedEmail />,
-      href: `mailto:${PERSONAL_INFO.email}`,
+      href: `mailto:${"hello" + "@" + "ndevuspace" + "." + "com"}`,
     },
     {
       icon: MapPin,
@@ -115,7 +115,10 @@ export function Contact() {
   ];
 
   return (
-    <Section id="contact" className="bg-gray-50 dark:bg-secondary/50">
+    <Section
+      id="contact"
+      className="transition-colors duration-300"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[100px]" />
@@ -166,7 +169,7 @@ export function Contact() {
                     "bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.08]",
                     item.href &&
                       "hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-gray-300 dark:hover:border-white/20 cursor-pointer",
-                    "transition-all duration-300 group shadow-sm dark:shadow-none"
+                    "transition-all duration-300 group shadow-sm dark:shadow-none",
                   )}
                 >
                   <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
@@ -240,7 +243,7 @@ export function Contact() {
                           : "border-gray-200 dark:border-white/[0.08]",
                         "text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500",
                         "focus:outline-none focus:border-blue-500",
-                        "transition-all duration-300"
+                        "transition-all duration-300",
                       )}
                       placeholder="John Doe"
                     />
@@ -269,7 +272,7 @@ export function Contact() {
                           : "border-gray-200 dark:border-white/[0.08]",
                         "text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500",
                         "focus:outline-none focus:border-blue-500",
-                        "transition-all duration-300"
+                        "transition-all duration-300",
                       )}
                       placeholder="john@example.com"
                     />
@@ -301,7 +304,7 @@ export function Contact() {
                         : "border-gray-200 dark:border-white/[0.08]",
                       "text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500",
                       "focus:outline-none focus:border-blue-500",
-                      "transition-all duration-300"
+                      "transition-all duration-300",
                     )}
                     placeholder="Project Discussion"
                   />
@@ -332,7 +335,7 @@ export function Contact() {
                         : "border-gray-200 dark:border-white/[0.08]",
                       "text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500",
                       "focus:outline-none focus:border-blue-500",
-                      "transition-all duration-300"
+                      "transition-all duration-300",
                     )}
                     placeholder="Tell me about your project..."
                   />

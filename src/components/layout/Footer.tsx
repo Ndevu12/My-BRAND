@@ -26,7 +26,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-white dark:bg-primary border-t border-gray-200 dark:border-white/[0.08]">
+    <footer className="relative bg-primary dark:bg-primary border-t border-gray-200 dark:border-white/[0.08]">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px]" />

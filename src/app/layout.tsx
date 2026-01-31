@@ -88,11 +88,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body
-        className="font-sans bg-primary text-white antialiased"
+        className="min-h-screen w-full font-sans bg-primary overflow-x-hidden text-foreground antialiased"
         suppressHydrationWarning
       >
-        {/* Global grid pattern */}
-        <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,var(--primary)_1px,transparent_1px),linear-gradient(to_bottom,var(--primary)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.05]" />
+        {/* Global grid pattern - increased visibility with proper color contrast */}
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,var(--grid)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.25]" />
 
         <ThemeProvider>
           <Header />

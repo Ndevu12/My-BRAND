@@ -36,7 +36,10 @@ export function Experience() {
   };
 
   return (
-    <Section id="experience" className="bg-white dark:bg-[#0a0a0f]">
+    <Section
+      id="experience"
+      className="transition-colors duration-300"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 right-1/4 w-[300px] h-[300px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[80px]" />
@@ -83,7 +86,7 @@ export function Experience() {
                     "border border-gray-200 dark:border-white/[0.06]",
                     "shadow-sm hover:shadow-md dark:shadow-none",
                     "hover:border-blue-300 dark:hover:border-blue-500/30",
-                    "transition-all duration-300"
+                    "transition-all duration-300",
                   )}
                 >
                   {/* Card Content */}
@@ -167,7 +170,7 @@ export function Experience() {
                     "border border-gray-200 dark:border-white/[0.06]",
                     "shadow-sm hover:shadow-md dark:shadow-none",
                     "hover:border-green-300 dark:hover:border-green-500/30",
-                    "transition-all duration-300"
+                    "transition-all duration-300",
                   )}
                 >
                   {/* Card Content */}
@@ -255,7 +258,7 @@ export function Experience() {
                     "border border-gray-200 dark:border-white/[0.06]",
                     "shadow-sm hover:shadow-md dark:shadow-none",
                     "hover:border-purple-300 dark:hover:border-purple-500/30",
-                    "transition-all duration-300"
+                    "transition-all duration-300",
                   )}
                 >
                   {/* Card Content */}
@@ -286,7 +289,9 @@ export function Experience() {
                     {/* Tech Stack */}
                     {item.technologies && item.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-2 pt-4 mt-auto border-t border-gray-100 dark:border-white/[0.06]">
-                        {item.technologies?.slice(0, 3)?.map((tech, techIndex) => (
+                        {item.technologies
+                          ?.slice(0, 3)
+                          ?.map((tech, techIndex) => (
                             <TechBadge key={techIndex}>{tech}</TechBadge>
                           ))}
                       </div>
