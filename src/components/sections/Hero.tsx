@@ -49,14 +49,10 @@ export function Hero() {
   if (!mounted) return null;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--background)] transition-colors duration-300">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-300">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-500/20 dark:bg-blue-500/20 rounded-full blur-[120px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/15 dark:bg-purple-500/15 rounded-full blur-[100px] animate-pulse-slow delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 dark:bg-blue-600/10 rounded-full blur-[150px]" />
-
+        
         {/* Grid pattern - starts below header area */}
         <div className="absolute inset-0 top-20 bg-grid opacity-30" />
       </div>
@@ -71,19 +67,10 @@ export function Hero() {
         >
           {/* Text Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Status Badge */}
-            <motion.div variants={itemVariants} className="mb-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-green-400 text-sm font-medium">
-                  Available for opportunities
-                </span>
-              </div>
-            </motion.div>
 
             {/* Name & Title */}
             <motion.div variants={itemVariants}>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
                 Hi, I&apos;m{" "}
                 <span className="text-gradient">{PERSONAL_INFO.shortName}</span>
               </h1>
@@ -97,7 +84,7 @@ export function Hero() {
               variants={itemVariants}
               className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0"
             >
-              {PERSONAL_INFO.bio}
+              {PERSONAL_INFO.shortBio}
             </motion.p>
 
             {/* CTA Buttons */}

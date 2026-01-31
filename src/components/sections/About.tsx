@@ -53,7 +53,10 @@ export function About() {
   };
 
   return (
-    <Section id="about" className="bg-gray-50 dark:bg-secondary/50">
+    <Section
+      id="about"
+      className="transition-colors duration-300"
+    >
       <motion.div
         ref={ref}
         variants={containerVariants}

@@ -66,11 +66,11 @@ export function Header() {
         animate={{ y: isHidden ? -100 : 0 }}
         transition={{ duration: 0.3 }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50",
+          "fixed top-0 left-0 right-0 z-50 bg-white",
           "transition-all duration-300",
           isScrolled
-            ? "bg-white dark:bg-[#0a0a0f] py-3 border-b border-gray-200 dark:border-white/10"
-            : "bg-transparent py-5"
+            ? "dark:bg-[#0a0a0f] py-3 border-b border-gray-200 dark:border-white/10"
+            : "py-5"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

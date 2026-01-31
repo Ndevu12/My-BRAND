@@ -25,6 +25,7 @@ import {
   Blocks,
   Paintbrush,
 } from "lucide-react";
+import stack from "@/data/stack";
 
 const iconMap: Record<string, React.ElementType> = {
   layout: Layout,
@@ -40,45 +41,6 @@ const iconMap: Record<string, React.ElementType> = {
   blocks: Blocks,
   paintbrush: Paintbrush,
 };
-
-export const stack = [
-              // Frontend
-              "React",
-              "Next.js",
-              "TypeScript",
-              "Tailwind CSS",
-              "Redux",
-              "HTML/CSS",
-              // Backend
-              "Node.js",
-              "Python",
-              "FastAPI",
-              "Django",
-              "Java",
-              "Spring Boot",
-              "GraphQL",
-              "REST APIs",
-              // Database
-              "PostgreSQL",
-              "MongoDB",
-              "MySQL",
-              "Redis",
-              // Cloud & DevOps
-              "Azure",
-              "AWS",
-              "Docker",
-              "Kubernetes",
-              "CI/CD",
-              "Linux",
-              "Nginx",
-              // AI/ML
-              "TensorFlow",
-              "Scikit-learn",
-              "NLP",
-              // Languages & Tools
-              "C/C++",
-              "Git",
-            ];
 
 export function Skills() {
   const ref = useRef(null);
@@ -102,7 +64,10 @@ export function Skills() {
   };
 
   return (
-    <Section id="skills" className="bg-white dark:bg-[#0a0a0f]">
+    <Section
+      id="skills"
+      className="transition-colors duration-300"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[100px]" />
@@ -137,7 +102,7 @@ export function Skills() {
                           "bg-gradient-to-br from-blue-500/15 to-purple-500/15",
                           "border border-blue-500/20",
                           "group-hover:from-blue-500/25 group-hover:to-purple-500/25",
-                          "transition-all duration-300"
+                          "transition-all duration-300",
                         )}
                       >
                         <IconComponent className="w-7 h-7 text-blue-500 dark:text-blue-400" />
@@ -191,7 +156,7 @@ export function Skills() {
                   "bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10",
                   "text-gray-700 dark:text-gray-300 text-sm font-medium",
                   "hover:bg-blue-50 dark:hover:bg-blue-500/10 hover:border-blue-300 dark:hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400",
-                  "transition-all duration-300 cursor-default"
+                  "transition-all duration-300 cursor-default",
                 )}
               >
                 {tech}
