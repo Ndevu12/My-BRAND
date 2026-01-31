@@ -1,18 +1,12 @@
 import { Project, Skill, Experience } from '@/types';
 
 // Import JSON data
-import profileJson from './json/profile.json';
 import experienceJson from './json/experience.json';
 import skillsJson from './json/skills.json';
 import projectsJson from './json/projects.json';
 
 // Re-export SEO data
 export * from './seo';
-
-// ============================================
-// PROFILE DATA
-// ============================================
-export const profileData = profileJson;
 
 // ============================================
 // PROJECTS DATA

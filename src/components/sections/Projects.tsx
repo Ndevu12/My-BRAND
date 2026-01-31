@@ -36,7 +36,10 @@ export function Projects() {
   };
 
   return (
-    <Section id="projects" className="bg-gray-50 dark:bg-secondary/50">
+    <Section
+      id="projects"
+      className="transition-colors duration-300"
+    >
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -52,10 +55,7 @@ export function Projects() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projectsData.slice(0, 6).map((project) => (
-            <motion.div
-              key={project.id}
-              variants={itemVariants}
-            >
+            <motion.div key={project.id} variants={itemVariants}>
               <Card className="h-full group overflow-hidden" hover>
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -69,7 +69,7 @@ export function Projects() {
                   <div
                     className={cn(
                       "absolute inset-0 bg-gradient-to-t from-white dark:from-primary via-white/50 dark:via-primary/50 to-transparent",
-                      "opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+                      "opacity-60 group-hover:opacity-80 transition-opacity duration-300",
                     )}
                   />
 
@@ -84,7 +84,7 @@ export function Projects() {
                   <div
                     className={cn(
                       "absolute inset-0 flex items-center justify-center gap-4",
-                      "opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      "opacity-0 group-hover:opacity-100 transition-all duration-300",
                     )}
                   >
                     {project.githubLink && (
@@ -96,7 +96,7 @@ export function Projects() {
                           "p-3 rounded-full bg-white/10 backdrop-blur-sm",
                           "border border-white/20 text-white",
                           "hover:bg-white hover:text-primary",
-                          "transition-all duration-300 transform hover:scale-110"
+                          "transition-all duration-300 transform hover:scale-110",
                         )}
                         aria-label="View source code"
                       >
@@ -112,7 +112,7 @@ export function Projects() {
                           "p-3 rounded-full bg-blue-500 backdrop-blur-sm",
                           "border border-blue-400 text-white",
                           "hover:bg-blue-400",
-                          "transition-all duration-300 transform hover:scale-110"
+                          "transition-all duration-300 transform hover:scale-110",
                         )}
                         aria-label="View live demo"
                       >
