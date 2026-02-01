@@ -14,6 +14,7 @@ import {
   getPersonSchema,
   getWebsiteSchema,
 } from "@/data/seo";
+import { getBaseMetadata } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,20 +23,26 @@ const inter = Inter({
   display: "swap",
 });
 
+/**
+ * Root Layout Metadata
+ * Base metadata shared across all pages
+ * Page-specific metadata is generated in individual page components
+ */
 export const metadata: Metadata = {
+  // Base metadata from centralized helper
+  ...getBaseMetadata(),
+
+  // Title configuration with template for child pages
   title: {
     default: `${SITE_CONFIG.name} | ${SITE_CONFIG.title}`,
     template: `%s | ${SITE_CONFIG.name}`,
   },
+
+  // Default description and keywords (overridden by page-specific)
   description: SITE_CONFIG.description.long,
   keywords: SEO_KEYWORDS,
-  authors: [{ name: SITE_CONFIG.fullName, url: SITE_CONFIG.url }],
-  creator: SITE_CONFIG.fullName,
-  publisher: SITE_CONFIG.fullName,
-  metadataBase: new URL(SITE_CONFIG.url),
-  alternates: {
-    canonical: SITE_CONFIG.url,
-  },
+
+  // OpenGraph defaults (merged with page-specific)
   openGraph: {
     type: "website",
     locale: SITE_CONFIG.locale,
@@ -44,6 +51,8 @@ export const metadata: Metadata = {
     title: `${SITE_CONFIG.name} | ${SITE_CONFIG.title}`,
     description: SITE_CONFIG.description.short,
   },
+
+  // Twitter defaults (merged with page-specific)
   twitter: {
     card: "summary_large_image",
     site: `@${SOCIAL_PROFILES.twitterHandle}`,
@@ -51,20 +60,12 @@ export const metadata: Metadata = {
     title: `${SITE_CONFIG.name} | ${SITE_CONFIG.title}`,
     description: SITE_CONFIG.description.short,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+
+  // Apple Web App configuration
+  appleWebApp: {
+    title: "Ndevuspace",
+    capable: true,
+    statusBarStyle: "default",
   },
 };
 

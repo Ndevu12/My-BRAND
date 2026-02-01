@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useCallback, RefObject } from 'react';
 
+// Re-export section scroll hooks
+export { useSectionScroll, useSectionUrlSync } from './useSectionScroll';
+
 export function useScrollSpy(sectionIds: string[], offset: number = 100) {
   const [activeSection, setActiveSection] = useState<string>('');
 
