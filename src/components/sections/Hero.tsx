@@ -50,13 +50,6 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-300">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        
-        {/* Grid pattern - starts below header area */}
-        <div className="absolute inset-0 top-20 bg-grid opacity-30" />
-      </div>
-
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
@@ -69,7 +62,7 @@ export function Hero() {
           <div className="text-center lg:text-left order-2 lg:order-1">
 
             {/* Name & Title */}
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="mt-6">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
                 Hi, I&apos;m{" "}
                 <span className="text-gradient">{PERSONAL_INFO.shortName}</span>
