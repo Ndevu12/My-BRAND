@@ -9,7 +9,7 @@ export const SITE_CONFIG = {
   name: "Jean Paul Elisa",
   fullName: "Jean Paul Elisa NIYOKWIZERWA",
   title: "Tech Lead & Software Engineer | Entrepreneur",
-  url: "https://ndevuspace.com",
+  url: "https://www.ndevuspace.com",
   locale: "en_US",
   description: {
     short:
@@ -269,15 +269,11 @@ export const EXPERTISE_AREAS = [
 // Tech stack for OG image display (top 5)
 export const FEATURED_TECH = ["React", "Node.js", "TypeScript", "Next.js", "Python"];
 
-// Pages for sitemap
+// Pages for sitemap - IMPORTANT: Only include actual indexable pages
+// Hash URLs (/#about, etc.) are NOT indexable by search engines and waste crawl budget
 export const SITE_PAGES = [
   { path: "", priority: 1.0, changeFreq: "weekly" as const },
   { path: "/cv", priority: 0.9, changeFreq: "monthly" as const },
-  { path: "/#about", priority: 0.8, changeFreq: "monthly" as const },
-  { path: "/#experience", priority: 0.8, changeFreq: "monthly" as const },
-  { path: "/#skills", priority: 0.8, changeFreq: "monthly" as const },
-  { path: "/#projects", priority: 0.8, changeFreq: "weekly" as const },
-  { path: "/#contact", priority: 0.7, changeFreq: "yearly" as const },
 ];
 
 // Disallowed paths for robots.txt (internal/private routes)
