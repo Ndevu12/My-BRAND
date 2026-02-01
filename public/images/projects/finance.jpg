@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e2a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3e3516;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g4)"/>
+  <rect x="50" y="50" width="700" height="350" rx="10" fill="#ffffff10" stroke="#ffffff20" stroke-width="1"/>
+  <circle cx="400" cy="225" r="60" fill="#eab30820" stroke="#eab308" stroke-width="2"/>
+  <text x="400" y="235" font-family="Arial" font-size="28" fill="#eab308" text-anchor="middle">Finance</text>
+</svg>

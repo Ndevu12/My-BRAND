@@ -1,0 +1,298 @@
+{
+  "work": [
+        {
+      "id": "geofinda",
+      "title": "Tech Lead",
+      "company": "GEOFINDA Ltd",
+      "location": "Norrsken House Kigali",
+      "period": "Jan 2026 - Present",
+      "type": "work",
+      "description": [
+        "Lead development of, and architected a web-based accommodation and property discovery platform focusing on Africa's rental and listing market",
+        "Designed the technical architecture built on Supabase and GraphQL for rapid development and scalability",
+        "Created sustainable business and payment models ensuring revenue generation for local hosts and agents",
+        "Oversaw brand development, product roadmap, and customer experience alignment with market needs"
+      ],
+      "technologies": ["Supabase", "RESTFul API", "React", "Node.js", "PostgreSQL", "Payment Integration"],
+      "achievements": [
+        "Successfully launched platform in Rwanda market",
+        "Built sustainable revenue model for local agents"
+      ]
+    },
+        {
+      "id": "freelance",
+      "title": "Full-Stack Software Engineer (Freelance)",
+      "company": "Self-Employed (5-Star Upwork)",
+      "location": "Remote / Hybrid",
+      "period": "2024 - Present",
+      "type": "work",
+      "description": [
+        "Delivered end-to-end web applications, platforms, and systems for diverse international and local clients as a 5-star rated Upwork freelancer",
+        "Developed RESTful and GraphQL APIs integrated with PostgreSQL, MongoDB, and Supabase backend services",
+        "Implemented serverless architecture solutions and cloud-based backend services, optimizing costs and scalability",
+        "Applied automated testing practices and CI/CD pipelines to ensure reliable deployments"
+      ],
+      "technologies": ["Node.js", "React", "Java/Spring", "Python", "PostgreSQL", "MongoDB", "Supabase", "GraphQL"],
+      "achievements": [
+        "Maintained 5-star rating on Upwork",
+        "Completed 50+ projects with 95% client satisfaction"
+      ]
+    },
+    {
+      "id": "gre-cto",
+      "title": "Co-Founder & Chief Technology Officer",
+      "company": "Global Real Estate Ltd",
+      "location": "Kigali, Rwanda",
+      "period": "Apr 2024 - Jan 2026",
+      "type": "work",
+      "description": [
+        "Architected and deployed a scalable digital real estate platform with integration to external APIs for land registry data, tax calculations, and loan verification systems",
+        "Directed the design and deployment of AI-powered systems including recommender models, fraud detection, and NLP-based assistants for underserved users",
+        "Led a cross-functional engineering team of 5+ developers, conducting code reviews, technical mentorship, and sprint planning using Agile methodology",
+        "Designed and optimized database schemas, stored procedures, and triggers in PostgreSQL, improving query performance by 40%",
+        "Implemented DevOps best practices including Docker containerization and deployment to Microsoft Azure, achieving 99.5% system uptime"
+      ],
+      "technologies": ["Node.js", "Java/Spring", "PostgreSQL", "GraphQL", "Azure", "Docker", "Kubernetes", "AI/ML"],
+      "achievements": [
+        "Achieved 99.5% system uptime through robust DevOps practices",
+        "Improved query performance by 40% through database optimization",
+        "Built NLP-based accessibility features for underserved users"
+      ]
+    },
+    {
+      "id": "gre-engineer",
+      "title": "Software Engineer",
+      "company": "Global Real Estate Ltd",
+      "location": "Kigali, Rwanda",
+      "period": "Jan 2024 - Oct 2024",
+      "type": "work",
+      "description": [
+        "Designed and developed core backend services and APIs using Node.js, PostgreSQL, RESTful, and GraphQL, enabling efficient property search and secure transactions",
+        "Built and maintained robust authentication and authorization systems using JWT and OAuth protocols, achieving zero security breaches",
+        "Created database schemas with complex relationships, implementing stored procedures and triggers for automated business logic",
+        "Conducted thorough integration testing and production debugging, reducing reported bugs by 30%",
+        "Implemented caching strategies and database indexing that reduced API response times by 35%"
+      ],
+      "technologies": ["Node.js", "PostgreSQL", "GraphQL", "REST API", "JWT", "OAuth"],
+      "achievements": [
+        "Reduced reported bugs by 30% through comprehensive testing",
+        "Reduced API response times by 35% via caching and indexing",
+        "Zero security breaches with robust auth implementation"
+      ]
+    },
+    {
+      "id": "andela",
+      "title": "Web Developer Aparenticeship",
+      "company": "Andela Rwanda",
+      "location": "Remote",
+      "period": "Feb 2024 - Nov 2024",
+      "type": "work",
+      "description": [
+        "Built and maintained responsive web applications using React, Redux, and TypeScript, improving user experience across devices",
+        "Collaborated in agile sprints, delivering features on schedule while maintaining high-quality code standards",
+        "Implemented automated testing frameworks to ensure feature reliability, code quality, and maintainability",
+        "Mentored junior developers through code reviews and knowledge-sharing sessions, fostering a collaborative engineering culture"
+      ],
+      "technologies": ["React", "Redux", "TypeScript", "Jest", "Agile/Scrum"],
+      "achievements": [
+        "Delivered all features on schedule",
+        "Mentored junior developers in best practices"
+      ]
+    },
+    {
+      "id": "mobylife",
+      "title": "Co-Founder & CTO",
+      "company": "MobyLife Ltd",
+      "location": "Kigali, Rwanda",
+      "period": "2023 - 2024",
+      "type": "work",
+      "description": [
+        "Developed a pioneering AI and IoT-powered mobility platform designed to address Rwanda's public transport challenges",
+        "Led system architecture, business design, and technical direction during incubation at the AI & IoT Innovation Program",
+        "Managed early partnerships with local transport operators and regulators to explore pilot implementation"
+      ],
+      "technologies": ["AI/ML", "IoT", "Node.js", "React Native"],
+      "achievements": [
+        "Selected for AI & IoT Innovation Program incubation",
+        "Built foundation for future innovation ventures"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "university",
+      "title": "Bachelor's Degree of Science in Business Information Technology",
+      "company": "University of Rwanda",
+      "location": "Gikondo Campus, Kigali",
+      "period": "Expected June 2025",
+      "type": "education",
+      "description": [
+        "Studying business administration with focus on information technology",
+        "Combining business strategy with technical implementation skills",
+        "Applying academic knowledge to real-world entrepreneurial ventures"
+      ],
+      "technologies": ["Business Strategy", "IT Management", "Data Analysis"],
+      "achievements": []
+    },
+    {
+      "id": "stanford-ml",
+      "title": "Machine Learning Specialization",
+      "company": "Stanford University (DeepLearning.AI)",
+      "location": "Online",
+      "period": "2025",
+      "type": "education",
+      "description": [
+        "Completed comprehensive machine learning curriculum from Stanford University",
+        "Gained expertise in supervised/unsupervised learning, neural networks, and ML best practices",
+        "Applied ML concepts to real-world projects including recommender systems and NLP"
+      ],
+      "technologies": ["Machine Learning", "Neural Networks", "Python", "TensorFlow"],
+      "achievements": [
+        "Stanford/DeepLearning.AI Certified"
+      ]
+    },
+    {
+      "id": "alx",
+      "title": "Full stack Software Engineering",
+      "company": "ALX Africa",
+      "location": "Remote",
+      "period": "Aug 2023 - Nov 2024",
+      "type": "education",
+      "description": [
+        "Completed intensive software engineering curriculum covering algorithms, system design, backend development, and DevOps",
+        "Built multiple backend projects using Node.js, Python, C/C++, and SQL with real-world applications",
+        "Gained expertise in low-level programming, memory management, and system performance optimization",
+        "Collaborated in peer-programming and agile team environments"
+      ],
+      "technologies": ["Python", "C/C++", "Node.js", "SQL", "System Design", "DevOps", "Linux"],
+      "achievements": [
+        "Completed program successfully",
+        "Gained backend specialization"
+      ]
+    },
+    {
+      "id": "andela",
+      "title": "Web Development",
+      "company": "Andela",
+      "location":"Remote / Hybrid",
+      "period":"2024",
+      "type": "education",
+      "description": ["Collaborated in peer-programming and agile team environments"
+      ],
+      "technologies": ["Typescript", "Node.js", "Next.js", "React.js", "Postgresql", "HTML/CSS", "e-commerce"],
+      "achievements": ["Completed program successfully"]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Machine Learning Specialization",
+      "issuer": "Stanford University (DeepLearning.AI)",
+      "year": "2025"
+    },
+    {
+      "name": "Software Engineering",
+      "issuer": "ALX Africa",
+      "year": "2024"
+    },
+    {
+      "name": "JavaScript Data Structures & Algorithms",
+      "issuer": "freeCodeCamp",
+      "year": "2024"
+    },
+    {
+      "name": "Web Development",
+      "issuer": "Andela Rwanda",
+      "year": "2024"
+    },
+    {
+      "name": "Foundations of User Experience Design",
+      "issuer": "Google",
+      "year": "2023"
+    }
+  ],
+  "awards": [
+    {
+      "name": "Software Engineer",
+      "organization": "Pan-African Informatics Olympiad",
+      "year": "Jan 2025"
+    },
+    {
+      "name": "Top 10 Finalist",
+      "organization": "NISR Big Data Hackathon",
+      "year": "2024"
+    },
+    {
+      "name": "Coach (Data Structures & Algorithms)",
+      "organization": "Rwanda Computing Olympiad",
+      "year": "Feb 2024 - Present"
+    },
+    {
+      "name": "Coach (Data Structures & Algorithms)",
+      "organization": "Pan-African Informatics Olympiad",
+      "year": "Apr 2025 - Present"
+    },
+    {
+      "name": "Host Committee Member",
+      "organization": "Pan-African Informatics Olympiad",
+      "year": "2025"
+    }
+  ],
+  "volunteering": [
+    {
+      "id": "paio-coach",
+      "role": "DSA Coach",
+      "organization": "Pan-African Informatics Olympiad (PAIO)",
+      "location": "Pan-African (Remote & On-site)",
+      "period": "Apr 2025 - Present",
+      "type": "volunteering",
+      "description": [
+        "Coaching talented young programmers from across Africa in advanced data structures and algorithms",
+        "Preparing students for competitive programming at the international level",
+        "Developing training materials and practice problems for olympiad preparation"
+      ],
+      "technologies": ["Algorithms", "Data Structures", "C++", "Python", "Problem Solving"]
+    },
+    {
+      "id": "rio-coach",
+      "role": "DSA Coach",
+      "organization": "Rwanda Computing Olympiad (RCO)",
+      "location": "Kigali, Rwanda",
+      "period": "Feb 2024 - Present",
+      "type": "volunteering",
+      "description": [
+        "Training Rwanda's top young programmers in competitive programming techniques",
+        "Mentoring students on algorithmic thinking and problem-solving strategies",
+        "Contributing to building Rwanda's competitive programming community"
+      ],
+      "technologies": ["Algorithms", "Data Structures", "C++", "Python", "Competitive Programming"]
+    },
+    {
+      "id": "paio-committee",
+      "role": "Host Committee Member",
+      "organization": "Pan-African Informatics Olympiad 2025",
+      "location": "Rwanda",
+      "period": "2025",
+      "type": "volunteering",
+      "description": [
+        "Serving on the organizing committee for PAIO 2025 hosted in Rwanda",
+        "Coordinating logistics, technical infrastructure, and participant experience",
+        "Representing Rwanda's growing tech community on the continental stage"
+      ],
+      "technologies": ["Event Organization", "Technical Coordination", "Community Building"]
+    },
+    {
+      "id": "paio-engineer",
+      "role": "Software Engineer",
+      "organization": "Pan-African Informatics Olympiad",
+      "location": "Pan-African",
+      "period": "Jan 2025",
+      "type": "volunteering",
+      "description": [
+        "Developed and maintained technical systems for the olympiad platform",
+        "Ensured smooth operation of competition infrastructure",
+        "Collaborated with international team of engineers and organizers"
+      ],
+      "technologies": ["System Administration", "Web Development", "Technical Support"]
+    }
+  ]
+}
